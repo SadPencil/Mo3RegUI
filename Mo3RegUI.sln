@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mo3RegUI", "Mo3RegUI\Mo3RegUI.csproj", "{8F6921CD-3100-4A79-9037-DBF075183E36}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8F6921CD-3100-4A79-9037-DBF075183E36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F6921CD-3100-4A79-9037-DBF075183E36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F6921CD-3100-4A79-9037-DBF075183E36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F6921CD-3100-4A79-9037-DBF075183E36}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2A527CC1-88CC-4445-BC97-2461E7DC78C5}
+	EndGlobalSection
+EndGlobal
