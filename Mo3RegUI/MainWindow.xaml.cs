@@ -1,6 +1,9 @@
-﻿using System;
+﻿//#define SPEEDCONTROL
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -22,7 +25,6 @@ namespace Mo3RegUI
     /// 
     public partial class MainWindow : Window
     {
-        Size Resolution;
         private void MainTextAppendError(string text)
         {
             TextRange rangeOfText = new TextRange(this.MainTextBox.Document.ContentEnd, this.MainTextBox.Document.ContentEnd)
@@ -70,7 +72,102 @@ namespace Mo3RegUI
         public MainWindow()
         {
             this.InitializeComponent();
-            this.Resolution = this.GetHostingScreenSize(System.Windows.Forms.Screen.FromHandle(new System.Windows.Interop.WindowInteropHelper(Window.GetWindow(this)).Handle).DeviceName);
+        }
+        /// <summary>
+        /// 从 INI 文件中找到第一个匹配的 Section 中的匹配的 Key。如果找不到，则创建。
+        /// 注意：即使存在多个相同的 Key，也只返回第一个找到的。
+        /// </summary>
+        /// <param name="iniFile"></param>
+        /// <param name="sectionName"></param>
+        /// <param name="keyName"></param>
+        /// <returns></returns>
+        private MadMilkman.Ini.IniKey FindOrNewIniKey(MadMilkman.Ini.IniFile iniFile, string sectionName, string keyName)
+        {
+            foreach (var section in iniFile.Sections)
+            {
+                if (section.Name == sectionName)
+                {
+                    foreach (var key in section.Keys)
+                    {
+                        if (key.Name == keyName)
+                        {
+                            return key;
+                        }
+                    }
+                    //Section 下找不到对应的 Key
+                    return section.Keys.Add(keyName);
+                }
+            }
+            //找不到 Section
+            var newSection = iniFile.Sections.Add(sectionName);
+            return newSection.Keys.Add(keyName);
+
+        }
+
+        /// <summary>
+        /// 从 INI 文件中找到第一个匹配的 Section 中的匹配的 Key。如果找不到，则返回 null。
+        /// 注意：即使存在多个相同的 Key，也只返回第一个找到的。
+        /// </summary>
+        /// <param name="iniFile"></param>
+        /// <param name="sectionName"></param>
+        /// <param name="keyName"></param>
+        /// <returns></returns>
+        private MadMilkman.Ini.IniKey FindIniKey(MadMilkman.Ini.IniFile iniFile, string sectionName, string keyName)
+        {
+            foreach (var section in iniFile.Sections)
+            {
+                if (section.Name == sectionName)
+                {
+                    foreach (var key in section.Keys)
+                    {
+                        if (key.Name == keyName)
+                        {
+                            return key;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        //https://www.codeproject.com/Tips/1184124/Get-Target-Screen-Size-of-the-Hosting-Window-in-WP
+        private System.Windows.Size GetHostingScreenSize(string devicename)
+        {
+
+            var hdc = NativeMethods.CreateDC(devicename, "", "", IntPtr.Zero);
+
+            // Returns Height of the screen
+            int DESKTOPVERTRES = NativeMethods.GetDeviceCaps(hdc, (int) DeviceCap.DESKTOPVERTRES);
+
+            // Returns width of the screen
+            int DESKTOPHORZRES = NativeMethods.GetDeviceCaps(hdc, (int) DeviceCap.DESKTOPHORZRES);
+
+            // Uncomment this code, if user wants to get additional data.
+            // int VERTRES = NativeMethods.GetDeviceCaps(hdc, (int)DeviceCap.VERTRES);
+            // int LOGPIXELSY = NativeMethods.GetDeviceCaps(hdc, (int)DeviceCap.LOGPIXELSY);
+            // int HORZRES = NativeMethods.GetDeviceCaps(hdc, (int)DeviceCap.HORZRES);
+            // LogMessage(string.Format(string.Format("VERTRES : {0}, DESKTOPVERTRES: {1}, LOGPIXELSY: {2}, HORZRES: {3}, DESKTOPHORZRES: {4}",
+            //    VERTRES,
+            //    DESKTOPVERTRES,
+            //    LOGPIXELSY,
+            //    HORZRES,
+            //    DESKTOPHORZRES));
+
+            return new System.Windows.Size(DESKTOPHORZRES, DESKTOPVERTRES);
+        }
+        class MainWorkerProgressReport
+        {
+            public string StdOut = string.Empty;
+            public string StdErr = string.Empty;
+            public bool UseMessageBoxWarning = false;
+        }
+
+        private void Window_Initialized(object sender, EventArgs e)
+        {
+
+            Debug.WriteLine(System.Windows.Forms.Screen.FromHandle(new System.Windows.Interop.WindowInteropHelper(Window.GetWindow(this)).Handle).DeviceName);
+
+            var Resolution = this.GetHostingScreenSize(System.Windows.Forms.Screen.FromHandle(new System.Windows.Interop.WindowInteropHelper(Window.GetWindow(this)).Handle).DeviceName);
             //System.Diagnostics.Debug.WriteLine(this.Resolution.Height);
 
             BackgroundWorker mainWorker = new BackgroundWorker()
@@ -88,6 +185,10 @@ namespace Mo3RegUI
                 if (!String.IsNullOrEmpty(text.StdErr))
                 {
                     this.MainTextAppendError(text.StdErr);
+                }
+                if (text.UseMessageBoxWarning)
+                {
+                    MessageBox.Show(this, text.StdOut + text.StdErr, "消息", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             };
 
@@ -115,8 +216,15 @@ namespace Mo3RegUI
                 List<string> GameExes = new List<string>()
                 {
                     System.IO.Path.Combine(ExePath, "gamemd.exe"),
-                    System.IO.Path.Combine(ExePath, "MentalOmegaClient.exe"),
+                    //System.IO.Path.Combine(ExePath, "MentalOmegaClient.exe"),
                     System.IO.Path.Combine(new string[]{ ExePath,"syringe.exe"}),
+                    //System.IO.Path.Combine(new string[]{ ExePath,"Resources","clientdx.exe"}),
+                    //System.IO.Path.Combine(new string[]{ ExePath,"Resources","clientogl.exe"}),
+                    //System.IO.Path.Combine(new string[]{ ExePath,"Resources","clientxna.exe"}),
+                };
+                List<string> GameExeWithoutDpiAwareness = new List<string>()
+                {
+                    System.IO.Path.Combine(ExePath, "MentalOmegaClient.exe"),
                     System.IO.Path.Combine(new string[]{ ExePath,"Resources","clientdx.exe"}),
                     System.IO.Path.Combine(new string[]{ ExePath,"Resources","clientogl.exe"}),
                     System.IO.Path.Combine(new string[]{ ExePath,"Resources","clientxna.exe"}),
@@ -137,7 +245,7 @@ namespace Mo3RegUI
 
                 // 检查路径转换为 ANSI 后是否大于 130 字节
                 {
-                    if ((Encoding.Convert(Encoding.Unicode, Encoding.Default, Encoding.Unicode.GetBytes(ExePath))).Count() > 130)
+                    if (( Encoding.Convert(Encoding.Unicode, Encoding.Default, Encoding.Unicode.GetBytes(ExePath)) ).Count() > 130)
                     {
                         throw new Exception("当前游戏目录的路径转换为 ANSI 编码（对于当前系统，是 " + Encoding.Default.EncodingName + " 编码）后的字节数大于 130 字节。游戏将无法运行。");
                     }
@@ -157,7 +265,7 @@ namespace Mo3RegUI
                             RedirectStandardError = false,
                             UseShellExecute = true,
                             CreateNoWindow = false,
-                            WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
+                            WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden,
                         }
                     };
                     try
@@ -188,14 +296,27 @@ namespace Mo3RegUI
                 }
                 //注册表：设置兼容性：管理员 高DPI感知
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 2. 设置兼容性：高 DPI 感知、以管理员权限运行 ----" });
-                string compatibilitySetting = "~ RUNASADMIN HIGHDPIAWARE";
-                foreach (var exeName in GameExes)
                 {
-                    using (var registryKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"))
+                    string compatibilitySetting = "~ RUNASADMIN HIGHDPIAWARE";
+                    foreach (var exeName in GameExes)
                     {
-                        registryKey.SetValue(exeName, compatibilitySetting);
+                        using (var registryKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"))
+                        {
+                            registryKey.SetValue(exeName, compatibilitySetting);
+                        }
                     }
                 }
+                {
+                    string compatibilitySetting = "~ RUNASADMIN";
+                    foreach (var exeName in GameExeWithoutDpiAwareness)
+                    {
+                        using (var registryKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"))
+                        {
+                            registryKey.SetValue(exeName, compatibilitySetting);
+                        }
+                    }
+                }
+
                 //添加防火墙例外
                 //C:\Windows\System32\netsh.exe advfirewall firewall add rule name="Mental Omega Game Exception" dir=in action=allow program="C:\path\to\exe"
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 3. 设置高级安全 Windows 防火墙例外项 ----" });
@@ -280,7 +401,7 @@ namespace Mo3RegUI
                     }
                 }
                 //INI：设置分辨率    
-                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 4. 设置游戏分辨率为 " + Math.Round(this.Resolution.Width).ToString() + "×" + Math.Round(this.Resolution.Height).ToString() + " ----" });
+                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 4. 设置游戏分辨率为 " + Math.Round(Resolution.Width).ToString() + "×" + Math.Round(Resolution.Height).ToString() + " ----" });
                 {
                     var ra2MoIniFile = new MadMilkman.Ini.IniFile();
                     var iniPath = System.IO.Path.Combine(ExePath, "RA2MO.INI");
@@ -288,11 +409,11 @@ namespace Mo3RegUI
                     //多屏的朋友，对不住了，只获取当前屏幕
                     {
                         var key = this.FindOrNewIniKey(ra2MoIniFile, "Video", "ScreenWidth");
-                        key.Value = Math.Round(this.Resolution.Width).ToString();
+                        key.Value = Math.Round(Resolution.Width).ToString();
                     }
                     {
                         var key = this.FindOrNewIniKey(ra2MoIniFile, "Video", "ScreenHeight");
-                        key.Value = Math.Round(this.Resolution.Height).ToString();
+                        key.Value = Math.Round(Resolution.Height).ToString();
                     }
                     ra2MoIniFile.Save(iniPath);
                 }
@@ -337,13 +458,13 @@ namespace Mo3RegUI
                     worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "提示：如果有需要，可以从心灵终结客户端内更改渲染补丁设置。" });
                 }
 
-
-
-                //（还不知道怎么做）设置 Nvidia 显卡高性能
-
-                //INI：设置 SPEEDCONTROL 以及不产生 Debug 文件
-                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 6. 设置战役调速及不产生 Debug 文件 ----" });
+#if SPEEDCONTROL
+                //INI：设置 SPEEDCONTROL
+                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 6. 设置战役调速 ----" });
                 {
+
+                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "设置战役调速是一种修改游戏文件的行为。你不能将修改后的游戏用于 SPEEDRUN 速通挑战等用途。如果不需要战役调速，请使用普通版注册机。", UseMessageBoxWarning = true });
+
                     var clientDefinitionIniFile = new MadMilkman.Ini.IniFile();
                     var iniPath = System.IO.Path.Combine(new string[] { ExePath, "Resources", "ClientDefinitions.ini" });
                     clientDefinitionIniFile.Load(iniPath);
@@ -355,7 +476,7 @@ namespace Mo3RegUI
                             options[i] = options[i].ToUpper();
                         }
                         //注意 Remove 是移除 值 匹配的，不是 Key 匹配的
-                        while (options.Remove("-LOG")) { }
+                        // while (options.Remove("-LOG")) { }
                         while (options.Remove("-SPEEDCONTROL")) { }
                         options.Add("-SPEEDCONTROL");
                         var newOptions = new StringBuilder();
@@ -369,6 +490,7 @@ namespace Mo3RegUI
                     clientDefinitionIniFile.Save(iniPath);
                 }
 
+#endif
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 7. 检查网络环境 ----" });
                 //检测是否为多网卡环境，弹出局域网联机提示
                 Dictionary<string, List<System.Net.IPAddress>> InterfaceIPv4s = new Dictionary<string, List<System.Net.IPAddress>>();
@@ -439,7 +561,7 @@ namespace Mo3RegUI
 
                     foreach (char c in ExePath.ToArray())
                     {
-                        if ((c > 127) || (c < 32))
+                        if (( c > 127 ) || ( c < 32 ))
                         {
                             worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "当前游戏路径中包含字符“" + c.ToString() + "”。由于心灵终结客户端本身的问题，自带的地图编辑器将无法使用。" });
 
@@ -593,99 +715,12 @@ namespace Mo3RegUI
 
             //this.MainTextAppendGreen("此为开发版本，非正式版！开发版本号：201906121840");
             this.MainTextAppendGreen("Mental Omega 注册机");
-            this.MainTextAppendGreen("Version: 1.1");
+            this.MainTextAppendGreen("Version: 1.4");
             this.MainTextAppendGreen("Author: 伤心的笔");
             this.MainTextAppendGreen("E-mail: me@pencil.live");
 
 
             mainWorker.RunWorkerAsync();
-        }
-        /// <summary>
-        /// 从 INI 文件中找到第一个匹配的 Section 中的匹配的 Key。如果找不到，则创建。
-        /// 注意：即使存在多个相同的 Key，也只返回第一个找到的。
-        /// </summary>
-        /// <param name="iniFile"></param>
-        /// <param name="sectionName"></param>
-        /// <param name="keyName"></param>
-        /// <returns></returns>
-        private MadMilkman.Ini.IniKey FindOrNewIniKey(MadMilkman.Ini.IniFile iniFile, string sectionName, string keyName)
-        {
-            foreach (var section in iniFile.Sections)
-            {
-                if (section.Name == sectionName)
-                {
-                    foreach (var key in section.Keys)
-                    {
-                        if (key.Name == keyName)
-                        {
-                            return key;
-                        }
-                    }
-                    //Section 下找不到对应的 Key
-                    return section.Keys.Add(keyName);
-                }
-            }
-            //找不到 Section
-            var newSection = iniFile.Sections.Add(sectionName);
-            return newSection.Keys.Add(keyName);
-
-        }
-
-        /// <summary>
-        /// 从 INI 文件中找到第一个匹配的 Section 中的匹配的 Key。如果找不到，则返回 null。
-        /// 注意：即使存在多个相同的 Key，也只返回第一个找到的。
-        /// </summary>
-        /// <param name="iniFile"></param>
-        /// <param name="sectionName"></param>
-        /// <param name="keyName"></param>
-        /// <returns></returns>
-        private MadMilkman.Ini.IniKey FindIniKey(MadMilkman.Ini.IniFile iniFile, string sectionName, string keyName)
-        {
-            foreach (var section in iniFile.Sections)
-            {
-                if (section.Name == sectionName)
-                {
-                    foreach (var key in section.Keys)
-                    {
-                        if (key.Name == keyName)
-                        {
-                            return key;
-                        }
-                    }
-                }
-            }
-            return null;
-        }
-
-        //https://www.codeproject.com/Tips/1184124/Get-Target-Screen-Size-of-the-Hosting-Window-in-WP
-        private System.Windows.Size GetHostingScreenSize(string devicename)
-        {
-
-            var hdc = NativeMethods.CreateDC(devicename, "", "", IntPtr.Zero);
-
-            // Returns Height of the screen
-            int DESKTOPVERTRES = NativeMethods.GetDeviceCaps(hdc, (int)DeviceCap.DESKTOPVERTRES);
-
-            // Returns width of the screen
-            int DESKTOPHORZRES = NativeMethods.GetDeviceCaps(hdc, (int)DeviceCap.DESKTOPHORZRES);
-
-            // Uncomment this code, if user wants to get additional data.
-            // int VERTRES = NativeMethods.GetDeviceCaps(hdc, (int)DeviceCap.VERTRES);
-            // int LOGPIXELSY = NativeMethods.GetDeviceCaps(hdc, (int)DeviceCap.LOGPIXELSY);
-            // int HORZRES = NativeMethods.GetDeviceCaps(hdc, (int)DeviceCap.HORZRES);
-            // LogMessage(string.Format(string.Format("VERTRES : {0}, DESKTOPVERTRES: {1}, LOGPIXELSY: {2}, HORZRES: {3}, DESKTOPHORZRES: {4}",
-            //    VERTRES,
-            //    DESKTOPVERTRES,
-            //    LOGPIXELSY,
-            //    HORZRES,
-            //    DESKTOPHORZRES));
-
-            return new System.Windows.Size(DESKTOPHORZRES, DESKTOPVERTRES);
-        }
-        class MainWorkerProgressReport
-        {
-            public string StdOut;
-            public string StdErr;
         }
 
     }
