@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -130,8 +131,14 @@ namespace Mo3RegUI
             return null;
         }
 
+        struct Resolution
+        {
+            public int Width;
+            public int Height;
+        }
+
         //https://www.codeproject.com/Tips/1184124/Get-Target-Screen-Size-of-the-Hosting-Window-in-WP
-        private System.Windows.Size GetHostingScreenSize(string devicename)
+        private Resolution GetHostingScreenSize(string devicename)
         {
 
             var hdc = NativeMethods.CreateDC(devicename, "", "", IntPtr.Zero);
@@ -153,7 +160,7 @@ namespace Mo3RegUI
             //    HORZRES,
             //    DESKTOPHORZRES));
 
-            return new System.Windows.Size(DESKTOPHORZRES, DESKTOPVERTRES);
+            return new Resolution() { Width = DESKTOPHORZRES, Height = DESKTOPVERTRES };
         }
         class MainWorkerProgressReport
         {
@@ -161,6 +168,8 @@ namespace Mo3RegUI
             public string StdErr = string.Empty;
             public bool UseMessageBoxWarning = false;
         }
+
+        private BackgroundWorker mainWorker = null;
 
         private void Window_Initialized(object sender, EventArgs e)
         {
@@ -170,7 +179,7 @@ namespace Mo3RegUI
             var Resolution = this.GetHostingScreenSize(System.Windows.Forms.Screen.FromHandle(new System.Windows.Interop.WindowInteropHelper(Window.GetWindow(this)).Handle).DeviceName);
             //System.Diagnostics.Debug.WriteLine(this.Resolution.Height);
 
-            BackgroundWorker mainWorker = new BackgroundWorker()
+            mainWorker = new BackgroundWorker()
             {
                 WorkerReportsProgress = true
             };
@@ -217,7 +226,7 @@ namespace Mo3RegUI
                 {
                     System.IO.Path.Combine(ExePath, "gamemd.exe"),
                     //System.IO.Path.Combine(ExePath, "MentalOmegaClient.exe"),
-                    System.IO.Path.Combine(new string[]{ ExePath,"syringe.exe"}),
+                    System.IO.Path.Combine(new string[]{ ExePath,"Syringe.exe"}),
                     //System.IO.Path.Combine(new string[]{ ExePath,"Resources","clientdx.exe"}),
                     //System.IO.Path.Combine(new string[]{ ExePath,"Resources","clientogl.exe"}),
                     //System.IO.Path.Combine(new string[]{ ExePath,"Resources","clientxna.exe"}),
@@ -232,8 +241,12 @@ namespace Mo3RegUI
                 List<string> AvExes = new List<string>()
                 {
                     System.IO.Path.Combine(new string[]{ ExePath,"cncnet5.dll"}),
+                    System.IO.Path.Combine(new string[]{ ExePath,"cncnet5mo.dll"}),
                     System.IO.Path.Combine(new string[]{ ExePath,"ares.dll"}),
-                    System.IO.Path.Combine(new string[]{ ExePath,"Resources","ddraw_dxwnd.dll"})
+                    System.IO.Path.Combine(new string[]{ ExePath,"Syringe.exe"}),
+                    System.IO.Path.Combine(new string[]{ ExePath, "Map Editor", "FinalAlert2MO.exe"}),
+                    System.IO.Path.Combine(new string[]{ ExePath, "Map Editor", "Syringe.exe"}),
+                    System.IO.Path.Combine(new string[]{ ExePath,"Resources","ddraw_dxwnd.dll"}),
                 };
                 string MainExePath = System.IO.Path.Combine(ExePath, "MentalOmegaClient.exe");
 
@@ -247,11 +260,11 @@ namespace Mo3RegUI
                 {
                     if (( Encoding.Convert(Encoding.Unicode, Encoding.Default, Encoding.Unicode.GetBytes(ExePath)) ).Count() > 130)
                     {
-                        throw new Exception("当前游戏目录的路径转换为 ANSI 编码（对于当前系统，是 " + Encoding.Default.EncodingName + " 编码）后的字节数大于 130 字节。游戏将无法运行。");
+                        throw new Exception("当前游戏目录的路径较长。游戏可能无法正常运行。");
                     }
                 }
                 //注册 blowfish.dll 文件；写入红警2注册表
-                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 1. 注册 blowfish.dll 文件，导入 Red Alert 2 安装信息到注册表 ----" });
+                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 注册 blowfish.dll 文件，导入 Red Alert 2 安装信息到注册表 ----" });
                 {
                     //与原版相同，直接调用原版注册机
                     System.Diagnostics.Process process = new System.Diagnostics.Process()
@@ -295,7 +308,7 @@ namespace Mo3RegUI
                     //}
                 }
                 //注册表：设置兼容性：管理员 高DPI感知
-                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 2. 设置兼容性：高 DPI 感知、以管理员权限运行 ----" });
+                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 设置兼容性：高 DPI 感知、以管理员权限运行 ----" });
                 {
                     string compatibilitySetting = "~ RUNASADMIN HIGHDPIAWARE";
                     foreach (var exeName in GameExes)
@@ -319,7 +332,7 @@ namespace Mo3RegUI
 
                 //添加防火墙例外
                 //C:\Windows\System32\netsh.exe advfirewall firewall add rule name="Mental Omega Game Exception" dir=in action=allow program="C:\path\to\exe"
-                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 3. 设置高级安全 Windows 防火墙例外项 ----" });
+                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 设置高级安全 Windows 防火墙例外项 ----" });
                 if (Environment.OSVersion.Version.Major < 6)
                 {
                     worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "您当前的操作系统 " + Environment.OSVersion.ToString() + " 过于古老，跳过此步。请手动设置 Windows 防火墙例外。" });
@@ -334,7 +347,7 @@ namespace Mo3RegUI
 
                         for (int i = 0; i < Math.Min(hash.Length, 8); i++)
                         {
-                            ExePathHash32.Append(hash[i].ToString("X2"));
+                            ExePathHash32.Append(hash[i].ToString("X2", CultureInfo.InvariantCulture));
                         }
                     }
                     //删除之前的规则（如果有）
@@ -401,7 +414,7 @@ namespace Mo3RegUI
                     }
                 }
                 //INI：设置分辨率    
-                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 4. 设置游戏分辨率为 " + Math.Round(Resolution.Width).ToString() + "×" + Math.Round(Resolution.Height).ToString() + " ----" });
+                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 设置游戏分辨率为 " + Resolution.Width.ToString(CultureInfo.InvariantCulture) + "×" + Resolution.Height.ToString(CultureInfo.InvariantCulture) + " ----" });
                 {
                     var ra2MoIniFile = new MadMilkman.Ini.IniFile();
                     var iniPath = System.IO.Path.Combine(ExePath, "RA2MO.INI");
@@ -409,11 +422,11 @@ namespace Mo3RegUI
                     //多屏的朋友，对不住了，只获取当前屏幕
                     {
                         var key = this.FindOrNewIniKey(ra2MoIniFile, "Video", "ScreenWidth");
-                        key.Value = Math.Round(Resolution.Width).ToString();
+                        key.Value = Resolution.Width.ToString(CultureInfo.InvariantCulture);
                     }
                     {
                         var key = this.FindOrNewIniKey(ra2MoIniFile, "Video", "ScreenHeight");
-                        key.Value = Math.Round(Resolution.Height).ToString();
+                        key.Value = Resolution.Height.ToString(CultureInfo.InvariantCulture);
                     }
                     ra2MoIniFile.Save(iniPath);
                 }
@@ -423,17 +436,17 @@ namespace Mo3RegUI
                 //注意 Environment.OSVersion 只能用于判断系统是 XP、Vista、Win7还是 Win8+，分不出Win8/8.1/10，因为都返回6.2。
                 if (Environment.OSVersion.Version.Major >= 6 && Environment.OSVersion.Version.Minor >= 2)
                 {
-                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 5. 设置渲染补丁为 TS-DDRAW-2 ----" });
+                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 设置渲染补丁为 CNC-DDRAW ----" });
                     {
                         bool success = true;
                         try
                         {
-                            System.IO.File.Copy(System.IO.Path.Combine(new string[] { ExePath, "Resources", "ddraw2.dll" }), System.IO.Path.Combine(ExePath, "ddraw.dll"), true);
-                            System.IO.File.Copy(System.IO.Path.Combine(new string[] { ExePath, "Resources", "ddraw2.ini" }), System.IO.Path.Combine(ExePath, "ddraw2.ini"), true);
+                            System.IO.File.Copy(System.IO.Path.Combine(new string[] { ExePath, "Resources", "cnc-ddraw.dll" }), System.IO.Path.Combine(ExePath, "ddraw.dll"), true);
+                            System.IO.File.Copy(System.IO.Path.Combine(new string[] { ExePath, "Resources", "cnc-ddraw.ini" }), System.IO.Path.Combine(ExePath, "ddraw.ini"), true);
                         }
                         catch (Exception ex)
                         {
-                            worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "复制 ddraw2 渲染补丁时遇到问题。" + ex.Message });
+                            worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "部署渲染补丁时遇到问题。" + ex.Message });
                             success = false;
                         }
                         if (success)
@@ -443,7 +456,7 @@ namespace Mo3RegUI
                             ra2MoIniFile.Load(iniPath);
                             {
                                 var key = this.FindOrNewIniKey(ra2MoIniFile, "Compatibility", "Renderer");
-                                key.Value = "TS_DDRAW_2";
+                                key.Value = "CnC_DDraw";
                             }
                             ra2MoIniFile.Save(iniPath);
                         }
@@ -453,45 +466,45 @@ namespace Mo3RegUI
                 }
                 else
                 {
-                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 5. 不设置渲染补丁 ----" });
+                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 不设置渲染补丁 ----" });
 
                     worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "提示：如果有需要，可以从心灵终结客户端内更改渲染补丁设置。" });
                 }
 
-#if SPEEDCONTROL
-                //INI：设置 SPEEDCONTROL
-                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 6. 设置战役调速 ----" });
-                {
+                //#if SPEEDCONTROL
+                //                //INI：设置 SPEEDCONTROL
+                //                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 6. 设置战役调速 ----" });
+                //                {
 
-                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "设置战役调速是一种修改游戏文件的行为。你不能将修改后的游戏用于 SPEEDRUN 速通挑战等用途。如果不需要战役调速，请使用普通版注册机。", UseMessageBoxWarning = true });
+                //                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "设置战役调速是一种修改游戏文件的行为。你不能将修改后的游戏用于 SPEEDRUN 速通挑战等用途。如果不需要战役调速，请使用普通版注册机。", UseMessageBoxWarning = true });
 
-                    var clientDefinitionIniFile = new MadMilkman.Ini.IniFile();
-                    var iniPath = System.IO.Path.Combine(new string[] { ExePath, "Resources", "ClientDefinitions.ini" });
-                    clientDefinitionIniFile.Load(iniPath);
-                    {
-                        var key = this.FindOrNewIniKey(clientDefinitionIniFile, "Settings", "ExtraCommandLineParams");
-                        var options = key.Value.Split(new char[] { ' ' }).ToList();
-                        for (int i = 0; i < options.Count; ++i)
-                        {
-                            options[i] = options[i].ToUpper();
-                        }
-                        //注意 Remove 是移除 值 匹配的，不是 Key 匹配的
-                        // while (options.Remove("-LOG")) { }
-                        while (options.Remove("-SPEEDCONTROL")) { }
-                        options.Add("-SPEEDCONTROL");
-                        var newOptions = new StringBuilder();
-                        foreach (var option in options)
-                        {
-                            newOptions.Append(" " + option);
-                        }
+                //                    var clientDefinitionIniFile = new MadMilkman.Ini.IniFile();
+                //                    var iniPath = System.IO.Path.Combine(new string[] { ExePath, "Resources", "ClientDefinitions.ini" });
+                //                    clientDefinitionIniFile.Load(iniPath);
+                //                    {
+                //                        var key = this.FindOrNewIniKey(clientDefinitionIniFile, "Settings", "ExtraCommandLineParams");
+                //                        var options = key.Value.Split(new char[] { ' ' }).ToList();
+                //                        for (int i = 0; i < options.Count; ++i)
+                //                        {
+                //                            options[i] = options[i].ToUpper();
+                //                        }
+                //                        //注意 Remove 是移除 值 匹配的，不是 Key 匹配的
+                //                        // while (options.Remove("-LOG")) { }
+                //                        while (options.Remove("-SPEEDCONTROL")) { }
+                //                        options.Add("-SPEEDCONTROL");
+                //                        var newOptions = new StringBuilder();
+                //                        foreach (var option in options)
+                //                        {
+                //                            newOptions.Append(" " + option);
+                //                        }
 
-                        key.Value = newOptions.ToString();
-                    }
-                    clientDefinitionIniFile.Save(iniPath);
-                }
+                //                        key.Value = newOptions.ToString();
+                //                    }
+                //                    clientDefinitionIniFile.Save(iniPath);
+                //                }
 
-#endif
-                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 7. 检查网络环境 ----" });
+                //#endif
+                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 检查网络环境 ----" });
                 //检测是否为多网卡环境，弹出局域网联机提示
                 Dictionary<string, List<System.Net.IPAddress>> InterfaceIPv4s = new Dictionary<string, List<System.Net.IPAddress>>();
 
@@ -527,49 +540,50 @@ namespace Mo3RegUI
                     }
                     worker.ReportProgress(0, new MainWorkerProgressReport()
                     {
-                        StdErr = "您的电脑有多张网卡，列表如下。由于心灵终结客户端本身的问题，您可能无法在局域网联机中看到其他玩家。要规避这个问题，请在局域网联机时禁用其他网卡，仅保留连接到局域网的网卡。"
+                        StdErr = "您的电脑有多张网卡，列表如下。与好友面对面作战时，您可能无法在局域网联机大厅中看到其他玩家。要规避这个问题，请在局域网联机时临时禁用其他网卡，仅保留连接到局域网的网卡。"
                         // ips 开头就是换行符
                         + ips
                     });
                 }
 
-                //检测地编兼容性
-                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 8. 检查地图编辑器兼容性 ----" });
-                {
-                    try
-                    {
-                        string finalAlertIniPath = System.IO.Path.Combine(new string[] { ExePath, "Map Editor", "FinalAlert.ini" });
-                        if (System.IO.File.Exists(finalAlertIniPath))
-                            System.IO.File.Delete(finalAlertIniPath);
-                    }
-                    catch (Exception ex)
-                    {
-                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "删除文件 FinalAlert.ini 时遇到问题。" + ex.Message });
-                    }
-                    //var wrongPath = Encoding.Default.GetString(Encoding.Unicode.GetBytes(ExePath));
-                    ////这样比较不行
-                    //if (!Encoding.Default.GetString(Encoding.Unicode.GetBytes(ExePath)).Equals(ExePath))
-                    //{
-                    //    worker.ReportProgress(0, new MainWorkerProgressReport()
-                    //    {
-                    //        StdErr = "当前游戏目录的路径包含了 ASCII 字符集之外的字符。由于心灵终结客户端本身的问题，自带的地图编辑器将无法使用。" + Environment.NewLine +
-                    //        "以下是实际的游戏目录的路径（UTF-16 LE 编码）：" + ExePath + Environment.NewLine + "由于心灵终结客户端每次都尝试用 UTF-8 编码改写 FinalAlert.ini 文件，而 Final Alert 则总是假定 FinalAlert.ini 是 ANSI 编码，它看起来像这样：" + wrongPath + Environment.NewLine +
-                    //        "因此，建议路径只包含英文字母、数字、普通符号、空格。"
-                    //    });
+                ////检测地编兼容性
+                //worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 8. 检查地图编辑器兼容性 ----" });
+                //{
+                //    try
+                //    {
+                //        string finalAlertIniPath = System.IO.Path.Combine(new string[] { ExePath, "Map Editor", "FinalAlert.ini" });
+                //        if (System.IO.File.Exists(finalAlertIniPath))
+                //            System.IO.File.Delete(finalAlertIniPath);
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "删除文件 FinalAlert.ini 时遇到问题。" + ex.Message });
+                //    }
+                //    //var wrongPath = Encoding.Default.GetString(Encoding.Unicode.GetBytes(ExePath));
+                //    ////这样比较不行
+                //    //if (!Encoding.Default.GetString(Encoding.Unicode.GetBytes(ExePath)).Equals(ExePath))
+                //    //{
+                //    //    worker.ReportProgress(0, new MainWorkerProgressReport()
+                //    //    {
+                //    //        StdErr = "当前游戏目录的路径包含了 ASCII 字符集之外的字符。由于心灵终结客户端本身的问题，自带的地图编辑器将无法使用。" + Environment.NewLine +
+                //    //        "以下是实际的游戏目录的路径（UTF-16 LE 编码）：" + ExePath + Environment.NewLine + "由于心灵终结客户端每次都尝试用 UTF-8 编码改写 FinalAlert.ini 文件，而 Final Alert 则总是假定 FinalAlert.ini 是 ANSI 编码，它看起来像这样：" + wrongPath + Environment.NewLine +
+                //    //        "因此，建议路径只包含英文字母、数字、普通符号、空格。"
+                //    //    });
 
-                    //}
+                //    //}
 
-                    foreach (char c in ExePath.ToArray())
-                    {
-                        if (( c > 127 ) || ( c < 32 ))
-                        {
-                            worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "当前游戏路径中包含字符“" + c.ToString() + "”。由于心灵终结客户端本身的问题，自带的地图编辑器将无法使用。" });
+                //    foreach (char c in ExePath.ToArray())
+                //    {
+                //        if (( c > 127 ) || ( c < 32 ))
+                //        {
+                //            worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "当前游戏路径中包含字符“" + c.ToString() + "”。由于心灵终结客户端本身的问题，自带的地图编辑器将无法使用。" });
 
-                            break;
-                        }
-                    }
-                }
-                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 9. 检查已安装的运行时组件 ----" });
+                //            break;
+                //        }
+                //    }
+                //}
+                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 检查已安装的运行时组件 ----" });
+                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "提示：可以从 https://dotnet.microsoft.com/download 下载最新的 .NET 运行时。" });
 
                 {
                     ////vc++2012 x86
@@ -636,13 +650,13 @@ namespace Mo3RegUI
                     //xna framework
                     if (Environment.OSVersion.Version.Major < 6)
                     {
-                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "您当前的操作系统 " + Environment.OSVersion.ToString() + " 过于古老。请手动检查 XNA Framework 4.0 是否已安装。" });
+                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "您当前的操作系统 " + Environment.OSVersion.ToString() + " 过于古老。请手动检查包含 XNA Framework 4.0 和 .NET Framework 在内的运行时组件是否已安装。" });
                     }
                 }
 
                 //注意 Environment.OSVersion 只能用于判断系统是 XP、Vista、Win7还是 Win8+，分不出Win8/8.1/10，因为都返回6.2。
                 {
-                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 10. 检查 Windows 10 游戏栏是否关闭 ----" });
+                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 检查 Windows 10 游戏栏是否关闭 ----" });
                     bool gameBarEnabled = false;
                     try
                     {
@@ -686,13 +700,13 @@ namespace Mo3RegUI
                     }
                     if (gameBarEnabled)
                     {
-                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "游戏栏已开启。请点击“开始菜单”→“设置”→“游戏”→“游戏栏”，将“使用游戏栏录制游戏剪辑、屏幕截图和广播”选项关闭，以免出现游戏部分区域无法点击的情况。" });
+                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "游戏栏已开启，部分电脑和部分渲染补丁下可能会出现游戏的部分区域无法点击的情况。请在“开始菜单”→“设置”→“游戏”→“Xbox Game Bar”下找到相关设置，将游戏栏关闭。" });
                     }
                 }
 
 
                 //检测易报毒文件是否还存在，弹出卸载杀毒软件提示
-                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 11. 检查游戏文件完整性（粗略） ----" });
+                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 检查游戏文件完整性（粗略） ----" });
                 {
                     bool fileAllExists = true;
                     foreach (var avExe in AvExes)
@@ -709,20 +723,32 @@ namespace Mo3RegUI
                 }
 
 
-
+                System.Threading.Thread.Sleep(1500);
 
             };
 
             //this.MainTextAppendGreen("此为开发版本，非正式版！开发版本号：201906121840");
-            this.MainTextAppendGreen("Mental Omega 注册机");
-            this.MainTextAppendGreen("Version: 1.4");
+            this.MainTextAppendGreen("Mental Omega 3.3.5 注册机");
+            this.MainTextAppendGreen("Version: 1.5");
             this.MainTextAppendGreen("Author: 伤心的笔");
-            this.MainTextAppendGreen("E-mail: me@pencil.live");
 
 
             mainWorker.RunWorkerAsync();
         }
 
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            if (( this.mainWorker?.IsBusy ).GetValueOrDefault())
+            {
+                var ret = MessageBox.Show(this,
+                    "Mental Omega 注册机正在设置兼容性和配置游戏选项，且尚未运行完毕。确定要中止注册机的运行吗？",
+                    "警告", MessageBoxButton.YesNoCancel, MessageBoxImage.Exclamation, MessageBoxResult.No);
+                if (ret != MessageBoxResult.Yes)
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
     }
 
 }
