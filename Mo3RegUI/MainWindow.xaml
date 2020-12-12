@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mo3RegUI"
         mc:Ignorable="d"
-        Title="Mental Omega 注册机 (by 伤心的笔) " Height="450" Width="800" Initialized="Window_Initialized" Closing="Window_Closing" >
+        Title="Mental Omega 注册机" Height="450" Width="800" Initialized="Window_Initialized" Closing="Window_Closing" >
     <Grid>
         <RichTextBox x:Name="MainTextBox" IsReadOnly="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
     </Grid>

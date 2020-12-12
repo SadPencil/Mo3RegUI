@@ -431,18 +431,18 @@ namespace Mo3RegUI
                     ra2MoIniFile.Save(iniPath);
                 }
 
-                //INI：设置渲染补丁 TS-DDRAW-2
-                //手动拷贝 TS-DDRAW-2 的文件，然后再设置 INI
+                //INI：设置渲染补丁 TS-DDRAW
+                //手动拷贝 TS-DDRAW 的文件，然后再设置 INI
                 //注意 Environment.OSVersion 只能用于判断系统是 XP、Vista、Win7还是 Win8+，分不出Win8/8.1/10，因为都返回6.2。
                 if (Environment.OSVersion.Version.Major >= 6 && Environment.OSVersion.Version.Minor >= 2)
                 {
-                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 设置渲染补丁为 CNC-DDRAW ----" });
+                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 设置渲染补丁为 TS-DDRAW ----" });
                     {
                         bool success = true;
                         try
                         {
-                            System.IO.File.Copy(System.IO.Path.Combine(new string[] { ExePath, "Resources", "cnc-ddraw.dll" }), System.IO.Path.Combine(ExePath, "ddraw.dll"), true);
-                            System.IO.File.Copy(System.IO.Path.Combine(new string[] { ExePath, "Resources", "cnc-ddraw.ini" }), System.IO.Path.Combine(ExePath, "ddraw.ini"), true);
+                            System.IO.File.Copy(System.IO.Path.Combine(new string[] { ExePath, "Resources", "ts_ddraw.dll" }), System.IO.Path.Combine(ExePath, "ddraw.dll"), true);
+                            System.IO.File.Copy(System.IO.Path.Combine(new string[] { ExePath, "Resources", "ddraw-auto.ini" }), System.IO.Path.Combine(ExePath, "ddraw.ini"), true);
                         }
                         catch (Exception ex)
                         {
@@ -456,7 +456,7 @@ namespace Mo3RegUI
                             ra2MoIniFile.Load(iniPath);
                             {
                                 var key = this.FindOrNewIniKey(ra2MoIniFile, "Compatibility", "Renderer");
-                                key.Value = "CnC_DDraw";
+                                key.Value = "TS_DDraw";
                             }
                             ra2MoIniFile.Save(iniPath);
                         }
