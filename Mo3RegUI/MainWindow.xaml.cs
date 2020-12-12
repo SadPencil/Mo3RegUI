@@ -1,5 +1,6 @@
 ﻿//#define SPEEDCONTROL
 
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,6 +8,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Security.Principal;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -504,6 +506,40 @@ namespace Mo3RegUI
                 //                }
 
                 //#endif
+
+                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 设置玩家昵称 ----" });
+                {
+                    // 从 RA2MO.ini 的 [MultiPlayer] 的 Handle 获取用户名 
+                    var ra2MoIniFile = new MadMilkman.Ini.IniFile();
+                    var iniPath = System.IO.Path.Combine(ExePath, "RA2MO.INI");
+                    ra2MoIniFile.Load(iniPath);
+                    var key = this.FindOrNewIniKey(ra2MoIniFile, "MultiPlayer", "Handle");
+                    if (String.IsNullOrWhiteSpace(key.Value))
+                    {
+                        key.Value = GetWindowsUserName();
+                    }
+
+                    key.Value = key.Value.Trim();
+
+                    if (!IsAsciiString(key.Value))
+                    {
+                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "注意，当前玩家昵称 \"" + key.Value + "\" 包含非 ASCII 字符。如果玩家昵称完全不包含任何 ASCII 字符，Ares 3.0 将会崩溃。" });
+                    }
+
+                    key.Value = GetAsciiString(key.Value);
+
+                    // valid ascii char: 32 <= char <=127 ; remove other chars
+                    key.Value = new string(key.Value.ToList().Where(c => c >= 32 && c <= 127).ToArray());
+
+                    if (String.IsNullOrWhiteSpace(key.Value))
+                        key.Value = "NewPlayer";
+
+                    ra2MoIniFile.Save(iniPath);
+                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "将玩家昵称设置为 \"" + key.Value + "\"。" });
+                }
+
+
+
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 检查网络环境 ----" });
                 //检测是否为多网卡环境，弹出局域网联机提示
                 Dictionary<string, List<System.Net.IPAddress>> InterfaceIPv4s = new Dictionary<string, List<System.Net.IPAddress>>();
@@ -615,7 +651,7 @@ namespace Mo3RegUI
                             var name = key.GetValue("Version");
                             if (name == null)
                             {
-                                worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = ".NET Framework 3.5 未安装 。" });
+                                worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = ".NET Framework 3.5 未安装。" });
                             }
                             else
                             {
@@ -625,32 +661,58 @@ namespace Mo3RegUI
                     }
                     catch (Exception ex)
                     {
-                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = ".NET Framework 3.5 可能未安装 。" + ex.Message });
+                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = ".NET Framework 3.5 可能未安装。" + ex.Message });
                     }
                     //.net 4.0 full （非client profile）
+                    bool isDotNet45Installed = false;
                     try
                     {
                         using (var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full", false))
                         {
-                            var name = key.GetValue("Version");
-                            if (name == null)
+                            var versionValue = key.GetValue("Version");
+                            if (versionValue == null)
                             {
-                                worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = ".NET Framework 4 未安装 。" });
+                                worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = ".NET Framework 4 未安装。" });
                             }
                             else
                             {
-                                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = ".NET Framework " + name.ToString() + " 已安装。" });
+                                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = ".NET Framework " + versionValue.ToString() + " 已安装。" });
                             }
+
+                            // 检查 .NET 4.5
+                            var installValue = key.GetValue("Release");
+                            if (installValue != null)
+                            {
+                                // https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed#net_d
+                                isDotNet45Installed = ( Convert.ToInt32(installValue.ToString()) >= NET_FRAMEWORK_45_RELEASE_KEY );
+                            }
+
+                            if (!isDotNet45Installed)
+                            {
+                                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "当前 .NET Framework 4 的版本号低于 4.5。" });
+                            }
+
                         };
                     }
                     catch (Exception ex)
                     {
-                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = ".NET Framework 4 可能未安装 。" + ex.Message });
+                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = ".NET Framework 4 可能未安装。" + ex.Message });
                     }
+
                     //xna framework
-                    if (Environment.OSVersion.Version.Major < 6)
+                    bool isXna4Installed = IsXNAFramework4Installed();
+                    if (IsXNAFramework4Installed())
                     {
-                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "您当前的操作系统 " + Environment.OSVersion.ToString() + " 过于古老。请手动检查包含 XNA Framework 4.0 和 .NET Framework 在内的运行时组件是否已安装。" });
+                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "XNA Framework 4.0 已安装。" });
+                    }
+                    else
+                    {
+                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "XNA Framework 4.0 未安装。" });
+                    }
+
+                    if (!isXna4Installed && !isDotNet45Installed)
+                    {
+                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "当前 .NET Framework 4 的版本号低于 4.5，且 XNA Framework 4.0 未安装。客户端可能无法正常运行。" });
                     }
                 }
 
@@ -700,7 +762,7 @@ namespace Mo3RegUI
                     }
                     if (gameBarEnabled)
                     {
-                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "游戏栏已开启，部分电脑和部分渲染补丁下可能会出现游戏的部分区域无法点击的情况。请在“开始菜单”→“设置”→“游戏”→“Xbox Game Bar”下找到相关设置，将游戏栏关闭。" });
+                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "游戏栏已开启，部分电脑和部分渲染补丁下可能会出现游戏部分区域无法点击的情况。请在“开始菜单”→“设置”→“游戏”→“Xbox Game Bar”下找到相关设置，将游戏栏关闭。" });
                     }
                 }
 
@@ -729,7 +791,7 @@ namespace Mo3RegUI
 
             //this.MainTextAppendGreen("此为开发版本，非正式版！开发版本号：201906121840");
             this.MainTextAppendGreen("Mental Omega 3.3.5 注册机");
-            this.MainTextAppendGreen("Version: 1.5");
+            this.MainTextAppendGreen("Version: 1.6.1");
             this.MainTextAppendGreen("Author: 伤心的笔");
 
 
@@ -749,6 +811,65 @@ namespace Mo3RegUI
                 }
             }
         }
+
+        // from https://github.com/CnCNet/dta-mg-client-launcher/
+        private static bool IsXNAFramework4Installed()
+        {
+            try
+            {
+                RegistryKey HKLM_32 = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
+                RegistryKey xnaKey = HKLM_32.OpenSubKey("SOFTWARE\\Microsoft\\XNA\\Framework\\v4.0");
+
+                string installValue = xnaKey.GetValue("Installed").ToString();
+
+                if (installValue == "1")
+                    return true;
+            }
+            catch
+            {
+
+            }
+
+            return false;
+        }
+
+        private const int NET_FRAMEWORK_45_RELEASE_KEY = 378389;
+        private static bool IsNetFramework45Installed()
+        {
+            try
+            {
+                RegistryKey ndpKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\NET Framework Setup\\NDP\\v4\\Full");
+
+                string installValue = ndpKey.GetValue("Release").ToString();
+
+                // https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed#net_d
+                if (Convert.ToInt32(installValue) >= NET_FRAMEWORK_45_RELEASE_KEY)
+                    return true;
+            }
+            catch
+            {
+
+            }
+
+            return false;
+        }
+
+        string GetWindowsUserName()
+        {
+            return WindowsIdentity.GetCurrent().Name.Split(new char[] { '\\' }, 2)[1];
+        }
+        string GetAsciiString(string str)
+        {
+            byte[] asciiBytes = System.Text.Encoding.ASCII.GetBytes(str);
+            var asciiStr = System.Text.Encoding.ASCII.GetString(asciiBytes);
+            return asciiStr;
+        }
+        bool IsAsciiString(string str)
+        {
+            var asciiStr = GetAsciiString(str);
+            return ( String.Compare(str, asciiStr, false, CultureInfo.InvariantCulture) == 0 );
+        }
+
     }
 
 }
