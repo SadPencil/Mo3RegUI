@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Security.Principal;
@@ -139,30 +140,13 @@ namespace Mo3RegUI
             public int Height;
         }
 
-        //https://www.codeproject.com/Tips/1184124/Get-Target-Screen-Size-of-the-Hosting-Window-in-WP
-        private Resolution GetHostingScreenSize(string devicename)
+        private Resolution GetHostingScreenSize()
         {
+            // 注意，必须在 manifest 中声明 DPI awareness
+            var monitor_width = NativeMethods.GetSystemMetrics(NativeConstants.SM_CXSCREEN);
+            var monitor_height = NativeMethods.GetSystemMetrics(NativeConstants.SM_CYSCREEN);
 
-            var hdc = NativeMethods.CreateDC(devicename, "", "", IntPtr.Zero);
-
-            // Returns Height of the screen
-            int DESKTOPVERTRES = NativeMethods.GetDeviceCaps(hdc, (int) DeviceCap.DESKTOPVERTRES);
-
-            // Returns width of the screen
-            int DESKTOPHORZRES = NativeMethods.GetDeviceCaps(hdc, (int) DeviceCap.DESKTOPHORZRES);
-
-            // Uncomment this code, if user wants to get additional data.
-            // int VERTRES = NativeMethods.GetDeviceCaps(hdc, (int)DeviceCap.VERTRES);
-            // int LOGPIXELSY = NativeMethods.GetDeviceCaps(hdc, (int)DeviceCap.LOGPIXELSY);
-            // int HORZRES = NativeMethods.GetDeviceCaps(hdc, (int)DeviceCap.HORZRES);
-            // LogMessage(string.Format(string.Format("VERTRES : {0}, DESKTOPVERTRES: {1}, LOGPIXELSY: {2}, HORZRES: {3}, DESKTOPHORZRES: {4}",
-            //    VERTRES,
-            //    DESKTOPVERTRES,
-            //    LOGPIXELSY,
-            //    HORZRES,
-            //    DESKTOPHORZRES));
-
-            return new Resolution() { Width = DESKTOPHORZRES, Height = DESKTOPVERTRES };
+            return new Resolution() { Width = monitor_width, Height = monitor_height };
         }
         class MainWorkerProgressReport
         {
@@ -175,10 +159,7 @@ namespace Mo3RegUI
 
         private void Window_Initialized(object sender, EventArgs e)
         {
-
-            Debug.WriteLine(System.Windows.Forms.Screen.FromHandle(new System.Windows.Interop.WindowInteropHelper(Window.GetWindow(this)).Handle).DeviceName);
-
-            var Resolution = this.GetHostingScreenSize(System.Windows.Forms.Screen.FromHandle(new System.Windows.Interop.WindowInteropHelper(Window.GetWindow(this)).Handle).DeviceName);
+            var Resolution = this.GetHostingScreenSize();
             //System.Diagnostics.Debug.WriteLine(this.Resolution.Height);
 
             mainWorker = new BackgroundWorker()
@@ -250,7 +231,10 @@ namespace Mo3RegUI
                     System.IO.Path.Combine(new string[]{ ExePath, "Map Editor", "Syringe.exe"}),
                     System.IO.Path.Combine(new string[]{ ExePath,"Resources","ddraw_dxwnd.dll"}),
                 };
+
                 string MainExePath = System.IO.Path.Combine(ExePath, "MentalOmegaClient.exe");
+                string QResPath = System.IO.Path.Combine(ExePath, "qres.dat");
+                byte[] QResOldVersionSha2 = HexToByteArray("D9BB2BFA4A3F1FADA6514E1AE7741439C3B85530F519BBABC03B4557B5879138");
 
                 //检查注册机是否在游戏目录
                 if (!System.IO.File.Exists(MainExePath))
@@ -258,13 +242,20 @@ namespace Mo3RegUI
                     throw new Exception("注册机可能不在游戏目录。请确保将注册机的文件复制到游戏目录后再执行。找不到 MentalOmegaClient.exe 文件。");
                 }
 
+                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 检查游戏目录的路径长度和特殊字符 ----" });
                 // 检查路径转换为 ANSI 后是否大于 130 字节
                 {
-                    if (( Encoding.Convert(Encoding.Unicode, Encoding.Default, Encoding.Unicode.GetBytes(ExePath)) ).Count() > 130)
+                    if ((Encoding.Convert(Encoding.Unicode, Encoding.Default, Encoding.Unicode.GetBytes(ExePath))).Count() > 130)
                     {
                         throw new Exception("当前游戏目录的路径较长。游戏可能无法正常运行。");
                     }
                 }
+                // 检查特殊字符
+                if (ExePath.Contains(@"%"))
+                {
+                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "当前游戏目录的路径包含特殊字符 %（百分号）。Windows 防火墙可能无法正确处理这种情况。", UseMessageBoxWarning = true });
+                }
+
                 //注册 blowfish.dll 文件；写入红警2注册表
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 注册 blowfish.dll 文件，导入 Red Alert 2 安装信息到注册表 ----" });
                 {
@@ -341,17 +332,20 @@ namespace Mo3RegUI
                 }
                 else
                 {
-                    //计算路径哈希
-                    StringBuilder ExePathHash32 = new StringBuilder();
+                    //计算路径哈希  
+                    byte[] digest;
+                    using (var hash = System.Security.Cryptography.SHA256.Create())
                     {
                         byte[] bytes = Encoding.UTF8.GetBytes(ExePath);
-                        byte[] hash = System.Security.Cryptography.SHA256.Create().ComputeHash(bytes);
-
-                        for (int i = 0; i < Math.Min(hash.Length, 8); i++)
-                        {
-                            ExePathHash32.Append(hash[i].ToString("X2", CultureInfo.InvariantCulture));
-                        }
+                        digest = System.Security.Cryptography.SHA256.Create().ComputeHash(bytes);
                     }
+
+                    var ExePathHash32 = ByteArrayToHex(digest);
+                    if (ExePathHash32.Length > 16)
+                    {
+                        ExePathHash32 = ExePathHash32.Substring(0, 16);
+                    }
+
                     //删除之前的规则（如果有）
                     {
                         System.Diagnostics.Process process = new System.Diagnostics.Process()
@@ -421,7 +415,7 @@ namespace Mo3RegUI
                     var ra2MoIniFile = new MadMilkman.Ini.IniFile();
                     var iniPath = System.IO.Path.Combine(ExePath, "RA2MO.INI");
                     ra2MoIniFile.Load(iniPath);
-                    //多屏的朋友，对不住了，只获取当前屏幕
+                    //多屏时只获取主屏幕
                     {
                         var key = this.FindOrNewIniKey(ra2MoIniFile, "Video", "ScreenWidth");
                         key.Value = Resolution.Width.ToString(CultureInfo.InvariantCulture);
@@ -463,16 +457,32 @@ namespace Mo3RegUI
                             ra2MoIniFile.Save(iniPath);
                         }
                     }
-
-                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "提示：如果有需要，可以从心灵终结客户端内更改渲染补丁设置。" });
                 }
                 else
                 {
                     worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 不设置渲染补丁 ----" });
-
-                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "提示：如果有需要，可以从心灵终结客户端内更改渲染补丁设置。" });
                 }
+                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "提示：如果有需要，可以从心灵终结客户端内更改渲染补丁设置。" + Environment.NewLine + "在 Windows 8/10/11 系统上建议始终使用现代的渲染补丁，如 TS-DDRAW、CNC-DDRAW。" });
 
+                // 检查 QRes
+                using (var hash = System.Security.Cryptography.SHA256.Create())
+                {
+                    try
+                    {
+                        using (var file = new FileStream(QResPath, FileMode.Open))
+                        {
+                            byte[] digest = hash.ComputeHash(file);
+                            if (digest.SequenceEqual(QResOldVersionSha2))
+                            {
+                                worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "检测到未修复的 QRes。在不使用渲染补丁或使用古老的渲染补丁时，在高 DPI 显示器下以窗口化模式运行游戏可能会出现分辨率错误或“Screen mode not found”的错误提示。建议更新 qres.dat 程序或尽可能使用现代的渲染补丁。" });
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "检测 QRes 失败。" + ex.Message + "在不使用渲染补丁或使用古老的渲染补丁时，以窗口化模式运行游戏可能会出现问题。建议更新 qres.dat 程序或尽可能使用现代的渲染补丁。" });
+                    }
+                }
                 //#if SPEEDCONTROL
                 //                //INI：设置 SPEEDCONTROL
                 //                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 6. 设置战役调速 ----" });
@@ -684,7 +694,7 @@ namespace Mo3RegUI
                             if (installValue != null)
                             {
                                 // https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed#net_d
-                                isDotNet45Installed = ( Convert.ToInt32(installValue.ToString()) >= NET_FRAMEWORK_45_RELEASE_KEY );
+                                isDotNet45Installed = (Convert.ToInt32(installValue.ToString()) >= NET_FRAMEWORK_45_RELEASE_KEY);
                             }
 
                             if (!isDotNet45Installed)
@@ -718,7 +728,7 @@ namespace Mo3RegUI
 
                 //注意 Environment.OSVersion 只能用于判断系统是 XP、Vista、Win7还是 Win8+，分不出Win8/8.1/10，因为都返回6.2。
                 {
-                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 检查 Windows 10 游戏栏是否关闭 ----" });
+                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 检查 Windows 10/11 游戏栏是否关闭 ----" });
                     bool gameBarEnabled = false;
                     try
                     {
@@ -791,7 +801,7 @@ namespace Mo3RegUI
 
             //this.MainTextAppendGreen("此为开发版本，非正式版！开发版本号：201906121840");
             this.MainTextAppendGreen("Mental Omega 3.3.5 注册机");
-            this.MainTextAppendGreen("Version: 1.6.1");
+            this.MainTextAppendGreen("Version: 1.6.2");
             this.MainTextAppendGreen("Author: 伤心的笔");
 
 
@@ -800,7 +810,7 @@ namespace Mo3RegUI
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            if (( this.mainWorker?.IsBusy ).GetValueOrDefault())
+            if ((this.mainWorker?.IsBusy).GetValueOrDefault())
             {
                 var ret = MessageBox.Show(this,
                     "Mental Omega 注册机正在设置兼容性和配置游戏选项，且尚未运行完毕。确定要中止注册机的运行吗？",
@@ -867,9 +877,28 @@ namespace Mo3RegUI
         bool IsAsciiString(string str)
         {
             var asciiStr = GetAsciiString(str);
-            return ( String.Compare(str, asciiStr, false, CultureInfo.InvariantCulture) == 0 );
+            return (String.Compare(str, asciiStr, false, CultureInfo.InvariantCulture) == 0);
         }
 
+        static byte[] HexToByteArray(string hex)
+        {
+            return Enumerable.Range(0, hex.Length)
+                             .Where(x => x % 2 == 0)
+                             .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
+                             .ToArray();
+        }
+
+        static string ByteArrayToHex(byte[] arr)
+        {
+            var ret = new StringBuilder();
+            for (int i = 0; i < arr.Length; i++)
+            {
+                ret.Append(arr[i].ToString("X2", CultureInfo.InvariantCulture));
+            }
+
+            return ret.ToString();
+        }
     }
+
 
 }

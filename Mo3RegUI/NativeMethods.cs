@@ -6,22 +6,25 @@ using System.Text;
 
 namespace Mo3RegUI
 {
-    static class NativeMethods
+
+    public partial class NativeMethods
     {
-        [DllImport("gdi32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern IntPtr CreateDC(string lpszDriver, string lpszDeviceName, string lpszOutput, IntPtr devMode);
-        
-        [DllImport("gdi32.dll", CharSet = CharSet.Unicode, SetLastError = true, ExactSpelling = true)]
-        public static extern int GetDeviceCaps(IntPtr hDC, int nIndex);
+        /// Return Type: int
+        ///nIndex: int
+        [System.Runtime.InteropServices.DllImportAttribute("user32.dll", EntryPoint = "GetSystemMetrics")]
+        public static extern int GetSystemMetrics(int nIndex);
     }
 
-    public enum DeviceCap
+    public partial class NativeConstants
     {
-        HORZRES = 8,
-        VERTRES = 10,
-        DESKTOPVERTRES = 117,
-        LOGPIXELSY = 90,
-        DESKTOPHORZRES = 118
-
+        /// SM_CXSCREEN -> 0
+        public const int SM_CXSCREEN = 0;
     }
+
+    public partial class NativeConstants
+    {
+        /// SM_CYSCREEN -> 1
+        public const int SM_CYSCREEN = 1;
+    }
+
 }
