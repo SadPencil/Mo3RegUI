@@ -485,35 +485,54 @@ namespace Mo3RegUI
                 }
                 //#if SPEEDCONTROL
                 //                //INI：设置 SPEEDCONTROL
-                //                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 6. 设置战役调速 ----" });
-                //                {
+                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 设置 CPU 相关性 ----" });
+                {
 
-                //                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "设置战役调速是一种修改游戏文件的行为。你不能将修改后的游戏用于 SPEEDRUN 速通挑战等用途。如果不需要战役调速，请使用普通版注册机。", UseMessageBoxWarning = true });
+                    //                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "设置战役调速是一种修改游戏文件的行为。你不能将修改后的游戏用于 SPEEDRUN 速通挑战等用途。如果不需要战役调速，请使用普通版注册机。", UseMessageBoxWarning = true });
 
-                //                    var clientDefinitionIniFile = new MadMilkman.Ini.IniFile();
-                //                    var iniPath = System.IO.Path.Combine(new string[] { ExePath, "Resources", "ClientDefinitions.ini" });
-                //                    clientDefinitionIniFile.Load(iniPath);
-                //                    {
-                //                        var key = this.FindOrNewIniKey(clientDefinitionIniFile, "Settings", "ExtraCommandLineParams");
-                //                        var options = key.Value.Split(new char[] { ' ' }).ToList();
-                //                        for (int i = 0; i < options.Count; ++i)
-                //                        {
-                //                            options[i] = options[i].ToUpper();
-                //                        }
-                //                        //注意 Remove 是移除 值 匹配的，不是 Key 匹配的
-                //                        // while (options.Remove("-LOG")) { }
-                //                        while (options.Remove("-SPEEDCONTROL")) { }
-                //                        options.Add("-SPEEDCONTROL");
-                //                        var newOptions = new StringBuilder();
-                //                        foreach (var option in options)
-                //                        {
-                //                            newOptions.Append(" " + option);
-                //                        }
+                    var clientDefinitionIniFile = new MadMilkman.Ini.IniFile();
+                    var iniPath = System.IO.Path.Combine(new string[] { ExePath, "Resources", "ClientDefinitions.ini" });
+                    clientDefinitionIniFile.Load(iniPath);
+                    {
+                        var key = this.FindOrNewIniKey(clientDefinitionIniFile, "Settings", "ExtraCommandLineParams");
+                        var options = key.Value.Split(new char[] { ' ' }).ToList();
 
-                //                        key.Value = newOptions.ToString();
-                //                    }
-                //                    clientDefinitionIniFile.Save(iniPath);
-                //                }
+                        // 删除CPU相关性调试
+                        do
+                        {
+                            int? toBeDeleted = null;
+                            for (int i = 0; i < options.Count; ++i)
+                            {
+                                if (options[i].ToUpper().StartsWith("-AFFINITY:"))
+                                {
+                                    toBeDeleted = i;
+                                    break;
+                                }
+                            }
+                            if (toBeDeleted != null)
+                            {
+                                options.RemoveAt(toBeDeleted.Value);
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        } while (true);
+                        // 添加相关性
+                        int cpuCount = Math.Min(Environment.ProcessorCount, 24);
+                        int affinity = (1 << cpuCount) - 1;
+                        options.Add("-AFFINITY:" + affinity.ToString(CultureInfo.InvariantCulture));
+                        //构建command line
+                        var newOptions = new StringBuilder();
+                        foreach (var option in options)
+                        {
+                            newOptions.Append(" " + option);
+                        }
+
+                        key.Value = newOptions.ToString();
+                    }
+                    clientDefinitionIniFile.Save(iniPath);
+                }
 
                 //#endif
 
@@ -800,8 +819,8 @@ namespace Mo3RegUI
             };
 
             //this.MainTextAppendGreen("此为开发版本，非正式版！开发版本号：201906121840");
-            this.MainTextAppendGreen("Mental Omega 3.3.5 注册机");
-            this.MainTextAppendGreen("Version: 1.6.2");
+            this.MainTextAppendGreen("Mental Omega 3.3.6 注册机");
+            this.MainTextAppendGreen("Version: 1.7.0");
             this.MainTextAppendGreen("Author: 伤心的笔");
 
 
