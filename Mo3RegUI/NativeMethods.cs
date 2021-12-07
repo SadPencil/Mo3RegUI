@@ -27,4 +27,13 @@ namespace Mo3RegUI
         public const int SM_CYSCREEN = 1;
     }
 
+    public partial class NativeMethods
+    {
+
+        /// Return Type: UINT->unsigned int
+        [System.Runtime.InteropServices.DllImportAttribute("kernel32.dll", EntryPoint = "GetACP")]
+        public static extern uint GetACP();
+
+    }
+
 }

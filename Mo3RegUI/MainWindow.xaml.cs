@@ -237,14 +237,21 @@ namespace Mo3RegUI
                 byte[] QResOldVersionSha2 = HexToByteArray("D9BB2BFA4A3F1FADA6514E1AE7741439C3B85530F519BBABC03B4557B5879138");
 
                 // 开始
+                var codepage = NativeMethods.GetACP();
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "操作系统: " + Environment.OSVersion.ToString() });
+                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "当前 ANSI 代码页: " + codepage.ToString() });
 
                 //检查注册机是否在游戏目录
                 if (!System.IO.File.Exists(MainExePath))
                 {
                     throw new Exception("注册机可能不在游戏目录。请确保将注册机的文件复制到游戏目录后再执行。找不到 MentalOmegaClient.exe 文件。");
                 }
+                
 
+                // .NET Framework and .NET Core
+                //OutputEncoding = Encoding.Default;
+                //OutputEncoding = CodePagesEncodingProvider.Instance.GetEncoding(System.Globalization.CultureInfo.CurrentCulture.TextInfo.ANSICodePage);
+                
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 检查游戏目录的路径长度和特殊字符 ----" });
                 // 检查路径转换为 ANSI 后是否大于 130 字节
                 {
@@ -258,6 +265,13 @@ namespace Mo3RegUI
                 {
                     worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "当前游戏目录的路径包含特殊字符 %（百分号）。Windows 防火墙可能无法正确处理这种情况。", UseMessageBoxWarning = true });
                 }
+                // 检查默认 ANSI 编码
+                if (codepage == 65001)
+                {
+                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "当前 ANSI 代码页为 UTF-8。这是一个好做法，但不幸的是，红警 2 游戏中将无法正常输入非英文字符，地图编辑器等组件可能也无法正常显示包含非英文字符的名称，在高 DPI 下游戏界面更可能出现按钮错位、重叠问题。" });
+                }
+                
+
 
                 //注册 blowfish.dll 文件；写入红警2注册表
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 注册 blowfish.dll 文件，导入 Red Alert 2 安装信息到注册表 ----" });
@@ -747,7 +761,6 @@ namespace Mo3RegUI
                     }
                 }
 
-                //注意 Environment.OSVersion 只能用于判断系统是 XP、Vista、Win7还是 Win8+，分不出Win8/8.1/10，因为都返回6.2。
                 {
                     worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 检查 Windows 10/11 游戏栏是否关闭 ----" });
                     bool gameBarEnabled = false;
@@ -820,9 +833,8 @@ namespace Mo3RegUI
 
             };
 
-            //this.MainTextAppendGreen("此为开发版本，非正式版！开发版本号：201906121840");
             this.MainTextAppendGreen("Mental Omega 3.3.6 注册机");
-            this.MainTextAppendGreen("Version: 1.7.1");
+            this.MainTextAppendGreen("Version: 1.7.3");
             this.MainTextAppendGreen("Author: 伤心的笔");
 
 
