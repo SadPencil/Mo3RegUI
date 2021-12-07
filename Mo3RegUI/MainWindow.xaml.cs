@@ -236,6 +236,9 @@ namespace Mo3RegUI
                 string QResPath = System.IO.Path.Combine(ExePath, "qres.dat");
                 byte[] QResOldVersionSha2 = HexToByteArray("D9BB2BFA4A3F1FADA6514E1AE7741439C3B85530F519BBABC03B4557B5879138");
 
+                // 开始
+                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "操作系统: " + Environment.OSVersion.ToString() });
+
                 //检查注册机是否在游戏目录
                 if (!System.IO.File.Exists(MainExePath))
                 {
@@ -429,16 +432,15 @@ namespace Mo3RegUI
 
                 //INI：设置渲染补丁 TS-DDRAW
                 //手动拷贝 TS-DDRAW 的文件，然后再设置 INI
-                //注意 Environment.OSVersion 只能用于判断系统是 XP、Vista、Win7还是 Win8+，分不出Win8/8.1/10，因为都返回6.2。
-                if (Environment.OSVersion.Version.Major >= 6 && Environment.OSVersion.Version.Minor >= 2)
+                if (Environment.OSVersion.Version.Major >= 7 || (Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor >= 2))
                 {
-                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 设置渲染补丁为 TS-DDRAW ----" });
+                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 设置渲染补丁为 CnC_DDraw ----" });
                     {
                         bool success = true;
                         try
                         {
-                            System.IO.File.Copy(System.IO.Path.Combine(new string[] { ExePath, "Resources", "ts_ddraw.dll" }), System.IO.Path.Combine(ExePath, "ddraw.dll"), true);
-                            System.IO.File.Copy(System.IO.Path.Combine(new string[] { ExePath, "Resources", "ddraw-auto.ini" }), System.IO.Path.Combine(ExePath, "ddraw.ini"), true);
+                            System.IO.File.Copy(System.IO.Path.Combine(new string[] { ExePath, "Resources", "cnc-ddraw.dll" }), System.IO.Path.Combine(ExePath, "ddraw.dll"), true);
+                            System.IO.File.Copy(System.IO.Path.Combine(new string[] { ExePath, "Resources", "cnc-ddraw.ini" }), System.IO.Path.Combine(ExePath, "ddraw.ini"), true);
                         }
                         catch (Exception ex)
                         {
@@ -452,7 +454,7 @@ namespace Mo3RegUI
                             ra2MoIniFile.Load(iniPath);
                             {
                                 var key = this.FindOrNewIniKey(ra2MoIniFile, "Compatibility", "Renderer");
-                                key.Value = "TS_DDraw";
+                                key.Value = "CnC_DDraw";
                             }
                             ra2MoIniFile.Save(iniPath);
                         }
@@ -462,7 +464,7 @@ namespace Mo3RegUI
                 {
                     worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 不设置渲染补丁 ----" });
                 }
-                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "提示：如果有需要，可以从心灵终结客户端内更改渲染补丁设置。" + Environment.NewLine + "在 Windows 8/10/11 系统上建议始终使用现代的渲染补丁，如 TS-DDRAW、CNC-DDRAW。" });
+                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "提示：如果有需要，可以从心灵终结客户端内更改渲染补丁设置。" + Environment.NewLine + "在 Windows 8/10/11 系统上建议始终使用现代的渲染补丁，如 TS_DDraw、CnC_DDraw。" });
 
                 // 检查 QRes
                 using (var hash = System.Security.Cryptography.SHA256.Create())
@@ -677,7 +679,7 @@ namespace Mo3RegUI
                     {
                         using (var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5", false))
                         {
-                            var name = key.GetValue("Version");
+                            var name = key?.GetValue("Version");
                             if (name == null)
                             {
                                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = ".NET Framework 3.5 未安装。" });
@@ -698,7 +700,7 @@ namespace Mo3RegUI
                     {
                         using (var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full", false))
                         {
-                            var versionValue = key.GetValue("Version");
+                            var versionValue = key?.GetValue("Version");
                             if (versionValue == null)
                             {
                                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = ".NET Framework 4 未安装。" });
@@ -709,7 +711,7 @@ namespace Mo3RegUI
                             }
 
                             // 检查 .NET 4.5
-                            var installValue = key.GetValue("Release");
+                            var installValue = key?.GetValue("Release");
                             if (installValue != null)
                             {
                                 // https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed#net_d
@@ -753,7 +755,7 @@ namespace Mo3RegUI
                     {
                         using (var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"System\GameConfigStore", false))
                         {
-                            var name = key.GetValue("GameDVR_Enabled");
+                            var name = key?.GetValue("GameDVR_Enabled");
                             if (name != null && Convert.ToInt32(name) == 1)
                             {
                                 //游戏栏已开启
@@ -773,7 +775,7 @@ namespace Mo3RegUI
                     {
                         using (var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\GameDVR", false))
                         {
-                            var name = key.GetValue("AppCaptureEnabled");
+                            var name = key?.GetValue("AppCaptureEnabled");
                             if (name != null && Convert.ToInt32(name) == 1)
                             {
                                 //游戏栏已开启
@@ -820,7 +822,7 @@ namespace Mo3RegUI
 
             //this.MainTextAppendGreen("此为开发版本，非正式版！开发版本号：201906121840");
             this.MainTextAppendGreen("Mental Omega 3.3.6 注册机");
-            this.MainTextAppendGreen("Version: 1.7.0");
+            this.MainTextAppendGreen("Version: 1.7.1");
             this.MainTextAppendGreen("Author: 伤心的笔");
 
 
