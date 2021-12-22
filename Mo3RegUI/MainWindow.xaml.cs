@@ -246,12 +246,12 @@ namespace Mo3RegUI
                 {
                     throw new Exception("注册机可能不在游戏目录。请确保将注册机的文件复制到游戏目录后再执行。找不到 MentalOmegaClient.exe 文件。");
                 }
-                
+
 
                 // .NET Framework and .NET Core
                 //OutputEncoding = Encoding.Default;
                 //OutputEncoding = CodePagesEncodingProvider.Instance.GetEncoding(System.Globalization.CultureInfo.CurrentCulture.TextInfo.ANSICodePage);
-                
+
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 检查游戏目录的路径长度和特殊字符 ----" });
                 // 检查路径转换为 ANSI 后是否大于 130 字节
                 {
@@ -270,7 +270,7 @@ namespace Mo3RegUI
                 {
                     worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "当前 ANSI 代码页为 UTF-8。这是一个好做法，但不幸的是，红警 2 游戏中将无法正常输入非英文字符，地图编辑器等组件可能也无法正常显示包含非英文字符的名称，在高 DPI 下游戏界面更可能出现按钮错位、重叠问题。" });
                 }
-                
+
 
 
                 //注册 blowfish.dll 文件；写入红警2注册表
@@ -761,6 +761,8 @@ namespace Mo3RegUI
                     }
                 }
 
+                // 游戏栏
+                if (Environment.OSVersion.Version.Major >= 10)
                 {
                     worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 检查 Windows 10/11 游戏栏是否关闭 ----" });
                     bool gameBarEnabled = false;
@@ -810,6 +812,55 @@ namespace Mo3RegUI
                     }
                 }
 
+                //强制映像虚拟化
+                if (Environment.OSVersion.Version.Major >= 10)
+                {
+                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 检查 Windows 10/11 强制映像虚拟化 ----" });
+
+                    var processInfo = new ProcessStartInfo
+                    {
+                        FileName = "powershell.exe",
+                        Arguments = "-Command \"((Get-ProcessMitigation -System).ASLR.ForceRelocateImages -eq [Microsoft.Samples.PowerShell.Commands.OPTIONVALUE]::ON) -as [int]\"",
+                        RedirectStandardError = true,
+                        RedirectStandardOutput = true,
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    };
+                    //worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = processInfo.Arguments });
+
+                    var process = new Process
+                    {
+                        StartInfo = processInfo
+                    };
+                    bool started = process.Start();
+                    process.WaitForExit();
+                    string stdout = process.StandardOutput.ReadToEnd();
+                    string stderr = process.StandardError.ReadToEnd();
+
+                    if (process.ExitCode != 0)
+                    {
+                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "进程返回 " + process.ExitCode + "。执行失败。" + stderr });
+                    }
+                    bool stdoutIsNumeric = Int32.TryParse(stdout.Trim(), out int stdoutInt);
+                    if (stdoutIsNumeric && stdoutInt == 1)
+                    {
+                        worker.ReportProgress(0, new MainWorkerProgressReport()
+                        {
+                            StdErr = "强制映像虚拟化 (强制性 ASLR) 已开启。这可能会导致 Ares 无法正常启动。" +
+                            "请在 “Windows 安全中心”→“应用和浏览器控制”下找到并关闭“系统设置”选项卡中的“强制映像虚拟化 (强制性 ASLR)”选项，或在“程序设置”选项卡中为游戏文件单独关闭此选项。"
+                        });
+
+                    }
+                    else if (stdoutIsNumeric && stdoutInt == 0)
+                    {
+                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "强制映像虚拟化 (强制性 ASLR) 未开启。" });
+                    }
+                    else
+                    {
+                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "未能识别的返回值 " + stdout.Trim() + "。无法判断选项状态。" });
+                    }
+
+                }
 
                 //检测易报毒文件是否还存在，弹出卸载杀毒软件提示
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 检查游戏文件完整性（粗略） ----" });
@@ -834,7 +885,7 @@ namespace Mo3RegUI
             };
 
             this.MainTextAppendGreen("Mental Omega 3.3.6 注册机");
-            this.MainTextAppendGreen("Version: 1.7.3");
+            this.MainTextAppendGreen("Version: 1.7.4");
             this.MainTextAppendGreen("Author: 伤心的笔");
 
 
