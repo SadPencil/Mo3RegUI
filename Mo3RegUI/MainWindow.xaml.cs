@@ -65,62 +65,6 @@ namespace Mo3RegUI
             this.MainTextBox.ScrollToEnd();
         }
         public MainWindow() => this.InitializeComponent();
-        /// <summary>
-        /// 从 INI 文件中找到第一个匹配的 Section 中的匹配的 Key。如果找不到，则创建。
-        /// 注意：即使存在多个相同的 Key，也只返回第一个找到的。
-        /// </summary>
-        /// <param name="iniFile"></param>
-        /// <param name="sectionName"></param>
-        /// <param name="keyName"></param>
-        /// <returns></returns>
-        private MadMilkman.Ini.IniKey FindOrNewIniKey(MadMilkman.Ini.IniFile iniFile, string sectionName, string keyName)
-        {
-            foreach (var section in iniFile.Sections)
-            {
-                if (section.Name == sectionName)
-                {
-                    foreach (var key in section.Keys)
-                    {
-                        if (key.Name == keyName)
-                        {
-                            return key;
-                        }
-                    }
-                    //Section 下找不到对应的 Key
-                    return section.Keys.Add(keyName);
-                }
-            }
-            //找不到 Section
-            var newSection = iniFile.Sections.Add(sectionName);
-            return newSection.Keys.Add(keyName);
-
-        }
-
-        /// <summary>
-        /// 从 INI 文件中找到第一个匹配的 Section 中的匹配的 Key。如果找不到，则返回 null。
-        /// 注意：即使存在多个相同的 Key，也只返回第一个找到的。
-        /// </summary>
-        /// <param name="iniFile"></param>
-        /// <param name="sectionName"></param>
-        /// <param name="keyName"></param>
-        /// <returns></returns>
-        private MadMilkman.Ini.IniKey FindIniKey(MadMilkman.Ini.IniFile iniFile, string sectionName, string keyName)
-        {
-            foreach (var section in iniFile.Sections)
-            {
-                if (section.Name == sectionName)
-                {
-                    foreach (var key in section.Keys)
-                    {
-                        if (key.Name == keyName)
-                        {
-                            return key;
-                        }
-                    }
-                }
-            }
-            return null;
-        }
 
         private struct Resolution
         {
@@ -332,19 +276,12 @@ namespace Mo3RegUI
                 //INI：设置分辨率    
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 设置游戏分辨率为 " + Resolution.Width.ToString(CultureInfo.InvariantCulture) + "×" + Resolution.Height.ToString(CultureInfo.InvariantCulture) + " ----" });
                 {
-                    var ra2MoIniFile = new MadMilkman.Ini.IniFile();
-                    string iniPath = System.IO.Path.Combine(ExePath, "RA2MO.INI");
-                    ra2MoIniFile.Load(iniPath);
-                    //多屏时只获取主屏幕
+                    MyIniParserHelper.EditIniFile(Path.Combine(ExePath, "RA2MO.INI"), ini =>
                     {
-                        var key = this.FindOrNewIniKey(ra2MoIniFile, "Video", "ScreenWidth");
-                        key.Value = Resolution.Width.ToString(CultureInfo.InvariantCulture);
-                    }
-                    {
-                        var key = this.FindOrNewIniKey(ra2MoIniFile, "Video", "ScreenHeight");
-                        key.Value = Resolution.Height.ToString(CultureInfo.InvariantCulture);
-                    }
-                    ra2MoIniFile.Save(iniPath);
+                        var videoSection = MyIniParserHelper.GetSectionOrNew(ini, "Video");
+                        videoSection["ScreenWidth"] = Resolution.Width.ToString(CultureInfo.InvariantCulture);
+                        videoSection["ScreenHeight"] = Resolution.Height.ToString(CultureInfo.InvariantCulture);
+                    });
                 }
 
                 //INI：设置渲染补丁 TS-DDRAW
@@ -356,8 +293,8 @@ namespace Mo3RegUI
                         bool success = true;
                         try
                         {
-                            System.IO.File.Copy(System.IO.Path.Combine(new string[] { ExePath, "Resources", "cnc-ddraw.dll" }), System.IO.Path.Combine(ExePath, "ddraw.dll"), true);
-                            System.IO.File.Copy(System.IO.Path.Combine(new string[] { ExePath, "Resources", "cnc-ddraw.ini" }), System.IO.Path.Combine(ExePath, "ddraw.ini"), true);
+                            File.Copy(Path.Combine(new string[] { ExePath, "Resources", "cnc-ddraw.dll" }), System.IO.Path.Combine(ExePath, "ddraw.dll"), true);
+                            File.Copy(Path.Combine(new string[] { ExePath, "Resources", "cnc-ddraw.ini" }), System.IO.Path.Combine(ExePath, "ddraw.ini"), true);
                         }
                         catch (Exception ex)
                         {
@@ -366,14 +303,11 @@ namespace Mo3RegUI
                         }
                         if (success)
                         {
-                            var ra2MoIniFile = new MadMilkman.Ini.IniFile();
-                            string iniPath = System.IO.Path.Combine(ExePath, "RA2MO.INI");
-                            ra2MoIniFile.Load(iniPath);
+                            MyIniParserHelper.EditIniFile(Path.Combine(ExePath, "RA2MO.INI"), ini =>
                             {
-                                var key = this.FindOrNewIniKey(ra2MoIniFile, "Compatibility", "Renderer");
-                                key.Value = "CnC_DDraw";
-                            }
-                            ra2MoIniFile.Save(iniPath);
+                                var section = MyIniParserHelper.GetSectionOrNew(ini, "Compatibility");
+                                section["Renderer"] = "CnC_DDraw";
+                            });
                         }
                     }
                 }
@@ -405,15 +339,10 @@ namespace Mo3RegUI
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 设置 CPU 相关性 ----" });
                 {
 
-                    //                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "设置战役调速是一种修改游戏文件的行为。你不能将修改后的游戏用于 SPEEDRUN 速通挑战等用途。如果不需要战役调速，请使用普通版注册机。", UseMessageBoxWarning = true });
-
-                    var clientDefinitionIniFile = new MadMilkman.Ini.IniFile();
-                    string iniPath = System.IO.Path.Combine(new string[] { ExePath, "Resources", "ClientDefinitions.ini" });
-                    clientDefinitionIniFile.Load(iniPath);
+                    MyIniParserHelper.EditIniFile(Path.Combine(new string[] { ExePath, "Resources", "ClientDefinitions.ini" }), ini =>
                     {
-                        var key = this.FindOrNewIniKey(clientDefinitionIniFile, "Settings", "ExtraCommandLineParams");
-                        var options = key.Value.Split(new char[] { ' ' }).ToList();
-
+                        var section = MyIniParserHelper.GetSectionOrNew(ini, "Settings");
+                        var options = section["ExtraCommandLineParams"].Split(new char[] { ' ' }).ToList();
                         // 删除CPU相关性调试
                         do
                         {
@@ -439,51 +368,54 @@ namespace Mo3RegUI
                         int cpuCount = Math.Min(Environment.ProcessorCount, 24);
                         int affinity = (1 << cpuCount) - 1;
                         options.Add("-AFFINITY:" + affinity.ToString(CultureInfo.InvariantCulture));
-                        //构建command line
+                        // 构建command line
                         var newOptions = new StringBuilder();
                         foreach (string option in options)
                         {
                             _ = newOptions.Append(" " + option);
                         }
 
-                        key.Value = newOptions.ToString();
-                    }
-                    clientDefinitionIniFile.Save(iniPath);
+                        section["ExtraCommandLineParams"] = newOptions.ToString();
+                    });
+
                 }
 
                 //#endif
 
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 设置玩家昵称 ----" });
                 {
-                    // 从 RA2MO.ini 的 [MultiPlayer] 的 Handle 获取用户名 
-                    var ra2MoIniFile = new MadMilkman.Ini.IniFile();
-                    string iniPath = System.IO.Path.Combine(ExePath, "RA2MO.INI");
-                    ra2MoIniFile.Load(iniPath);
-                    var key = this.FindOrNewIniKey(ra2MoIniFile, "MultiPlayer", "Handle");
-                    if (string.IsNullOrWhiteSpace(key.Value))
+                    MyIniParserHelper.EditIniFile(Path.Combine(ExePath, "RA2MO.INI"), ini =>
                     {
-                        key.Value = this.GetWindowsUserName();
-                    }
+                        // 从 RA2MO.ini 的 [MultiPlayer] 的 Handle 获取用户名 
+                        var section = MyIniParserHelper.GetSectionOrNew(ini, "MultiPlayer");
+                        if (!section.ContainsKey("Handle"))
+                        {
+                            section["Handle"] = string.Empty;
+                        }
+                        string username = section["Handle"];
+                        if (string.IsNullOrWhiteSpace(username))
+                        {
+                            username = this.GetWindowsUserName();
+                        }
+                        if (!this.IsAsciiString(username))
+                        {
+                            worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "注意，当前玩家昵称 \"" + username + "\" 包含非 ASCII 字符。如果玩家昵称完全不包含任何 ASCII 字符，Ares 3.0 将会崩溃。" });
+                        }
 
-                    key.Value = key.Value.Trim();
+                        username = this.GetAsciiString(username);
 
-                    if (!this.IsAsciiString(key.Value))
-                    {
-                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "注意，当前玩家昵称 \"" + key.Value + "\" 包含非 ASCII 字符。如果玩家昵称完全不包含任何 ASCII 字符，Ares 3.0 将会崩溃。" });
-                    }
+                        // valid ascii char: 32 <= char <=127 ; remove other chars
+                        username = new string(username.ToList().Where(c => c >= 32 && c <= 127).ToArray());
 
-                    key.Value = this.GetAsciiString(key.Value);
+                        if (string.IsNullOrWhiteSpace(username))
+                        {
+                            username = "NewPlayer";
+                        }
 
-                    // valid ascii char: 32 <= char <=127 ; remove other chars
-                    key.Value = new string(key.Value.ToList().Where(c => c >= 32 && c <= 127).ToArray());
+                        section["Handle"] = username;
 
-                    if (string.IsNullOrWhiteSpace(key.Value))
-                    {
-                        key.Value = "NewPlayer";
-                    }
-
-                    ra2MoIniFile.Save(iniPath);
-                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "将玩家昵称设置为 \"" + key.Value + "\"。" });
+                        worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "将玩家昵称设置为 \"" + username + "\"。" });
+                    });
                 }
 
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 检查网络环境 ----" });
