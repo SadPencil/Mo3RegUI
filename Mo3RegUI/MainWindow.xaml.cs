@@ -20,44 +20,17 @@ namespace Mo3RegUI
     /// 
     public partial class MainWindow : Window
     {
-        private void MainTextAppendError(string text)
+        private void MainTextAppendError(string text) => this.MainTextAppend(text, Brushes.Red, FontWeights.Bold);
+        private void MainTextAppendSpecial(string text) => this.MainTextAppend(text, Brushes.Green, FontWeights.Regular);
+        private void MainTextAppendInfo(string text) => this.MainTextAppend(text, Brushes.Black, FontWeights.Regular);
+        private void MainTextAppend(string text, Brush brush, FontWeight fontWeight)
         {
             var rangeOfText = new TextRange(this.MainTextBox.Document.ContentEnd, this.MainTextBox.Document.ContentEnd)
             {
                 Text = text + Environment.NewLine
             };
-            rangeOfText.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Red);
-            rangeOfText.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
-
-            // set the current caret position to the end
-            this.MainTextBox.CaretPosition = this.MainTextBox.Document.ContentEnd;
-            // scroll it automatically
-            this.MainTextBox.ScrollToEnd();
-
-        }
-        private void MainTextAppendGreen(string text)
-        {
-            var rangeOfText = new TextRange(this.MainTextBox.Document.ContentEnd, this.MainTextBox.Document.ContentEnd)
-            {
-                Text = text + Environment.NewLine
-            };
-            rangeOfText.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Green);
-            rangeOfText.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Regular);
-
-            // set the current caret position to the end
-            this.MainTextBox.CaretPosition = this.MainTextBox.Document.ContentEnd;
-            // scroll it automatically
-            this.MainTextBox.ScrollToEnd();
-
-        }
-
-        private void MainTextAppendNormal(string text)
-        {
-            var rangeOfText = new TextRange(this.MainTextBox.Document.ContentEnd, this.MainTextBox.Document.ContentEnd)
-            {
-                Text = text + Environment.NewLine
-            };
-            rangeOfText.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Regular);
+            rangeOfText.ApplyPropertyValue(TextElement.ForegroundProperty, brush);
+            rangeOfText.ApplyPropertyValue(TextElement.FontWeightProperty, fontWeight);
 
             // set the current caret position to the end
             this.MainTextBox.CaretPosition = this.MainTextBox.Document.ContentEnd;
@@ -72,7 +45,7 @@ namespace Mo3RegUI
             public int Height;
         }
 
-        private Resolution GetHostingScreenSize()
+        private static Resolution GetHostingScreenSize()
         {
             // 注意，必须在 manifest 中声明 DPI awareness
             int monitor_width = NativeMethods.GetSystemMetrics(NativeConstants.SM_CXSCREEN);
@@ -92,7 +65,7 @@ namespace Mo3RegUI
 
         private void Window_Initialized(object sender, EventArgs e)
         {
-            var Resolution = this.GetHostingScreenSize();
+            var Resolution = GetHostingScreenSize();
 
             this.mainWorker = new BackgroundWorker()
             {
@@ -104,7 +77,7 @@ namespace Mo3RegUI
                 var text = worker_e.UserState as MainWorkerProgressReport;
                 if (!string.IsNullOrEmpty(text.StdOut))
                 {
-                    this.MainTextAppendNormal(text.StdOut);
+                    this.MainTextAppendInfo(text.StdOut);
                 }
                 if (!string.IsNullOrEmpty(text.StdErr))
                 {
@@ -112,7 +85,7 @@ namespace Mo3RegUI
                 }
                 if (text.UseMessageBoxWarning)
                 {
-                    _ = MessageBox.Show(this, text.StdOut + text.StdErr, "消息", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    _ = MessageBox.Show(this, text.StdOut + text.StdErr, "警告", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             };
 
@@ -120,7 +93,7 @@ namespace Mo3RegUI
             {
                 if (worker_e.Error is null)
                 {
-                    this.MainTextAppendNormal("执行完毕。请检查输出文字是否有异常，然后关闭此窗口。");
+                    this.MainTextAppendInfo("执行完毕。请检查输出文字是否有异常，然后关闭此窗口。");
                     //MessageBox.Show(this, "执行完毕", "执行完毕", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
@@ -134,36 +107,36 @@ namespace Mo3RegUI
             {
                 var worker = worker_sender as BackgroundWorker;
 
-                string ExePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                string ExePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
                 var GameExes = new List<string>()
                 {
-                    System.IO.Path.Combine(ExePath, "gamemd.exe"),
-                    //System.IO.Path.Combine(ExePath, "MentalOmegaClient.exe"),
-                    System.IO.Path.Combine(new string[]{ ExePath,"Syringe.exe"}),
-                    //System.IO.Path.Combine(new string[]{ ExePath,"Resources","clientdx.exe"}),
-                    //System.IO.Path.Combine(new string[]{ ExePath,"Resources","clientogl.exe"}),
-                    //System.IO.Path.Combine(new string[]{ ExePath,"Resources","clientxna.exe"}),
+                    Path.Combine(ExePath, "gamemd.exe"),
+                    //Path.Combine(ExePath, "MentalOmegaClient.exe"),
+                    Path.Combine(new string[]{ ExePath,"Syringe.exe"}),
+                    //Path.Combine(new string[]{ ExePath,"Resources","clientdx.exe"}),
+                    //Path.Combine(new string[]{ ExePath,"Resources","clientogl.exe"}),
+                    //Path.Combine(new string[]{ ExePath,"Resources","clientxna.exe"}),
                 };
                 var GameExeWithoutDpiAwareness = new List<string>()
                 {
-                    System.IO.Path.Combine(ExePath, "MentalOmegaClient.exe"),
-                    System.IO.Path.Combine(new string[]{ ExePath,"Resources","clientdx.exe"}),
-                    System.IO.Path.Combine(new string[]{ ExePath,"Resources","clientogl.exe"}),
-                    System.IO.Path.Combine(new string[]{ ExePath,"Resources","clientxna.exe"}),
+                    Path.Combine(ExePath, "MentalOmegaClient.exe"),
+                    Path.Combine(new string[]{ ExePath,"Resources","clientdx.exe"}),
+                    Path.Combine(new string[]{ ExePath,"Resources","clientogl.exe"}),
+                    Path.Combine(new string[]{ ExePath,"Resources","clientxna.exe"}),
                 };
                 var AvExes = new List<string>()
                 {
-                    System.IO.Path.Combine(new string[]{ ExePath,"cncnet5.dll"}),
-                    System.IO.Path.Combine(new string[]{ ExePath,"cncnet5mo.dll"}),
-                    System.IO.Path.Combine(new string[]{ ExePath,"ares.dll"}),
-                    System.IO.Path.Combine(new string[]{ ExePath,"Syringe.exe"}),
-                    System.IO.Path.Combine(new string[]{ ExePath, "Map Editor", "FinalAlert2MO.exe"}),
-                    System.IO.Path.Combine(new string[]{ ExePath, "Map Editor", "Syringe.exe"}),
-                    System.IO.Path.Combine(new string[]{ ExePath,"Resources","ddraw_dxwnd.dll"}),
+                    Path.Combine(new string[]{ ExePath,"cncnet5.dll"}),
+                    Path.Combine(new string[]{ ExePath,"cncnet5mo.dll"}),
+                    Path.Combine(new string[]{ ExePath,"ares.dll"}),
+                    Path.Combine(new string[]{ ExePath,"Syringe.exe"}),
+                    Path.Combine(new string[]{ ExePath, "Map Editor", "FinalAlert2MO.exe"}),
+                    Path.Combine(new string[]{ ExePath, "Map Editor", "Syringe.exe"}),
+                    Path.Combine(new string[]{ ExePath,"Resources","ddraw_dxwnd.dll"}),
                 };
 
-                string MainExePath = System.IO.Path.Combine(ExePath, "MentalOmegaClient.exe");
-                string QResPath = System.IO.Path.Combine(ExePath, "qres.dat");
+                string MainExePath = Path.Combine(ExePath, "MentalOmegaClient.exe");
+                string QResPath = Path.Combine(ExePath, "qres.dat");
                 byte[] QResOldVersionSha2 = HexToByteArray("D9BB2BFA4A3F1FADA6514E1AE7741439C3B85530F519BBABC03B4557B5879138");
 
                 void RunConsoleCommandWithEcho(string command, string argument, out int exitCode, out string stdOut, out string stdErr)
@@ -188,10 +161,10 @@ namespace Mo3RegUI
                 // 开始
                 uint codepage = NativeMethods.GetACP();
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "操作系统: " + Environment.OSVersion.ToString() });
-                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "当前 ANSI 代码页: " + codepage.ToString() });
+                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "当前 ANSI 代码页: " + codepage.ToString(CultureInfo.InvariantCulture) });
 
                 //检查注册机是否在游戏目录
-                if (!System.IO.File.Exists(MainExePath))
+                if (!File.Exists(MainExePath))
                 {
                     throw new Exception("注册机可能不在游戏目录。请确保将注册机的文件复制到游戏目录后再执行。找不到 MentalOmegaClient.exe 文件。");
                 }
@@ -223,7 +196,7 @@ namespace Mo3RegUI
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 注册 blowfish.dll 文件，导入 Red Alert 2 安装信息到注册表 ----" });
                 {
                     //与原版相同，直接调用原版注册机
-                    RunConsoleCommandWithEcho(System.IO.Path.Combine(ExePath, "ra2reg.exe"), string.Empty, out int exitCode, out string stdOut, out string stdErr);
+                    RunConsoleCommandWithEcho(Path.Combine(ExePath, "ra2reg.exe"), string.Empty, out int exitCode, out string stdOut, out string stdErr);
                 }
                 //注册表：设置兼容性：管理员 高DPI感知
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 设置兼容性：高 DPI 感知、以管理员权限运行 ----" });
@@ -231,7 +204,7 @@ namespace Mo3RegUI
                     string compatibilitySetting = "~ RUNASADMIN HIGHDPIAWARE";
                     foreach (string exeName in GameExes)
                     {
-                        using (var registryKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"))
+                        using (var registryKey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"))
                         {
                             registryKey.SetValue(exeName, compatibilitySetting);
                         }
@@ -241,7 +214,7 @@ namespace Mo3RegUI
                     string compatibilitySetting = "~ RUNASADMIN";
                     foreach (string exeName in GameExeWithoutDpiAwareness)
                     {
-                        using (var registryKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"))
+                        using (var registryKey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"))
                         {
                             registryKey.SetValue(exeName, compatibilitySetting);
                         }
@@ -293,8 +266,8 @@ namespace Mo3RegUI
                         bool success = true;
                         try
                         {
-                            File.Copy(Path.Combine(new string[] { ExePath, "Resources", "cnc-ddraw.dll" }), System.IO.Path.Combine(ExePath, "ddraw.dll"), true);
-                            File.Copy(Path.Combine(new string[] { ExePath, "Resources", "cnc-ddraw.ini" }), System.IO.Path.Combine(ExePath, "ddraw.ini"), true);
+                            File.Copy(Path.Combine(new string[] { ExePath, "Resources", "cnc-ddraw.dll" }), Path.Combine(ExePath, "ddraw.dll"), true);
+                            File.Copy(Path.Combine(new string[] { ExePath, "Resources", "cnc-ddraw.ini" }), Path.Combine(ExePath, "ddraw.ini"), true);
                         }
                         catch (Exception ex)
                         {
@@ -336,9 +309,26 @@ namespace Mo3RegUI
                         worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "检测 QRes 失败。" + ex.Message + "在不使用渲染补丁或使用古老的渲染补丁时，以窗口化模式运行游戏可能会出现问题。建议更新 qres.dat 程序或尽可能使用现代的渲染补丁。" });
                     }
                 }
+
+                // 关闭首次运行对话框
+                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 关闭首次运行对话框 ----" });
+                {
+                    MyIniParserHelper.EditIniFile(Path.Combine(ExePath, "RA2MO.INI"), ini =>
+                    {
+                        {
+                            var section = MyIniParserHelper.GetSectionOrNew(ini, "Options");
+                            section["IsFirstRun"] = "False";
+                        }
+                        {
+                            var section = MyIniParserHelper.GetSectionOrNew(ini, "Audio");
+                            section["ClientVolume"] = "0.8"; // 三轮写错了 这个数字不能大于 1
+                        }
+                    });
+                }
+
+                // 设置相关性
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 设置 CPU 相关性 ----" });
                 {
-
                     MyIniParserHelper.EditIniFile(Path.Combine(new string[] { ExePath, "Resources", "ClientDefinitions.ini" }), ini =>
                     {
                         var section = MyIniParserHelper.GetSectionOrNew(ini, "Settings");
@@ -349,7 +339,7 @@ namespace Mo3RegUI
                             int? toBeDeleted = null;
                             for (int i = 0; i < options.Count; ++i)
                             {
-                                if (options[i].ToUpper().StartsWith("-AFFINITY:"))
+                                if (options[i].ToUpper(CultureInfo.InvariantCulture).StartsWith("-AFFINITY:", StringComparison.Ordinal))
                                 {
                                     toBeDeleted = i;
                                     break;
@@ -380,8 +370,7 @@ namespace Mo3RegUI
 
                 }
 
-                //#endif
-
+                // 设置昵称
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 设置玩家昵称 ----" });
                 {
                     MyIniParserHelper.EditIniFile(Path.Combine(ExePath, "RA2MO.INI"), ini =>
@@ -415,6 +404,16 @@ namespace Mo3RegUI
                         section["Handle"] = username;
 
                         worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "将玩家昵称设置为 \"" + username + "\"。" });
+                    });
+                }
+
+                // 关闭 Discord 功能
+                worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 关闭 Discord 功能，加速启动 ----" });
+                {
+                    MyIniParserHelper.EditIniFile(Path.Combine(ExePath, "RA2MO.INI"), ini =>
+                    {
+                        var section = MyIniParserHelper.GetSectionOrNew(ini, "MultiPlayer");
+                        section["DiscordIntegration"] = "False";
                     });
                 }
 
@@ -467,7 +466,7 @@ namespace Mo3RegUI
                     //.net 3.5
                     try
                     {
-                        using (var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5", false))
+                        using (var key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5", false))
                         {
                             object name = key?.GetValue("Version");
                             if (name == null)
@@ -488,7 +487,7 @@ namespace Mo3RegUI
                     bool isDotNet45Installed = false;
                     try
                     {
-                        using (var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full", false))
+                        using (var key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full", false))
                         {
                             object versionValue = key?.GetValue("Version");
                             if (versionValue == null)
@@ -505,7 +504,7 @@ namespace Mo3RegUI
                             if (installValue != null)
                             {
                                 // https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed#net_d
-                                isDotNet45Installed = (Convert.ToInt32(installValue.ToString()) >= NET_FRAMEWORK_45_RELEASE_KEY);
+                                isDotNet45Installed = (Convert.ToInt32(installValue.ToString(), CultureInfo.InvariantCulture) >= NET_FRAMEWORK_45_RELEASE_KEY);
                             }
 
                             if (!isDotNet45Installed)
@@ -541,47 +540,7 @@ namespace Mo3RegUI
                 if (Environment.OSVersion.Version.Major >= 10)
                 {
                     worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 检查 Windows 10/11 游戏栏是否关闭 ----" });
-                    bool gameBarEnabled = false;
-                    try
-                    {
-                        using (var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"System\GameConfigStore", false))
-                        {
-                            object name = key?.GetValue("GameDVR_Enabled");
-                            if (name != null && Convert.ToInt32(name) == 1)
-                            {
-                                //游戏栏已开启
-                                gameBarEnabled = true;
-                            }
-                            else
-                            {
-                                //游戏栏可能未开启
-                            }
-                        };
-                    }
-                    catch (Exception)
-                    {
-                        //游戏栏可能未开启 
-                    }
-                    try
-                    {
-                        using (var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\GameDVR", false))
-                        {
-                            object name = key?.GetValue("AppCaptureEnabled");
-                            if (name != null && Convert.ToInt32(name) == 1)
-                            {
-                                //游戏栏已开启
-                                gameBarEnabled = true;
-                            }
-                            else
-                            {
-                                //游戏栏可能未开启
-                            }
-                        };
-                    }
-                    catch (Exception)
-                    {
-                        //游戏栏可能未开启 
-                    }
+                    bool gameBarEnabled = IsGameBarEnabled();
                     if (gameBarEnabled)
                     {
                         worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "游戏栏已开启，部分电脑和部分渲染补丁下可能会出现游戏部分区域无法点击的情况。请在“开始菜单”→“设置”→“游戏”→“Xbox Game Bar”下找到相关设置，将游戏栏关闭。" });
@@ -591,7 +550,7 @@ namespace Mo3RegUI
                 //强制映像虚拟化
                 if (Environment.OSVersion.Version.Major >= 10)
                 {
-                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 检查 Windows 10/11 强制映像虚拟化 ----" });
+                    worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 绕过 Windows 10/11 强制映像虚拟化 ----" });
 
                     bool hasASLRTurnedOffForGamemd = false;
                     {
@@ -619,7 +578,7 @@ namespace Mo3RegUI
 
                         if (exitCode != 0)
                         {
-                            worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = "进程返回 " + exitCode + "。执行失败。" });
+                            worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = $"进程返回 {exitCode}。执行失败。" });
                         }
 
                         bool stdOutIsNumeric = int.TryParse(stdOut.Trim(), out int stdOutInt);
@@ -655,7 +614,7 @@ namespace Mo3RegUI
                     bool fileAllExists = true;
                     foreach (string avExe in AvExes)
                     {
-                        fileAllExists &= System.IO.File.Exists(avExe);
+                        fileAllExists &= File.Exists(avExe);
                     }
 
                     if (!fileAllExists)
@@ -670,9 +629,9 @@ namespace Mo3RegUI
 
             };
 
-            this.MainTextAppendGreen("Mental Omega 3.3.6 注册机");
-            this.MainTextAppendGreen("Version: 1.7.5");
-            this.MainTextAppendGreen("Author: 伤心的笔");
+            this.MainTextAppendSpecial("Mental Omega 3.3.6 注册机");
+            this.MainTextAppendSpecial("Version: 1.8.1");
+            this.MainTextAppendSpecial("Author: 伤心的笔");
 
             this.mainWorker.RunWorkerAsync();
         }
@@ -738,33 +697,12 @@ namespace Mo3RegUI
         }
 
         private const int NET_FRAMEWORK_45_RELEASE_KEY = 378389;
-        private static bool IsNetFramework45Installed()
-        {
-            try
-            {
-                var ndpKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\NET Framework Setup\\NDP\\v4\\Full");
-
-                string installValue = ndpKey.GetValue("Release").ToString();
-
-                // https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed#net_d
-                if (Convert.ToInt32(installValue) >= NET_FRAMEWORK_45_RELEASE_KEY)
-                {
-                    return true;
-                }
-            }
-            catch
-            {
-
-            }
-
-            return false;
-        }
 
         private string GetWindowsUserName() => WindowsIdentity.GetCurrent().Name.Split(new char[] { '\\' }, 2)[1];
 
         private string GetAsciiString(string str)
         {
-            byte[] asciiBytes = System.Text.Encoding.ASCII.GetBytes(str);
+            byte[] asciiBytes = Encoding.ASCII.GetBytes(str);
             string asciiStr = System.Text.Encoding.ASCII.GetString(asciiBytes);
             return asciiStr;
         }
@@ -772,13 +710,13 @@ namespace Mo3RegUI
         private bool IsAsciiString(string str)
         {
             string asciiStr = this.GetAsciiString(str);
-            return (string.Compare(str, asciiStr, false, CultureInfo.InvariantCulture) == 0);
+            return (string.Compare(str, asciiStr, StringComparison.Ordinal) == 0);
         }
 
         private static byte[] HexToByteArray(string hex) => Enumerable.Range(0, hex.Length)
-                             .Where(x => x % 2 == 0)
-                             .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
-                             .ToArray();
+            .Where(x => x % 2 == 0)
+            .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
+            .ToArray();
 
         private static string ByteArrayToHex(byte[] arr)
         {
@@ -797,7 +735,7 @@ namespace Mo3RegUI
             using (var hash = System.Security.Cryptography.SHA256.Create())
             {
                 byte[] bytes = Encoding.UTF8.GetBytes(path);
-                digest = System.Security.Cryptography.SHA256.Create().ComputeHash(bytes);
+                digest = hash.ComputeHash(bytes);
             }
 
             string exePathHash32 = ByteArrayToHex(digest);
@@ -807,6 +745,47 @@ namespace Mo3RegUI
             }
 
             return exePathHash32;
+        }
+
+        private static bool IsGameBarEnabled()
+        {
+            try
+            {
+                using (var key = Registry.CurrentUser.OpenSubKey(@"System\GameConfigStore", false))
+                {
+                    object name = key?.GetValue("GameDVR_Enabled");
+                    if (name != null && Convert.ToInt32(name, CultureInfo.InvariantCulture) == 1)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                };
+            }
+            catch (Exception)
+            {
+            }
+            try
+            {
+                using (var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\GameDVR", false))
+                {
+                    object name = key?.GetValue("AppCaptureEnabled");
+                    if (name != null && Convert.ToInt32(name, CultureInfo.InvariantCulture) == 1)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                };
+            }
+            catch (Exception)
+            {
+            }
+            return false;
         }
     }
 

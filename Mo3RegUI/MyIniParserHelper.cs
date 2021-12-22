@@ -54,14 +54,14 @@ namespace Mo3RegUI
         public static void EditIniFile(string filename, Action<IniData> editAction)
         {
             IniData ini = null;
-            using (var fs = File.OpenRead(filename))
+            using (var fs = File.Open(filename, FileMode.Open))
             {
                 ini = MyIniParserHelper.ParseIni(fs);
             }
 
             editAction?.Invoke(ini);
 
-            using (var fs = File.OpenWrite(filename))
+            using (var fs = File.Open(filename, FileMode.Create)) // 注意不是 File.OpenWrite
             {
                 MyIniParserHelper.WriteIni(ini, fs);
             }
