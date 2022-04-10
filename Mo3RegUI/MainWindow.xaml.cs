@@ -548,13 +548,13 @@ namespace Mo3RegUI
                 }
 
                 //强制映像虚拟化
-                if (Environment.OSVersion.Version.Major >= 10)
+                if (Environment.OSVersion.Version.Major >= 10 && Environment.OSVersion.Version.Build >= 16299)
                 {
                     worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 绕过 Windows 10/11 强制映像虚拟化 ----" });
 
                     bool hasASLRTurnedOffForGamemd = false;
                     {
-                        RunConsoleCommandWithEcho("powershell.exe", "-Command \"Set-Processmitigation -Name gamemd.exe -Disable ForceRelocateImages\"", out int exitCode, out _, out _);
+                        RunConsoleCommandWithEcho("powershell.exe", "-Command \"Set-ProcessMitigation -Name gamemd.exe -Disable ForceRelocateImages\"", out int exitCode, out _, out _);
 
                         if (exitCode != 0)
                         {
@@ -630,7 +630,7 @@ namespace Mo3RegUI
             };
 
             this.MainTextAppendSpecial("Mental Omega 3.3.6 注册机");
-            this.MainTextAppendSpecial("Version: 1.8.1");
+            this.MainTextAppendSpecial("Version: 1.8.2");
             this.MainTextAppendSpecial("Author: 伤心的笔");
 
             this.mainWorker.RunWorkerAsync();
