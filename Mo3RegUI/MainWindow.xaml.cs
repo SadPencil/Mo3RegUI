@@ -139,7 +139,7 @@ namespace Mo3RegUI
                 string QResPath = Path.Combine(ExePath, "qres.dat");
                 byte[] QResOldVersionSha2 = HexToByteArray("D9BB2BFA4A3F1FADA6514E1AE7741439C3B85530F519BBABC03B4557B5879138");
 
-                void RunConsoleCommandWithEcho(string command, string argument, out int exitCode, out string stdOut, out string stdErr)
+                void RunConsoleCommandWithEcho(string command, string argument, out int exitCode, out string stdOut, out string stdErr, bool throwOnErr)
                 {
                     RunConsoleCommand(command, argument, out exitCode, out stdOut, out stdErr);
                     if (!string.IsNullOrWhiteSpace(stdOut))
@@ -154,7 +154,14 @@ namespace Mo3RegUI
 
                     if (exitCode != 0)
                     {
-                        throw new Exception($"进程返回值 { exitCode }。执行失败。");
+                        if (throwOnErr)
+                        {
+                            throw new Exception($"进程返回值 { exitCode }。执行失败。");
+                        }
+                        else
+                        {
+                            worker.ReportProgress(0, new MainWorkerProgressReport() { StdErr = $"进程返回值 { exitCode }。执行失败。" });
+                        }
                     }
                 }
 
@@ -196,7 +203,7 @@ namespace Mo3RegUI
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 注册 blowfish.dll 文件，导入 Red Alert 2 安装信息到注册表 ----" });
                 {
                     //与原版相同，直接调用原版注册机
-                    RunConsoleCommandWithEcho(Path.Combine(ExePath, "ra2reg.exe"), string.Empty, out int exitCode, out string stdOut, out string stdErr);
+                    RunConsoleCommandWithEcho(Path.Combine(ExePath, "ra2reg.exe"), string.Empty, out int exitCode, out string stdOut, out string stdErr, throwOnErr: true);
                 }
                 //注册表：设置兼容性：管理员 高DPI感知
                 worker.ReportProgress(0, new MainWorkerProgressReport() { StdOut = "---- 设置兼容性：高 DPI 感知、以管理员权限运行 ----" });
@@ -243,7 +250,7 @@ namespace Mo3RegUI
                     foreach (string exeName in GameExes)
                     {
                         RunConsoleCommandWithEcho("netsh.exe", "advfirewall firewall add rule name=\"Mental-Omega-Game-Exception-" + ExePathHash32 + "\" dir=in action=allow program=\"" + exeName + "\"",
-                            out int exitCode, out string stdOut, out string stdErr);
+                            out int exitCode, out string stdOut, out string stdErr, throwOnErr: false);
                     }
                 }
                 //INI：设置分辨率    
@@ -554,7 +561,7 @@ namespace Mo3RegUI
 
                     bool hasASLRTurnedOffForGamemd = false;
                     {
-                        RunConsoleCommandWithEcho("powershell.exe", "-Command \"Set-ProcessMitigation -Name gamemd.exe -Disable ForceRelocateImages\"", out int exitCode, out _, out _);
+                        RunConsoleCommandWithEcho("powershell.exe", "-Command \"Set-ProcessMitigation -Name gamemd.exe -Disable ForceRelocateImages\"", out int exitCode, out _, out _, throwOnErr: false);
 
                         if (exitCode != 0)
                         {
@@ -630,7 +637,7 @@ namespace Mo3RegUI
             };
 
             this.MainTextAppendSpecial("Mental Omega 3.3.6 注册机");
-            this.MainTextAppendSpecial("Version: 1.8.2");
+            this.MainTextAppendSpecial("Version: 1.8.3");
             this.MainTextAppendSpecial("Author: 伤心的笔");
 
             this.mainWorker.RunWorkerAsync();
