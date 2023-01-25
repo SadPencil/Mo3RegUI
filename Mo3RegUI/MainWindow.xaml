@@ -5,8 +5,85 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mo3RegUI"
         mc:Ignorable="d"
-        Title="Mental Omega 注册机" Height="450" Width="800" Initialized="Window_Initialized" Closing="Window_Closing" >
+        Title="{x:Static local:Constants.Name}" Height="450" Width="800" Initialized="Window_Initialized" Closing="Window_Closing" WindowStartupLocation="CenterScreen" >
+    <Window.DataContext>
+        <local:MessagesViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <local:MessageLevelToBrushConverter x:Key="MessageLevelToBrushConverter"/>
+        <local:MessageLevelToFontWeightConverter x:Key="MessageLevelToFontWeightConverter"/>
+        <CollectionViewSource x:Key="src" Source="{Binding}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Category" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+    </Window.Resources>
+
     <Grid>
-        <RichTextBox x:Name="MainTextBox" IsReadOnly="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Image Source="soviet.png" Height="22" VerticalAlignment="Center"/>
+                <TextBlock Margin="5" Text="{x:Static local:Constants.Name}" FontSize="22"  VerticalAlignment="Bottom"/>
+                <TextBlock Margin="5" Text="{x:Static local:Constants.Version}" FontSize="20"  VerticalAlignment="Bottom"/>
+
+                <TextBlock Margin="5" VerticalAlignment="Bottom" FontSize="20">By:</TextBlock>
+                <TextBlock Margin="5" Text="{x:Static local:Constants.Author}" FontSize="20" VerticalAlignment="Bottom"/>
+
+            </StackPanel>
+            <Button x:Name="GitHubUrlButton" Grid.Column="1" Margin="5" FontSize="14" VerticalAlignment="Bottom" Click="GitHubUrlButton_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Margin="2" Source="github-mark.png" Height="22" VerticalAlignment="Center"></Image>
+                    <Label Margin="0">在 GitHub 上查看</Label>
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <ListView Grid.Row="1"  ItemsSource='{Binding Source={StaticResource src}}'
+                  HorizontalContentAlignment="Stretch"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Margin" Value="0,0,0,5"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                                        <Expander IsExpanded="True" BorderBrush="#FFA4B97F" BorderThickness="0,0,0,1">
+                                            <Expander.Header>
+                                                <DockPanel>
+                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="Black" FontSize="18" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text="{Binding ItemCount}" FontSize="18" Foreground="Green" FontWeight="Bold" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text=" 条消息" FontSize="18" Foreground="DarkGray" VerticalAlignment="Bottom" />
+                                                </DockPanel>
+                                            </Expander.Header>
+                                            <Expander.Content>
+                                                <ItemsPresenter />
+                                            </Expander.Content>
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </ListView.GroupStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock DockPanel.Dock="Left" Text="{Binding Path=Text}" TextWrapping="Wrap"
+                               Foreground="{Binding Level, Converter={StaticResource MessageLevelToBrushConverter}}" 
+                               FontWeight="{Binding Level, Converter={StaticResource MessageLevelToFontWeightConverter}}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Window>
