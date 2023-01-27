@@ -26,6 +26,17 @@ namespace Mo3RegUI.Tasks
             {
                 ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "设置渲染补丁为 CnC-DDraw。" });
 
+                // Set "singlecpu=false" to support multi-core. Renderer should not determine the affinity but CnC-DDraw did. So the option is turned off in this task.
+                lock (Locks.CnC_DDraw_INI)
+                {
+                    MyIniParserHelper.EditIniFile(Path.Combine(p.GameDir, "Resources", "cnc-ddraw.ini"), ini =>
+                    {
+                        var section = MyIniParserHelper.GetSectionOrNew(ini, "ddraw");
+                        section["singlecpu"] = "false";
+                    });
+                }
+
+                // Apply CnC-DDraw
                 bool success = true;
                 try
                 {

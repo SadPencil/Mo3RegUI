@@ -25,6 +25,7 @@ namespace Mo3RegUI.Tasks
         }
         private void _DoWork(AffinityTaskParameter p)
         {
+            // Note: cnc-ddraw comes with "singlecpu=true" which limits the affinity to CPU 0. This is handled in RendererTask.
             const int MAX_THREADS = 24;
             lock (Locks.ClientDefinitions_INI)
             {
