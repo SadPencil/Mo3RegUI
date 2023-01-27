@@ -1,0 +1,39 @@
+name: Build .NET Framework 4.0 App
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+    runs-on: windows-2019  # For a list of available runner types, refer to
+                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    # Download NuGet packages
+    - name: Download NuGet packages
+      run: msbuild Mo3RegUI.sln /t:Restore /p:RestorePackagesConfig=true
+
+    # Build the solution
+    - name: Build the solution
+      run: msbuild Mo3RegUI.sln /t:Rebuild /p:Platform="Any CPU" /p:Configuration=Release /p:DebugSymbols=false /p:DebugType=None /p:AllowedReferenceRelatedFileExtensions=none /p:RunCodeAnalysis=false
+
+    # Upload artifact
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Mo3RegUI-win-net40
+        path: Mo3RegUI/bin/Release/
+        if-no-files-found: error
