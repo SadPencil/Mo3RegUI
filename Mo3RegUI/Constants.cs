@@ -2,8 +2,8 @@
 {
     public static class Constants
     {
-        public const string GameName = "心灵终结 3.3.6";
-        public const string EnglishGameName = "Mental Omega 3.3.6";
+        public const string GameName = "Tiberium Crisis 2";
+        public const string EnglishGameName = "Tiberium Crisis 2";
 
         public const string AppName = GameName + " 注册机";
         public const string EnglishAppName = "Register for " + EnglishGameName;
@@ -20,25 +20,32 @@
 
         public const string NeutralResourcesLanguage = "zh-CN";
 
-        public const string GameConfigIniName = "RA2MO.ini";
-        public const string LauncherExeName = "MentalOmegaClient.exe";
+        public const string GameConfigIniName = "RA2MD.ini";
+        public const string LauncherExeName = "TiberiumCrisis2.exe";
         public const string GameExeName = "gamemd.exe";
         public const string SecondaryGameExeName = "Syringe.exe";
 
         public static readonly string[] VulnerableAvExes = new string[] {
-            "cncnet5.dll",
-            "cncnet5mo.dll",
-            "ares.dll",
-            "Blowfish.dll",
-            "Syringe.exe",
-            "Map Editor/FinalAlert2MO.exe",
-            "Map Editor/Syringe.exe",
-            "Resources/ddraw_dxwnd.dll",
+            "TiberiumCrisis2.exe",
+            "gamemd.exe",
+            "GotoTC.exe",
+            "Ares.dll",
+            "AxionGear.ext",
+            "cncnet5.ext",
+            "Crisis.ext",
+            "GScript.ext",
+            "d3d9.ext",
+            "d3d9_29.ext",
+            "ra2md.csf",
+            "Resources/clientdx.exe",
+            "Resources/clientxna.exe",
+            "Resources/clientogl.exe",
+            "Resources/cnc_ddraw.dll",
         };
 
-        public const bool CheckDirectXRuntime = false;
-        public const string CnCDDrawDllName = "cnc-ddraw.dll";
-        public const string CnCDDrawIniName = "cnc-ddraw.ini";
-        public const bool LauncherExeDpiUnaware = true;
+        public const bool CheckDirectXRuntime = true;
+        public const string CnCDDrawDllName = "cnc_ddraw.dll";
+        public const string CnCDDrawIniName = "cnc_ddraw.ini";
+        public const bool LauncherExeDpiUnaware = false;
     }
 }
