@@ -27,7 +27,7 @@ namespace Mo3RegUI.Tasks
             var Resolution = GetHostingScreenSize();
             lock (Locks.RA2MO_INI)
             {
-                MyIniParserHelper.EditIniFile(Path.Combine(p.GameDir, "RA2MO.INI"), ini =>
+                MyIniParserHelper.EditIniFile(Path.Combine(p.GameDir, Constants.GameConfigIniName), ini =>
                 {
                     var videoSection = MyIniParserHelper.GetSectionOrNew(ini, "Video");
                     videoSection["ScreenWidth"] = Resolution.Width.ToString(CultureInfo.InvariantCulture);

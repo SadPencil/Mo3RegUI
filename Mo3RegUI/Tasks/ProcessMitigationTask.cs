@@ -34,7 +34,7 @@ namespace Mo3RegUI
 
             bool hasASLRTurnedOffForGamemd = false;
             {
-                ConsoleCommandManager.RunConsoleCommand("powershell.exe", "-Command \"Set-ProcessMitigation -Name gamemd.exe -Disable ForceRelocateImages\"", out int exitCode, out string stdOut, out string stdErr);
+                ConsoleCommandManager.RunConsoleCommand("powershell.exe", $"-Command \"Set-ProcessMitigation -Name {Constants.GameExeName} -Disable ForceRelocateImages\"", out int exitCode, out string stdOut, out string stdErr);
 
                 if (!string.IsNullOrWhiteSpace(stdOut))
                 {
@@ -90,7 +90,7 @@ namespace Mo3RegUI
                         ReportMessage(this, new TaskMessageEventArgs()
                         {
                             Level = MessageLevel.Info,
-                            Text = "强制映像虚拟化 (强制性 ASLR) 为默认开启状态，但已经成功为 gamemd.exe 关闭了强制映像虚拟化。",
+                            Text = $"强制映像虚拟化 (强制性 ASLR) 为默认开启状态，但已经成功为 {Constants.GameExeName} 关闭了强制映像虚拟化。",
                         });
                     }
                     else
@@ -98,7 +98,7 @@ namespace Mo3RegUI
                         ReportMessage(this, new TaskMessageEventArgs()
                         {
                             Level = MessageLevel.Warning,
-                            Text = "强制映像虚拟化 (强制性 ASLR) 为默认开启状态，并且为 gamemd.exe 关闭强制映像虚拟化失败。这可能会导致 Ares 无法正常启动。请在 “Windows 安全中心”→“应用和浏览器控制”下找到并关闭“系统设置”选项卡中的“强制映像虚拟化 (强制性 ASLR)”选项，或在“程序设置”选项卡中为游戏文件单独关闭此选项。",
+                            Text = $"强制映像虚拟化 (强制性 ASLR) 为默认开启状态，并且为 {Constants.GameExeName} 关闭强制映像虚拟化失败。这可能会导致 Ares 无法正常启动。请在 “Windows 安全中心”→“应用和浏览器控制”下找到并关闭“系统设置”选项卡中的“强制映像虚拟化 (强制性 ASLR)”选项，或在“程序设置”选项卡中为游戏文件单独关闭此选项。",
                         });
                     }
                 }

@@ -52,7 +52,7 @@ namespace Mo3RegUI.Tasks
                 {
                     lock (Locks.RA2MO_INI)
                     {
-                        MyIniParserHelper.EditIniFile(Path.Combine(p.GameDir, "RA2MO.INI"), ini =>
+                        MyIniParserHelper.EditIniFile(Path.Combine(p.GameDir, Constants.GameConfigIniName), ini =>
                         {
                             var section = MyIniParserHelper.GetSectionOrNew(ini, "Compatibility");
                             section["Renderer"] = "CnC_DDraw";
@@ -69,7 +69,7 @@ namespace Mo3RegUI.Tasks
             ReportMessage(this, new TaskMessageEventArgs()
             {
                 Level = MessageLevel.Info,
-                Text = "提示：如果有需要，可以从心灵终结客户端内更改渲染补丁设置。\n在 Windows 8/10/11 系统上建议始终使用现代的渲染补丁，如 TS-DDraw、CnC-DDraw。"
+                Text = $"提示：如果有需要，可以从 {Constants.GameName} 客户端内更改渲染补丁设置。\n在 Windows 8/10/11 系统上建议始终使用现代的渲染补丁，如 TS-DDraw、CnC-DDraw。"
             });
 
         }

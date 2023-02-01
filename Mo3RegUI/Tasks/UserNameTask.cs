@@ -27,7 +27,7 @@ namespace Mo3RegUI.Tasks
         {
             lock (Locks.RA2MO_INI)
             {
-                MyIniParserHelper.EditIniFile(Path.Combine(p.GameDir, "RA2MO.INI"), ini =>
+                MyIniParserHelper.EditIniFile(Path.Combine(p.GameDir, Constants.GameConfigIniName), ini =>
                 {
                     // Get username from RA2MO.ini
                     var section = MyIniParserHelper.GetSectionOrNew(ini, "MultiPlayer");
@@ -45,7 +45,7 @@ namespace Mo3RegUI.Tasks
                         ReportMessage(this, new TaskMessageEventArgs()
                         {
                             Level = MessageLevel.Warning,
-                            Text = "注意，当前玩家昵称 \"" + username + "\" 包含非 ASCII 字符。如果玩家昵称完全不包含任何 ASCII 字符，Ares 3.0 将会崩溃。",
+                            Text = "注意，当前玩家昵称 \"" + username + "\" 包含非 ASCII 字符。如果玩家昵称完全不包含任何 ASCII 字符，Ares 3.0 等引擎将会崩溃。",
                         });
                     }
 

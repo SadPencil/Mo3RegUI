@@ -35,7 +35,7 @@ namespace Mo3RegUI.Tasks
             }
 
             foreach (string exePath in new string[] {
-                    Path.Combine(p.GameDir, "gamemd.exe"),
+                    Path.Combine(p.GameDir, Constants.GameExeName),
                 })
             {
                 string ExePathHash32 = GetExePathHashHex32(exePath);

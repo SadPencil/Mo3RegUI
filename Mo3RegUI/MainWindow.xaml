@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mo3RegUI"
         mc:Ignorable="d"
-        Title="{x:Static local:Constants.Name}" Height="450" Width="800" Initialized="Window_Initialized" Closing="Window_Closing" WindowStartupLocation="CenterScreen" >
+        Title="{x:Static local:Constants.AppName}" Height="450" Width="800" Initialized="Window_Initialized" Closing="Window_Closing" WindowStartupLocation="CenterScreen" >
     <Window.DataContext>
         <local:MessagesViewModel />
     </Window.DataContext>
@@ -32,11 +32,11 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Image Source="soviet.png" Height="22" VerticalAlignment="Center"/>
-                <TextBlock Margin="5" Text="{x:Static local:Constants.Name}" FontSize="22"  VerticalAlignment="Bottom"/>
+                <TextBlock Margin="5" Text="{x:Static local:Constants.AppName}" FontSize="22"  VerticalAlignment="Bottom"/>
                 <TextBlock Margin="5" Text="{x:Static local:Constants.Version}" FontSize="20"  VerticalAlignment="Bottom"/>
 
                 <TextBlock Margin="5" VerticalAlignment="Bottom" FontSize="20">By:</TextBlock>
-                <TextBlock Margin="5" Text="{x:Static local:Constants.Author}" FontSize="20" VerticalAlignment="Bottom"/>
+                <TextBlock Margin="5" Text="{x:Static local:Constants.AuthorName}" FontSize="20" VerticalAlignment="Bottom"/>
 
             </StackPanel>
             <Button x:Name="GitHubUrlButton" Grid.Column="1" Margin="5" FontSize="14" VerticalAlignment="Bottom" Click="GitHubUrlButton_Click">

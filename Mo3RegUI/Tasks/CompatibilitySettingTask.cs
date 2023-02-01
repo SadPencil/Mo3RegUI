@@ -24,7 +24,7 @@ namespace Mo3RegUI.Tasks
         private void _DoWork(CompatibilitySettingTaskParameter p)
         {
             foreach (string exePath in new string[] {
-                    Path.Combine(p.GameDir, "gamemd.exe"),
+                    Path.Combine(p.GameDir, Constants.GameExeName),
                     Path.Combine(p.GameDir, "Syringe.exe"),
                 })
             {
@@ -33,7 +33,7 @@ namespace Mo3RegUI.Tasks
             }
 
             foreach (string exePath in new string[] {
-                    Path.Combine(p.GameDir, "MentalOmegaClient.exe"),
+                    Path.Combine(p.GameDir, Constants.LauncherExeName),
                 })
             {
                 using var registryKey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers");

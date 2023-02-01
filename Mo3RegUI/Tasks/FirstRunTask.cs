@@ -24,7 +24,7 @@ namespace Mo3RegUI.Tasks
         {
             lock (Locks.RA2MO_INI)
             {
-                MyIniParserHelper.EditIniFile(Path.Combine(p.GameDir, "RA2MO.INI"), ini =>
+                MyIniParserHelper.EditIniFile(Path.Combine(p.GameDir, Constants.GameConfigIniName), ini =>
                 {
                     var optionSection = MyIniParserHelper.GetSectionOrNew(ini, "Options");
                     optionSection["IsFirstRun"] = "False";

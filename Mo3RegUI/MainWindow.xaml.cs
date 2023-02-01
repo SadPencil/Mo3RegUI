@@ -35,14 +35,14 @@ namespace Mo3RegUI
             // Ensure the program runs at the game folder
 #if !DEBUG
             foreach (string exePath in new string[] {
-                    Path.Combine(gameDir, "gamemd.exe"),
-                    Path.Combine(gameDir, "MentalOmegaClient.exe"),
+                    Path.Combine(gameDir, Constants.GameExeName),
+                    Path.Combine(gameDir, Constants.LauncherExeName),
                 })
             {
                 if (!File.Exists(exePath))
                 {
                     MessageBox.Show(this,
-                        $"{Constants.Name} 可能不在游戏目录。请确保将 {Constants.Name} 的文件复制到游戏目录后再执行。找不到 {exePath} 文件。",
+                        $"{Constants.AppName} 可能不在游戏目录。请确保将 {Constants.AppName} 的文件复制到游戏目录后再执行。找不到 {exePath} 文件。",
                         "错误", MessageBoxButton.OK, MessageBoxImage.Error);
                     Environment.Exit(1);
                     return;
@@ -87,12 +87,12 @@ namespace Mo3RegUI
 
                 if (waitCount == 0)
                 {
-                    this.Title = $"{Constants.Name}";
+                    this.Title = $"{Constants.AppName}";
                     MessageBox.Show(this, "执行完毕。请仔细阅读深红色的警告和错误文字，再关闭此窗口。", "执行完毕", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
-                    this.Title = $"{Constants.Name} [ 剩余任务: {waitCount} ]";
+                    this.Title = $"{Constants.AppName} [ 剩余任务: {waitCount} ]";
                 }
             };
             this.mainTaskManager.RunAsync();
@@ -103,7 +103,7 @@ namespace Mo3RegUI
             if ((this.mainTaskManager?.WaitCount).GetValueOrDefault() > 0)
             {
                 var ret = MessageBox.Show(this,
-                    $"{Constants.Name} 正在设置兼容性和配置游戏选项，且尚未运行完毕。确定要中止注册机的运行吗？",
+                    $"{Constants.AppName} 正在设置兼容性和配置游戏选项，且尚未运行完毕。确定要中止注册机的运行吗？",
                     "警告", MessageBoxButton.YesNoCancel, MessageBoxImage.Exclamation, MessageBoxResult.No);
                 if (ret != MessageBoxResult.Yes)
                 {
