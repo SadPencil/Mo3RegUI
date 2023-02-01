@@ -34,5 +34,7 @@
             "Map Editor/Syringe.exe",
             "Resources/ddraw_dxwnd.dll",
         };
+
+        public const bool CheckDirectXRuntime = false;
     }
 }

@@ -75,6 +75,11 @@ namespace Mo3RegUI
                 new TaskInstance(){Task = new FalsePositiveTask(), Parameter = new FalsePositiveTaskParameter(){ GameDir = gameDir}},
              };
 
+            if (Constants.CheckDirectXRuntime)
+            {
+                tasks.Add(new TaskInstance() { Task = new DirectXRuntimeTask(), Parameter = new DirectXRuntimeTaskParameter() });
+            }
+
             this.mainTaskManager = new TaskManager(tasks);
             this.mainTaskManager.ReportMessage += (task_sender, task_e) =>
             {

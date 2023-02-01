@@ -78,6 +78,7 @@
     <Compile Include="MessageLevelToFontWeightConverter.cs" />
     <Compile Include="MessagesViewModel.cs" />
     <Compile Include="Tasks\DDrawDLLTask.cs" />
+    <Compile Include="Tasks\DirectXRuntimeTask.cs" />
     <Compile Include="Tasks\ProcessMitigationTask.cs" />
     <Compile Include="Tasks\RemoveObsoleteFilesTask.cs" />
     <Compile Include="Tasks\TaskCompletedEventArgs.cs" />
