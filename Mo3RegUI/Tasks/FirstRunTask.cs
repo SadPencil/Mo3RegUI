@@ -26,13 +26,17 @@ namespace Mo3RegUI.Tasks
             {
                 MyIniParserHelper.EditIniFile(Path.Combine(p.GameDir, "RA2MO.INI"), ini =>
                 {
+                    var optionSection = MyIniParserHelper.GetSectionOrNew(ini, "Options");
+                    optionSection["IsFirstRun"] = "False";
+
+                    var audioSection = MyIniParserHelper.GetSectionOrNew(ini, "Audio");
+                    if (audioSection.ContainsKey("ClientVolume"))
                     {
-                        var section = MyIniParserHelper.GetSectionOrNew(ini, "Options");
-                        section["IsFirstRun"] = "False";
-                    }
-                    {
-                        var section = MyIniParserHelper.GetSectionOrNew(ini, "Audio");
-                        section["ClientVolume"] = "0.8"; // The number is between 0 to 1. The value shipped with MO 3.3.0 is wrong.
+                        bool valueIsNumber = double.TryParse(audioSection["ClientVolume"], out double value);
+                        if (!valueIsNumber || value > 1 || value < 0)
+                        {
+                            audioSection["ClientVolume"] = "0.8"; // The volume must be between 0 and 1. The value shipped with MO 3.3.0 is wrong.
+                        }
                     }
                 });
             }
