@@ -72,7 +72,10 @@ namespace Mo3RegUI.Tasks
                 string message = $"进程返回值 {exitCode}。执行失败。";
                 ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Error, Text = message });
             }
-            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "注册 Blowfish.dll 成功。" });
+            else
+            {
+                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "注册 Blowfish.dll 成功。" });
+            }
         }
 
         //[DllImport("Blowfish.dll")]
