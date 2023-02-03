@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Mo3RegUI.Tasks
@@ -23,18 +24,29 @@ namespace Mo3RegUI.Tasks
         }
         private void _DoWork(CompatibilitySettingTaskParameter p)
         {
-            foreach (string exePath in new string[] {
-                    Path.Combine(p.GameDir, Constants.GameExeName),
-                    Path.Combine(p.GameDir, Constants.SecondaryGameExeName),
-                })
+            var dpiAwareExePath = new List<string> {
+                Path.Combine(p.GameDir, Constants.GameExeName),
+                Path.Combine(p.GameDir, Constants.SecondaryGameExeName),
+            };
+            var dpiUnawareExePath = new List<string>
+            {
+            };
+            if (Constants.LauncherExeDpiUnaware)
+            {
+                dpiUnawareExePath.Add(Path.Combine(p.GameDir, Constants.LauncherExeName));
+            }
+            else
+            {
+                dpiAwareExePath.Add(Path.Combine(p.GameDir, Constants.LauncherExeName));
+            }
+
+            foreach (string exePath in dpiAwareExePath)
             {
                 using var registryKey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers");
                 registryKey.SetValue(exePath, "~ RUNASADMIN HIGHDPIAWARE");
             }
 
-            foreach (string exePath in new string[] {
-                    Path.Combine(p.GameDir, Constants.LauncherExeName),
-                })
+            foreach (string exePath in dpiUnawareExePath)
             {
                 using var registryKey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers");
                 registryKey.SetValue(exePath, "~ RUNASADMIN DPIUNAWARE");
