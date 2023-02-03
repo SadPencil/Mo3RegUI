@@ -25,7 +25,7 @@ namespace Mo3RegUI.Tasks
         {
             foreach (string exePath in new string[] {
                     Path.Combine(p.GameDir, Constants.GameExeName),
-                    Path.Combine(p.GameDir, "Syringe.exe"),
+                    Path.Combine(p.GameDir, Constants.SecondaryGameExeName),
                 })
             {
                 using var registryKey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers");

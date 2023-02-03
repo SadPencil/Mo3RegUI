@@ -23,6 +23,7 @@
         public const string GameConfigIniName = "RA2MO.ini";
         public const string LauncherExeName = "MentalOmegaClient.exe";
         public const string GameExeName = "gamemd.exe";
+        public const string SecondaryGameExeName = "Syringe.exe";
 
         public static readonly string[] VulnerableAvExes = new string[] {
             "cncnet5.dll",
