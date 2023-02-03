@@ -1,7 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Globalization;
-using System.Xml.Linq;
 
 namespace Mo3RegUI.Tasks
 {
