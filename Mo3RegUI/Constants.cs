@@ -37,5 +37,8 @@
         };
 
         public const bool CheckDirectXRuntime = false;
+        public const string CnCDDrawDllName = "cnc-ddraw.dll";
+        public const string CnCDDrawIniName = "cnc-ddraw.ini";
+
     }
 }
