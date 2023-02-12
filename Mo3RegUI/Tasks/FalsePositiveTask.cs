@@ -24,9 +24,10 @@ namespace Mo3RegUI.Tasks
         {
             foreach (string avExe in Constants.VulnerableAvExes)
             {
-                if (!File.Exists(Path.Combine(p.GameDir, avExe.Replace('/', Path.DirectorySeparatorChar))))
+                string avExeReplaced = avExe.Replace('/', Path.DirectorySeparatorChar);
+                if (!File.Exists(Path.Combine(p.GameDir, avExeReplaced)))
                 {
-                    throw new Exception("游戏文件不全。请检查杀毒软件日志，将游戏目录添加到杀毒软件白名单中，或者更换其他杀毒软件，然后重新安装游戏。");
+                    throw new Exception($"游戏文件不全。找不到 {avExeReplaced} 文件。请检查杀毒软件日志，将游戏目录添加到杀毒软件白名单中，或者更换其他杀毒软件，然后重新安装游戏。");
                 }
             }
         }
