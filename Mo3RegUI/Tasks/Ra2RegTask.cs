@@ -52,10 +52,16 @@ namespace Mo3RegUI.Tasks
 
             ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "写入注册表成功。" });
 
+            string blowfishPath = Path.Combine(p.GameDir, "Blowfish.dll");
             // Register blowfish
             //_ = DllRegisterServer(); // this failed
 
-            ConsoleCommandManager.RunConsoleCommand("regsvr32.exe", "/s Blowfish.dll", out int exitCode, out string stdOut, out string stdErr);
+            if (!File.Exists(blowfishPath))
+            {
+                throw new Exception("找不到 Blowfish.dll 文件。");
+            }
+
+            ConsoleCommandManager.RunConsoleCommand("regsvr32.exe", $"/s \"{blowfishPath}\"", out int exitCode, out string stdOut, out string stdErr);
 
             if (!string.IsNullOrWhiteSpace(stdOut))
             {
