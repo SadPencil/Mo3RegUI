@@ -55,7 +55,7 @@ namespace Mo3RegUI.Tasks
                         MyIniParserHelper.EditIniFile(Path.Combine(p.GameDir, Constants.GameConfigIniName), ini =>
                         {
                             var section = MyIniParserHelper.GetSectionOrNew(ini, "Compatibility");
-                            section["Renderer"] = "CnC_DDraw";
+                            section["Renderer"] = Constants.CnCDDrawSectionName;
                         });
                     }
                 }

@@ -61,23 +61,38 @@ namespace Mo3RegUI
                 new TaskInstance(){Task = new Ra2RegTask(), Parameter = new Ra2RegTaskParameter(){ GameDir = gameDir}},
                 new TaskInstance(){Task = new QResTask(), Parameter = new QResTaskParameter(){ GameDir = gameDir}},
                 new TaskInstance(){Task = new FirewallSettingTask(), Parameter = new FirewallSettingTaskParameter(){ GameDir = gameDir}},
-                new TaskInstance(){Task = new FirstRunTask(), Parameter = new FirstRunTaskParameter(){ GameDir = gameDir}},
-                new TaskInstance(){Task = new UserNameTask(), Parameter = new UserNameTaskParameter(){ GameDir = gameDir}},
-                new TaskInstance(){Task = new ResolutionTask(), Parameter = new ResolutionTaskParameter(){ GameDir = gameDir}},
-                new TaskInstance(){Task = new RendererTask(), Parameter = new RendererTaskParameter(){ GameDir = gameDir}},
                 new TaskInstance(){Task = new DDrawDLLTask(), Parameter = new DDrawDLLTaskParameter()},
                 new TaskInstance(){Task = new RemoveObsoleteFilesTask(), Parameter = new RemoveObsoleteFilesTaskParameter(){ GameDir = gameDir}},
                 new TaskInstance(){Task = new XboxGameBarTask(), Parameter = new XboxGameBarTaskParameter()},
                 new TaskInstance(){Task = new CompatibilitySettingTask(), Parameter = new CompatibilitySettingTaskParameter(){ GameDir = gameDir}},
-                new TaskInstance(){Task = new ChinaNetworkTask(), Parameter = new ChinaNetworkTaskParameter(){ GameDir = gameDir}},
                 new TaskInstance(){Task = new AffinityTask(), Parameter = new AffinityTaskParameter(){ GameDir = gameDir}},
                 new TaskInstance(){Task = new NetworkInterfaceTask(), Parameter = new NetworkInterfaceTaskParameter()},
                 new TaskInstance(){Task = new FalsePositiveTask(), Parameter = new FalsePositiveTaskParameter(){ GameDir = gameDir}},
              };
 
-            if (Constants.CheckDirectXRuntime)
+            if (Constants.DirectXRuntimeTaskEnabled)
             {
                 tasks.Add(new TaskInstance() { Task = new DirectXRuntimeTask(), Parameter = new DirectXRuntimeTaskParameter() });
+            }
+            if (Constants.FirstRunTaskEnabled)
+            {
+                tasks.Add(new TaskInstance() { Task = new FirstRunTask(), Parameter = new FirstRunTaskParameter() { GameDir = gameDir } });
+            }
+            if (Constants.ChinaNetworkTaskEnabled)
+            {
+                tasks.Add(new TaskInstance() { Task = new ChinaNetworkTask(), Parameter = new ChinaNetworkTaskParameter() { GameDir = gameDir } });
+            }
+            if (Constants.RendererTaskEnabled)
+            {
+                tasks.Add(new TaskInstance() { Task = new RendererTask(), Parameter = new RendererTaskParameter() { GameDir = gameDir } });
+            }
+            if (Constants.ResolutionTaskEnabled)
+            {
+                tasks.Add(new TaskInstance() { Task = new ResolutionTask(), Parameter = new ResolutionTaskParameter() { GameDir = gameDir } });
+            }
+            if (Constants.UserNameTaskEnabled)
+            {
+                tasks.Add(new TaskInstance() { Task = new UserNameTask(), Parameter = new UserNameTaskParameter() { GameDir = gameDir } });
             }
 
             this.mainTaskManager = new TaskManager(tasks);
