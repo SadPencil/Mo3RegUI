@@ -35,7 +35,7 @@
             "Crisis.ext",
             "GScript.ext",
             "d3d9.ext",
-            "d3d9_29.ext",
+            "d3dx9_29.ext",
             "ra2md.csf",
             "Resources/clientdx.exe",
             "Resources/clientxna.exe",
