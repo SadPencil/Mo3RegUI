@@ -8,8 +8,8 @@
         public const string AppName = GameName + " 注册机";
         public const string EnglishAppName = "Register for " + EnglishGameName;
 
-        public const string Version = "v2.2.0";
-        public const string AssemblyVersion = "2.2.0.0";
+        public const string Version = "v2.2.1";
+        public const string AssemblyVersion = "2.2.1.0";
 
         public const string CopyrightYearFrom = "2019";
         public const string CopyrightYearTo = "2023";
@@ -23,12 +23,12 @@
         public const string GameConfigIniName = "RA2MD.ini";
         public const string LauncherExeName = "TiberiumCrisis.exe";
         public const string GameExeName = "gamemd.exe";
-        public const string SecondaryGameExeName = "Syringe.exe";
+        public const string SecondaryGameExeName = "GotoTC.exe";
 
         public static readonly string[] VulnerableAvExes = new string[] {
-            "TiberiumCrisis.exe",
-            "gamemd.exe",
-            "GotoTC.exe",
+            LauncherExeName,
+            GameExeName,
+            SecondaryGameExeName,
             "Ares.dll",
             "AxionGear.ext",
             "cncnet5.ext",
