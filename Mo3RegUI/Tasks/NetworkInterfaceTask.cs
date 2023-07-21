@@ -24,7 +24,7 @@ namespace Mo3RegUI.Tasks
 
         private void _DoWork(NetworkInterfaceTaskParameter p)
         {
-            var InterfaceIPv4s = new Dictionary<string, List<System.Net.IPAddress>>();
+            var interfaceIPv4s = new List<Tuple<string, List<System.Net.IPAddress>>>();
 
             foreach (var ni in NetworkInterface.GetAllNetworkInterfaces())
             {
@@ -42,18 +42,20 @@ namespace Mo3RegUI.Tasks
                 }
                 if (IPv4s.Count > 0)
                 {
-                    InterfaceIPv4s.Add(ni.Name, IPv4s);
+                    interfaceIPv4s.Add(new Tuple<string, List<System.Net.IPAddress>>(ni.Name, IPv4s));
                 }
             }
 
-            if (InterfaceIPv4s.Count > 1)
+            if (interfaceIPv4s.Count > 1)
             {
                 var ips = new StringBuilder();
-                foreach (var kv in InterfaceIPv4s)
+                foreach (var kv in interfaceIPv4s)
                 {
-                    foreach (var vv in kv.Value)
+                    var interfaceName = kv.Item1;
+                    var addresses = kv.Item2;
+                    foreach (var addr in addresses)
                     {
-                        _ = ips.Append("\n" + kv.Key + " --- " + vv.ToString());
+                        _ = ips.Append("\n" + interfaceName + " --- " + addr.ToString());
                     }
                 }
 
