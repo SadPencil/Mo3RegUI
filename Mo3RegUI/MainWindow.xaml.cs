@@ -65,6 +65,7 @@ namespace Mo3RegUI
                 new TaskInstance(){Task = new UserNameTask(), Parameter = new UserNameTaskParameter(){ GameDir = gameDir}},
                 new TaskInstance(){Task = new ResolutionTask(), Parameter = new ResolutionTaskParameter(){ GameDir = gameDir}},
                 new TaskInstance(){Task = new RendererTask(), Parameter = new RendererTaskParameter(){ GameDir = gameDir}},
+                new TaskInstance(){Task = new SpeakerNumTask(), Parameter = new SpeakerNumTaskParameter()},
                 new TaskInstance(){Task = new DDrawDLLTask(), Parameter = new DDrawDLLTaskParameter()},
                 new TaskInstance(){Task = new RemoveObsoleteFilesTask(), Parameter = new RemoveObsoleteFilesTaskParameter(){ GameDir = gameDir}},
                 new TaskInstance(){Task = new XboxGameBarTask(), Parameter = new XboxGameBarTaskParameter()},

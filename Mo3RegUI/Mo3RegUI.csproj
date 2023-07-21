@@ -81,6 +81,7 @@
     <Compile Include="Tasks\DirectXRuntimeTask.cs" />
     <Compile Include="Tasks\ProcessMitigationTask.cs" />
     <Compile Include="Tasks\RemoveObsoleteFilesTask.cs" />
+    <Compile Include="Tasks\SpeakerNumTask.cs" />
     <Compile Include="Tasks\TaskCompletedEventArgs.cs" />
     <Compile Include="Tasks\TaskInstance.cs" />
     <Compile Include="Tasks\AffinityTask.cs" />
