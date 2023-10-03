@@ -8,8 +8,8 @@
         public const string AppName = GameName + " 注册机";
         public const string EnglishAppName = "Register for " + EnglishGameName;
 
-        public const string Version = "v2.3.0";
-        public const string AssemblyVersion = "2.3.0.0";
+        public const string Version = "v2.4.0";
+        public const string AssemblyVersion = "2.4.0.0";
 
         public const string CopyrightYearFrom = "2019";
         public const string CopyrightYearTo = "2023";
