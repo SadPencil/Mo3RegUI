@@ -51,7 +51,7 @@ namespace Mo3RegUI.Tasks
                 var ips = new StringBuilder();
                 foreach (var kv in interfaceIPv4s)
                 {
-                    var interfaceName = kv.Item1;
+                    string interfaceName = kv.Item1;
                     var addresses = kv.Item2;
                     foreach (var addr in addresses)
                     {

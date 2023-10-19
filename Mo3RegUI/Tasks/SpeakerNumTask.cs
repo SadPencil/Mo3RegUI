@@ -20,7 +20,7 @@ namespace Mo3RegUI.Tasks
         }
         private void _DoWork(SpeakerNumTaskParameter p)
         {
-            var num = NativeMethods.waveOutGetNumDevs();
+            uint num = NativeMethods.waveOutGetNumDevs();
             if (num == 0)
             {
                 throw new Exception("当前系统不存在任何声音输出设备。请连接耳机或音箱后再进入游戏，否则游戏有可能会崩溃。");
