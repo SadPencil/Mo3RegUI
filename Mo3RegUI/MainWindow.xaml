@@ -31,7 +31,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Image Source="soviet.png" Height="22" VerticalAlignment="Center"/>
+                <Image Source="tc2icon.png" Height="22" VerticalAlignment="Center"/>
                 <TextBlock Margin="5" Text="{x:Static local:Constants.AppName}" FontSize="22"  VerticalAlignment="Bottom"/>
                 <TextBlock Margin="5" Text="{x:Static local:Constants.Version}" FontSize="20"  VerticalAlignment="Bottom"/>
 
