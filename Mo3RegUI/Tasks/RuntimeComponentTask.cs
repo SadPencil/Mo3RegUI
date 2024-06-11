@@ -129,7 +129,7 @@ namespace Mo3RegUI.Tasks
         {
             try
             {
-                using var key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full", false); ;
+                using var key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full", false);
                 object installValue = key?.GetValue("Release");
                 return installValue != null ? (int)installValue : null;
             }

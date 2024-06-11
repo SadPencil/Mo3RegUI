@@ -30,4 +30,13 @@
 
     }
 
+    public partial class NativeMethods
+    {
+
+        /// Return Type: UINT->unsigned int
+        [System.Runtime.InteropServices.DllImportAttribute("winmm.dll", EntryPoint = "waveOutGetNumDevs")]
+        public static extern uint waveOutGetNumDevs();
+
+    }
+
 }
