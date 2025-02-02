@@ -12,7 +12,7 @@
         public const string AssemblyVersion = "2.4.1.0";
 
         public const string CopyrightYearFrom = "2019";
-        public const string CopyrightYearTo = "2023";
+        public const string CopyrightYearTo = "2025";
 
         public const string AuthorName = "伤心的笔"; // You are not supposed to remove the name here. Append your name if you have made significant changes.
         public const string EnglishAuthorName = "SadPencil"; // You are not supposed to remove the name here. Append your name if you have made significant changes.
@@ -30,21 +30,30 @@
             //GameExeName,
             SecondaryGameExeName,
             "Ares.dll",
+            "Ares.dll.inj",
             "AxionGear.ext",
             "cncnet5.ext",
             "Crisis.ext",
             "Crisis.ext.inc",
             "GScript.ext",
+            "Phobos.ext",
             "d3dx9_29.ext",
             "ra2md.csf",
+            "stringtable02.csf",
+            "stringtable03.csf",
             "Resources/d3d9.ext",
             "Resources/mainexecutable.exe",
             "Resources/mainexecutable2.exe",
             "Resources/mainexecutable3.exe",
+            "Resources/cnc_ddraw.dll",
             "Resources/clientdx.exe",
             "Resources/clientxna.exe",
             "Resources/clientogl.exe",
-            "Resources/cnc_ddraw.dll",
+            "GameShaders/BaseShared/tchelper/tchelper.exe",
+            "GameShaders/BaseShared/tchelper/TCHelper.dll",
+            "gamemd.exe",
+            "BINKW32.dll",
+            "Blowfish.dll",
         };
 
         public const bool DirectXRuntimeTaskEnabled = true;
