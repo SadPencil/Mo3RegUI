@@ -77,6 +77,7 @@
     <Compile Include="MessageLevelToBrushConverter.cs" />
     <Compile Include="MessageLevelToFontWeightConverter.cs" />
     <Compile Include="MessagesViewModel.cs" />
+    <Compile Include="NativeConstants.cs" />
     <Compile Include="Tasks\DDrawDLLTask.cs" />
     <Compile Include="Tasks\DirectXRuntimeTask.cs" />
     <Compile Include="Tasks\ForegroundLockTimeoutTask.cs" />
