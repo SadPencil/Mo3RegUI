@@ -53,7 +53,7 @@
             "GameShaders/BaseShared/tchelper/TCHelper.dll",
             "gamemd.exe",
             "BINKW32.dll",
-            "Blowfish.dll"
+            "Blowfish.dll",
         };
 
         public const bool DirectXRuntimeTaskEnabled = true;
