@@ -75,15 +75,15 @@ namespace Mo3RegUI.Tasks
                 });
             }
 
-            int? net45plus = GetInstalledNetFramework45VersionNumber();
-            bool isDotNet45Installed = net45plus.GetValueOrDefault() >= NET_FRAMEWORK_4_5_RELEASE_KEY;
-            // Future: Remove .NET 4.5 check for MO 3.3.7
-            if (!isDotNet45Installed && Environment.OSVersion.Version.Major < 6)
+            int? net46plus = GetInstalledNetFramework46VersionNumber();
+            bool isDotNet46Installed = net46plus.GetValueOrDefault() >= NET_FRAMEWORK_4_6_RELEASE_KEY;
+
+            if (!isDotNet46Installed && Environment.OSVersion.Version.Major < 6)
             {
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Error,
-                    Text = "当前 .NET Framework 4 的版本号低于 4.5。",
+                    Text = "当前 .NET Framework 4 的版本号低于 4.6。",
                 });
             }
 
@@ -125,7 +125,7 @@ namespace Mo3RegUI.Tasks
             //}
         }
 
-        private static int? GetInstalledNetFramework45VersionNumber()
+        private static int? GetInstalledNetFramework46VersionNumber()
         {
             try
             {

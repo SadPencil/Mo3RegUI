@@ -30,8 +30,8 @@ namespace Mo3RegUI.Tasks
                 MyIniParserHelper.EditIniFile(Path.Combine(p.GameDir, Constants.GameConfigIniName), ini =>
                 {
                     var videoSection = MyIniParserHelper.GetSectionOrNew(ini, "Video");
-                    videoSection["ScreenWidth"] = Resolution.Width.ToString(CultureInfo.InvariantCulture);
-                    videoSection["ScreenHeight"] = Resolution.Height.ToString(CultureInfo.InvariantCulture);
+                    videoSection["FakeScreenWidth"] = Resolution.Width.ToString(CultureInfo.InvariantCulture);
+                    videoSection["FakeScreenHeight"] = Resolution.Height.ToString(CultureInfo.InvariantCulture);
                 });
             }
             ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "设置游戏分辨率为 " + Resolution.Width.ToString() + "×" + Resolution.Height.ToString() + "。" });
