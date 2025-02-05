@@ -33,6 +33,7 @@
             "Ares.dll.inj",
             "AxionGear.ext",
             "cncnet5.ext",
+            "gamemd.ext",
             "Crisis.ext",
             "Crisis.ext.inc",
             "GScript.ext",
