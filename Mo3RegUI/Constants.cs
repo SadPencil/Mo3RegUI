@@ -8,8 +8,8 @@
         public const string AppName = GameName + " 注册机";
         public const string EnglishAppName = "Register for " + EnglishGameName;
 
-        public const string Version = "v2.4.1";
-        public const string AssemblyVersion = "2.4.1.0";
+        public const string Version = "v2.4.2";
+        public const string AssemblyVersion = "2.4.2.0";
 
         public const string CopyrightYearFrom = "2019";
         public const string CopyrightYearTo = "2025";
@@ -33,6 +33,7 @@
             "Ares.dll.inj",
             "AxionGear.ext",
             "cncnet5.ext",
+            "gamemd.ext",
             "Crisis.ext",
             "Crisis.ext.inc",
             "GScript.ext",
