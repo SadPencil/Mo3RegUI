@@ -2,14 +2,14 @@
 {
     public static class Constants
     {
-        public const string GameName = "Tiberium Crisis 2";
+        public const string GameName = "泰矿危机2";
         public const string EnglishGameName = "Tiberium Crisis 2";
 
         public const string AppName = GameName + " 注册机";
         public const string EnglishAppName = "Register for " + EnglishGameName;
 
-        public const string Version = "v2.4.2";
-        public const string AssemblyVersion = "2.4.2.0";
+        public const string Version = "v1.10";
+        public const string AssemblyVersion = "1.10";
 
         public const string CopyrightYearFrom = "2019";
         public const string CopyrightYearTo = "2025";
@@ -29,6 +29,7 @@
             LauncherExeName,
             //GameExeName,
             SecondaryGameExeName,
+            "clientupdt.dat",
             "Ares.dll",
             "Ares.dll.inj",
             "AxionGear.ext",
@@ -40,8 +41,8 @@
             "Phobos.ext",
             "d3dx9_29.ext",
             "ra2md.csf",
-            "stringtable02.csf",
-            "stringtable03.csf",
+            "stringtable00.csf",
+            "stringtable01.csf",
             "Resources/d3d9.ext",
             "Resources/mainexecutable.exe",
             "Resources/mainexecutable2.exe",
