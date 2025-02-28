@@ -71,7 +71,7 @@
 
         public const bool LauncherExeDpiUnaware = false;
 
-        public const bool DetectDotNet35 = false;
+        public const bool DetectDotNet35 = true;
         public const bool DetectXna40 = false;
     }
 }
