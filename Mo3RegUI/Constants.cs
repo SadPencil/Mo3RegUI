@@ -39,7 +39,7 @@
             "Crisis.ext.inc",
             "GScript.ext",
             "Phobos.ext",
-            "d3dx9_29.ext",
+            "d3dx9_29.dll",
             "ra2md.csf",
             "stringtable00.csf",
             "stringtable01.csf",
