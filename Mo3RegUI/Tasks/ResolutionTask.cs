@@ -33,7 +33,7 @@ namespace Mo3RegUI.Tasks
             ScreenResolution finalResolution;
             {
                 if (maxResolution.Fits(hostResolution))
-                    finalResolution = maxResolution;
+                    finalResolution = hostResolution;
                 else
                     finalResolution = fallbackResolutionIfTooLarge;
             }
