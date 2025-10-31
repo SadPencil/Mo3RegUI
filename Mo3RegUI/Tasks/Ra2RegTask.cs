@@ -85,6 +85,10 @@ namespace Mo3RegUI.Tasks
                     ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "注册 Blowfish.dll 成功。" });
                 }
             }
+            else
+            {
+                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "无需注册 Blowfish.dll。" });
+            }
 
         }
 
