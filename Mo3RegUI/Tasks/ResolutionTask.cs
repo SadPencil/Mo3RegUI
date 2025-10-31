@@ -27,6 +27,8 @@ namespace Mo3RegUI.Tasks
         private void _DoWork(ResolutionTaskParameter p)
         {
             ScreenResolution hostResolution = ScreenResolution.GetDesktopScreenResolution();
+            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "检测到桌面分辨率为 " + hostResolution.Width.ToString() + "×" + hostResolution.Height.ToString() + "。" });
+
             ScreenResolution maxResolution = "1920x1200";
             ScreenResolution fallbackResolutionIfTooLarge = "1920x1080";
 
