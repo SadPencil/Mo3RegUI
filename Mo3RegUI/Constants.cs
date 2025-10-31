@@ -2,17 +2,17 @@
 {
     public static class Constants
     {
-        public const string GameName = "心灵终结 3.3.6";
-        public const string EnglishGameName = "Mental Omega 3.3.6";
+        public const string GameName = "心灵终结 3.3.7";
+        public const string EnglishGameName = "Mental Omega 3.3.7";
 
         public const string AppName = GameName + " 注册机";
         public const string EnglishAppName = "Register for " + EnglishGameName;
 
-        public const string Version = "v2.4.1";
-        public const string AssemblyVersion = "2.4.1.0";
+        public const string Version = "v2.5.0";
+        public const string AssemblyVersion = "2.5.0.0";
 
         public const string CopyrightYearFrom = "2019";
-        public const string CopyrightYearTo = "2023";
+        public const string CopyrightYearTo = "2025";
 
         public const string AuthorName = "伤心的笔"; // You are not supposed to remove the name here. Append your name if you have made significant changes.
         public const string EnglishAuthorName = "SadPencil"; // You are not supposed to remove the name here. Append your name if you have made significant changes.
@@ -22,14 +22,14 @@
 
         public const string GameConfigIniName = "RA2MO.ini";
         public const string LauncherExeName = "MentalOmegaClient.exe";
-        public const string GameExeName = "gamemd.exe";
+        public const string GameExeName = "gamemo.exe";
         public const string SecondaryGameExeName = "Syringe.exe";
 
         public static readonly string[] VulnerableAvExes = new string[] {
             "cncnet5.dll",
             "cncnet5mo.dll",
             "ares.dll",
-            "Blowfish.dll",
+            "Phobos.dll",
             "Syringe.exe",
             "Map Editor/FinalAlert2MO.exe",
             "Map Editor/Syringe.exe",
@@ -39,6 +39,8 @@
         public const bool CheckDirectXRuntime = false;
         public const string CnCDDrawDllName = "cnc-ddraw.dll";
         public const string CnCDDrawIniName = "cnc-ddraw.ini";
-        public const bool LauncherExeDpiUnaware = true;
+        public const bool LauncherExeDpiUnaware = false;
+
+        public const bool RequireBlowfishRegistration = false;
     }
 }

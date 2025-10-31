@@ -52,36 +52,40 @@ namespace Mo3RegUI.Tasks
 
             ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "写入注册表成功。" });
 
-            string blowfishPath = Path.Combine(p.GameDir, "Blowfish.dll");
-            // Register blowfish
-            //_ = DllRegisterServer(); // this failed
-
-            if (!File.Exists(blowfishPath))
+            if (Constants.RequireBlowfishRegistration)
             {
-                throw new Exception("找不到 Blowfish.dll 文件。");
+                string blowfishPath = Path.Combine(p.GameDir, "Blowfish.dll");
+                // Register blowfish
+                //_ = DllRegisterServer(); // this failed
+
+                if (!File.Exists(blowfishPath))
+                {
+                    throw new Exception("找不到 Blowfish.dll 文件。");
+                }
+
+                ConsoleCommandManager.RunConsoleCommand("regsvr32.exe", $"/s \"{blowfishPath}\"", out int exitCode, out string stdOut, out string stdErr);
+
+                if (!string.IsNullOrWhiteSpace(stdOut))
+                {
+                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = stdOut.Trim() });
+                }
+
+                if (!string.IsNullOrWhiteSpace(stdErr))
+                {
+                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = stdErr.Trim() });
+                }
+
+                if (exitCode != 0)
+                {
+                    string message = $"进程返回值 {exitCode}。执行失败。";
+                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Error, Text = message });
+                }
+                else
+                {
+                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "注册 Blowfish.dll 成功。" });
+                }
             }
 
-            ConsoleCommandManager.RunConsoleCommand("regsvr32.exe", $"/s \"{blowfishPath}\"", out int exitCode, out string stdOut, out string stdErr);
-
-            if (!string.IsNullOrWhiteSpace(stdOut))
-            {
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = stdOut.Trim() });
-            }
-
-            if (!string.IsNullOrWhiteSpace(stdErr))
-            {
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = stdErr.Trim() });
-            }
-
-            if (exitCode != 0)
-            {
-                string message = $"进程返回值 {exitCode}。执行失败。";
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Error, Text = message });
-            }
-            else
-            {
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "注册 Blowfish.dll 成功。" });
-            }
         }
 
         //[DllImport("Blowfish.dll")]
