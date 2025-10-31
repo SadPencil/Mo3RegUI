@@ -41,6 +41,6 @@
         public const string CnCDDrawIniName = "cnc-ddraw.ini";
         public const bool LauncherExeDpiUnaware = false;
 
-        public const bool RequireBlowfishRegistration = false;
+        public const bool RequireBlowfishRegistration = false; // No need for Phobos
     }
 }
