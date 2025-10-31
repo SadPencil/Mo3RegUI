@@ -40,8 +40,24 @@ namespace Mo3RegUI.Tasks
                 bool success = true;
                 try
                 {
-                    File.Copy(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawDllName), Path.Combine(p.GameDir, "ddraw.dll"), true);
-                    File.Copy(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawIniName), Path.Combine(p.GameDir, "ddraw.ini"), true);
+                    string destDDrawDllPath = Path.Combine(p.GameDir, "ddraw.dll");
+                    string destDDrawIniPath = Path.Combine(p.GameDir, "ddraw.ini");
+
+                    FileInfo destDDrawDllFile = new FileInfo(destDDrawDllPath);
+                    FileInfo destDDrawIniFile = new FileInfo(destDDrawIniPath);
+
+                    if (destDDrawDllFile.Exists && destDDrawDllFile.IsReadOnly)
+                    {
+                        destDDrawDllFile.IsReadOnly = false;
+                    }
+
+                    if (destDDrawIniFile.Exists && destDDrawIniFile.IsReadOnly)
+                    {
+                        destDDrawIniFile.IsReadOnly = false;
+                    }
+
+                    File.Copy(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawDllName), destDDrawDllPath, true);
+                    File.Copy(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawIniName), destDDrawIniPath, true);
                 }
                 catch (Exception ex)
                 {
