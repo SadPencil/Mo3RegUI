@@ -8,11 +8,11 @@
         public const string AppName = GameName + " 注册机";
         public const string EnglishAppName = "Register for " + EnglishGameName;
 
-        public const string Version = "v2.4.1";
-        public const string AssemblyVersion = "2.4.1.0";
+        public const string Version = "v2.5.0";
+        public const string AssemblyVersion = "2.5.0.0";
 
         public const string CopyrightYearFrom = "2019";
-        public const string CopyrightYearTo = "2023";
+        public const string CopyrightYearTo = "2026";
 
         public const string AuthorName = "伤心的笔"; // You are not supposed to remove the name here. Append your name if you have made significant changes.
         public const string EnglishAuthorName = "SadPencil"; // You are not supposed to remove the name here. Append your name if you have made significant changes.
