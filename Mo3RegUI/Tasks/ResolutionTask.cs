@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
+using System.Linq;
+using Path = System.IO.Path;
 
 namespace Mo3RegUI.Tasks
 {
@@ -24,32 +26,30 @@ namespace Mo3RegUI.Tasks
         }
         private void _DoWork(ResolutionTaskParameter p)
         {
-            var Resolution = GetHostingScreenSize();
+            ScreenResolution hostResolution = ScreenResolution.GetDesktopScreenResolution();
+            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "检测到桌面分辨率为 " + hostResolution.Width.ToString() + "×" + hostResolution.Height.ToString() + "。" });
+
+            ScreenResolution maxResolution = "1920x1200";
+            ScreenResolution fallbackResolutionIfTooLarge = "1920x1080";
+
+            ScreenResolution finalResolution;
+            {
+                if (maxResolution.Fits(hostResolution))
+                    finalResolution = hostResolution;
+                else
+                    finalResolution = fallbackResolutionIfTooLarge;
+            }
+
             lock (Locks.RA2MO_INI)
             {
                 MyIniParserHelper.EditIniFile(Path.Combine(p.GameDir, Constants.GameConfigIniName), ini =>
                 {
                     var videoSection = MyIniParserHelper.GetSectionOrNew(ini, "Video");
-                    videoSection["ScreenWidth"] = Resolution.Width.ToString(CultureInfo.InvariantCulture);
-                    videoSection["ScreenHeight"] = Resolution.Height.ToString(CultureInfo.InvariantCulture);
+                    videoSection["ScreenWidth"] = finalResolution.Width.ToString(CultureInfo.InvariantCulture);
+                    videoSection["ScreenHeight"] = finalResolution.Height.ToString(CultureInfo.InvariantCulture);
                 });
             }
-            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "设置游戏分辨率为 " + Resolution.Width.ToString() + "×" + Resolution.Height.ToString() + "。" });
-        }
-
-        private struct Resolution
-        {
-            public int Width;
-            public int Height;
-        }
-
-        private static Resolution GetHostingScreenSize()
-        {
-            // Note: declare DPI awareness in the manifest file, otherwise the result is wrong
-            int monitor_width = NativeMethods.GetSystemMetrics(NativeConstants.SM_CXSCREEN);
-            int monitor_height = NativeMethods.GetSystemMetrics(NativeConstants.SM_CYSCREEN);
-
-            return new Resolution() { Width = monitor_width, Height = monitor_height };
+            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "设置游戏分辨率为 " + finalResolution.Width.ToString() + "×" + finalResolution.Height.ToString() + "。" });
         }
     }
 }
