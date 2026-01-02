@@ -35,25 +35,6 @@ namespace Mo3RegUI.Tasks
 
         private void _DoWork(RuntimeComponentTaskParameter p)
         {
-            // Future: Remove .NET 3.5 check for MO 3.3.7
-            string net35 = GetInstalledNetFramework35VersionString();
-            if (net35 is null)
-            {
-                ReportMessage(this, new TaskMessageEventArgs()
-                {
-                    Level = MessageLevel.Info,
-                    Text = ".NET Framework 3.5 未安装。", // don't treat this as an error
-                });
-            }
-            else
-            {
-                ReportMessage(this, new TaskMessageEventArgs()
-                {
-                    Level = MessageLevel.Info,
-                    Text = ".NET Framework " + net35 + " 已安装。",
-                });
-            }
-
             string net4 = GetInstalledNetFramework4VersionString();
             if (net4 is null)
             {
@@ -73,20 +54,15 @@ namespace Mo3RegUI.Tasks
             }
 
             int? net45plus = GetInstalledNetFramework45VersionNumber();
-            bool isDotNet45Installed = net45plus.GetValueOrDefault() >= NET_FRAMEWORK_4_5_RELEASE_KEY;
-            // Future: Remove .NET 4.5 check for MO 3.3.7
-            if (!isDotNet45Installed && Environment.OSVersion.Version.Major < 6)
+            bool isDotNet45Installed = net45plus.GetValueOrDefault() >= NET_FRAMEWORK_4_8_RELEASE_KEY;
+            if (!isDotNet45Installed)
             {
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Error,
-                    Text = "当前 .NET Framework 4 的版本号低于 4.5。",
+                    Text = "当前 .NET Framework 4 的版本号低于 4.8。",
                 });
             }
-
-            // Future: Always require .NET 4.7.1 for MO 3.3.7
-
-            // Future: Always require .NET 7 for MO 3.3.7
 
             bool isXna4Installed = IsXNAFramework4Installed();
             if (isXna4Installed)
@@ -101,21 +77,9 @@ namespace Mo3RegUI.Tasks
             {
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
-                    Level = (Environment.OSVersion.Version.Major < 6) ? MessageLevel.Error : MessageLevel.Info, // Future: Always prompt as Info for MO 3.3.7
+                    Level = MessageLevel.Info,
                     Text = "XNA Framework 4.0 未安装。",
                 });
-            }
-
-            if (Environment.OSVersion.Version.Major < 6) // Future: Remove this part for MO 3.3.7
-            {
-                if (!isXna4Installed && !isDotNet45Installed)
-                {
-                    ReportMessage(this, new TaskMessageEventArgs()
-                    {
-                        Level = MessageLevel.Error,
-                        Text = "当前 .NET Framework 4 的版本号低于 4.5，且 XNA Framework 4.0 未安装。客户端可能无法正常运行。",
-                    });
-                }
             }
         }
 
