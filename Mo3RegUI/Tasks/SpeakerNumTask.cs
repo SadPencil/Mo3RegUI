@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mo3RegUI.LocalizationResources;
+using System;
 
 namespace Mo3RegUI.Tasks
 {
@@ -7,7 +8,8 @@ namespace Mo3RegUI.Tasks
     }
     public class SpeakerNumTask : ITask
     {
-        public string Description => "检查声音输出设备";
+        // SpeakerNumTask_Description: Check Audio Output Devices
+        public string Description => TextResource.SpeakerNumTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -23,9 +25,11 @@ namespace Mo3RegUI.Tasks
             uint num = NativeMethods.waveOutGetNumDevs();
             if (num == 0)
             {
-                throw new Exception("当前系统不存在任何声音输出设备。请连接耳机或音箱后再进入游戏，否则游戏有可能会崩溃。");
+                // SpeakerNumTask_NoAudioDevice: No audio output device exists on the current system. ...
+            throw new Exception(TextResource.SpeakerNumTask_NoAudioDevice);
             }
-            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = $"找到了 {num} 个声音输出设备。" });
+            // SpeakerNumTask_AudioDevicesFound: Found {0} audio output device(s).
+        ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = string.Format(TextResource.SpeakerNumTask_AudioDevicesFound, num) });
 
         }
     }

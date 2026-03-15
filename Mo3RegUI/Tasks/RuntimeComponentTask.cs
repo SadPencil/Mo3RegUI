@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Mo3RegUI.LocalizationResources;
 using System;
 using System.Globalization;
 
@@ -9,7 +10,8 @@ namespace Mo3RegUI.Tasks
     }
     public class RuntimeComponentTask : ITask
     {
-        public string Description => "检查运行时组件";
+        // RuntimeComponentTask_Description: Check Runtime Components
+        public string Description => TextResource.RuntimeComponentTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -41,7 +43,8 @@ namespace Mo3RegUI.Tasks
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Error,
-                    Text = ".NET Framework 4 未安装。",
+                    // RuntimeComponentTask_DotNet4NotInstalled: .NET Framework 4 is not installed.
+                    Text = TextResource.RuntimeComponentTask_DotNet4NotInstalled,
                 });
             }
             else
@@ -49,7 +52,8 @@ namespace Mo3RegUI.Tasks
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Info,
-                    Text = ".NET Framework " + net4 + " 已安装。",
+                    // RuntimeComponentTask_DotNet4Installed: .NET Framework {0} is installed.
+                    Text = string.Format(TextResource.RuntimeComponentTask_DotNet4Installed, net4),
                 });
             }
 
@@ -60,7 +64,8 @@ namespace Mo3RegUI.Tasks
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Error,
-                    Text = "当前 .NET Framework 4 的版本号低于 4.8。",
+                    // RuntimeComponentTask_DotNet4VersionTooLow: The current .NET Framework 4 version is lower than 4.8.
+                    Text = TextResource.RuntimeComponentTask_DotNet4VersionTooLow,
                 });
             }
 
@@ -70,7 +75,8 @@ namespace Mo3RegUI.Tasks
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Info,
-                    Text = "XNA Framework 4.0 已安装。",
+                    // RuntimeComponentTask_Xna4Installed: XNA Framework 4.0 is installed.
+                    Text = TextResource.RuntimeComponentTask_Xna4Installed,
                 });
             }
             else
@@ -78,7 +84,8 @@ namespace Mo3RegUI.Tasks
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Info,
-                    Text = "XNA Framework 4.0 未安装。",
+                    // RuntimeComponentTask_Xna4NotInstalled: XNA Framework 4.0 is not installed.
+                    Text = TextResource.RuntimeComponentTask_Xna4NotInstalled,
                 });
             }
         }

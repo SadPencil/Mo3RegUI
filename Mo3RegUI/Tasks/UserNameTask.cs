@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mo3RegUI.LocalizationResources;
+using System;
 using System.IO;
 using System.Linq;
 using System.Security.Principal;
@@ -12,7 +13,8 @@ namespace Mo3RegUI.Tasks
     }
     public class UserNameTask : ITask
     {
-        public string Description => "设置游戏用户名";
+        // UserNameTask_Description: Set Game Username
+        public string Description => TextResource.UserNameTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -45,7 +47,8 @@ namespace Mo3RegUI.Tasks
                         ReportMessage(this, new TaskMessageEventArgs()
                         {
                             Level = MessageLevel.Warning,
-                            Text = "注意，当前玩家昵称 \"" + username + "\" 包含非 ASCII 字符。如果玩家昵称完全不包含任何 ASCII 字符，Ares 3.0 等引擎将会崩溃。",
+                            // UserNameTask_NonAsciiUsername: Note: The current player nickname "{0}" contains non-ASCII characters. ...
+                        Text = string.Format(TextResource.UserNameTask_NonAsciiUsername, username),
                         });
                     }
 
@@ -64,7 +67,8 @@ namespace Mo3RegUI.Tasks
                     ReportMessage(this, new TaskMessageEventArgs()
                     {
                         Level = MessageLevel.Info,
-                        Text = "将玩家昵称设置为 \"" + username + "\"。",
+                        // UserNameTask_SetUsername: Setting player nickname to "{0}".
+                        Text = string.Format(TextResource.UserNameTask_SetUsername, username),
                     });
                 });
             }

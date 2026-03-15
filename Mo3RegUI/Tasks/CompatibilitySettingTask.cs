@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Mo3RegUI.LocalizationResources;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +12,8 @@ namespace Mo3RegUI.Tasks
     }
     public class CompatibilitySettingTask : ITask
     {
-        public string Description => "设置程序兼容性";
+        // CompatibilitySettingTask_Description: Set Program Compatibility
+        public string Description => TextResource.CompatibilitySettingTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
