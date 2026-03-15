@@ -119,316 +119,238 @@
   </resheader>
   <data name="MainWindow_Not_In_Game_Directory_Title" xml:space="preserve">
     <value>Error</value>
-    <comment>错误</comment>
   </data>
   <data name="MainWindow_Not_In_Game_Directory_Message" xml:space="preserve">
     <value>{0} may not be in the game directory. Please ensure that the files of {0} are copied to the game directory before running. File {1} not found.</value>
-    <comment>{0} 可能不在游戏目录。请确保将 {0} 的文件复制到游戏目录后再执行。找不到 {1} 文件。</comment>
   </data>
   <data name="MainWindow_Title_With_Wait_Count" xml:space="preserve">
     <value>{0} [ Remaining Tasks: {1} ]</value>
-    <comment>{0} [ 剩余任务: {1} ]</comment>
   </data>
   <data name="MainWindow_Closing_Warning_Title" xml:space="preserve">
     <value>Warning</value>
-    <comment>警告</comment>
   </data>
   <data name="MainWindow_Closing_Warning_Message" xml:space="preserve">
     <value>{0} is setting compatibility and configuring game options, and has not finished yet. Are you sure you want to abort the registry tool?</value>
-    <comment>{0} 正在设置兼容性和配置游戏选项，且尚未运行完毕。确定要中止注册机的运行吗？</comment>
   </data>
   <data name="Task_OsVersionTooLow_NoFeature" xml:space="preserve">
     <value>Windows version is too low. This feature is not available.</value>
-    <comment>Windows 版本过低，无此功能。</comment>
   </data>
   <data name="Task_ProcessExitCodeFailure" xml:space="preserve">
     <value>Process returned exit code {0}. Execution failed.</value>
-    <comment>进程返回值 {0}。执行失败。</comment>
   </data>
   <data name="BasicInfoTask_Description" xml:space="preserve">
     <value>Check System Basic Info</value>
-    <comment>检查系统基本信息</comment>
   </data>
   <data name="BasicInfoTask_OperatingSystem" xml:space="preserve">
     <value>Operating System: {0} {1}</value>
-    <comment>操作系统: {0} {1}</comment>
   </data>
   <data name="BasicInfoTask_CurrentAnsiCodePage" xml:space="preserve">
     <value>Current ANSI Code Page: {0}</value>
-    <comment>当前 ANSI 代码页: {0}</comment>
   </data>
   <data name="BasicInfoTask_PhysicalMemory" xml:space="preserve">
     <value>Physical Memory: Total: {0:0.##} GB, Available: {1:0.##} GB</value>
-    <comment>物理内存: 总计: {0:0.##} GB，可用: {1:0.##} GB</comment>
   </data>
   <data name="ChinaNetworkTask_Description" xml:space="preserve">
     <value>Disable Discord</value>
-    <comment>关闭 Discord 功能</comment>
   </data>
   <data name="ChinaNetworkTask_DiscordDisabled" xml:space="preserve">
     <value>Discord has been successfully disabled.</value>
-    <comment>成功关闭 Discord 功能。</comment>
   </data>
   <data name="ChinaNetworkTask_DiscordNotDisabled" xml:space="preserve">
     <value>Discord is not disabled.</value>
-    <comment>不关闭 Discord 功能。</comment>
   </data>
   <data name="CompatibilitySettingTask_Description" xml:space="preserve">
     <value>Set Program Compatibility</value>
-    <comment>设置程序兼容性</comment>
   </data>
   <data name="DDrawDLLTask_Description" xml:space="preserve">
     <value>Check Renderer Registry Entry</value>
-    <comment>检查渲染补丁注册表项</comment>
   </data>
   <data name="DDrawDLLTask_RegistryEntryAbnormal" xml:space="preserve">
     <value>{0} registry entry is abnormal. {0} should not be in KnownDLLs.</value>
-    <comment>{0} 注册表项异常。{0} 不应属于 KnownDLLs。</comment>
   </data>
   <data name="DDrawDLLTask_RegistryEntryNormal" xml:space="preserve">
     <value>{0} registry entry is normal.</value>
-    <comment>{0} 注册表项正常。</comment>
   </data>
   <data name="DDrawDLLTask_ExcludeFromKnownDllsWrongType" xml:space="preserve">
     <value>ExcludeFromKnownDlls should be of type {0}, but is actually of type {1}.</value>
-    <comment>ExcludeFromKnownDlls 应为 {0} 类型，实际为 {1}。</comment>
   </data>
   <data name="DDrawDLLTask_AddedToExcludeFromKnownDlls" xml:space="preserve">
     <value>Successfully added {0} to ExcludeFromKnownDlls.</value>
-    <comment>成功将 {0} 加入 ExcludeFromKnownDlls。</comment>
   </data>
   <data name="DirectXRuntimeTask_Description" xml:space="preserve">
     <value>Check DirectX Runtime (June 2010)</value>
-    <comment>检查 DirectX 运行时（2010 年 6 月）</comment>
   </data>
   <data name="DirectXRuntimeTask_NotInstalled" xml:space="preserve">
     <value>DirectX runtime components are not installed. File {0} not found. Please install DirectX End-User Runtimes (June 2010).</value>
-    <comment>DirectX 运行时组件未安装。找不到 {0} 文件。请安装 DirectX End-User Runtimes (June 2010) 。</comment>
   </data>
   <data name="EncodingCheckTask_Description" xml:space="preserve">
     <value>Check System ANSI Code Page</value>
-    <comment>检查系统 ANSI 代码页</comment>
   </data>
   <data name="EncodingCheckTask_Utf8Warning" xml:space="preserve">
     <value>The current ANSI code page is UTF-8. This is a good practice, but unfortunately, non-English characters cannot be entered normally in the Red Alert 2 game, and components such as the map editor cannot fully display names containing non-English characters. In addition, this is one of the factors that affects whether button misalignment and overlapping issues appear in the game menu interface under high DPI.</value>
-    <comment>当前 ANSI 代码页为 UTF-8。这是一个好做法，但不幸的是，红警 2 游戏中将无法正常输入非英文字符，地图编辑器等组件将无法完全显示包含非英文字符的名称。此外，这是影响高 DPI 下游戏菜单界面是否出现按钮错位、重叠问题的因素之一。</comment>
   </data>
   <data name="FalsePositiveTask_Description" xml:space="preserve">
     <value>Check Game Files (Rough)</value>
-    <comment>游戏文件检查（粗略）</comment>
   </data>
   <data name="FalsePositiveTask_FileNotFound" xml:space="preserve">
     <value>Game files are incomplete. File {0} not found. Please check your antivirus software log, add the game directory to the antivirus software whitelist, or replace other antivirus software, and then reinstall the game.</value>
-    <comment>游戏文件不全。找不到 {0} 文件。请检查杀毒软件日志，将游戏目录添加到杀毒软件白名单中，或者更换其他杀毒软件，然后重新安装游戏。</comment>
   </data>
   <data name="FirewallSettingTask_Description" xml:space="preserve">
     <value>Set Firewall Exception</value>
-    <comment>设置防火墙例外项</comment>
   </data>
   <data name="FirewallSettingTask_OsVersionTooLow" xml:space="preserve">
     <value>Windows version is too low. Please set Windows Firewall manually.</value>
-    <comment>Windows 版本过低。请手动设置 Windows 防火墙。</comment>
   </data>
   <data name="FirstRunTask_Description" xml:space="preserve">
     <value>Dismiss First Run Dialog</value>
-    <comment>关闭首次运行对话框</comment>
   </data>
   <data name="ForegroundLockTimeoutTask_Description" xml:space="preserve">
     <value>Check Foreground Lock Timeout</value>
-    <comment>检查前台锁定时间</comment>
   </data>
   <data name="ForegroundLockTimeoutTask_SufficientTimeout" xml:space="preserve">
     <value>Foreground lock timeout is no less than {0} milliseconds. No action required.</value>
-    <comment>前台锁定时间不低于 {0} 毫秒。无需操作。</comment>
   </data>
   <data name="ForegroundLockTimeoutTask_InsufficientTimeout" xml:space="preserve">
     <value>Foreground lock timeout is less than {0} milliseconds, which may occasionally cause the game to return to the desktop. Fixing...</value>
-    <comment>前台锁定时间低于 {0} 毫秒，有概率导致游戏中返回桌面的情况发生。正在修复……</comment>
   </data>
   <data name="ForegroundLockTimeoutTask_FixedTimeout" xml:space="preserve">
     <value>Fixed successfully. Foreground lock timeout has been set to {0} milliseconds.</value>
-    <comment>修复成功。前台锁定时间修改为 {0} 毫秒。</comment>
   </data>
   <data name="NetworkInterfaceTask_Description" xml:space="preserve">
     <value>Check Network Environment</value>
-    <comment>检查网络环境</comment>
   </data>
   <data name="NetworkInterfaceTask_MultipleNetworkCards" xml:space="preserve">
     <value>Your computer has multiple network cards, as listed below. You may not be able to see other players in the LAN lobby. To avoid this problem, temporarily disable other network cards when connecting to the LAN, and keep only the network card connected to the LAN.{0}</value>
-    <comment>您的电脑有多张网卡，列表如下。您可能无法在局域网联机大厅中看到其他玩家。要规避这个问题，请在局域网联机时临时禁用其他网卡，仅保留连接到局域网的网卡。{0}</comment>
   </data>
   <data name="PathCheckTask_Description" xml:space="preserve">
     <value>Check Game Path Format</value>
-    <comment>检查游戏路径格式</comment>
   </data>
   <data name="PathCheckTask_PathTooLong" xml:space="preserve">
     <value>The current game directory path is too long. The game may not run normally.</value>
-    <comment>当前游戏目录的路径较长。游戏可能无法正常运行。</comment>
   </data>
   <data name="PathCheckTask_PathContainsPercent" xml:space="preserve">
     <value>The current game directory path contains the special character % (percent sign). Windows Firewall may not handle this correctly.</value>
-    <comment>当前游戏目录的路径包含特殊字符 %（百分号）。Windows 防火墙可能无法正确处理这种情况。</comment>
   </data>
   <data name="ProcessMitigationTask_Description" xml:space="preserve">
     <value>Disable Mandatory Image Virtualization</value>
-    <comment>关闭强制映像虚拟化</comment>
   </data>
   <data name="ProcessMitigationTask_AslrDefaultOnSuccessfullyDisabled" xml:space="preserve">
     <value>Mandatory image virtualization (mandatory ASLR) is enabled by default, but it has been successfully disabled for {0}.</value>
-    <comment>强制映像虚拟化 (强制性 ASLR) 为默认开启状态，但已经成功为 {0} 关闭了强制映像虚拟化。</comment>
   </data>
   <data name="ProcessMitigationTask_AslrDefaultOnFailedToDisable" xml:space="preserve">
     <value>Mandatory image virtualization (mandatory ASLR) is enabled by default, and disabling it for {0} failed. This may cause Ares to fail to start normally. Please find and disable the "Force Image Virtualization (Mandatory ASLR)" option in the "System settings" tab under "Windows Security Center" → "App &amp; browser control", or disable this option individually for the game file in the "Program settings" tab.</value>
-    <comment>强制映像虚拟化 (强制性 ASLR) 为默认开启状态，并且为 {0} 关闭强制映像虚拟化失败。这可能会导致 Ares 无法正常启动。请在 "Windows 安全中心"→"应用和浏览器控制"下找到并关闭"系统设置"选项卡中的"强制映像虚拟化 (强制性 ASLR)"选项，或在"程序设置"选项卡中为游戏文件单独关闭此选项。</comment>
   </data>
   <data name="ProcessMitigationTask_AslrDefaultOff" xml:space="preserve">
     <value>Mandatory image virtualization (mandatory ASLR) is disabled by default.</value>
-    <comment>强制映像虚拟化 (强制性 ASLR) 为默认关闭状态。</comment>
   </data>
   <data name="ProcessMitigationTask_UnrecognizedBoolean" xml:space="preserve">
     <value>Unrecognized boolean value {0}. Unable to determine option status.</value>
-    <comment>未能识别的布尔数字 {0}。无法判断选项状态。</comment>
   </data>
   <data name="QResTask_Description" xml:space="preserve">
     <value>Check QRes High DPI Scaling Issue</value>
-    <comment>检查 QRes 高 DPI 缩放问题</comment>
   </data>
   <data name="QResTask_UnfixedQRes" xml:space="preserve">
     <value>Unpatched QRes detected. When not using a renderer patch or using an outdated renderer patch, running the game in windowed mode on a high-DPI monitor may result in resolution errors or the error message "Screen mode not found". It is recommended to update the qres.dat program or use a modern renderer patch whenever possible.</value>
-    <comment>检测到未修复的 QRes。在不使用渲染补丁或使用古老的渲染补丁时，在高 DPI 显示器下以窗口化模式运行游戏可能会出现分辨率错误或"Screen mode not found"的错误提示。建议更新 qres.dat 程序或尽可能使用现代的渲染补丁。</comment>
   </data>
   <data name="QResTask_CheckFailed" xml:space="preserve">
     <value>QRes check failed. {0}When not using a renderer patch or using an outdated renderer patch, running the game in windowed mode may cause issues. It is recommended to update the qres.dat program or use a modern renderer patch whenever possible.</value>
-    <comment>检测 QRes 失败。{0}在不使用渲染补丁或使用古老的渲染补丁时，以窗口化模式运行游戏可能会出现问题。建议更新 qres.dat 程序或尽可能使用现代的渲染补丁。</comment>
   </data>
   <data name="Ra2RegTask_Description" xml:space="preserve">
     <value>Register Red Alert 2</value>
-    <comment>注册 Red Alert 2</comment>
   </data>
   <data name="Ra2RegTask_RegistryWriteSuccess" xml:space="preserve">
     <value>Registry write successful.</value>
-    <comment>写入注册表成功。</comment>
   </data>
   <data name="Ra2RegTask_BlowfishNotFound" xml:space="preserve">
     <value>Blowfish.dll file not found.</value>
-    <comment>找不到 Blowfish.dll 文件。</comment>
   </data>
   <data name="Ra2RegTask_BlowfishRegistered" xml:space="preserve">
     <value>Blowfish.dll registered successfully.</value>
-    <comment>注册 Blowfish.dll 成功。</comment>
   </data>
   <data name="Ra2RegTask_BlowfishNotRequired" xml:space="preserve">
     <value>No need to register Blowfish.dll.</value>
-    <comment>无需注册 Blowfish.dll。</comment>
   </data>
   <data name="RemoveObsoleteFilesTask_Description" xml:space="preserve">
     <value>Remove Obsolete Files</value>
-    <comment>删除多余文件</comment>
   </data>
   <data name="RendererTask_Description" xml:space="preserve">
     <value>Set Renderer Patch</value>
-    <comment>设置渲染补丁</comment>
   </data>
   <data name="RendererTask_SetToCnCDDraw" xml:space="preserve">
     <value>Setting renderer patch to CnC-DDraw.</value>
-    <comment>设置渲染补丁为 CnC-DDraw。</comment>
   </data>
   <data name="RendererTask_DeploymentError" xml:space="preserve">
     <value>Problem encountered while deploying renderer patch. {0}</value>
-    <comment>部署渲染补丁时遇到问题。{0}</comment>
   </data>
   <data name="RendererTask_NoRenderer" xml:space="preserve">
     <value>Not setting renderer patch.</value>
-    <comment>不设置渲染补丁。</comment>
   </data>
   <data name="RendererTask_Hint" xml:space="preserve">
     <value>Tip: If needed, renderer patch settings can be changed from within the {0} client.
 It is recommended to always use a modern renderer patch on Windows 8/10/11, such as TS-DDraw or CnC-DDraw.</value>
-    <comment>提示：如果有需要，可以从 {0} 客户端内更改渲染补丁设置。\n在 Windows 8/10/11 系统上建议始终使用现代的渲染补丁，如 TS-DDraw、CnC-DDraw。</comment>
   </data>
   <data name="ResolutionTask_Description" xml:space="preserve">
     <value>Set Resolution</value>
-    <comment>设置分辨率</comment>
   </data>
   <data name="ResolutionTask_DesktopResolution" xml:space="preserve">
     <value>Desktop resolution detected: {0}×{1}.</value>
-    <comment>检测到桌面分辨率为 {0}×{1}。</comment>
   </data>
   <data name="ResolutionTask_SetGameResolution" xml:space="preserve">
     <value>Game resolution set to {0}×{1}.</value>
-    <comment>设置游戏分辨率为 {0}×{1}。</comment>
   </data>
   <data name="RuntimeComponentTask_Description" xml:space="preserve">
     <value>Check Runtime Components</value>
-    <comment>检查运行时组件</comment>
   </data>
   <data name="RuntimeComponentTask_DotNet4NotInstalled" xml:space="preserve">
     <value>.NET Framework 4 is not installed.</value>
-    <comment>.NET Framework 4 未安装。</comment>
   </data>
   <data name="RuntimeComponentTask_DotNet4Installed" xml:space="preserve">
     <value>.NET Framework {0} is installed.</value>
-    <comment>.NET Framework {0} 已安装。</comment>
   </data>
   <data name="RuntimeComponentTask_DotNet4VersionTooLow" xml:space="preserve">
     <value>The current .NET Framework 4 version is lower than 4.8.</value>
-    <comment>当前 .NET Framework 4 的版本号低于 4.8。</comment>
   </data>
   <data name="RuntimeComponentTask_Xna4Installed" xml:space="preserve">
     <value>XNA Framework 4.0 is installed.</value>
-    <comment>XNA Framework 4.0 已安装。</comment>
   </data>
   <data name="RuntimeComponentTask_Xna4NotInstalled" xml:space="preserve">
     <value>XNA Framework 4.0 is not installed.</value>
-    <comment>XNA Framework 4.0 未安装。</comment>
   </data>
   <data name="SpeakerNumTask_Description" xml:space="preserve">
     <value>Check Audio Output Devices</value>
-    <comment>检查声音输出设备</comment>
   </data>
   <data name="SpeakerNumTask_NoAudioDevice" xml:space="preserve">
     <value>No audio output device exists on the current system. Please connect headphones or speakers before entering the game, otherwise the game may crash.</value>
-    <comment>当前系统不存在任何声音输出设备。请连接耳机或音箱后再进入游戏，否则游戏有可能会崩溃。</comment>
   </data>
   <data name="SpeakerNumTask_AudioDevicesFound" xml:space="preserve">
     <value>Found {0} audio output device(s).</value>
-    <comment>找到了 {0} 个声音输出设备。</comment>
   </data>
   <data name="TaskManager_ExecutionFailed" xml:space="preserve">
     <value>Execution failed: {0}</value>
-    <comment>执行失败：{0}</comment>
   </data>
   <data name="TaskManager_ExecutionComplete" xml:space="preserve">
     <value>Execution complete.</value>
-    <comment>执行结束。</comment>
   </data>
   <data name="UserNameTask_Description" xml:space="preserve">
     <value>Set Game Username</value>
-    <comment>设置游戏用户名</comment>
   </data>
   <data name="UserNameTask_NonAsciiUsername" xml:space="preserve">
     <value>Note: The current player nickname "{0}" contains non-ASCII characters. If the player nickname contains no ASCII characters at all, engines such as Ares 3.0 will crash.</value>
-    <comment>注意，当前玩家昵称 "{0}" 包含非 ASCII 字符。如果玩家昵称完全不包含任何 ASCII 字符，Ares 3.0 等引擎将会崩溃。</comment>
   </data>
   <data name="UserNameTask_SetUsername" xml:space="preserve">
     <value>Setting player nickname to "{0}".</value>
-    <comment>将玩家昵称设置为 "{0}"。</comment>
   </data>
   <data name="XboxGameBarTask_Description" xml:space="preserve">
     <value>Check Xbox Game Bar</value>
-    <comment>检查 Xbox 游戏栏</comment>
   </data>
   <data name="XboxGameBarTask_GameBarEnabled" xml:space="preserve">
     <value>Game Bar is enabled, which may cause certain areas of the game to be unclickable on some computers with certain renderer patches. Please find the relevant setting under Start Menu → Settings → Gaming → Xbox Game Bar and disable the game bar.</value>
-    <comment>游戏栏已开启，部分电脑和部分渲染补丁下可能会出现游戏部分区域无法点击的情况。请在"开始菜单"→"设置"→"游戏"→"Xbox Game Bar"下找到相关设置，将游戏栏关闭。</comment>
   </data>
   <data name="Program_Execution_Complete_Message" xml:space="preserve">
     <value>Execution complete. Please read the warnings and errors in dark red carefully before closing this window.</value>
-    <comment>执行完毕。请仔细阅读深红色的警告和错误文字，再关闭此窗口。</comment>
   </data>
   <data name="Program_Execution_Complete_Title" xml:space="preserve">
     <value>Execution Complete</value>
-    <comment>执行完毕</comment>
   </data>
   <data name="Constants_GameName" xml:space="preserve">
     <value>Mental Omega 3.3.6</value>

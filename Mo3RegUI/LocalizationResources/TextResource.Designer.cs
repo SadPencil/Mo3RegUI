@@ -22,7 +22,7 @@ namespace Mo3RegUI.LocalizationResources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class TextResource {
+    public class TextResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Mo3RegUI.LocalizationResources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Mo3RegUI.LocalizationResources.TextResource", typeof(TextResource).Assembly);
@@ -51,7 +51,7 @@ namespace Mo3RegUI.LocalizationResources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Current ANSI Code Page: {0}.
         /// </summary>
-        internal static string BasicInfoTask_CurrentAnsiCodePage {
+        public static string BasicInfoTask_CurrentAnsiCodePage {
             get {
                 return ResourceManager.GetString("BasicInfoTask_CurrentAnsiCodePage", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Check System Basic Info.
         /// </summary>
-        internal static string BasicInfoTask_Description {
+        public static string BasicInfoTask_Description {
             get {
                 return ResourceManager.GetString("BasicInfoTask_Description", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Operating System: {0} {1}.
         /// </summary>
-        internal static string BasicInfoTask_OperatingSystem {
+        public static string BasicInfoTask_OperatingSystem {
             get {
                 return ResourceManager.GetString("BasicInfoTask_OperatingSystem", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Physical Memory: Total: {0:0.##} GB, Available: {1:0.##} GB.
         /// </summary>
-        internal static string BasicInfoTask_PhysicalMemory {
+        public static string BasicInfoTask_PhysicalMemory {
             get {
                 return ResourceManager.GetString("BasicInfoTask_PhysicalMemory", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Disable Discord.
         /// </summary>
-        internal static string ChinaNetworkTask_Description {
+        public static string ChinaNetworkTask_Description {
             get {
                 return ResourceManager.GetString("ChinaNetworkTask_Description", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Discord has been successfully disabled..
         /// </summary>
-        internal static string ChinaNetworkTask_DiscordDisabled {
+        public static string ChinaNetworkTask_DiscordDisabled {
             get {
                 return ResourceManager.GetString("ChinaNetworkTask_DiscordDisabled", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Discord is not disabled..
         /// </summary>
-        internal static string ChinaNetworkTask_DiscordNotDisabled {
+        public static string ChinaNetworkTask_DiscordNotDisabled {
             get {
                 return ResourceManager.GetString("ChinaNetworkTask_DiscordNotDisabled", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Set Program Compatibility.
         /// </summary>
-        internal static string CompatibilitySettingTask_Description {
+        public static string CompatibilitySettingTask_Description {
             get {
                 return ResourceManager.GetString("CompatibilitySettingTask_Description", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Register for Mental Omega 3.3.6.
         /// </summary>
-        internal static string Constants_AppName {
+        public static string Constants_AppName {
             get {
                 return ResourceManager.GetString("Constants_AppName", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to SadPencil.
         /// </summary>
-        internal static string Constants_AuthorName {
+        public static string Constants_AuthorName {
             get {
                 return ResourceManager.GetString("Constants_AuthorName", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Mental Omega 3.3.6.
         /// </summary>
-        internal static string Constants_GameName {
+        public static string Constants_GameName {
             get {
                 return ResourceManager.GetString("Constants_GameName", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Successfully added {0} to ExcludeFromKnownDlls..
         /// </summary>
-        internal static string DDrawDLLTask_AddedToExcludeFromKnownDlls {
+        public static string DDrawDLLTask_AddedToExcludeFromKnownDlls {
             get {
                 return ResourceManager.GetString("DDrawDLLTask_AddedToExcludeFromKnownDlls", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Check Renderer Registry Entry.
         /// </summary>
-        internal static string DDrawDLLTask_Description {
+        public static string DDrawDLLTask_Description {
             get {
                 return ResourceManager.GetString("DDrawDLLTask_Description", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to ExcludeFromKnownDlls should be of type {0}, but is actually of type {1}..
         /// </summary>
-        internal static string DDrawDLLTask_ExcludeFromKnownDllsWrongType {
+        public static string DDrawDLLTask_ExcludeFromKnownDllsWrongType {
             get {
                 return ResourceManager.GetString("DDrawDLLTask_ExcludeFromKnownDllsWrongType", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to {0} registry entry is abnormal. {0} should not be in KnownDLLs..
         /// </summary>
-        internal static string DDrawDLLTask_RegistryEntryAbnormal {
+        public static string DDrawDLLTask_RegistryEntryAbnormal {
             get {
                 return ResourceManager.GetString("DDrawDLLTask_RegistryEntryAbnormal", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to {0} registry entry is normal..
         /// </summary>
-        internal static string DDrawDLLTask_RegistryEntryNormal {
+        public static string DDrawDLLTask_RegistryEntryNormal {
             get {
                 return ResourceManager.GetString("DDrawDLLTask_RegistryEntryNormal", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Check DirectX Runtime (June 2010).
         /// </summary>
-        internal static string DirectXRuntimeTask_Description {
+        public static string DirectXRuntimeTask_Description {
             get {
                 return ResourceManager.GetString("DirectXRuntimeTask_Description", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to DirectX runtime components are not installed. File {0} not found. Please install DirectX End-User Runtimes (June 2010)..
         /// </summary>
-        internal static string DirectXRuntimeTask_NotInstalled {
+        public static string DirectXRuntimeTask_NotInstalled {
             get {
                 return ResourceManager.GetString("DirectXRuntimeTask_NotInstalled", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Check System ANSI Code Page.
         /// </summary>
-        internal static string EncodingCheckTask_Description {
+        public static string EncodingCheckTask_Description {
             get {
                 return ResourceManager.GetString("EncodingCheckTask_Description", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to The current ANSI code page is UTF-8. This is a good practice, but unfortunately, non-English characters cannot be entered normally in the Red Alert 2 game, and components such as the map editor cannot fully display names containing non-English characters. In addition, this is one of the factors that affects whether button misalignment and overlapping issues appear in the game menu interface under high DPI..
         /// </summary>
-        internal static string EncodingCheckTask_Utf8Warning {
+        public static string EncodingCheckTask_Utf8Warning {
             get {
                 return ResourceManager.GetString("EncodingCheckTask_Utf8Warning", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Check Game Files (Rough).
         /// </summary>
-        internal static string FalsePositiveTask_Description {
+        public static string FalsePositiveTask_Description {
             get {
                 return ResourceManager.GetString("FalsePositiveTask_Description", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Game files are incomplete. File {0} not found. Please check your antivirus software log, add the game directory to the antivirus software whitelist, or replace other antivirus software, and then reinstall the game..
         /// </summary>
-        internal static string FalsePositiveTask_FileNotFound {
+        public static string FalsePositiveTask_FileNotFound {
             get {
                 return ResourceManager.GetString("FalsePositiveTask_FileNotFound", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Set Firewall Exception.
         /// </summary>
-        internal static string FirewallSettingTask_Description {
+        public static string FirewallSettingTask_Description {
             get {
                 return ResourceManager.GetString("FirewallSettingTask_Description", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Windows version is too low. Please set Windows Firewall manually..
         /// </summary>
-        internal static string FirewallSettingTask_OsVersionTooLow {
+        public static string FirewallSettingTask_OsVersionTooLow {
             get {
                 return ResourceManager.GetString("FirewallSettingTask_OsVersionTooLow", resourceCulture);
             }
@@ -279,7 +279,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Dismiss First Run Dialog.
         /// </summary>
-        internal static string FirstRunTask_Description {
+        public static string FirstRunTask_Description {
             get {
                 return ResourceManager.GetString("FirstRunTask_Description", resourceCulture);
             }
@@ -288,7 +288,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Check Foreground Lock Timeout.
         /// </summary>
-        internal static string ForegroundLockTimeoutTask_Description {
+        public static string ForegroundLockTimeoutTask_Description {
             get {
                 return ResourceManager.GetString("ForegroundLockTimeoutTask_Description", resourceCulture);
             }
@@ -297,7 +297,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Fixed successfully. Foreground lock timeout has been set to {0} milliseconds..
         /// </summary>
-        internal static string ForegroundLockTimeoutTask_FixedTimeout {
+        public static string ForegroundLockTimeoutTask_FixedTimeout {
             get {
                 return ResourceManager.GetString("ForegroundLockTimeoutTask_FixedTimeout", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Foreground lock timeout is less than {0} milliseconds, which may occasionally cause the game to return to the desktop. Fixing....
         /// </summary>
-        internal static string ForegroundLockTimeoutTask_InsufficientTimeout {
+        public static string ForegroundLockTimeoutTask_InsufficientTimeout {
             get {
                 return ResourceManager.GetString("ForegroundLockTimeoutTask_InsufficientTimeout", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Foreground lock timeout is no less than {0} milliseconds. No action required..
         /// </summary>
-        internal static string ForegroundLockTimeoutTask_SufficientTimeout {
+        public static string ForegroundLockTimeoutTask_SufficientTimeout {
             get {
                 return ResourceManager.GetString("ForegroundLockTimeoutTask_SufficientTimeout", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to {0} is setting compatibility and configuring game options, and has not finished yet. Are you sure you want to abort the registry tool?.
         /// </summary>
-        internal static string MainWindow_Closing_Warning_Message {
+        public static string MainWindow_Closing_Warning_Message {
             get {
                 return ResourceManager.GetString("MainWindow_Closing_Warning_Message", resourceCulture);
             }
@@ -333,16 +333,34 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Warning.
         /// </summary>
-        internal static string MainWindow_Closing_Warning_Title {
+        public static string MainWindow_Closing_Warning_Title {
             get {
                 return ResourceManager.GetString("MainWindow_Closing_Warning_Title", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to View on GitHub.
+        /// </summary>
+        public static string MainWindow_GitHubUrlButton {
+            get {
+                return ResourceManager.GetString("MainWindow_GitHubUrlButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  messages.
+        /// </summary>
+        public static string MainWindow_MessagesCount {
+            get {
+                return ResourceManager.GetString("MainWindow_MessagesCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} may not be in the game directory. Please ensure that the files of {0} are copied to the game directory before running. File {1} not found..
         /// </summary>
-        internal static string MainWindow_Not_In_Game_Directory_Message {
+        public static string MainWindow_Not_In_Game_Directory_Message {
             get {
                 return ResourceManager.GetString("MainWindow_Not_In_Game_Directory_Message", resourceCulture);
             }
@@ -351,7 +369,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string MainWindow_Not_In_Game_Directory_Title {
+        public static string MainWindow_Not_In_Game_Directory_Title {
             get {
                 return ResourceManager.GetString("MainWindow_Not_In_Game_Directory_Title", resourceCulture);
             }
@@ -360,7 +378,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to {0} [ Remaining Tasks: {1} ].
         /// </summary>
-        internal static string MainWindow_Title_With_Wait_Count {
+        public static string MainWindow_Title_With_Wait_Count {
             get {
                 return ResourceManager.GetString("MainWindow_Title_With_Wait_Count", resourceCulture);
             }
@@ -369,7 +387,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Check Network Environment.
         /// </summary>
-        internal static string NetworkInterfaceTask_Description {
+        public static string NetworkInterfaceTask_Description {
             get {
                 return ResourceManager.GetString("NetworkInterfaceTask_Description", resourceCulture);
             }
@@ -378,7 +396,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Your computer has multiple network cards, as listed below. You may not be able to see other players in the LAN lobby. To avoid this problem, temporarily disable other network cards when connecting to the LAN, and keep only the network card connected to the LAN.{0}.
         /// </summary>
-        internal static string NetworkInterfaceTask_MultipleNetworkCards {
+        public static string NetworkInterfaceTask_MultipleNetworkCards {
             get {
                 return ResourceManager.GetString("NetworkInterfaceTask_MultipleNetworkCards", resourceCulture);
             }
@@ -387,7 +405,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Check Game Path Format.
         /// </summary>
-        internal static string PathCheckTask_Description {
+        public static string PathCheckTask_Description {
             get {
                 return ResourceManager.GetString("PathCheckTask_Description", resourceCulture);
             }
@@ -396,7 +414,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to The current game directory path contains the special character % (percent sign). Windows Firewall may not handle this correctly..
         /// </summary>
-        internal static string PathCheckTask_PathContainsPercent {
+        public static string PathCheckTask_PathContainsPercent {
             get {
                 return ResourceManager.GetString("PathCheckTask_PathContainsPercent", resourceCulture);
             }
@@ -405,7 +423,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to The current game directory path is too long. The game may not run normally..
         /// </summary>
-        internal static string PathCheckTask_PathTooLong {
+        public static string PathCheckTask_PathTooLong {
             get {
                 return ResourceManager.GetString("PathCheckTask_PathTooLong", resourceCulture);
             }
@@ -414,7 +432,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Mandatory image virtualization (mandatory ASLR) is disabled by default..
         /// </summary>
-        internal static string ProcessMitigationTask_AslrDefaultOff {
+        public static string ProcessMitigationTask_AslrDefaultOff {
             get {
                 return ResourceManager.GetString("ProcessMitigationTask_AslrDefaultOff", resourceCulture);
             }
@@ -423,7 +441,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Mandatory image virtualization (mandatory ASLR) is enabled by default, and disabling it for {0} failed. This may cause Ares to fail to start normally. Please find and disable the &quot;Force Image Virtualization (Mandatory ASLR)&quot; option in the &quot;System settings&quot; tab under &quot;Windows Security Center&quot; → &quot;App &amp; browser control&quot;, or disable this option individually for the game file in the &quot;Program settings&quot; tab..
         /// </summary>
-        internal static string ProcessMitigationTask_AslrDefaultOnFailedToDisable {
+        public static string ProcessMitigationTask_AslrDefaultOnFailedToDisable {
             get {
                 return ResourceManager.GetString("ProcessMitigationTask_AslrDefaultOnFailedToDisable", resourceCulture);
             }
@@ -432,7 +450,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Mandatory image virtualization (mandatory ASLR) is enabled by default, but it has been successfully disabled for {0}..
         /// </summary>
-        internal static string ProcessMitigationTask_AslrDefaultOnSuccessfullyDisabled {
+        public static string ProcessMitigationTask_AslrDefaultOnSuccessfullyDisabled {
             get {
                 return ResourceManager.GetString("ProcessMitigationTask_AslrDefaultOnSuccessfullyDisabled", resourceCulture);
             }
@@ -441,7 +459,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Disable Mandatory Image Virtualization.
         /// </summary>
-        internal static string ProcessMitigationTask_Description {
+        public static string ProcessMitigationTask_Description {
             get {
                 return ResourceManager.GetString("ProcessMitigationTask_Description", resourceCulture);
             }
@@ -450,7 +468,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Unrecognized boolean value {0}. Unable to determine option status..
         /// </summary>
-        internal static string ProcessMitigationTask_UnrecognizedBoolean {
+        public static string ProcessMitigationTask_UnrecognizedBoolean {
             get {
                 return ResourceManager.GetString("ProcessMitigationTask_UnrecognizedBoolean", resourceCulture);
             }
@@ -459,7 +477,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Execution complete. Please read the warnings and errors in dark red carefully before closing this window..
         /// </summary>
-        internal static string Program_Execution_Complete_Message {
+        public static string Program_Execution_Complete_Message {
             get {
                 return ResourceManager.GetString("Program_Execution_Complete_Message", resourceCulture);
             }
@@ -468,7 +486,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Execution Complete.
         /// </summary>
-        internal static string Program_Execution_Complete_Title {
+        public static string Program_Execution_Complete_Title {
             get {
                 return ResourceManager.GetString("Program_Execution_Complete_Title", resourceCulture);
             }
@@ -477,7 +495,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to QRes check failed. {0}When not using a renderer patch or using an outdated renderer patch, running the game in windowed mode may cause issues. It is recommended to update the qres.dat program or use a modern renderer patch whenever possible..
         /// </summary>
-        internal static string QResTask_CheckFailed {
+        public static string QResTask_CheckFailed {
             get {
                 return ResourceManager.GetString("QResTask_CheckFailed", resourceCulture);
             }
@@ -486,7 +504,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Check QRes High DPI Scaling Issue.
         /// </summary>
-        internal static string QResTask_Description {
+        public static string QResTask_Description {
             get {
                 return ResourceManager.GetString("QResTask_Description", resourceCulture);
             }
@@ -495,7 +513,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Unpatched QRes detected. When not using a renderer patch or using an outdated renderer patch, running the game in windowed mode on a high-DPI monitor may result in resolution errors or the error message &quot;Screen mode not found&quot;. It is recommended to update the qres.dat program or use a modern renderer patch whenever possible..
         /// </summary>
-        internal static string QResTask_UnfixedQRes {
+        public static string QResTask_UnfixedQRes {
             get {
                 return ResourceManager.GetString("QResTask_UnfixedQRes", resourceCulture);
             }
@@ -504,7 +522,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Blowfish.dll file not found..
         /// </summary>
-        internal static string Ra2RegTask_BlowfishNotFound {
+        public static string Ra2RegTask_BlowfishNotFound {
             get {
                 return ResourceManager.GetString("Ra2RegTask_BlowfishNotFound", resourceCulture);
             }
@@ -513,7 +531,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to No need to register Blowfish.dll..
         /// </summary>
-        internal static string Ra2RegTask_BlowfishNotRequired {
+        public static string Ra2RegTask_BlowfishNotRequired {
             get {
                 return ResourceManager.GetString("Ra2RegTask_BlowfishNotRequired", resourceCulture);
             }
@@ -522,7 +540,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Blowfish.dll registered successfully..
         /// </summary>
-        internal static string Ra2RegTask_BlowfishRegistered {
+        public static string Ra2RegTask_BlowfishRegistered {
             get {
                 return ResourceManager.GetString("Ra2RegTask_BlowfishRegistered", resourceCulture);
             }
@@ -531,7 +549,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Register Red Alert 2.
         /// </summary>
-        internal static string Ra2RegTask_Description {
+        public static string Ra2RegTask_Description {
             get {
                 return ResourceManager.GetString("Ra2RegTask_Description", resourceCulture);
             }
@@ -540,7 +558,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Registry write successful..
         /// </summary>
-        internal static string Ra2RegTask_RegistryWriteSuccess {
+        public static string Ra2RegTask_RegistryWriteSuccess {
             get {
                 return ResourceManager.GetString("Ra2RegTask_RegistryWriteSuccess", resourceCulture);
             }
@@ -549,7 +567,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Remove Obsolete Files.
         /// </summary>
-        internal static string RemoveObsoleteFilesTask_Description {
+        public static string RemoveObsoleteFilesTask_Description {
             get {
                 return ResourceManager.GetString("RemoveObsoleteFilesTask_Description", resourceCulture);
             }
@@ -558,7 +576,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Problem encountered while deploying renderer patch. {0}.
         /// </summary>
-        internal static string RendererTask_DeploymentError {
+        public static string RendererTask_DeploymentError {
             get {
                 return ResourceManager.GetString("RendererTask_DeploymentError", resourceCulture);
             }
@@ -567,7 +585,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Set Renderer Patch.
         /// </summary>
-        internal static string RendererTask_Description {
+        public static string RendererTask_Description {
             get {
                 return ResourceManager.GetString("RendererTask_Description", resourceCulture);
             }
@@ -577,7 +595,7 @@ namespace Mo3RegUI.LocalizationResources {
         ///   Looks up a localized string similar to Tip: If needed, renderer patch settings can be changed from within the {0} client.
         ///It is recommended to always use a modern renderer patch on Windows 8/10/11, such as TS-DDraw or CnC-DDraw..
         /// </summary>
-        internal static string RendererTask_Hint {
+        public static string RendererTask_Hint {
             get {
                 return ResourceManager.GetString("RendererTask_Hint", resourceCulture);
             }
@@ -586,7 +604,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Not setting renderer patch..
         /// </summary>
-        internal static string RendererTask_NoRenderer {
+        public static string RendererTask_NoRenderer {
             get {
                 return ResourceManager.GetString("RendererTask_NoRenderer", resourceCulture);
             }
@@ -595,7 +613,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Setting renderer patch to CnC-DDraw..
         /// </summary>
-        internal static string RendererTask_SetToCnCDDraw {
+        public static string RendererTask_SetToCnCDDraw {
             get {
                 return ResourceManager.GetString("RendererTask_SetToCnCDDraw", resourceCulture);
             }
@@ -604,7 +622,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Set Resolution.
         /// </summary>
-        internal static string ResolutionTask_Description {
+        public static string ResolutionTask_Description {
             get {
                 return ResourceManager.GetString("ResolutionTask_Description", resourceCulture);
             }
@@ -613,7 +631,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Desktop resolution detected: {0}×{1}..
         /// </summary>
-        internal static string ResolutionTask_DesktopResolution {
+        public static string ResolutionTask_DesktopResolution {
             get {
                 return ResourceManager.GetString("ResolutionTask_DesktopResolution", resourceCulture);
             }
@@ -622,7 +640,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Game resolution set to {0}×{1}..
         /// </summary>
-        internal static string ResolutionTask_SetGameResolution {
+        public static string ResolutionTask_SetGameResolution {
             get {
                 return ResourceManager.GetString("ResolutionTask_SetGameResolution", resourceCulture);
             }
@@ -631,7 +649,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Check Runtime Components.
         /// </summary>
-        internal static string RuntimeComponentTask_Description {
+        public static string RuntimeComponentTask_Description {
             get {
                 return ResourceManager.GetString("RuntimeComponentTask_Description", resourceCulture);
             }
@@ -640,7 +658,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to .NET Framework {0} is installed..
         /// </summary>
-        internal static string RuntimeComponentTask_DotNet4Installed {
+        public static string RuntimeComponentTask_DotNet4Installed {
             get {
                 return ResourceManager.GetString("RuntimeComponentTask_DotNet4Installed", resourceCulture);
             }
@@ -649,7 +667,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to .NET Framework 4 is not installed..
         /// </summary>
-        internal static string RuntimeComponentTask_DotNet4NotInstalled {
+        public static string RuntimeComponentTask_DotNet4NotInstalled {
             get {
                 return ResourceManager.GetString("RuntimeComponentTask_DotNet4NotInstalled", resourceCulture);
             }
@@ -658,7 +676,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to The current .NET Framework 4 version is lower than 4.8..
         /// </summary>
-        internal static string RuntimeComponentTask_DotNet4VersionTooLow {
+        public static string RuntimeComponentTask_DotNet4VersionTooLow {
             get {
                 return ResourceManager.GetString("RuntimeComponentTask_DotNet4VersionTooLow", resourceCulture);
             }
@@ -667,7 +685,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to XNA Framework 4.0 is installed..
         /// </summary>
-        internal static string RuntimeComponentTask_Xna4Installed {
+        public static string RuntimeComponentTask_Xna4Installed {
             get {
                 return ResourceManager.GetString("RuntimeComponentTask_Xna4Installed", resourceCulture);
             }
@@ -676,7 +694,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to XNA Framework 4.0 is not installed..
         /// </summary>
-        internal static string RuntimeComponentTask_Xna4NotInstalled {
+        public static string RuntimeComponentTask_Xna4NotInstalled {
             get {
                 return ResourceManager.GetString("RuntimeComponentTask_Xna4NotInstalled", resourceCulture);
             }
@@ -685,7 +703,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Found {0} audio output device(s)..
         /// </summary>
-        internal static string SpeakerNumTask_AudioDevicesFound {
+        public static string SpeakerNumTask_AudioDevicesFound {
             get {
                 return ResourceManager.GetString("SpeakerNumTask_AudioDevicesFound", resourceCulture);
             }
@@ -694,7 +712,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Check Audio Output Devices.
         /// </summary>
-        internal static string SpeakerNumTask_Description {
+        public static string SpeakerNumTask_Description {
             get {
                 return ResourceManager.GetString("SpeakerNumTask_Description", resourceCulture);
             }
@@ -703,7 +721,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to No audio output device exists on the current system. Please connect headphones or speakers before entering the game, otherwise the game may crash..
         /// </summary>
-        internal static string SpeakerNumTask_NoAudioDevice {
+        public static string SpeakerNumTask_NoAudioDevice {
             get {
                 return ResourceManager.GetString("SpeakerNumTask_NoAudioDevice", resourceCulture);
             }
@@ -712,7 +730,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Windows version is too low. This feature is not available..
         /// </summary>
-        internal static string Task_OsVersionTooLow_NoFeature {
+        public static string Task_OsVersionTooLow_NoFeature {
             get {
                 return ResourceManager.GetString("Task_OsVersionTooLow_NoFeature", resourceCulture);
             }
@@ -721,7 +739,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Process returned exit code {0}. Execution failed..
         /// </summary>
-        internal static string Task_ProcessExitCodeFailure {
+        public static string Task_ProcessExitCodeFailure {
             get {
                 return ResourceManager.GetString("Task_ProcessExitCodeFailure", resourceCulture);
             }
@@ -730,7 +748,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Execution complete..
         /// </summary>
-        internal static string TaskManager_ExecutionComplete {
+        public static string TaskManager_ExecutionComplete {
             get {
                 return ResourceManager.GetString("TaskManager_ExecutionComplete", resourceCulture);
             }
@@ -739,7 +757,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Execution failed: {0}.
         /// </summary>
-        internal static string TaskManager_ExecutionFailed {
+        public static string TaskManager_ExecutionFailed {
             get {
                 return ResourceManager.GetString("TaskManager_ExecutionFailed", resourceCulture);
             }
@@ -748,7 +766,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Set Game Username.
         /// </summary>
-        internal static string UserNameTask_Description {
+        public static string UserNameTask_Description {
             get {
                 return ResourceManager.GetString("UserNameTask_Description", resourceCulture);
             }
@@ -757,7 +775,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Note: The current player nickname &quot;{0}&quot; contains non-ASCII characters. If the player nickname contains no ASCII characters at all, engines such as Ares 3.0 will crash..
         /// </summary>
-        internal static string UserNameTask_NonAsciiUsername {
+        public static string UserNameTask_NonAsciiUsername {
             get {
                 return ResourceManager.GetString("UserNameTask_NonAsciiUsername", resourceCulture);
             }
@@ -766,7 +784,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Setting player nickname to &quot;{0}&quot;..
         /// </summary>
-        internal static string UserNameTask_SetUsername {
+        public static string UserNameTask_SetUsername {
             get {
                 return ResourceManager.GetString("UserNameTask_SetUsername", resourceCulture);
             }
@@ -775,7 +793,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Check Xbox Game Bar.
         /// </summary>
-        internal static string XboxGameBarTask_Description {
+        public static string XboxGameBarTask_Description {
             get {
                 return ResourceManager.GetString("XboxGameBarTask_Description", resourceCulture);
             }
@@ -784,7 +802,7 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Game Bar is enabled, which may cause certain areas of the game to be unclickable on some computers with certain renderer patches. Please find the relevant setting under Start Menu → Settings → Gaming → Xbox Game Bar and disable the game bar..
         /// </summary>
-        internal static string XboxGameBarTask_GameBarEnabled {
+        public static string XboxGameBarTask_GameBarEnabled {
             get {
                 return ResourceManager.GetString("XboxGameBarTask_GameBarEnabled", resourceCulture);
             }
