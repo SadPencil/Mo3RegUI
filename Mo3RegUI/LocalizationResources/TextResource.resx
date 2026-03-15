@@ -439,4 +439,10 @@ It is recommended to always use a modern renderer patch on Windows 8/10/11, such
   <data name="Constants_AppName" xml:space="preserve">
     <value>Register for Mental Omega 3.3.6</value>
   </data>
+  <data name="MainWindow_GitHubUrlButton" xml:space="preserve">
+    <value>View on GitHub</value>
+  </data>
+  <data name="MainWindow_MessagesCount" xml:space="preserve">
+    <value> messages</value>
+  </data>
 </root>
