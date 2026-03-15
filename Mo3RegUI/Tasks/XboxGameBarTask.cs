@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Mo3RegUI.LocalizationResources;
 using System;
 using System.Globalization;
 
@@ -9,7 +10,8 @@ namespace Mo3RegUI.Tasks
     }
     public class XboxGameBarTask : ITask
     {
-        public string Description => "检查 Xbox 游戏栏";
+        // XboxGameBarTask_Description: Check Xbox Game Bar
+        public string Description => TextResource.XboxGameBarTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -27,7 +29,8 @@ namespace Mo3RegUI.Tasks
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Info,
-                    Text = "Windows 版本过低，无此功能。",
+                    // Task_OsVersionTooLow_NoFeature: Windows version is too low. This feature is not available.
+                Text = TextResource.Task_OsVersionTooLow_NoFeature,
                 });
                 return;
             }
@@ -38,7 +41,8 @@ namespace Mo3RegUI.Tasks
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Warning,
-                    Text = "游戏栏已开启，部分电脑和部分渲染补丁下可能会出现游戏部分区域无法点击的情况。请在“开始菜单”→“设置”→“游戏”→“Xbox Game Bar”下找到相关设置，将游戏栏关闭。",
+                    // XboxGameBarTask_GameBarEnabled: Game Bar is enabled, which may cause certain areas of the game to be unclickable ...
+                    Text = TextResource.XboxGameBarTask_GameBarEnabled,
                 });
             }
 

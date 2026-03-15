@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mo3RegUI.LocalizationResources;
+using System;
 using System.IO;
 using System.Linq;
 
@@ -10,7 +11,8 @@ namespace Mo3RegUI.Tasks
     }
     public class QResTask : ITask
     {
-        public string Description => "检查 QRes 高 DPI 缩放问题";
+        // QResTask_Description: Check QRes High DPI Scaling Issue
+        public string Description => TextResource.QResTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -32,20 +34,22 @@ namespace Mo3RegUI.Tasks
                 byte[] digest = hash.ComputeHash(file);
                 if (digest.SequenceEqual(QResOldVersionSha2))
                 {
+                    // QResTask_UnfixedQRes: Unpatched QRes detected. When not using a renderer patch or using an outdated renderer patch, ...
                     ReportMessage(this, new TaskMessageEventArgs()
                     {
                         Level = MessageLevel.Warning,
-                        Text = "检测到未修复的 QRes。在不使用渲染补丁或使用古老的渲染补丁时，在高 DPI 显示器下以窗口化模式运行游戏可能会出现分辨率错误或“Screen mode not found”的错误提示。建议更新 qres.dat 程序或尽可能使用现代的渲染补丁。",
+                        Text = TextResource.QResTask_UnfixedQRes,
                     });
 
                 }
             }
             catch (Exception ex)
             {
+                // QResTask_CheckFailed: QRes check failed. {0}When not using a renderer patch or using an outdated renderer patch, ...
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Warning,
-                    Text = "检测 QRes 失败。" + ex.Message + "在不使用渲染补丁或使用古老的渲染补丁时，以窗口化模式运行游戏可能会出现问题。建议更新 qres.dat 程序或尽可能使用现代的渲染补丁。",
+                    Text = string.Format(TextResource.QResTask_CheckFailed, ex.Message),
                 });
 
             }

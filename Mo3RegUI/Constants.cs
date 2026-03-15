@@ -1,12 +1,14 @@
-﻿namespace Mo3RegUI
+﻿using Mo3RegUI.LocalizationResources;
+
+namespace Mo3RegUI
 {
     public static class Constants
     {
-        public const string GameName = "心灵终结 3.3.7";
+        public static string GameName => TextResource.Constants_GameName;
         public const string EnglishGameName = "Mental Omega 3.3.7";
 
-        public const string AppName = GameName + " 注册机";
-        public const string EnglishAppName = "Register for " + EnglishGameName;
+        public static string AppName => TextResource.Constants_AppName;
+        public const string EnglishAppName = "Register for Mental Omega 3.3.7";
 
         public const string Version = "v2.5.0";
         public const string AssemblyVersion = "2.5.0.0";
@@ -14,11 +16,9 @@
         public const string CopyrightYearFrom = "2019";
         public const string CopyrightYearTo = "2026";
 
-        public const string AuthorName = "伤心的笔"; // You are not supposed to remove the name here. Append your name if you have made significant changes.
+        public static string AuthorName => TextResource.Constants_AuthorName; // You are not supposed to remove the name here. Append your name if you have made significant changes.
         public const string EnglishAuthorName = "SadPencil"; // You are not supposed to remove the name here. Append your name if you have made significant changes.
         public const string RepoUri = "https://github.com/SadPencil/Mo3RegUI"; // Change to your repo if you have forked it. Note: this is REQUIRED by GPLv3.
-
-        public const string NeutralResourcesLanguage = "zh-CN";
 
         public const string GameConfigIniName = "RA2MO.ini";
         public const string LauncherExeName = "MentalOmegaClient.exe";

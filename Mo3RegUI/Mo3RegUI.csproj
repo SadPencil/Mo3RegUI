@@ -14,6 +14,8 @@
     <WarningLevel>4</WarningLevel>
     <Deterministic>true</Deterministic>
     <LangVersion>9.0</LangVersion>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -73,6 +75,11 @@
     </ApplicationDefinition>
     <Compile Include="ConsoleCommandManager.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="LocalizationResources\TextResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Locks.cs" />
     <Compile Include="MessageItemViewModel.cs" />
     <Compile Include="MessageLevelToBrushConverter.cs" />
@@ -138,8 +145,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="LocalizationResources\TextResource.zh-Hant.resx" />
+    <EmbeddedResource Include="LocalizationResources\TextResource.zh-Hans.resx" />
+    <EmbeddedResource Include="LocalizationResources\TextResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.manifest" />
@@ -157,4 +170,12 @@
     <Resource Include="soviet.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- Do not upgrade Resource.Embedder to v2.x since it has dropped .NET Framework 4.0 support -->
+  <Import Project="..\packages\Resource.Embedder.1.2.8\build\Resource.Embedder.targets" Condition="Exists('..\packages\Resource.Embedder.1.2.8\build\Resource.Embedder.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Resource.Embedder.1.2.8\build\Resource.Embedder.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Resource.Embedder.1.2.8\build\Resource.Embedder.targets'))" />
+  </Target>
 </Project>

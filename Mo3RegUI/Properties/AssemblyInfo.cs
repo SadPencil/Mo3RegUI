@@ -15,7 +15,7 @@ using System.Windows;
 
 [assembly: ComVisible(false)]
 
-[assembly: NeutralResourcesLanguage(Constants.NeutralResourcesLanguage)]
+[assembly: NeutralResourcesLanguage("en-US")]
 
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.None,

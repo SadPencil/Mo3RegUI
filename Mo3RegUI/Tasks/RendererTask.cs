@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mo3RegUI.LocalizationResources;
+using System;
 using System.IO;
 
 namespace Mo3RegUI.Tasks
@@ -9,7 +10,8 @@ namespace Mo3RegUI.Tasks
     }
     public class RendererTask : ITask
     {
-        public string Description => "设置渲染补丁";
+        // RendererTask_Description: Set Renderer Patch
+        public string Description => TextResource.RendererTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -24,7 +26,8 @@ namespace Mo3RegUI.Tasks
         {
             if (Environment.OSVersion.Version.Major >= 7 || (Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor >= 2))
             {
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "设置渲染补丁为 CnC-DDraw。" });
+                // RendererTask_SetToCnCDDraw: Setting renderer patch to CnC-DDraw.
+                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = TextResource.RendererTask_SetToCnCDDraw });
 
                 // Set "singlecpu=false" to support multi-core. Renderer should not determine the affinity but CnC-DDraw did. So the option is turned off in this task.
                 lock (Locks.CnC_DDraw_INI)
@@ -61,7 +64,8 @@ namespace Mo3RegUI.Tasks
                 }
                 catch (Exception ex)
                 {
-                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = "部署渲染补丁时遇到问题。" + ex.Message });
+                    // RendererTask_DeploymentError: Problem encountered while deploying renderer patch. {0}
+                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = string.Format(TextResource.RendererTask_DeploymentError, ex.Message) });
                     success = false;
                 }
                 if (success)
@@ -79,13 +83,15 @@ namespace Mo3RegUI.Tasks
             }
             else
             {
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "不设置渲染补丁。" });
+                // RendererTask_NoRenderer: Not setting renderer patch.
+                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = TextResource.RendererTask_NoRenderer });
             }
 
+            // RendererTask_Hint: Tip: If needed, renderer patch settings can be changed from within the {0} client. ...
             ReportMessage(this, new TaskMessageEventArgs()
             {
                 Level = MessageLevel.Info,
-                Text = $"提示：如果有需要，可以从 {Constants.GameName} 客户端内更改渲染补丁设置。\n在 Windows 8/10/11 系统上建议始终使用现代的渲染补丁，如 TS-DDraw、CnC-DDraw。"
+                Text = string.Format(TextResource.RendererTask_Hint, Constants.GameName)
             });
 
         }

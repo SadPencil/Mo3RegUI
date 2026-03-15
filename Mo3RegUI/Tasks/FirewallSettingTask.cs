@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mo3RegUI.LocalizationResources;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -11,7 +12,8 @@ namespace Mo3RegUI.Tasks
     }
     public class FirewallSettingTask : ITask
     {
-        public string Description => "设置防火墙例外项";
+        // FirewallSettingTask_Description: Set Firewall Exception
+        public string Description => TextResource.FirewallSettingTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -26,10 +28,11 @@ namespace Mo3RegUI.Tasks
         {
             if (!(Environment.OSVersion.Version.Major >= 6))
             {
+                // FirewallSettingTask_OsVersionTooLow: Windows version is too low. Please set Windows Firewall manually.
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Error,
-                    Text = "Windows 版本过低。请手动设置 Windows 防火墙。",
+                    Text = TextResource.FirewallSettingTask_OsVersionTooLow,
                 });
                 return;
             }
@@ -64,7 +67,8 @@ namespace Mo3RegUI.Tasks
 
                 if (exitCode != 0)
                 {
-                    string message = $"进程返回值 {exitCode}。执行失败。";
+                    // Task_ProcessExitCodeFailure: Process returned exit code {0}. Execution failed.
+                    string message = string.Format(TextResource.Task_ProcessExitCodeFailure, exitCode);
                     ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Error, Text = message });
                 }
             }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mo3RegUI.LocalizationResources;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -13,7 +14,8 @@ namespace Mo3RegUI.Tasks
     }
     public class ResolutionTask : ITask
     {
-        public string Description => "设置分辨率";
+        // ResolutionTask_Description: Set Resolution
+        public string Description => TextResource.ResolutionTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -27,7 +29,8 @@ namespace Mo3RegUI.Tasks
         private void _DoWork(ResolutionTaskParameter p)
         {
             ScreenResolution hostResolution = ScreenResolution.GetDesktopScreenResolution();
-            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "检测到桌面分辨率为 " + hostResolution.Width.ToString() + "×" + hostResolution.Height.ToString() + "。" });
+            // ResolutionTask_DesktopResolution: Desktop resolution detected: {0}×{1}.
+            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = string.Format(TextResource.ResolutionTask_DesktopResolution, hostResolution.Width, hostResolution.Height) });
 
             ScreenResolution maxResolution = "1920x1200";
             ScreenResolution fallbackResolutionIfTooLarge = "1920x1080";
@@ -49,7 +52,8 @@ namespace Mo3RegUI.Tasks
                     videoSection["ScreenHeight"] = finalResolution.Height.ToString(CultureInfo.InvariantCulture);
                 });
             }
-            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "设置游戏分辨率为 " + finalResolution.Width.ToString() + "×" + finalResolution.Height.ToString() + "。" });
+            // ResolutionTask_SetGameResolution: Game resolution set to {0}×{1}.
+            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = string.Format(TextResource.ResolutionTask_SetGameResolution, finalResolution.Width, finalResolution.Height) });
         }
     }
 }

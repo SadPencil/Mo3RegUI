@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mo3RegUI.LocalizationResources;
+using System;
 using System.IO;
 
 namespace Mo3RegUI.Tasks
@@ -9,7 +10,8 @@ namespace Mo3RegUI.Tasks
     }
     public class RemoveObsoleteFilesTask : ITask
     {
-        public string Description => "删除多余文件";
+        // RemoveObsoleteFilesTask_Description: Remove Obsolete Files
+        public string Description => TextResource.RemoveObsoleteFilesTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)

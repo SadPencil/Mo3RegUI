@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mo3RegUI.LocalizationResources;
+using System;
 using System.Globalization;
 using System.IO;
 
@@ -10,7 +11,8 @@ namespace Mo3RegUI.Tasks
     }
     public class ChinaNetworkTask : ITask
     {
-        public string Description => "关闭 Discord 功能";
+        // ChinaNetworkTask_Description: Disable Discord
+        public string Description => TextResource.ChinaNetworkTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -33,18 +35,20 @@ namespace Mo3RegUI.Tasks
                         section["DiscordIntegration"] = "False";
                     });
                 }
+                // ChinaNetworkTask_DiscordDisabled: Discord has been successfully disabled.
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Info,
-                    Text = "成功关闭 Discord 功能。",
+                    Text = TextResource.ChinaNetworkTask_DiscordDisabled,
                 });
             }
             else
             {
+                // ChinaNetworkTask_DiscordNotDisabled: Discord is not disabled.
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Info,
-                    Text = "不关闭 Discord 功能。",
+                    Text = TextResource.ChinaNetworkTask_DiscordNotDisabled,
                 });
             }
         }

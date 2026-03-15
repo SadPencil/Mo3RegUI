@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mo3RegUI.LocalizationResources;
+using System;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -10,7 +11,8 @@ namespace Mo3RegUI.Tasks
     }
     public class NetworkInterfaceTask : ITask
     {
-        public string Description => "检查网络环境";
+        // NetworkInterfaceTask_Description: Check Network Environment
+        public string Description => TextResource.NetworkInterfaceTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -59,7 +61,8 @@ namespace Mo3RegUI.Tasks
                     }
                 }
 
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = "您的电脑有多张网卡，列表如下。您可能无法在局域网联机大厅中看到其他玩家。要规避这个问题，请在局域网联机时临时禁用其他网卡，仅保留连接到局域网的网卡。" + ips });
+                // NetworkInterfaceTask_MultipleNetworkCards: Your computer has multiple network cards, as listed below. ... {0}
+                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = string.Format(TextResource.NetworkInterfaceTask_MultipleNetworkCards, ips) });
             }
         }
     }

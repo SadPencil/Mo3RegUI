@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Mo3RegUI.LocalizationResources;
 using System;
 using System.Globalization;
 using System.IO;
@@ -11,7 +12,8 @@ namespace Mo3RegUI.Tasks
     }
     public class ForegroundLockTimeoutTask : ITask
     {
-        public string Description => "检查前台锁定时间";
+        // ForegroundLockTimeoutTask_Description: Check Foreground Lock Timeout
+        public string Description => TextResource.ForegroundLockTimeoutTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -31,13 +33,16 @@ namespace Mo3RegUI.Tasks
             int valDefault = 0x30d40;
             if (valDword >= valDefault)
             {
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = $"前台锁定时间不低于 {valDefault} 毫秒。无需操作。" });
+                // ForegroundLockTimeoutTask_SufficientTimeout: Foreground lock timeout is no less than {0} milliseconds. No action required.
+                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = string.Format(TextResource.ForegroundLockTimeoutTask_SufficientTimeout, valDefault) });
             }
             else
             {
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = $"前台锁定时间低于 {valDefault} 毫秒，有概率导致游戏中返回桌面的情况发生。正在修复……" });
+                // ForegroundLockTimeoutTask_InsufficientTimeout: Foreground lock timeout is less than {0} milliseconds, which may occasionally cause the game to return to the desktop. Fixing...
+                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = string.Format(TextResource.ForegroundLockTimeoutTask_InsufficientTimeout, valDefault) });
                 key.SetValue("ForegroundLockTimeout", valDefault, RegistryValueKind.DWord);
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = $"修复成功。前台锁定时间修改为 {valDefault} 毫秒。" });
+                // ForegroundLockTimeoutTask_FixedTimeout: Fixed successfully. Foreground lock timeout has been set to {0} milliseconds.
+                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = string.Format(TextResource.ForegroundLockTimeoutTask_FixedTimeout, valDefault) });
             }
         }
 

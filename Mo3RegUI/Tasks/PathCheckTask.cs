@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mo3RegUI.LocalizationResources;
+using System;
 using System.Linq;
 using System.Text;
 
@@ -10,7 +11,8 @@ namespace Mo3RegUI.Tasks
     }
     public class PathCheckTask : ITask
     {
-        public string Description => "检查游戏路径格式";
+        // PathCheckTask_Description: Check Game Path Format
+        public string Description => TextResource.PathCheckTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -26,7 +28,8 @@ namespace Mo3RegUI.Tasks
             // Make sure path length is smaller than 130 bytes (after converting to ANSI)
             if (Encoding.Convert(Encoding.Unicode, Encoding.Default, Encoding.Unicode.GetBytes(p.GameDir)).Count() > 130)
             {
-                throw new Exception("当前游戏目录的路径较长。游戏可能无法正常运行。");
+                // PathCheckTask_PathTooLong: The current game directory path is too long. The game may not run normally.
+                throw new Exception(TextResource.PathCheckTask_PathTooLong);
                 //string message = "当前游戏目录的路径较长。游戏可能无法正常运行。";
                 //ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Critical, Text = message });
                 //return; // throw new Exception(message);
@@ -35,7 +38,8 @@ namespace Mo3RegUI.Tasks
             // Make sure path does not contain "%"
             if (p.GameDir.Contains(@"%"))
             {
-                string message = "当前游戏目录的路径包含特殊字符 %（百分号）。Windows 防火墙可能无法正确处理这种情况。";
+                // PathCheckTask_PathContainsPercent: The current game directory path contains the special character % (percent sign). Windows Firewall may not handle this correctly.
+                string message = TextResource.PathCheckTask_PathContainsPercent;
                 ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Error, Text = message });
             }
         }

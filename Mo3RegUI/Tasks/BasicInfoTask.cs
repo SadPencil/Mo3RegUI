@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic.Devices;
+using Mo3RegUI.LocalizationResources;
 using System;
 
 namespace Mo3RegUI.Tasks
@@ -8,7 +9,8 @@ namespace Mo3RegUI.Tasks
     }
     public class BasicInfoTask : ITask
     {
-        public string Description => "检查系统基本信息";
+        // BasicInfoTask_Description: Check System Basic Info
+        public string Description => TextResource.BasicInfoTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -24,21 +26,24 @@ namespace Mo3RegUI.Tasks
             var computerInfo = new ComputerInfo();
             uint codepage = NativeMethods.GetACP();
 
+            // BasicInfoTask_OperatingSystem: Operating System: {0} {1}
             ReportMessage(this, new TaskMessageEventArgs()
             {
                 Level = MessageLevel.Info,
-                Text = "操作系统: " + computerInfo.OSFullName + " " + computerInfo.OSVersion
+                Text = string.Format(TextResource.BasicInfoTask_OperatingSystem, computerInfo.OSFullName, computerInfo.OSVersion)
             });
+            // BasicInfoTask_CurrentAnsiCodePage: Current ANSI Code Page: {0}
             ReportMessage(this, new TaskMessageEventArgs()
             {
                 Level = MessageLevel.Info,
-                Text = "当前 ANSI 代码页: " + codepage.ToString()
+                Text = string.Format(TextResource.BasicInfoTask_CurrentAnsiCodePage, codepage.ToString())
             });
+            // BasicInfoTask_PhysicalMemory: Physical Memory: Total: {0:0.##} GB, Available: {1:0.##} GB
             ReportMessage(this, new TaskMessageEventArgs()
             {
                 Level = MessageLevel.Info,
                 Text = string.Format(
-                    "物理内存: 总计: {0:0.##} GB，可用: {1:0.##} GB",
+                    TextResource.BasicInfoTask_PhysicalMemory,
                     ((double)computerInfo.TotalPhysicalMemory) / 1024 / 1024 / 1024,
                     ((double)computerInfo.AvailablePhysicalMemory) / 1024 / 1024 / 1024),
             });
