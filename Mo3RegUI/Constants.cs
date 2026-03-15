@@ -29,6 +29,7 @@
             "cncnet5.dll",
             "cncnet5mo.dll",
             "ares.dll",
+            "Phobos.dll",
             "Syringe.exe",
             "Map Editor/FinalAlert2MO.exe",
             "Map Editor/Syringe.exe",
