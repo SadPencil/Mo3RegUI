@@ -73,6 +73,11 @@
     </ApplicationDefinition>
     <Compile Include="ConsoleCommandManager.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="LocalizationResources\TextResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Locks.cs" />
     <Compile Include="MessageItemViewModel.cs" />
     <Compile Include="MessageLevelToBrushConverter.cs" />
@@ -138,6 +143,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="LocalizationResources\TextResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -1,4 +1,5 @@
-﻿using Mo3RegUI.Tasks;
+﻿using Mo3RegUI.LocalizationResources;
+using Mo3RegUI.Tasks;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -94,7 +95,9 @@ namespace Mo3RegUI
                 if (waitCount == 0)
                 {
                     this.Title = $"{Constants.AppName}";
-                    MessageBox.Show(this, "执行完毕。请仔细阅读深红色的警告和错误文字，再关闭此窗口。", "执行完毕", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // Program_Execution_Complete_Title: Execution Complete
+                    // Program_Execution_Complete_Message: Execution complete. Please read the warnings and errors in dark red carefully before closing this window.
+                    MessageBox.Show(this, TextResource.Program_Execution_Complete_Message, TextResource.Program_Execution_Complete_Title, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
