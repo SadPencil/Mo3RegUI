@@ -143,6 +143,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="LocalizationResources\TextResource.zh-Hans.resx" />
     <EmbeddedResource Include="LocalizationResources\TextResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TextResource.Designer.cs</LastGenOutput>
