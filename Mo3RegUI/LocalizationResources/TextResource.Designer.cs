@@ -133,6 +133,33 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Register for Mental Omega 3.3.6.
+        /// </summary>
+        internal static string Constants_AppName {
+            get {
+                return ResourceManager.GetString("Constants_AppName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SadPencil.
+        /// </summary>
+        internal static string Constants_AuthorName {
+            get {
+                return ResourceManager.GetString("Constants_AuthorName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mental Omega 3.3.6.
+        /// </summary>
+        internal static string Constants_GameName {
+            get {
+                return ResourceManager.GetString("Constants_GameName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Successfully added {0} to ExcludeFromKnownDlls..
         /// </summary>
         internal static string DDrawDLLTask_AddedToExcludeFromKnownDlls {

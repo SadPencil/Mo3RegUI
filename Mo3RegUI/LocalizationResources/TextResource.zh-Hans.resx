@@ -352,4 +352,13 @@
   <data name="Program_Execution_Complete_Title" xml:space="preserve">
     <value>执行完毕</value>
   </data>
+  <data name="Constants_GameName" xml:space="preserve">
+    <value>心灵终结 3.3.6</value>
+  </data>
+  <data name="Constants_AuthorName" xml:space="preserve">
+    <value>伤心的笔</value>
+  </data>
+  <data name="Constants_AppName" xml:space="preserve">
+    <value>心灵终结 3.3.6 注册机</value>
+  </data>
 </root>

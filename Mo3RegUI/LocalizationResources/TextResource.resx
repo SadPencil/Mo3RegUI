@@ -430,4 +430,13 @@ It is recommended to always use a modern renderer patch on Windows 8/10/11, such
     <value>Execution Complete</value>
     <comment>执行完毕</comment>
   </data>
+  <data name="Constants_GameName" xml:space="preserve">
+    <value>Mental Omega 3.3.6</value>
+  </data>
+  <data name="Constants_AuthorName" xml:space="preserve">
+    <value>SadPencil</value>
+  </data>
+  <data name="Constants_AppName" xml:space="preserve">
+    <value>Register for Mental Omega 3.3.6</value>
+  </data>
 </root>
