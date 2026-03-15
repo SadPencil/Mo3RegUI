@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mo3RegUI.LocalizationResources;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -34,11 +35,13 @@ namespace Mo3RegUI.Tasks
                     this.WaitCount--;
                     if (worker_e.Error is not null)
                     {
-                        this.ReportMessage(task.Task, new TaskMessageEventArgs() { Level = MessageLevel.Critical, Text = "执行失败：" + worker_e.Error.Message });
+                        // TaskManager_ExecutionFailed: Execution failed: {0}
+                        this.ReportMessage(task.Task, new TaskMessageEventArgs() { Level = MessageLevel.Critical, Text = string.Format(TextResource.TaskManager_ExecutionFailed, worker_e.Error.Message) });
                     }
                     else
                     {
-                        this.ReportMessage(task.Task, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "执行结束。" });
+                        // TaskManager_ExecutionComplete: Execution complete.
+                        this.ReportMessage(task.Task, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = TextResource.TaskManager_ExecutionComplete });
                     }
                     this.TaskCompleted(this, new TaskCompletedEventArgs() { TaskInstance = task });
                 };

@@ -117,12 +117,254 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="MainWindow_Not_In_Game_Directory_Title" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="MainWindow_Not_In_Game_Directory_Message" xml:space="preserve">
+    <value>{0} may not be in the game directory. Please ensure that the files of {0} are copied to the game directory before running. File {1} not found.</value>
+  </data>
+  <data name="MainWindow_Title_With_Wait_Count" xml:space="preserve">
+    <value>{0} [ Remaining Tasks: {1} ]</value>
+  </data>
+  <data name="MainWindow_Closing_Warning_Title" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="MainWindow_Closing_Warning_Message" xml:space="preserve">
+    <value>{0} is setting compatibility and configuring game options, and has not finished yet. Are you sure you want to abort the registry tool?</value>
+  </data>
+  <data name="Task_OsVersionTooLow_NoFeature" xml:space="preserve">
+    <value>Windows version is too low. This feature is not available.</value>
+  </data>
+  <data name="Task_ProcessExitCodeFailure" xml:space="preserve">
+    <value>Process returned exit code {0}. Execution failed.</value>
+  </data>
+  <data name="BasicInfoTask_Description" xml:space="preserve">
+    <value>Check System Basic Info</value>
+  </data>
+  <data name="BasicInfoTask_OperatingSystem" xml:space="preserve">
+    <value>Operating System: {0} {1}</value>
+  </data>
+  <data name="BasicInfoTask_CurrentAnsiCodePage" xml:space="preserve">
+    <value>Current ANSI Code Page: {0}</value>
+  </data>
+  <data name="BasicInfoTask_PhysicalMemory" xml:space="preserve">
+    <value>Physical Memory: Total: {0:0.##} GB, Available: {1:0.##} GB</value>
+  </data>
+  <data name="ChinaNetworkTask_Description" xml:space="preserve">
+    <value>Disable Discord</value>
+  </data>
+  <data name="ChinaNetworkTask_DiscordDisabled" xml:space="preserve">
+    <value>Discord has been successfully disabled.</value>
+  </data>
+  <data name="ChinaNetworkTask_DiscordNotDisabled" xml:space="preserve">
+    <value>Discord is not disabled.</value>
+  </data>
+  <data name="CompatibilitySettingTask_Description" xml:space="preserve">
+    <value>Set Program Compatibility</value>
+  </data>
+  <data name="DDrawDLLTask_Description" xml:space="preserve">
+    <value>Check Renderer Registry Entry</value>
+  </data>
+  <data name="DDrawDLLTask_RegistryEntryAbnormal" xml:space="preserve">
+    <value>{0} registry entry is abnormal. {0} should not be in KnownDLLs.</value>
+  </data>
+  <data name="DDrawDLLTask_RegistryEntryNormal" xml:space="preserve">
+    <value>{0} registry entry is normal.</value>
+  </data>
+  <data name="DDrawDLLTask_ExcludeFromKnownDllsWrongType" xml:space="preserve">
+    <value>ExcludeFromKnownDlls should be of type {0}, but is actually of type {1}.</value>
+  </data>
+  <data name="DDrawDLLTask_AddedToExcludeFromKnownDlls" xml:space="preserve">
+    <value>Successfully added {0} to ExcludeFromKnownDlls.</value>
+  </data>
+  <data name="DirectXRuntimeTask_Description" xml:space="preserve">
+    <value>Check DirectX Runtime (June 2010)</value>
+  </data>
+  <data name="DirectXRuntimeTask_NotInstalled" xml:space="preserve">
+    <value>DirectX runtime components are not installed. File {0} not found. Please install DirectX End-User Runtimes (June 2010).</value>
+  </data>
+  <data name="EncodingCheckTask_Description" xml:space="preserve">
+    <value>Check System ANSI Code Page</value>
+  </data>
+  <data name="EncodingCheckTask_Utf8Warning" xml:space="preserve">
+    <value>The current ANSI code page is UTF-8. This is a good practice, but unfortunately, non-English characters cannot be entered normally in the Red Alert 2 game, and components such as the map editor cannot fully display names containing non-English characters. In addition, this is one of the factors that affects whether button misalignment and overlapping issues appear in the game menu interface under high DPI.</value>
+  </data>
+  <data name="FalsePositiveTask_Description" xml:space="preserve">
+    <value>Check Game Files (Rough)</value>
+  </data>
+  <data name="FalsePositiveTask_FileNotFound" xml:space="preserve">
+    <value>Game files are incomplete. File {0} not found. Please check your antivirus software log, add the game directory to the antivirus software whitelist, or replace other antivirus software, and then reinstall the game.</value>
+  </data>
+  <data name="FirewallSettingTask_Description" xml:space="preserve">
+    <value>Set Firewall Exception</value>
+  </data>
+  <data name="FirewallSettingTask_OsVersionTooLow" xml:space="preserve">
+    <value>Windows version is too low. Please set Windows Firewall manually.</value>
+  </data>
+  <data name="FirstRunTask_Description" xml:space="preserve">
+    <value>Dismiss First Run Dialog</value>
+  </data>
+  <data name="ForegroundLockTimeoutTask_Description" xml:space="preserve">
+    <value>Check Foreground Lock Timeout</value>
+  </data>
+  <data name="ForegroundLockTimeoutTask_SufficientTimeout" xml:space="preserve">
+    <value>Foreground lock timeout is no less than {0} milliseconds. No action required.</value>
+  </data>
+  <data name="ForegroundLockTimeoutTask_InsufficientTimeout" xml:space="preserve">
+    <value>Foreground lock timeout is less than {0} milliseconds, which may occasionally cause the game to return to the desktop. Fixing...</value>
+  </data>
+  <data name="ForegroundLockTimeoutTask_FixedTimeout" xml:space="preserve">
+    <value>Fixed successfully. Foreground lock timeout has been set to {0} milliseconds.</value>
+  </data>
+  <data name="NetworkInterfaceTask_Description" xml:space="preserve">
+    <value>Check Network Environment</value>
+  </data>
+  <data name="NetworkInterfaceTask_MultipleNetworkCards" xml:space="preserve">
+    <value>Your computer has multiple network cards, as listed below. You may not be able to see other players in the LAN lobby. To avoid this problem, temporarily disable other network cards when connecting to the LAN, and keep only the network card connected to the LAN.{0}</value>
+  </data>
+  <data name="PathCheckTask_Description" xml:space="preserve">
+    <value>Check Game Path Format</value>
+  </data>
+  <data name="PathCheckTask_PathTooLong" xml:space="preserve">
+    <value>The current game directory path is too long. The game may not run normally.</value>
+  </data>
+  <data name="PathCheckTask_PathContainsPercent" xml:space="preserve">
+    <value>The current game directory path contains the special character % (percent sign). Windows Firewall may not handle this correctly.</value>
+  </data>
+  <data name="ProcessMitigationTask_Description" xml:space="preserve">
+    <value>Disable Mandatory Image Virtualization</value>
+  </data>
+  <data name="ProcessMitigationTask_AslrDefaultOnSuccessfullyDisabled" xml:space="preserve">
+    <value>Mandatory image virtualization (mandatory ASLR) is enabled by default, but it has been successfully disabled for {0}.</value>
+  </data>
+  <data name="ProcessMitigationTask_AslrDefaultOnFailedToDisable" xml:space="preserve">
+    <value>Mandatory image virtualization (mandatory ASLR) is enabled by default, and disabling it for {0} failed. This may cause Ares to fail to start normally. Please find and disable the "Force Image Virtualization (Mandatory ASLR)" option in the "System settings" tab under "Windows Security Center" → "App &amp; browser control", or disable this option individually for the game file in the "Program settings" tab.</value>
+  </data>
+  <data name="ProcessMitigationTask_AslrDefaultOff" xml:space="preserve">
+    <value>Mandatory image virtualization (mandatory ASLR) is disabled by default.</value>
+  </data>
+  <data name="ProcessMitigationTask_UnrecognizedBoolean" xml:space="preserve">
+    <value>Unrecognized boolean value {0}. Unable to determine option status.</value>
+  </data>
+  <data name="QResTask_Description" xml:space="preserve">
+    <value>Check QRes High DPI Scaling Issue</value>
+  </data>
+  <data name="QResTask_UnfixedQRes" xml:space="preserve">
+    <value>Unpatched QRes detected. When not using a renderer patch or using an outdated renderer patch, running the game in windowed mode on a high-DPI monitor may result in resolution errors or the error message "Screen mode not found". It is recommended to update the qres.dat program or use a modern renderer patch whenever possible.</value>
+  </data>
+  <data name="QResTask_CheckFailed" xml:space="preserve">
+    <value>QRes check failed. {0}When not using a renderer patch or using an outdated renderer patch, running the game in windowed mode may cause issues. It is recommended to update the qres.dat program or use a modern renderer patch whenever possible.</value>
+  </data>
+  <data name="Ra2RegTask_Description" xml:space="preserve">
+    <value>Register Red Alert 2</value>
+  </data>
+  <data name="Ra2RegTask_RegistryWriteSuccess" xml:space="preserve">
+    <value>Registry write successful.</value>
+  </data>
+  <data name="Ra2RegTask_BlowfishNotFound" xml:space="preserve">
+    <value>Blowfish.dll file not found.</value>
+  </data>
+  <data name="Ra2RegTask_BlowfishRegistered" xml:space="preserve">
+    <value>Blowfish.dll registered successfully.</value>
+  </data>
+  <data name="Ra2RegTask_BlowfishNotRequired" xml:space="preserve">
+    <value>No need to register Blowfish.dll.</value>
+  </data>
+  <data name="RemoveObsoleteFilesTask_Description" xml:space="preserve">
+    <value>Remove Obsolete Files</value>
+  </data>
+  <data name="RendererTask_Description" xml:space="preserve">
+    <value>Set Renderer Patch</value>
+  </data>
+  <data name="RendererTask_SetToCnCDDraw" xml:space="preserve">
+    <value>Setting renderer patch to CnC-DDraw.</value>
+  </data>
+  <data name="RendererTask_DeploymentError" xml:space="preserve">
+    <value>Problem encountered while deploying renderer patch. {0}</value>
+  </data>
+  <data name="RendererTask_NoRenderer" xml:space="preserve">
+    <value>Not setting renderer patch.</value>
+  </data>
+  <data name="RendererTask_Hint" xml:space="preserve">
+    <value>Tip: If needed, renderer patch settings can be changed from within the {0} client.
+It is recommended to always use a modern renderer patch on Windows 8/10/11, such as TS-DDraw or CnC-DDraw.</value>
+  </data>
+  <data name="ResolutionTask_Description" xml:space="preserve">
+    <value>Set Resolution</value>
+  </data>
+  <data name="ResolutionTask_DesktopResolution" xml:space="preserve">
+    <value>Desktop resolution detected: {0}×{1}.</value>
+  </data>
+  <data name="ResolutionTask_SetGameResolution" xml:space="preserve">
+    <value>Game resolution set to {0}×{1}.</value>
+  </data>
+  <data name="RuntimeComponentTask_Description" xml:space="preserve">
+    <value>Check Runtime Components</value>
+  </data>
+  <data name="RuntimeComponentTask_DotNet4NotInstalled" xml:space="preserve">
+    <value>.NET Framework 4 is not installed.</value>
+  </data>
+  <data name="RuntimeComponentTask_DotNet4Installed" xml:space="preserve">
+    <value>.NET Framework {0} is installed.</value>
+  </data>
+  <data name="RuntimeComponentTask_DotNet4VersionTooLow" xml:space="preserve">
+    <value>The current .NET Framework 4 version is lower than 4.8.</value>
+  </data>
+  <data name="RuntimeComponentTask_Xna4Installed" xml:space="preserve">
+    <value>XNA Framework 4.0 is installed.</value>
+  </data>
+  <data name="RuntimeComponentTask_Xna4NotInstalled" xml:space="preserve">
+    <value>XNA Framework 4.0 is not installed.</value>
+  </data>
+  <data name="SpeakerNumTask_Description" xml:space="preserve">
+    <value>Check Audio Output Devices</value>
+  </data>
+  <data name="SpeakerNumTask_NoAudioDevice" xml:space="preserve">
+    <value>No audio output device exists on the current system. Please connect headphones or speakers before entering the game, otherwise the game may crash.</value>
+  </data>
+  <data name="SpeakerNumTask_AudioDevicesFound" xml:space="preserve">
+    <value>Found {0} audio output device(s).</value>
+  </data>
+  <data name="TaskManager_ExecutionFailed" xml:space="preserve">
+    <value>Execution failed: {0}</value>
+  </data>
+  <data name="TaskManager_ExecutionComplete" xml:space="preserve">
+    <value>Execution complete.</value>
+  </data>
+  <data name="UserNameTask_Description" xml:space="preserve">
+    <value>Set Game Username</value>
+  </data>
+  <data name="UserNameTask_NonAsciiUsername" xml:space="preserve">
+    <value>Note: The current player nickname "{0}" contains non-ASCII characters. If the player nickname contains no ASCII characters at all, engines such as Ares 3.0 will crash.</value>
+  </data>
+  <data name="UserNameTask_SetUsername" xml:space="preserve">
+    <value>Setting player nickname to "{0}".</value>
+  </data>
+  <data name="XboxGameBarTask_Description" xml:space="preserve">
+    <value>Check Xbox Game Bar</value>
+  </data>
+  <data name="XboxGameBarTask_GameBarEnabled" xml:space="preserve">
+    <value>Game Bar is enabled, which may cause certain areas of the game to be unclickable on some computers with certain renderer patches. Please find the relevant setting under Start Menu → Settings → Gaming → Xbox Game Bar and disable the game bar.</value>
+  </data>
   <data name="Program_Execution_Complete_Message" xml:space="preserve">
     <value>Execution complete. Please read the warnings and errors in dark red carefully before closing this window.</value>
-    <comment>执行完毕。请仔细阅读深红色的警告和错误文字，再关闭此窗口。</comment>
   </data>
   <data name="Program_Execution_Complete_Title" xml:space="preserve">
     <value>Execution Complete</value>
-    <comment>执行完毕</comment>
+  </data>
+  <data name="Constants_GameName" xml:space="preserve">
+    <value>Mental Omega 3.3.6</value>
+  </data>
+  <data name="Constants_AuthorName" xml:space="preserve">
+    <value>SadPencil</value>
+  </data>
+  <data name="Constants_AppName" xml:space="preserve">
+    <value>Register for Mental Omega 3.3.6</value>
+  </data>
+  <data name="MainWindow_GitHubUrlButton" xml:space="preserve">
+    <value>View on GitHub</value>
+  </data>
+  <data name="MainWindow_MessagesCount" xml:space="preserve">
+    <value> messages</value>
   </data>
 </root>

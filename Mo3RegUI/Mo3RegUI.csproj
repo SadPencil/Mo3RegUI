@@ -145,7 +145,7 @@
     </Compile>
     <EmbeddedResource Include="LocalizationResources\TextResource.zh-Hans.resx" />
     <EmbeddedResource Include="LocalizationResources\TextResource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TextResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

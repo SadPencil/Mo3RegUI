@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mo3RegUI"
+        xmlns:l10n="clr-namespace:Mo3RegUI.LocalizationResources"
         mc:Ignorable="d"
         Title="{x:Static local:Constants.AppName}" Height="450" Width="800" Initialized="Window_Initialized" Closing="Window_Closing" WindowStartupLocation="CenterScreen" >
     <Window.DataContext>
@@ -42,7 +43,7 @@
             <Button x:Name="GitHubUrlButton" Grid.Column="1" Margin="5" FontSize="14" VerticalAlignment="Bottom" Click="GitHubUrlButton_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Margin="2" Source="github-mark.png" Height="22" VerticalAlignment="Center"></Image>
-                    <Label Margin="0">在 GitHub 上查看</Label>
+                    <Label Margin="0" Content="{x:Static l10n:TextResource.MainWindow_GitHubUrlButton}"/>
                 </StackPanel>
             </Button>
         </Grid>
@@ -63,7 +64,7 @@
                                                 <DockPanel>
                                                     <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="Black" FontSize="18" VerticalAlignment="Bottom" />
                                                     <TextBlock Text="{Binding ItemCount}" FontSize="18" Foreground="Green" FontWeight="Bold" Margin="10,0,0,0" VerticalAlignment="Bottom" />
-                                                    <TextBlock Text=" 条消息" FontSize="18" Foreground="DarkGray" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text="{x:Static l10n:TextResource.MainWindow_MessagesCount}" FontSize="18" Foreground="DarkGray" VerticalAlignment="Bottom" />
                                                 </DockPanel>
                                             </Expander.Header>
                                             <Expander.Content>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Mo3RegUI.LocalizationResources;
 using System;
 using System.IO;
 using System.Text;
@@ -11,7 +12,8 @@ namespace Mo3RegUI.Tasks
     }
     public class Ra2RegTask : ITask
     {
-        public string Description => "注册 Red Alert 2";
+        // Ra2RegTask_Description: Register Red Alert 2
+        public string Description => TextResource.Ra2RegTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -50,7 +52,8 @@ namespace Mo3RegUI.Tasks
             yrKey.SetValue("SKU", 10496);
             yrKey.SetValue("Version", 65537);
 
-            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "写入注册表成功。" });
+            // Ra2RegTask_RegistryWriteSuccess: Registry write successful.
+            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = TextResource.Ra2RegTask_RegistryWriteSuccess });
 
             if (Constants.RequireBlowfishRegistration)
             {
@@ -60,7 +63,8 @@ namespace Mo3RegUI.Tasks
 
                 if (!File.Exists(blowfishPath))
                 {
-                    throw new Exception("找不到 Blowfish.dll 文件。");
+                    // Ra2RegTask_BlowfishNotFound: Blowfish.dll file not found.
+                throw new Exception(TextResource.Ra2RegTask_BlowfishNotFound);
                 }
 
                 ConsoleCommandManager.RunConsoleCommand("regsvr32.exe", $"/s \"{blowfishPath}\"", out int exitCode, out string stdOut, out string stdErr);
@@ -77,17 +81,20 @@ namespace Mo3RegUI.Tasks
 
                 if (exitCode != 0)
                 {
-                    string message = $"进程返回值 {exitCode}。执行失败。";
+                    // Task_ProcessExitCodeFailure: Process returned exit code {0}. Execution failed.
+                    string message = string.Format(TextResource.Task_ProcessExitCodeFailure, exitCode);
                     ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Error, Text = message });
                 }
                 else
                 {
-                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "注册 Blowfish.dll 成功。" });
+                    // Ra2RegTask_BlowfishRegistered: Blowfish.dll registered successfully.
+                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = TextResource.Ra2RegTask_BlowfishRegistered });
                 }
             }
             else
             {
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = "无需注册 Blowfish.dll。" });
+                // Ra2RegTask_BlowfishNotRequired: No need to register Blowfish.dll.
+            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = TextResource.Ra2RegTask_BlowfishNotRequired });
             }
 
         }

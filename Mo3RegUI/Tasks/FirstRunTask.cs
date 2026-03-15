@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mo3RegUI.LocalizationResources;
+using System;
 using System.IO;
 
 namespace Mo3RegUI.Tasks
@@ -9,7 +10,8 @@ namespace Mo3RegUI.Tasks
     }
     public class FirstRunTask : ITask
     {
-        public string Description => "关闭首次运行对话框";
+        // FirstRunTask_Description: Dismiss First Run Dialog
+        public string Description => TextResource.FirstRunTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
