@@ -117,6 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="MainWindow_Not_In_Game_Directory_Title" xml:space="preserve">
+    <value>Error</value>
+    <comment>错误</comment>
+  </data>
+  <data name="MainWindow_Not_In_Game_Directory_Message" xml:space="preserve">
+    <value>{0} may not be in the game directory. Please ensure that the files of {0} are copied to the game directory before running. File {1} not found.</value>
+    <comment>{0} 可能不在游戏目录。请确保将 {0} 的文件复制到游戏目录后再执行。找不到 {1} 文件。</comment>
+  </data>
+  <data name="MainWindow_Title_With_Wait_Count" xml:space="preserve">
+    <value>{0} [ Remaining Tasks: {1} ]</value>
+    <comment>{0} [ 剩余任务: {1} ]</comment>
+  </data>
+  <data name="MainWindow_Closing_Warning_Title" xml:space="preserve">
+    <value>Warning</value>
+    <comment>警告</comment>
+  </data>
+  <data name="MainWindow_Closing_Warning_Message" xml:space="preserve">
+    <value>{0} is setting compatibility and configuring game options, and has not finished yet. Are you sure you want to abort the registry tool?</value>
+    <comment>{0} 正在设置兼容性和配置游戏选项，且尚未运行完毕。确定要中止注册机的运行吗？</comment>
+  </data>
   <data name="Program_Execution_Complete_Message" xml:space="preserve">
     <value>Execution complete. Please read the warnings and errors in dark red carefully before closing this window.</value>
     <comment>执行完毕。请仔细阅读深红色的警告和错误文字，再关闭此窗口。</comment>

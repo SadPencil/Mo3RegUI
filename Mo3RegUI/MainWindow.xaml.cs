@@ -42,9 +42,11 @@ namespace Mo3RegUI
             {
                 if (!File.Exists(exePath))
                 {
+                    // MainWindow_Not_In_Game_Directory_Title: Error
+                    // MainWindow_Not_In_Game_Directory_Message: {0} may not be in the game directory. Please ensure that the files of {0} are copied to the game directory before running. File {1} not found.
                     MessageBox.Show(this,
-                        $"{Constants.AppName} 可能不在游戏目录。请确保将 {Constants.AppName} 的文件复制到游戏目录后再执行。找不到 {exePath} 文件。",
-                        "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                        string.Format(TextResource.MainWindow_Not_In_Game_Directory_Message, Constants.AppName, exePath),
+                        TextResource.MainWindow_Not_In_Game_Directory_Title, MessageBoxButton.OK, MessageBoxImage.Error);
                     Environment.Exit(1);
                     return;
                 }
@@ -101,7 +103,8 @@ namespace Mo3RegUI
                 }
                 else
                 {
-                    this.Title = $"{Constants.AppName} [ 剩余任务: {waitCount} ]";
+                    // MainWindow_Title_With_Wait_Count: {0} [ Remaining Tasks: {1} ]
+                    this.Title = string.Format(TextResource.MainWindow_Title_With_Wait_Count, Constants.AppName, waitCount);
                 }
             };
             this.mainTaskManager.RunAsync();
@@ -111,9 +114,11 @@ namespace Mo3RegUI
         {
             if ((this.mainTaskManager?.WaitCount).GetValueOrDefault() > 0)
             {
+                // MainWindow_Closing_Warning_Title: Warning
+                // MainWindow_Closing_Warning_Message: {0} is setting compatibility and configuring game options, and has not finished yet. Are you sure you want to abort the registry tool?
                 var ret = MessageBox.Show(this,
-                    $"{Constants.AppName} 正在设置兼容性和配置游戏选项，且尚未运行完毕。确定要中止注册机的运行吗？",
-                    "警告", MessageBoxButton.YesNoCancel, MessageBoxImage.Exclamation, MessageBoxResult.No);
+                    string.Format(TextResource.MainWindow_Closing_Warning_Message, Constants.AppName),
+                    TextResource.MainWindow_Closing_Warning_Title, MessageBoxButton.YesNoCancel, MessageBoxImage.Exclamation, MessageBoxResult.No);
                 if (ret != MessageBoxResult.Yes)
                 {
                     e.Cancel = true;
