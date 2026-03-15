@@ -4,12 +4,12 @@ using System.Resources;
 using System.Runtime.InteropServices;
 using System.Windows;
 
-[assembly: AssemblyTitle(Constants.EnglishAppName)]
+[assembly: AssemblyTitle(Constants.AppName)]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("Copyright © " + Constants.EnglishAuthorName + " " + Constants.CopyrightYearFrom + " – " + Constants.CopyrightYearTo)]
+[assembly: AssemblyCopyright("Copyright © " + Constants.AuthorName + " " + Constants.CopyrightYearFrom + " – " + Constants.CopyrightYearTo)]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
