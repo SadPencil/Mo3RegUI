@@ -133,7 +133,7 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Register for Mental Omega 3.3.6.
+        ///   Looks up a localized string similar to Register for Mental Omega 3.3.7.
         /// </summary>
         public static string Constants_AppName {
             get {
@@ -151,7 +151,7 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mental Omega 3.3.6.
+        ///   Looks up a localized string similar to Mental Omega 3.3.7.
         /// </summary>
         public static string Constants_GameName {
             get {

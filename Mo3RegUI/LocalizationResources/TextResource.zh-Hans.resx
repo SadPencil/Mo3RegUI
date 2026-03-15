@@ -353,13 +353,13 @@
     <value>执行完毕</value>
   </data>
   <data name="Constants_GameName" xml:space="preserve">
-    <value>心灵终结 3.3.6</value>
+    <value>心灵终结 3.3.7</value>
   </data>
   <data name="Constants_AuthorName" xml:space="preserve">
     <value>伤心的笔</value>
   </data>
   <data name="Constants_AppName" xml:space="preserve">
-    <value>心灵终结 3.3.6 注册机</value>
+    <value>心灵终结 3.3.7 注册机</value>
   </data>
   <data name="MainWindow_GitHubUrlButton" xml:space="preserve">
     <value>在 GitHub 上查看</value>

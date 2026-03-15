@@ -353,13 +353,13 @@ It is recommended to always use a modern renderer patch on Windows 8/10/11, such
     <value>Execution Complete</value>
   </data>
   <data name="Constants_GameName" xml:space="preserve">
-    <value>Mental Omega 3.3.6</value>
+    <value>Mental Omega 3.3.7</value>
   </data>
   <data name="Constants_AuthorName" xml:space="preserve">
     <value>SadPencil</value>
   </data>
   <data name="Constants_AppName" xml:space="preserve">
-    <value>Register for Mental Omega 3.3.6</value>
+    <value>Register for Mental Omega 3.3.7</value>
   </data>
   <data name="MainWindow_GitHubUrlButton" xml:space="preserve">
     <value>View on GitHub</value>
