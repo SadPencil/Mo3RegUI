@@ -20,8 +20,6 @@ namespace Mo3RegUI
         public const string EnglishAuthorName = "SadPencil"; // You are not supposed to remove the name here. Append your name if you have made significant changes.
         public const string RepoUri = "https://github.com/SadPencil/Mo3RegUI"; // Change to your repo if you have forked it. Note: this is REQUIRED by GPLv3.
 
-        public const string NeutralResourcesLanguage = "en-US";
-
         public const string GameConfigIniName = "RA2MO.ini";
         public const string LauncherExeName = "MentalOmegaClient.exe";
         public const string GameExeName = "gamemd.exe";
