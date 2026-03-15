@@ -32,7 +32,7 @@ jobs:
 
     # Upload artifact
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: Mo3RegUI-win-net40
         path: Mo3RegUI/bin/Release/
