@@ -4,32 +4,33 @@ using System.IO;
 
 namespace Mo3RegUI.Tasks
 {
-    public class FirstRunTaskParameter : ITaskParameter
+    public class ClientVolumeTaskParameter : ITaskParameter
     {
         public string GameDir;
     }
-    public class FirstRunTask : ITask
+    public class ClientVolumeTask : ITask
     {
-        // FirstRunTask_Description: Dismiss First Run Dialog
-        public string Description => TextResource.FirstRunTask_Description;
+        // ClientVolumeTask_Description: Dismiss First Run Dialog
+        public string Description => TextResource.ClientVolumeTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
         {
-            if (p is FirstRunTaskParameter pp)
+            if (p is ClientVolumeTaskParameter pp)
             {
                 this._DoWork(pp);
             }
             else { throw new ArgumentException(); }
         }
-        private void _DoWork(FirstRunTaskParameter p)
+        private void _DoWork(ClientVolumeTaskParameter p)
         {
             lock (Locks.RA2MO_INI)
             {
                 MyIniParserHelper.EditIniFile(Path.Combine(p.GameDir, Constants.GameConfigIniName), ini =>
                 {
-                    var optionSection = MyIniParserHelper.GetSectionOrNew(ini, "Options");
-                    optionSection["IsFirstRun"] = "False";
+                    // The client now relies on IsFurstRun to apply the translation files. Therefore, we don't set it to false anymore.
+                    // var optionSection = MyIniParserHelper.GetSectionOrNew(ini, "Options");
+                    // optionSection["IsFirstRun"] = "False";
 
                     var audioSection = MyIniParserHelper.GetSectionOrNew(ini, "Audio");
                     if (audioSection.ContainsKey("ClientVolume"))
