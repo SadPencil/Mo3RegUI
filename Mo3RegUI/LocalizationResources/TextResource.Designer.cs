@@ -279,9 +279,9 @@ namespace Mo3RegUI.LocalizationResources {
         /// <summary>
         ///   Looks up a localized string similar to Dismiss First Run Dialog.
         /// </summary>
-        public static string FirstRunTask_Description {
+        public static string ClientVolumeTask_Description {
             get {
-                return ResourceManager.GetString("FirstRunTask_Description", resourceCulture);
+                return ResourceManager.GetString("ClientVolumeTask_Description", resourceCulture);
             }
         }
         

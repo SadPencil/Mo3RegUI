@@ -201,7 +201,7 @@
   <data name="FirewallSettingTask_OsVersionTooLow" xml:space="preserve">
     <value>Windows version is too low. Please set Windows Firewall manually.</value>
   </data>
-  <data name="FirstRunTask_Description" xml:space="preserve">
+  <data name="ClientVolumeTask_Description" xml:space="preserve">
     <value>Dismiss First Run Dialog</value>
   </data>
   <data name="ForegroundLockTimeoutTask_Description" xml:space="preserve">

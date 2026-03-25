@@ -64,7 +64,7 @@ namespace Mo3RegUI
                 new TaskInstance(){Task = new Ra2RegTask(), Parameter = new Ra2RegTaskParameter(){ GameDir = gameDir}},
                 new TaskInstance(){Task = new QResTask(), Parameter = new QResTaskParameter(){ GameDir = gameDir}},
                 new TaskInstance(){Task = new FirewallSettingTask(), Parameter = new FirewallSettingTaskParameter(){ GameDir = gameDir}},
-                new TaskInstance(){Task = new FirstRunTask(), Parameter = new FirstRunTaskParameter(){ GameDir = gameDir}},
+                new TaskInstance(){Task = new ClientVolumeTask(), Parameter = new ClientVolumeTaskParameter(){ GameDir = gameDir}},
                 new TaskInstance(){Task = new UserNameTask(), Parameter = new UserNameTaskParameter(){ GameDir = gameDir}},
                 new TaskInstance(){Task = new ResolutionTask(), Parameter = new ResolutionTaskParameter(){ GameDir = gameDir}},
                 new TaskInstance(){Task = new RendererTask(), Parameter = new RendererTaskParameter(){ GameDir = gameDir}},

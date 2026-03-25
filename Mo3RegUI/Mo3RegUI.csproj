@@ -101,7 +101,7 @@
     <Compile Include="Tasks\EncodingCheckTask.cs" />
     <Compile Include="Tasks\FalsePositiveTask.cs" />
     <Compile Include="Tasks\FirewallSettingTask.cs" />
-    <Compile Include="Tasks\FirstRunTask.cs" />
+    <Compile Include="Tasks\ClientVolumeTask.cs" />
     <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Tasks\ITaskParameter.cs" />
     <Compile Include="Tasks\MessageLevel.cs" />

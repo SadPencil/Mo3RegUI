@@ -201,7 +201,7 @@
   <data name="FirewallSettingTask_OsVersionTooLow" xml:space="preserve">
     <value>Windows 版本过低。请手动设置 Windows 防火墙。</value>
   </data>
-  <data name="FirstRunTask_Description" xml:space="preserve">
+  <data name="ClientVolumeTask_Description" xml:space="preserve">
     <value>关闭首次运行对话框</value>
   </data>
   <data name="ForegroundLockTimeoutTask_Description" xml:space="preserve">
