@@ -46,14 +46,12 @@ namespace Mo3RegUI.Tasks
                 // Remove old firewall exceptions matching the hash
 
                 // Ignore the potential errors since the item can either exist or not
-                ConsoleCommandManager.RunConsoleCommand(
-                    "netsh.exe", "advfirewall firewall delete rule name=\"Exception-" + ExePathHash32 + "\" dir=in",
-                    out _, out _, out _);
+                // ConsoleCommandManager.RunConsoleCommand("netsh.exe", "advfirewall firewall delete rule name=\"Mo3RegUI-" + ExePathHash32 + "\" dir=in", out _, out _, out _);
+                ConsoleCommandManager.RunConsoleCommand("cmd.exe", "/c \"chcp 65001 > NUL && netsh advfirewall firewall delete rule name=\\\"Mo3RegUI-" + ExePathHash32 + "\\\" dir=in\"", out _, out _, out _);
 
                 // Add firewall exception
-                ConsoleCommandManager.RunConsoleCommand(
-                    "netsh.exe", "advfirewall firewall add rule name=\"Exception-" + ExePathHash32 + "\" dir=in action=allow program=\"" + exePath + "\"",
-                    out int exitCode, out string stdOut, out string stdErr);
+                // ConsoleCommandManager.RunConsoleCommand("netsh.exe", "advfirewall firewall add rule name=\"Mo3RegUI-" + ExePathHash32 + "\" dir=in action=allow program=\"" + exePath + "\"", out int exitCode, out string stdOut, out string stdErr);
+                ConsoleCommandManager.RunConsoleCommand("cmd.exe", "/c \"chcp 65001 > NUL && netsh advfirewall firewall add rule name=\\\"Mo3RegUI-" + ExePathHash32 + "\\\" dir=in action=allow program=\\\"" + exePath + "\\\"\"", out int exitCode, out string stdOut, out string stdErr);
 
                 if (!string.IsNullOrWhiteSpace(stdOut))
                 {
