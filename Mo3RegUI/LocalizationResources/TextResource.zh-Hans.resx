@@ -130,7 +130,7 @@
     <value>警告</value>
   </data>
   <data name="MainWindow_Closing_Warning_Message" xml:space="preserve">
-    <value>{0} 正在设置兼容性和配置游戏选项，且尚未运行完毕。确定要中止注册机的运行吗？</value>
+    <value>{0} 正在设置兼容性和配置游戏选项，且尚未运行完毕。确定要中止吗？</value>
   </data>
   <data name="Task_OsVersionTooLow_NoFeature" xml:space="preserve">
     <value>Windows 版本过低，无此功能。</value>

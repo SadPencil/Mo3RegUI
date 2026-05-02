@@ -130,7 +130,7 @@
     <value>Warning</value>
   </data>
   <data name="MainWindow_Closing_Warning_Message" xml:space="preserve">
-    <value>{0} is setting compatibility and configuring game options, and has not finished yet. Are you sure you want to abort the registry tool?</value>
+    <value>{0} is setting compatibility and configuring game options, and has not finished yet. Are you sure you want to abort?</value>
   </data>
   <data name="Task_OsVersionTooLow_NoFeature" xml:space="preserve">
     <value>Windows version is too low. This feature is not available.</value>
