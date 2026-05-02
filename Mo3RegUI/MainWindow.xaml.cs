@@ -115,7 +115,7 @@ namespace Mo3RegUI
             if ((this.mainTaskManager?.WaitCount).GetValueOrDefault() > 0)
             {
                 // MainWindow_Closing_Warning_Title: Warning
-                // MainWindow_Closing_Warning_Message: {0} is setting compatibility and configuring game options, and has not finished yet. Are you sure you want to abort the registry tool?
+                // MainWindow_Closing_Warning_Message: {0} is setting compatibility and configuring game options, and has not finished yet. Are you sure you want to abort?
                 var ret = MessageBox.Show(this,
                     string.Format(TextResource.MainWindow_Closing_Warning_Message, Constants.AppName),
                     TextResource.MainWindow_Closing_Warning_Title, MessageBoxButton.YesNoCancel, MessageBoxImage.Exclamation, MessageBoxResult.No);

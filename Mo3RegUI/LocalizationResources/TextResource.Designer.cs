@@ -322,7 +322,7 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} is setting compatibility and configuring game options, and has not finished yet. Are you sure you want to abort the registry tool?.
+        ///   Looks up a localized string similar to {0} is setting compatibility and configuring game options, and has not finished yet. Are you sure you want to abort?.
         /// </summary>
         public static string MainWindow_Closing_Warning_Message {
             get {

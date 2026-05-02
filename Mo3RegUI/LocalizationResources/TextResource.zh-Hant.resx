@@ -130,7 +130,7 @@
     <value>警告</value>
   </data>
   <data name="MainWindow_Closing_Warning_Message" xml:space="preserve">
-    <value>{0} 正在設定相容性和配置遊戲選項，且尚未執行完畢。確定要中止序號產生器的執行嗎？</value>
+    <value>{0} 正在設定相容性和配置遊戲選項，且尚未執行完畢。確定要中止嗎？</value>
   </data>
   <data name="Task_OsVersionTooLow_NoFeature" xml:space="preserve">
     <value>Windows 版本過低，無此功能。</value>
@@ -359,7 +359,7 @@
     <value>傷心的筆</value>
   </data>
   <data name="Constants_AppName" xml:space="preserve">
-    <value>心靈終結 3.3.7 序號產生器</value>
+    <value>心靈終結 3.3.7 註冊機</value>
   </data>
   <data name="MainWindow_GitHubUrlButton" xml:space="preserve">
     <value>在 GitHub 上檢視</value>
