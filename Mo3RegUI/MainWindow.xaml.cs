@@ -75,9 +75,13 @@ namespace Mo3RegUI
                 new TaskInstance(){Task = new ForegroundLockTimeoutTask(), Parameter = new ForegroundLockTimeoutTaskParameter()},
                 new TaskInstance(){Task = new CompatibilitySettingTask(), Parameter = new CompatibilitySettingTaskParameter(){ GameDir = gameDir}},
                 new TaskInstance(){Task = new ChinaNetworkTask(), Parameter = new ChinaNetworkTaskParameter(){ GameDir = gameDir}},
-                new TaskInstance(){Task = new NetworkInterfaceTask(), Parameter = new NetworkInterfaceTaskParameter()},
                 new TaskInstance(){Task = new FalsePositiveTask(), Parameter = new FalsePositiveTaskParameter(){ GameDir = gameDir}},
-             };
+            };
+
+            if (!Constants.SkipNetworkInterfaceCheck)
+            {
+                tasks.Add(new TaskInstance(){Task = new NetworkInterfaceTask(), Parameter = new NetworkInterfaceTaskParameter()});
+            }
 
             if (Constants.CheckDirectXRuntime)
             {
