@@ -1,4 +1,4 @@
-name: Build .NET Framework 4.0 App
+name: Build Mo3RegUI
 
 on:
   push:
@@ -9,8 +9,7 @@ on:
 jobs:
 
   build:
-    runs-on: windows-2019  # For a list of available runner types, refer to
-                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+    runs-on: windows-2022
 
     steps:
     - name: Checkout
@@ -18,22 +17,21 @@ jobs:
       with:
         fetch-depth: 0
 
-    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
 
-    # Download NuGet packages
-    - name: Download NuGet packages
-      run: msbuild Mo3RegUI.sln /t:Restore /p:RestorePackagesConfig=true
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.5
 
-    # Build the solution
-    - name: Build the solution
-      run: msbuild Mo3RegUI.sln /t:Rebuild /p:Platform="Any CPU" /p:Configuration=Release /p:DebugSymbols=false /p:DebugType=None /p:AllowedReferenceRelatedFileExtensions=none /p:RunCodeAnalysis=false
+    - name: Restore Packages
+      run: nuget restore
 
-    # Upload artifact
+    - name: Build
+      run: msbuild /t:Clean,Build /p:Configuration=Release /p:platform="Any CPU" /p:TargetFramework=net40
+
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: Mo3RegUI-win-net40
-        path: Mo3RegUI/bin/Release/
+        name: Mo3RegUI
+        path: Mo3RegUI/bin/Release/Mo3RegUI.exe
         if-no-files-found: error
