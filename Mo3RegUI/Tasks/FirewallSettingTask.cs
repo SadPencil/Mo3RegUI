@@ -39,6 +39,9 @@ namespace Mo3RegUI.Tasks
 
             foreach (string exePath in new string[] {
                     Path.Combine(p.GameDir, Constants.GameExeName),
+                    Path.Combine(p.GameDir, "Resources","clientdx.exe"),
+                    Path.Combine(p.GameDir, "Resources","clientogl.exe"),
+                    Path.Combine(p.GameDir, "Resources","clientxna.exe"),
                 })
             {
                 string ExePathHash32 = GetExePathHashHex32(exePath);
