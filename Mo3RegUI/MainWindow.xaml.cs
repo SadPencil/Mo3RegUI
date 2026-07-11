@@ -61,7 +61,6 @@ namespace Mo3RegUI
                 new TaskInstance(){Task = new EncodingCheckTask(), Parameter = new EncodingCheckTaskParameter()},
                 new TaskInstance(){Task = new PathCheckTask(), Parameter = new PathCheckTaskParameter(){ GameDir = gameDir}},
                 new TaskInstance(){Task = new ProcessMitigationTask(), Parameter = new ProcessMitigationTaskParameter(){ GameDir = gameDir}},
-                new TaskInstance(){Task = new Ra2RegTask(), Parameter = new Ra2RegTaskParameter(){ GameDir = gameDir}},
                 new TaskInstance(){Task = new QResTask(), Parameter = new QResTaskParameter(){ GameDir = gameDir}},
                 new TaskInstance(){Task = new FirewallSettingTask(), Parameter = new FirewallSettingTaskParameter(){ GameDir = gameDir}},
                 new TaskInstance(){Task = new ClientVolumeTask(), Parameter = new ClientVolumeTaskParameter(){ GameDir = gameDir}},
@@ -80,12 +79,17 @@ namespace Mo3RegUI
 
             if (!Constants.SkipNetworkInterfaceCheck)
             {
-                tasks.Add(new TaskInstance(){Task = new NetworkInterfaceTask(), Parameter = new NetworkInterfaceTaskParameter()});
+                tasks.Add(new TaskInstance() { Task = new NetworkInterfaceTask(), Parameter = new NetworkInterfaceTaskParameter() });
             }
 
             if (Constants.CheckDirectXRuntime)
             {
                 tasks.Add(new TaskInstance() { Task = new DirectXRuntimeTask(), Parameter = new DirectXRuntimeTaskParameter() });
+            }
+
+            if (!Constants.SkipRa2RegTask)
+            {
+                tasks.Add(new TaskInstance() { Task = new Ra2RegTask(), Parameter = new Ra2RegTaskParameter() { GameDir = gameDir } });
             }
 
             this.mainTaskManager = new TaskManager(tasks);

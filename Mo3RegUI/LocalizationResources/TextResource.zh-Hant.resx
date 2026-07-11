@@ -187,7 +187,7 @@
     <value>檢查系統 ANSI 內碼表</value>
   </data>
   <data name="EncodingCheckTask_Utf8Warning" xml:space="preserve">
-    <value>當前 ANSI 內碼表為 UTF-8。這是一個好做法，但不幸的是，紅警 2 遊戲中將無法正常輸入非英文字元，地圖編輯器等元件將無法完全顯示包含非英文字元的名稱。此外，這是影響高 DPI 下游戲選單介面是否出現按鈕錯位、重疊問題的因素之一。</value>
+    <value>當前 ANSI 內碼表為 UTF-8。這是一個好做法，但不幸的是，紅警 2 遊戲中將無法正常輸入中文字元，地圖編輯器等元件將無法完全顯示包含非英文字元的名稱。此外，這是影響高 DPI 下游戲選單介面是否出現按鈕錯位、重疊問題的因素之一。</value>
   </data>
   <data name="FalsePositiveTask_Description" xml:space="preserve">
     <value>遊戲檔案檢查（粗略）</value>
