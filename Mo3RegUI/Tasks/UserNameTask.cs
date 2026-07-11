@@ -48,7 +48,7 @@ namespace Mo3RegUI.Tasks
                         {
                             Level = MessageLevel.Warning,
                             // UserNameTask_NonAsciiUsername: Note: The current player nickname "{0}" contains non-ASCII characters. ...
-                        Text = string.Format(TextResource.UserNameTask_NonAsciiUsername, username),
+                            Text = string.Format(TextResource.UserNameTask_NonAsciiUsername, username),
                         });
                     }
 

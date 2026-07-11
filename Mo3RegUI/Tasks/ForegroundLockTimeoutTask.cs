@@ -2,8 +2,6 @@
 using Mo3RegUI.LocalizationResources;
 using System;
 using System.Globalization;
-using System.IO;
-using System.Text;
 
 namespace Mo3RegUI.Tasks
 {

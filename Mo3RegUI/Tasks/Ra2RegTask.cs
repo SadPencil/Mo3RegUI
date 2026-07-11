@@ -64,7 +64,7 @@ namespace Mo3RegUI.Tasks
                 if (!File.Exists(blowfishPath))
                 {
                     // Ra2RegTask_BlowfishNotFound: Blowfish.dll file not found.
-                throw new Exception(TextResource.Ra2RegTask_BlowfishNotFound);
+                    throw new Exception(TextResource.Ra2RegTask_BlowfishNotFound);
                 }
 
                 ConsoleCommandManager.RunConsoleCommand("regsvr32.exe", $"/s \"{blowfishPath}\"", out int exitCode, out string stdOut, out string stdErr);
@@ -88,13 +88,13 @@ namespace Mo3RegUI.Tasks
                 else
                 {
                     // Ra2RegTask_BlowfishRegistered: Blowfish.dll registered successfully.
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = TextResource.Ra2RegTask_BlowfishRegistered });
+                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = TextResource.Ra2RegTask_BlowfishRegistered });
                 }
             }
             else
             {
                 // Ra2RegTask_BlowfishNotRequired: No need to register Blowfish.dll.
-            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = TextResource.Ra2RegTask_BlowfishNotRequired });
+                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = TextResource.Ra2RegTask_BlowfishNotRequired });
             }
 
         }

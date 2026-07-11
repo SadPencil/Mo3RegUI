@@ -46,8 +46,8 @@ namespace Mo3RegUI.Tasks
                     string destDDrawDllPath = Path.Combine(p.GameDir, "ddraw.dll");
                     string destDDrawIniPath = Path.Combine(p.GameDir, "ddraw.ini");
 
-                    FileInfo destDDrawDllFile = new FileInfo(destDDrawDllPath);
-                    FileInfo destDDrawIniFile = new FileInfo(destDDrawIniPath);
+                    var destDDrawDllFile = new FileInfo(destDDrawDllPath);
+                    var destDDrawIniFile = new FileInfo(destDDrawIniPath);
 
                     if (destDDrawDllFile.Exists && destDDrawDllFile.IsReadOnly)
                     {
@@ -65,7 +65,7 @@ namespace Mo3RegUI.Tasks
                 catch (Exception ex)
                 {
                     // RendererTask_DeploymentError: Problem encountered while deploying renderer patch. {0}
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = string.Format(TextResource.RendererTask_DeploymentError, ex.Message) });
+                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = string.Format(TextResource.RendererTask_DeploymentError, ex.Message) });
                     success = false;
                 }
                 if (success)
