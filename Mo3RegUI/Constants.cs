@@ -43,5 +43,6 @@ namespace Mo3RegUI
 
         public const bool RequireBlowfishRegistration = false; // No need for Phobos
         public const bool SkipNetworkInterfaceCheck = true; // Not necessary for client version 2.12.18 or later.
+        public const bool SkipRa2RegTask = false;
     }
 }
