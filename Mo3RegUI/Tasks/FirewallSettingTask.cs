@@ -44,33 +44,32 @@ namespace Mo3RegUI.Tasks
                     Path.Combine(p.GameDir, "Resources","clientxna.exe"),
                 })
             {
-                string ExePathHash32 = GetExePathHashHex32(exePath);
-
-                // Remove old firewall exceptions matching the hash
-
-                // Ignore the potential errors since the item can either exist or not
-                // ConsoleCommandManager.RunConsoleCommand("netsh.exe", "advfirewall firewall delete rule name=\"Mo3RegUI-" + ExePathHash32 + "\" dir=in", out _, out _, out _);
-                ConsoleCommandManager.RunConsoleCommand("cmd.exe", "/c \"chcp 65001 > NUL && netsh advfirewall firewall delete rule name=\\\"Mo3RegUI-" + ExePathHash32 + "\\\" dir=in\"", out _, out _, out _);
-
-                // Add firewall exception
-                // ConsoleCommandManager.RunConsoleCommand("netsh.exe", "advfirewall firewall add rule name=\"Mo3RegUI-" + ExePathHash32 + "\" dir=in action=allow program=\"" + exePath + "\"", out int exitCode, out string stdOut, out string stdErr);
-                ConsoleCommandManager.RunConsoleCommand("cmd.exe", "/c \"chcp 65001 > NUL && netsh advfirewall firewall add rule name=\\\"Mo3RegUI-" + ExePathHash32 + "\\\" dir=in action=allow program=\\\"" + exePath + "\\\"\"", out int exitCode, out string stdOut, out string stdErr);
-
-                if (!string.IsNullOrWhiteSpace(stdOut))
+                foreach (string direction in new string[] { "in", "out" })
                 {
-                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = stdOut.Trim() });
-                }
+                    string ExePathHash32 = GetExePathHashHex32(exePath);
 
-                if (!string.IsNullOrWhiteSpace(stdErr))
-                {
-                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = stdErr.Trim() });
-                }
+                    // Remove old firewall exceptions matching the hash. Ignore the potential errors since the item can either exist or not
+                    ConsoleCommandManager.RunConsoleCommand("cmd.exe", "/c \"chcp 65001 > NUL && netsh advfirewall firewall delete rule name=\\\"Mo3RegUI-" + direction + "-" + ExePathHash32 + "\\\" dir=" + direction + "\"", out _, out _, out _);
 
-                if (exitCode != 0)
-                {
-                    // Task_ProcessExitCodeFailure: Process returned exit code {0}. Execution failed.
-                    string message = string.Format(TextResource.Task_ProcessExitCodeFailure, exitCode);
-                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Error, Text = message });
+                    // Add firewall exception
+                    ConsoleCommandManager.RunConsoleCommand("cmd.exe", "/c \"chcp 65001 > NUL && netsh advfirewall firewall add rule name=\\\"Mo3RegUI-" + direction + "-" + ExePathHash32 + "\\\" dir=" + direction + " action=allow program=\\\"" + exePath + "\\\"\"", out int exitCode, out string stdOut, out string stdErr);
+
+                    if (!string.IsNullOrWhiteSpace(stdOut))
+                    {
+                        ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = stdOut.Trim() });
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(stdErr))
+                    {
+                        ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = stdErr.Trim() });
+                    }
+
+                    if (exitCode != 0)
+                    {
+                        // Task_ProcessExitCodeFailure: Process returned exit code {0}. Execution failed.
+                        string message = string.Format(TextResource.Task_ProcessExitCodeFailure, exitCode);
+                        ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Error, Text = message });
+                    }
                 }
             }
         }
