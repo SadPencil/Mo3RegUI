@@ -124,6 +124,15 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dismiss First Run Dialog.
+        /// </summary>
+        public static string ClientVolumeTask_Description {
+            get {
+                return ResourceManager.GetString("ClientVolumeTask_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set Program Compatibility.
         /// </summary>
         public static string CompatibilitySettingTask_Description {
@@ -232,7 +241,7 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The current ANSI code page is UTF-8. This is a good practice, but unfortunately, non-English characters cannot be entered normally in the Red Alert 2 game, and components such as the map editor cannot fully display names containing non-English characters. In addition, this is one of the factors that affects whether button misalignment and overlapping issues appear in the game menu interface under high DPI..
+        ///   Looks up a localized string similar to The current ANSI code page is UTF-8. This is a good practice, but unfortunately, Chinese characters cannot be entered normally in the Red Alert 2 game, and components such as the map editor cannot fully display names containing non-English characters. In addition, this is one of the factors that affects whether button misalignment and overlapping issues appear in the game menu interface under high DPI..
         /// </summary>
         public static string EncodingCheckTask_Utf8Warning {
             get {
@@ -273,15 +282,6 @@ namespace Mo3RegUI.LocalizationResources {
         public static string FirewallSettingTask_OsVersionTooLow {
             get {
                 return ResourceManager.GetString("FirewallSettingTask_OsVersionTooLow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dismiss First Run Dialog.
-        /// </summary>
-        public static string ClientVolumeTask_Description {
-            get {
-                return ResourceManager.GetString("ClientVolumeTask_Description", resourceCulture);
             }
         }
         

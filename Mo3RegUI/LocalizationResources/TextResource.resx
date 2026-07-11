@@ -187,7 +187,7 @@
     <value>Check System ANSI Code Page</value>
   </data>
   <data name="EncodingCheckTask_Utf8Warning" xml:space="preserve">
-    <value>The current ANSI code page is UTF-8. This is a good practice, but unfortunately, non-English characters cannot be entered normally in the Red Alert 2 game, and components such as the map editor cannot fully display names containing non-English characters. In addition, this is one of the factors that affects whether button misalignment and overlapping issues appear in the game menu interface under high DPI.</value>
+    <value>The current ANSI code page is UTF-8. This is a good practice, but unfortunately, Chinese characters cannot be entered normally in the Red Alert 2 game, and components such as the map editor cannot fully display names containing non-English characters. In addition, this is one of the factors that affects whether button misalignment and overlapping issues appear in the game menu interface under high DPI.</value>
   </data>
   <data name="FalsePositiveTask_Description" xml:space="preserve">
     <value>Check Game Files (Rough)</value>
