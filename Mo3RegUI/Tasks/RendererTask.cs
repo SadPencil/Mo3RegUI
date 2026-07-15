@@ -10,7 +10,7 @@ namespace Mo3RegUI.Tasks
     }
     public class RendererTask : ITask
     {
-        // RendererTask_Description: Set Renderer Patch
+        // RendererTask_Description: Set Renderer
         public string Description => TextResource.RendererTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
@@ -26,7 +26,7 @@ namespace Mo3RegUI.Tasks
         {
             if (Environment.OSVersion.Version.Major >= 7 || (Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor >= 2))
             {
-                // RendererTask_SetToCnCDDraw: Setting renderer patch to CnC-DDraw.
+                // RendererTask_SetToCnCDDraw: Setting renderer to CnC-DDraw.
                 ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = TextResource.RendererTask_SetToCnCDDraw });
 
                 // Set "singlecpu=false" to support multi-core. Renderer should not determine the affinity but CnC-DDraw did. So the option is turned off in this task.
@@ -64,7 +64,7 @@ namespace Mo3RegUI.Tasks
                 }
                 catch (Exception ex)
                 {
-                    // RendererTask_DeploymentError: Problem encountered while deploying renderer patch. {0}
+                    // RendererTask_DeploymentError: Problem encountered while deploying renderer. {0}
                     ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = string.Format(TextResource.RendererTask_DeploymentError, ex.Message) });
                     success = false;
                 }
@@ -83,11 +83,11 @@ namespace Mo3RegUI.Tasks
             }
             else
             {
-                // RendererTask_NoRenderer: Not setting renderer patch.
+                // RendererTask_NoRenderer: Not setting renderer.
                 ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = TextResource.RendererTask_NoRenderer });
             }
 
-            // RendererTask_Hint: Tip: If needed, renderer patch settings can be changed from within the {0} client. ...
+            // RendererTask_Hint: Tip: If needed, renderer settings can be changed from within the {0} client. ...
             ReportMessage(this, new TaskMessageEventArgs()
             {
                 Level = MessageLevel.Info,

@@ -250,10 +250,10 @@
     <value>Check QRes High DPI Scaling Issue</value>
   </data>
   <data name="QResTask_UnfixedQRes" xml:space="preserve">
-    <value>Unpatched QRes detected. When not using a renderer patch or using an outdated renderer patch, running the game in windowed mode on a high-DPI monitor may result in resolution errors or the error message "Screen mode not found". It is recommended to update the qres.dat program or use a modern renderer patch whenever possible.</value>
+    <value>Unpatched QRes detected. When not using a renderer or using an outdated renderer, running the game in windowed mode on a high-DPI monitor may result in resolution errors or the error message "Screen mode not found". It is recommended to update the qres.dat program or use a modern renderer whenever possible.</value>
   </data>
   <data name="QResTask_CheckFailed" xml:space="preserve">
-    <value>QRes check failed. {0}When not using a renderer patch or using an outdated renderer patch, running the game in windowed mode may cause issues. It is recommended to update the qres.dat program or use a modern renderer patch whenever possible.</value>
+    <value>QRes check failed. {0}When not using a renderer or using an outdated renderer, running the game in windowed mode may cause issues. It is recommended to update the qres.dat program or use a modern renderer whenever possible.</value>
   </data>
   <data name="Ra2RegTask_Description" xml:space="preserve">
     <value>Register Red Alert 2</value>
@@ -274,20 +274,20 @@
     <value>Remove Obsolete Files</value>
   </data>
   <data name="RendererTask_Description" xml:space="preserve">
-    <value>Set Renderer Patch</value>
+    <value>Set Renderer</value>
   </data>
   <data name="RendererTask_SetToCnCDDraw" xml:space="preserve">
-    <value>Setting renderer patch to CnC-DDraw.</value>
+    <value>Setting renderer to CnC-DDraw.</value>
   </data>
   <data name="RendererTask_DeploymentError" xml:space="preserve">
-    <value>Problem encountered while deploying renderer patch. {0}</value>
+    <value>Problem encountered while deploying renderer. {0}</value>
   </data>
   <data name="RendererTask_NoRenderer" xml:space="preserve">
-    <value>Not setting renderer patch.</value>
+    <value>Not setting renderer.</value>
   </data>
   <data name="RendererTask_Hint" xml:space="preserve">
-    <value>Tip: If needed, renderer patch settings can be changed from within the {0} client.
-It is recommended to always use a modern renderer patch on Windows 8/10/11, such as TS-DDraw or CnC-DDraw.</value>
+    <value>Tip: If needed, renderer settings can be changed from within the {0} client.
+It is recommended to always use a modern renderer on Windows 8/10/11, such as TS-DDraw or CnC-DDraw.</value>
   </data>
   <data name="ResolutionTask_Description" xml:space="preserve">
     <value>Set Resolution</value>
@@ -344,7 +344,7 @@ It is recommended to always use a modern renderer patch on Windows 8/10/11, such
     <value>Check Xbox Game Bar</value>
   </data>
   <data name="XboxGameBarTask_GameBarEnabled" xml:space="preserve">
-    <value>Game Bar is enabled, which may cause certain areas of the game to be unclickable on some computers with certain renderer patches. Please find the relevant setting under Start Menu → Settings → Gaming → Xbox Game Bar and disable the game bar.</value>
+    <value>Game Bar is enabled, which may cause certain areas of the game to be unclickable on some computers with certain rendereres. Please find the relevant setting under Start Menu → Settings → Gaming → Xbox Game Bar and disable the game bar.</value>
   </data>
   <data name="Program_Execution_Complete_Message" xml:space="preserve">
     <value>Execution complete. Please read the warnings and errors in dark red carefully before closing this window.</value>

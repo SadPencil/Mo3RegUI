@@ -34,7 +34,7 @@ namespace Mo3RegUI.Tasks
                 byte[] digest = hash.ComputeHash(file);
                 if (digest.SequenceEqual(QResOldVersionSha2))
                 {
-                    // QResTask_UnfixedQRes: Unpatched QRes detected. When not using a renderer patch or using an outdated renderer patch, ...
+                    // QResTask_UnfixedQRes: Unpatched QRes detected. When not using a renderer or using an outdated renderer, ...
                     ReportMessage(this, new TaskMessageEventArgs()
                     {
                         Level = MessageLevel.Warning,
@@ -45,7 +45,7 @@ namespace Mo3RegUI.Tasks
             }
             catch (Exception ex)
             {
-                // QResTask_CheckFailed: QRes check failed. {0}When not using a renderer patch or using an outdated renderer patch, ...
+                // QResTask_CheckFailed: QRes check failed. {0}When not using a renderer or using an outdated renderer, ...
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Warning,
