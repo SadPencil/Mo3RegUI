@@ -97,7 +97,6 @@
     <Compile Include="Tasks\TaskCompletedEventArgs.cs" />
     <Compile Include="Tasks\TaskInstance.cs" />
     <Compile Include="Tasks\BasicInfoTask.cs" />
-    <Compile Include="Tasks\ChinaNetworkTask.cs" />
     <Compile Include="Tasks\CompatibilitySettingTask.cs" />
     <Compile Include="Tasks\EncodingCheckTask.cs" />
     <Compile Include="Tasks\FalsePositiveTask.cs" />

@@ -73,7 +73,6 @@ namespace Mo3RegUI
                 new(){Task = new XboxGameBarTask(), Parameter = new XboxGameBarTaskParameter()},
                 new(){Task = new ForegroundLockTimeoutTask(), Parameter = new ForegroundLockTimeoutTaskParameter()},
                 new(){Task = new CompatibilitySettingTask(), Parameter = new CompatibilitySettingTaskParameter(){ GameDir = gameDir}},
-                new(){Task = new ChinaNetworkTask(), Parameter = new ChinaNetworkTaskParameter(){ GameDir = gameDir}},
                 new(){Task = new FalsePositiveTask(), Parameter = new FalsePositiveTaskParameter(){ GameDir = gameDir}},
             };
 
