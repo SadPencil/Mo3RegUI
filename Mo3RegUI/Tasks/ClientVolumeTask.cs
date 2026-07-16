@@ -28,7 +28,6 @@ namespace Mo3RegUI.Tasks
             {
                 MyIniParserHelper.EditIniFile(Path.Combine(p.GameDir, Constants.GameConfigIniName), ini =>
                 {
-                    // The client now relies on IsFurstRun to apply the translation files. Therefore, we don't set it to false anymore.
                     // var optionSection = MyIniParserHelper.GetSectionOrNew(ini, "Options");
                     // optionSection["IsFirstRun"] = "False";
 
