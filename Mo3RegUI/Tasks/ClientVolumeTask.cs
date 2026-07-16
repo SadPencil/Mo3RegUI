@@ -10,7 +10,7 @@ namespace Mo3RegUI.Tasks
     }
     public class ClientVolumeTask : ITask
     {
-        // ClientVolumeTask_Description: Dismiss First Run Dialog
+        // ClientVolumeTask_Description: Check Volume
         public string Description => TextResource.ClientVolumeTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 

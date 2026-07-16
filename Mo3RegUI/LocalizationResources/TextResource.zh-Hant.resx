@@ -202,7 +202,7 @@
     <value>Windows 版本過低。請手動設定 Windows 防火牆。</value>
   </data>
   <data name="ClientVolumeTask_Description" xml:space="preserve">
-    <value>關閉首次執行對話方塊</value>
+    <value>檢查音量</value>
   </data>
   <data name="ForegroundLockTimeoutTask_Description" xml:space="preserve">
     <value>檢查前臺鎖定時間</value>

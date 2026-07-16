@@ -202,7 +202,7 @@
     <value>Windows version is too low. Please set Windows Firewall manually.</value>
   </data>
   <data name="ClientVolumeTask_Description" xml:space="preserve">
-    <value>Dismiss First Run Dialog</value>
+    <value>Check Volume</value>
   </data>
   <data name="ForegroundLockTimeoutTask_Description" xml:space="preserve">
     <value>Check Foreground Lock Timeout</value>

@@ -124,7 +124,7 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dismiss First Run Dialog.
+        ///   Looks up a localized string similar to Check Volume.
         /// </summary>
         public static string ClientVolumeTask_Description {
             get {
