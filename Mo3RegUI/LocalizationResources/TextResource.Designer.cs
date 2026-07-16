@@ -493,7 +493,7 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to QRes check failed. {0}When not using a renderer or using an outdated renderer, running the game in windowed mode may cause issues. It is recommended to update the qres.dat program or use a modern renderer whenever possible..
+        ///   Looks up a localized string similar to QRes check failed: {0}. When not using a renderer or using an outdated renderer, running the game in windowed mode may cause issues. It is recommended to update the qres.dat program or use a modern renderer whenever possible..
         /// </summary>
         public static string QResTask_CheckFailed {
             get {

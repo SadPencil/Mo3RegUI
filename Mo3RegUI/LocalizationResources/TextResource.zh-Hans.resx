@@ -253,7 +253,7 @@
     <value>检测到未修复的 QRes。在不使用渲染补丁或使用古老的渲染补丁时，在高 DPI 显示器下以窗口化模式运行游戏可能会出现分辨率错误或"Screen mode not found"的错误提示。建议更新 qres.dat 程序或尽可能使用现代的渲染补丁。</value>
   </data>
   <data name="QResTask_CheckFailed" xml:space="preserve">
-    <value>检测 QRes 失败。{0}在不使用渲染补丁或使用古老的渲染补丁时，以窗口化模式运行游戏可能会出现问题。建议更新 qres.dat 程序或尽可能使用现代的渲染补丁。</value>
+    <value>检测 QRes 失败：{0}。在不使用渲染补丁或使用古老的渲染补丁时，以窗口化模式运行游戏可能会出现问题。建议更新 qres.dat 程序或尽可能使用现代的渲染补丁。</value>
   </data>
   <data name="Ra2RegTask_Description" xml:space="preserve">
     <value>注册 Red Alert 2</value>

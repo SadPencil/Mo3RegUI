@@ -253,7 +253,7 @@
     <value>Unpatched QRes detected. When not using a renderer or using an outdated renderer, running the game in windowed mode on a high-DPI monitor may result in resolution errors or the error message "Screen mode not found". It is recommended to update the qres.dat program or use a modern renderer whenever possible.</value>
   </data>
   <data name="QResTask_CheckFailed" xml:space="preserve">
-    <value>QRes check failed. {0}When not using a renderer or using an outdated renderer, running the game in windowed mode may cause issues. It is recommended to update the qres.dat program or use a modern renderer whenever possible.</value>
+    <value>QRes check failed: {0}. When not using a renderer or using an outdated renderer, running the game in windowed mode may cause issues. It is recommended to update the qres.dat program or use a modern renderer whenever possible.</value>
   </data>
   <data name="Ra2RegTask_Description" xml:space="preserve">
     <value>Register Red Alert 2</value>

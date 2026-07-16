@@ -45,7 +45,7 @@ namespace Mo3RegUI.Tasks
             }
             catch (Exception ex)
             {
-                // QResTask_CheckFailed: QRes check failed. {0}When not using a renderer or using an outdated renderer, ...
+                // QResTask_CheckFailed: QRes check failed: {0}. When not using a renderer or using an outdated renderer, ...
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Warning,
