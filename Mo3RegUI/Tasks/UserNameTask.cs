@@ -42,7 +42,7 @@ namespace Mo3RegUI.Tasks
                     {
                         username = this.GetWindowsUserName();
                     }
-                    if (!this.IsAsciiString(username))
+                    if (Constants.CheckNonAsciiUsername && !this.IsAsciiString(username))
                     {
                         ReportMessage(this, new TaskMessageEventArgs()
                         {
