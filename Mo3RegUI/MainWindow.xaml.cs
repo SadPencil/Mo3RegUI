@@ -70,7 +70,6 @@ namespace Mo3RegUI
                 new(){Task = new SpeakerNumTask(), Parameter = new SpeakerNumTaskParameter()},
                 new(){Task = new DDrawDLLTask(), Parameter = new DDrawDLLTaskParameter()},
                 new(){Task = new RemoveObsoleteFilesTask(), Parameter = new RemoveObsoleteFilesTaskParameter(){ GameDir = gameDir}},
-                new(){Task = new XboxGameBarTask(), Parameter = new XboxGameBarTaskParameter()},
                 new(){Task = new ForegroundLockTimeoutTask(), Parameter = new ForegroundLockTimeoutTaskParameter()},
                 new(){Task = new CompatibilitySettingTask(), Parameter = new CompatibilitySettingTaskParameter(){ GameDir = gameDir}},
                 new(){Task = new FalsePositiveTask(), Parameter = new FalsePositiveTaskParameter(){ GameDir = gameDir}},
@@ -89,6 +88,11 @@ namespace Mo3RegUI
             if (!Constants.SkipRa2RegTask)
             {
                 tasks.Add(new TaskInstance() { Task = new Ra2RegTask(), Parameter = new Ra2RegTaskParameter() { GameDir = gameDir } });
+            }
+
+            if (!Constants.SkipXboxGameBarTask)
+            {
+                tasks.Add(new TaskInstance() { Task = new XboxGameBarTask(), Parameter = new XboxGameBarTaskParameter() });
             }
 
             this.mainTaskManager = new TaskManager(tasks);

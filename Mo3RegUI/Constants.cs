@@ -45,5 +45,6 @@ namespace Mo3RegUI
         public const bool SkipNetworkInterfaceCheck = true; // Not necessary for client version 2.12.18 or later.
         public const bool SkipRa2RegTask = false;
         public const bool CheckNonAsciiUsername = false; // No need for Phobos
+        public const bool SkipXboxGameBarTask = true; // Seems no longer an issue for modern renderers.
     }
 }
