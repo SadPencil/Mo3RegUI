@@ -45,13 +45,13 @@ namespace Mo3RegUI.Tasks
             foreach (string exePath in dpiAwareExePath)
             {
                 using var registryKey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers");
-                registryKey.SetValue(exePath, "~ RUNASADMIN HIGHDPIAWARE");
+                registryKey.SetValue(exePath, Constants.ExeRunAsAdmin ? "~ RUNASADMIN HIGHDPIAWARE" : "~ HIGHDPIAWARE");
             }
 
             foreach (string exePath in dpiUnawareExePath)
             {
                 using var registryKey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers");
-                registryKey.SetValue(exePath, "~ RUNASADMIN DPIUNAWARE");
+                registryKey.SetValue(exePath, Constants.ExeRunAsAdmin ? "~ RUNASADMIN DPIUNAWARE" : "~ DPIUNAWARE");
             }
         }
     }
