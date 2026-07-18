@@ -10,8 +10,8 @@ namespace Mo3RegUI
         public static string AppName => TextResource.Constants_AppName;
         public const string EnglishAppName = "Register for Mental Omega 3.3.6";
 
-        public const string Version = "v2.5.0";
-        public const string AssemblyVersion = "2.5.0.0";
+        public const string Version = "v2.5.1";
+        public const string AssemblyVersion = "2.5.1.0";
 
         public const string CopyrightYearFrom = "2019";
         public const string CopyrightYearTo = "2026";
