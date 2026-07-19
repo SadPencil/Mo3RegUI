@@ -150,15 +150,6 @@
   <data name="BasicInfoTask_PhysicalMemory" xml:space="preserve">
     <value>Physical Memory: Total: {0:0.##} GB, Available: {1:0.##} GB</value>
   </data>
-  <data name="ChinaNetworkTask_Description" xml:space="preserve">
-    <value>Disable Discord</value>
-  </data>
-  <data name="ChinaNetworkTask_DiscordDisabled" xml:space="preserve">
-    <value>Discord has been successfully disabled.</value>
-  </data>
-  <data name="ChinaNetworkTask_DiscordNotDisabled" xml:space="preserve">
-    <value>Discord is not disabled.</value>
-  </data>
   <data name="CompatibilitySettingTask_Description" xml:space="preserve">
     <value>Set Program Compatibility</value>
   </data>

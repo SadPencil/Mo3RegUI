@@ -97,33 +97,6 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Discord.
-        /// </summary>
-        public static string ChinaNetworkTask_Description {
-            get {
-                return ResourceManager.GetString("ChinaNetworkTask_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Discord has been successfully disabled..
-        /// </summary>
-        public static string ChinaNetworkTask_DiscordDisabled {
-            get {
-                return ResourceManager.GetString("ChinaNetworkTask_DiscordDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Discord is not disabled..
-        /// </summary>
-        public static string ChinaNetworkTask_DiscordNotDisabled {
-            get {
-                return ResourceManager.GetString("ChinaNetworkTask_DiscordNotDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Check Volume.
         /// </summary>
         public static string ClientVolumeTask_Description {

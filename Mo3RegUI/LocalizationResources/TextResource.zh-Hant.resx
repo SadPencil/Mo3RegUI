@@ -150,15 +150,6 @@
   <data name="BasicInfoTask_PhysicalMemory" xml:space="preserve">
     <value>實體記憶體: 總計: {0:0.##} GB，可用: {1:0.##} GB</value>
   </data>
-  <data name="ChinaNetworkTask_Description" xml:space="preserve">
-    <value>關閉 Discord 功能</value>
-  </data>
-  <data name="ChinaNetworkTask_DiscordDisabled" xml:space="preserve">
-    <value>成功關閉 Discord 功能。</value>
-  </data>
-  <data name="ChinaNetworkTask_DiscordNotDisabled" xml:space="preserve">
-    <value>不關閉 Discord 功能。</value>
-  </data>
   <data name="CompatibilitySettingTask_Description" xml:space="preserve">
     <value>設定程式相容性</value>
   </data>
