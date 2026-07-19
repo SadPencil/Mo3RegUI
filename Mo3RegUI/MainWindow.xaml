@@ -18,6 +18,7 @@
                 <PropertyGroupDescription PropertyName="Category" />
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
+        <local:BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
     </Window.Resources>
 
     <Grid>
@@ -36,8 +37,8 @@
                 <TextBlock Margin="5" Text="{x:Static local:Constants.AppName}" FontSize="22"  VerticalAlignment="Bottom"/>
                 <TextBlock Margin="5" Text="{x:Static local:Constants.Version}" FontSize="20"  VerticalAlignment="Bottom"/>
 
-                <TextBlock Margin="5" VerticalAlignment="Bottom" FontSize="20">By:</TextBlock>
-                <TextBlock Margin="5" Text="{x:Static local:Constants.AuthorName}" FontSize="20" VerticalAlignment="Bottom"/>
+                <TextBlock Margin="5" VerticalAlignment="Bottom" FontSize="20" Visibility="{Binding Source={x:Static local:Constants.ShowAuthorName}, Converter={StaticResource BoolToVisConverter}}">By:</TextBlock>
+                <TextBlock Margin="5" Text="{x:Static local:Constants.AuthorName}" FontSize="20" VerticalAlignment="Bottom" Visibility="{Binding Source={x:Static local:Constants.ShowAuthorName}, Converter={StaticResource BoolToVisConverter}}"/>
 
             </StackPanel>
             <Button x:Name="GitHubUrlButton" Grid.Column="1" Margin="5" FontSize="14" VerticalAlignment="Bottom" Click="GitHubUrlButton_Click">

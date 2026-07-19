@@ -74,6 +74,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BooleanConverter.cs" />
+    <Compile Include="BooleanToVisibilityConverter.cs" />
     <Compile Include="ConsoleCommandManager.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="LocalizationResources\TextResource.Designer.cs">
