@@ -1,0 +1,361 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainWindow_Not_In_Game_Directory_Title" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="MainWindow_Not_In_Game_Directory_Message" xml:space="preserve">
+    <value>{0} может находиться не в папке игры. Перед запуском убедитесь, что файлы {0} скопированы в папку игры. Файл {1} не найден.</value>
+  </data>
+  <data name="MainWindow_Title_With_Wait_Count" xml:space="preserve">
+    <value>{0} [ Оставшиеся задачи: {1} ]</value>
+  </data>
+  <data name="MainWindow_Closing_Warning_Title" xml:space="preserve">
+    <value>Внимание</value>
+  </data>
+  <data name="MainWindow_Closing_Warning_Message" xml:space="preserve">
+    <value>{0} настраивает совместимость и параметры игры, и ещё не завершил работу. Вы действительно хотите прервать процесс?</value>
+  </data>
+  <data name="Task_OsVersionTooLow_NoFeature" xml:space="preserve">
+    <value>Версия Windows слишком старая. Эта возможность недоступна.</value>
+  </data>
+  <data name="Task_ProcessExitCodeFailure" xml:space="preserve">
+    <value>Процесс завершился с кодом {0}. Выполнение не удалось.</value>
+  </data>
+  <data name="BasicInfoTask_Description" xml:space="preserve">
+    <value>Проверка базовой системной информации</value>
+  </data>
+  <data name="BasicInfoTask_OperatingSystem" xml:space="preserve">
+    <value>Операционная система: {0} {1}</value>
+  </data>
+  <data name="BasicInfoTask_CurrentAnsiCodePage" xml:space="preserve">
+    <value>Текущая страница кодировки ANSI: {0}</value>
+  </data>
+  <data name="BasicInfoTask_PhysicalMemory" xml:space="preserve">
+    <value>Физическая память: Всего: {0:0.##} ГБ, Доступно: {1:0.##} ГБ</value>
+  </data>
+  <data name="CompatibilitySettingTask_Description" xml:space="preserve">
+    <value>Настройка программной совместимости</value>
+  </data>
+  <data name="DDrawDLLTask_Description" xml:space="preserve">
+    <value>Проверка записи реестра отрисовщика</value>
+  </data>
+  <data name="DDrawDLLTask_RegistryEntryAbnormal" xml:space="preserve">
+    <value>{0} запись реестра некорректна. {0} не должно быть в KnownDLLs.</value>
+  </data>
+  <data name="DDrawDLLTask_RegistryEntryNormal" xml:space="preserve">
+    <value>{0} запись реестра корректна.</value>
+  </data>
+  <data name="DDrawDLLTask_ExcludeFromKnownDllsWrongType" xml:space="preserve">
+    <value>ExcludeFromKnownDlls должен быть типа {0}, но фактически он типа {1}.</value>
+  </data>
+  <data name="DDrawDLLTask_AddedToExcludeFromKnownDlls" xml:space="preserve">
+    <value>Успешно добавлено {0} в ExcludeFromKnownDlls.</value>
+  </data>
+  <data name="DirectXRuntimeTask_Description" xml:space="preserve">
+    <value>Проверка DirectX Runtime (June 2010)</value>
+  </data>
+  <data name="DirectXRuntimeTask_NotInstalled" xml:space="preserve">
+    <value>Компоненты DirectX Runtime не установлены. Файл {0} не найден. Пожалуйста, установите DirectX End-User Runtimes (June 2010).</value>
+  </data>
+  <data name="EncodingCheckTask_Description" xml:space="preserve">
+    <value>Проверка страницы кодировки ANSI</value>
+  </data>
+  <data name="EncodingCheckTask_Utf8Warning" xml:space="preserve">
+    <value>Текущая страница кодировки ANSI - UTF-8. Это хорошая практика, однако, к сожалению, китайские символы не смогут быть введены как обычно в Red Alert 2, а такие компоненты, как редактор карт, не смогут полностью отображать названия не на латинице. Кроме того, это один из факторов, влияющих на появление проблем со смещением и наложением кнопок в интерфейсе игрового меню при высоком коэффициенте масштабирования экрана (DPI).</value>
+  </data>
+  <data name="FalsePositiveTask_Description" xml:space="preserve">
+    <value>Проверка игровых файлов (приблизительная)</value>
+  </data>
+  <data name="FalsePositiveTask_FileNotFound" xml:space="preserve">
+    <value>Игровые файлы неполны. Файл {0} не найден. Пожалуйста, проверьте журнал вашего антивируса, добавьте игру в исключения, или смените антивирус, и переустановите игру.</value>
+  </data>
+  <data name="FirewallSettingTask_Description" xml:space="preserve">
+    <value>Настройка исключений брандмауэра</value>
+  </data>
+  <data name="FirewallSettingTask_OsVersionTooLow" xml:space="preserve">
+    <value>Версия Windows слишком старая. Пожалуйста, настройте Брандмауэр Windows вручную.</value>
+  </data>
+  <data name="ClientVolumeTask_Description" xml:space="preserve">
+    <value>Проверка громкости</value>
+  </data>
+  <data name="ForegroundLockTimeoutTask_Description" xml:space="preserve">
+    <value>Проверка таймаута блокировки переднего плана</value>
+  </data>
+  <data name="ForegroundLockTimeoutTask_SufficientTimeout" xml:space="preserve">
+    <value>Время ожидания блокировки в активном режиме составляет не менее {0} миллисекунд. Никаких действий не требуется.</value>
+  </data>
+  <data name="ForegroundLockTimeoutTask_InsufficientTimeout" xml:space="preserve">
+    <value>Время ожидания блокировки переднего плана составляет менее {0} миллисекунд, что иногда может приводить к возврату игры на рабочий стол. Исправление...</value>
+  </data>
+  <data name="ForegroundLockTimeoutTask_FixedTimeout" xml:space="preserve">
+    <value>Исправлено успешно. Время ожидания блокировки переднего плана установлено на {0} миллисекунд.</value>
+  </data>
+  <data name="NetworkInterfaceTask_Description" xml:space="preserve">
+    <value>Проверка настроек сетевого окружения</value>
+  </data>
+  <data name="NetworkInterfaceTask_MultipleNetworkCards" xml:space="preserve">
+    <value>На вашем компьютере установлено несколько сетевых карт, перечисленных ниже. Возможно, вы не сможете увидеть других игроков в лобби локальной сети. Чтобы избежать этой проблемы, при подключении к локальной сети временно отключите остальные сетевые карты и оставьте включенной только ту, которая подключена к локальной сети.{0}</value>
+  </data>
+  <data name="PathCheckTask_Description" xml:space="preserve">
+    <value>Проверка формата пути к игре</value>
+  </data>
+  <data name="PathCheckTask_PathTooLong" xml:space="preserve">
+    <value>Путь к папке игры слишком длинный. Игра может работать некорректно.</value>
+  </data>
+  <data name="PathCheckTask_PathContainsPercent" xml:space="preserve">
+    <value>Путь к текущей папке игры содержит специальный символ % (знак процента). Брандмауэр Windows может некорректно обработать его.</value>
+  </data>
+  <data name="ProcessMitigationTask_Description" xml:space="preserve">
+    <value>Отключение обязательной виртуализации памяти</value>
+  </data>
+  <data name="ProcessMitigationTask_AslrDefaultOnSuccessfullyDisabled" xml:space="preserve">
+    <value>Обязательная виртуализация памяти (обязательная ASLR) включена по умолчанию, но для {0} её удалось отключить.</value>
+  </data>
+  <data name="ProcessMitigationTask_AslrDefaultOnFailedToDisable" xml:space="preserve">
+    <value>Обязательная виртуализация памяти (обязательный ASLR) включена по умолчанию, и попытка отключить её для {0} завершилась неудачей. Это может привести к сбою нормального запуска Ares. Пожалуйста, найдите и отключите параметр "Force Image Virtualization (Mandatory ASLR)" option in the "System settings" tab under "Windows Security Center" → "App &amp; browser control" или отключите этот параметр отдельно для файла игры на вкладке "Настройки программы".</value>
+  </data>
+  <data name="ProcessMitigationTask_AslrDefaultOff" xml:space="preserve">
+    <value>Обязательная виртуализация памяти (обязательная ASLR) по умолчанию отключена.</value>
+  </data>
+  <data name="ProcessMitigationTask_UnrecognizedBoolean" xml:space="preserve">
+    <value>Нераспознанное булево значение {0}. Не удалось определить состояние параметра.</value>
+  </data>
+  <data name="QResTask_Description" xml:space="preserve">
+    <value>Проверка проблем с масштабированием QRes при высоком DPI</value>
+  </data>
+  <data name="QResTask_UnfixedQRes" xml:space="preserve">
+    <value>Обнаружен старый QRes. Если не используется отрисовщик или используется устаревший отрисовщик, запуск игры в оконном режиме на мониторе с высоким DPI может привести к ошибкам разрешения или появлению сообщения об ошибке "Screen mode not found". Рекомендуется обновить файл qres.dat или, по возможности, использовать современный отрисовщик.</value>
+  </data>
+  <data name="QResTask_CheckFailed" xml:space="preserve">
+    <value>Проверка QRes завершилась с ошибкой: {0}. Если отрисовщик не используется или используется устаревший отрисовщик, запуск игры в оконном режиме может привести к проблемам. Рекомендуется обновить файл qres.dat или, по возможности, использовать современный отрисовщик.</value>
+  </data>
+  <data name="Ra2RegTask_Description" xml:space="preserve">
+    <value>Регистрация Red Alert 2</value>
+  </data>
+  <data name="Ra2RegTask_RegistryWriteSuccess" xml:space="preserve">
+    <value>Запись в реестр завершена успешно.</value>
+  </data>
+  <data name="Ra2RegTask_BlowfishNotFound" xml:space="preserve">
+    <value>Файл Blowfish.dll не найден.</value>
+  </data>
+  <data name="Ra2RegTask_BlowfishRegistered" xml:space="preserve">
+    <value>Blowfish.dll успешно зарегистрирован.</value>
+  </data>
+  <data name="Ra2RegTask_BlowfishNotRequired" xml:space="preserve">
+    <value>Нет необходимости регистрировать Blowfish.dll.</value>
+  </data>
+  <data name="RemoveObsoleteFilesTask_Description" xml:space="preserve">
+    <value>Удаление устаревших файлов</value>
+  </data>
+  <data name="RendererTask_Description" xml:space="preserve">
+    <value>Установка отрисовщика</value>
+  </data>
+  <data name="RendererTask_SetToCnCDDraw" xml:space="preserve">
+    <value>Установлен отрисовщик CnC-DDraw.</value>
+  </data>
+  <data name="RendererTask_DeploymentError" xml:space="preserve">
+    <value>При развёртывании отрисовщика возникла проблема. {0}</value>
+  </data>
+  <data name="RendererTask_NoRenderer" xml:space="preserve">
+    <value>Отрисовщик не будет устанавлен.</value>
+  </data>
+  <data name="RendererTask_Hint" xml:space="preserve">
+    <value>Подсказка: При необходимости настройки отрисовщика можно изменить непосредственно в клиенте {0}.
+В Windows 8/10/11 рекомендуется всегда использовать современный отрисовщик, например TS-DDraw или CnC-DDraw.</value>
+  </data>
+  <data name="ResolutionTask_Description" xml:space="preserve">
+    <value>Установка разрешения</value>
+  </data>
+  <data name="ResolutionTask_DesktopResolution" xml:space="preserve">
+    <value>Обнаружено разрешение рабочего стола: {0}×{1}.</value>
+  </data>
+  <data name="ResolutionTask_SetGameResolution" xml:space="preserve">
+    <value>Игровое разрешение выставлено на {0}×{1}.</value>
+  </data>
+  <data name="RuntimeComponentTask_Description" xml:space="preserve">
+    <value>Проверка компонентов сред выполнения</value>
+  </data>
+  <data name="RuntimeComponentTask_DotNet4NotInstalled" xml:space="preserve">
+    <value>.NET Framework 4 не установлен.</value>
+  </data>
+  <data name="RuntimeComponentTask_DotNet4Installed" xml:space="preserve">
+    <value>.NET Framework {0} установлен.</value>
+  </data>
+  <data name="RuntimeComponentTask_DotNet4VersionTooLow" xml:space="preserve">
+    <value>Текущая версия .NET Framework 4 ниже 4.8.</value>
+  </data>
+  <data name="RuntimeComponentTask_Xna4Installed" xml:space="preserve">
+    <value>XNA Framework 4.0 установлен.</value>
+  </data>
+  <data name="RuntimeComponentTask_Xna4NotInstalled" xml:space="preserve">
+    <value>XNA Framework 4.0 не установлен.</value>
+  </data>
+  <data name="SpeakerNumTask_Description" xml:space="preserve">
+    <value>Проверка устройств вывода звука</value>
+  </data>
+  <data name="SpeakerNumTask_NoAudioDevice" xml:space="preserve">
+    <value>В текущей системе отсутствует устройство вывода звука. Пожалуйста, подключите наушники или динамики перед запуском игры, иначе игра может завершиться с ошибкой.</value>
+  </data>
+  <data name="SpeakerNumTask_AudioDevicesFound" xml:space="preserve">
+    <value>Обнаружено {0} аудиоустройств(о).</value>
+  </data>
+  <data name="TaskManager_ExecutionFailed" xml:space="preserve">
+    <value>Выполнение завершилось ошибкой: {0}</value>
+  </data>
+  <data name="TaskManager_ExecutionComplete" xml:space="preserve">
+    <value>Выполнение завершено.</value>
+  </data>
+  <data name="UserNameTask_Description" xml:space="preserve">
+    <value>Установка имени игрока</value>
+  </data>
+  <data name="UserNameTask_NonAsciiUsername" xml:space="preserve">
+    <value>Примечание: текущий ник игрока "{0}" содержит символы, не входящие в ASCII. Если никнейм не содержит ни одного символа ASCII, такие движки, как Ares 3.0, дадут сбой.</value>
+  </data>
+  <data name="UserNameTask_SetUsername" xml:space="preserve">
+    <value>Выставление никнейма игрока на "{0}".</value>
+  </data>
+  <data name="XboxGameBarTask_Description" xml:space="preserve">
+    <value>Проверка Xbox Game Bar</value>
+  </data>
+  <data name="XboxGameBarTask_GameBarEnabled" xml:space="preserve">
+    <value>Game Bar включён, что может делать определённые зоны игры некликабельными на некоторых компьютерах с определёнными отрисовщиками. Пожалуйста, найдите соответствующую настройку по пути Start Menu → Settings → Gaming → Xbox Game Bar и отключите игровую панель.</value>
+  </data>
+  <data name="Program_Execution_Complete_Message" xml:space="preserve">
+    <value>Выполнение завершено. Перед тем как закрыть это окно, внимательно ознакомьтесь с предупреждениями и ошибками, выделенными тёмно-красным цветом.</value>
+  </data>
+  <data name="Program_Execution_Complete_Title" xml:space="preserve">
+    <value>Выполнение завершено</value>
+  </data>
+  <data name="Constants_GameName" xml:space="preserve">
+    <value>Mental Omega 3.3.6</value>
+  </data>
+  <data name="Constants_AuthorName" xml:space="preserve">
+    <value>SadPencil</value>
+  </data>
+  <data name="Constants_AppName" xml:space="preserve">
+    <value>Активатор для Mental Omega 3.3.6</value>
+  </data>
+  <data name="MainWindow_GitHubUrlButton" xml:space="preserve">
+    <value>Посмотреть на GitHub</value>
+  </data>
+  <data name="MainWindow_MessagesCount" xml:space="preserve">
+    <value> сообщения</value>
+  </data>
+</root>
