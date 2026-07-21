@@ -42,13 +42,13 @@ namespace Mo3RegUI.Tasks
                     {
                         username = this.GetWindowsUserName();
                     }
-                    if (!this.IsAsciiString(username))
+                    if (Constants.CheckNonAsciiUsername && !this.IsAsciiString(username))
                     {
                         ReportMessage(this, new TaskMessageEventArgs()
                         {
                             Level = MessageLevel.Warning,
                             // UserNameTask_NonAsciiUsername: Note: The current player nickname "{0}" contains non-ASCII characters. ...
-                        Text = string.Format(TextResource.UserNameTask_NonAsciiUsername, username),
+                            Text = string.Format(TextResource.UserNameTask_NonAsciiUsername, username),
                         });
                     }
 

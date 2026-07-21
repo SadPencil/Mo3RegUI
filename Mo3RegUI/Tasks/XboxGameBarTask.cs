@@ -30,7 +30,7 @@ namespace Mo3RegUI.Tasks
                 {
                     Level = MessageLevel.Info,
                     // Task_OsVersionTooLow_NoFeature: Windows version is too low. This feature is not available.
-                Text = TextResource.Task_OsVersionTooLow_NoFeature,
+                    Text = TextResource.Task_OsVersionTooLow_NoFeature,
                 });
                 return;
             }

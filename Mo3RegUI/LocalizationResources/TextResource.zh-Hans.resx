@@ -150,15 +150,6 @@
   <data name="BasicInfoTask_PhysicalMemory" xml:space="preserve">
     <value>物理内存: 总计: {0:0.##} GB，可用: {1:0.##} GB</value>
   </data>
-  <data name="ChinaNetworkTask_Description" xml:space="preserve">
-    <value>关闭 Discord 功能</value>
-  </data>
-  <data name="ChinaNetworkTask_DiscordDisabled" xml:space="preserve">
-    <value>成功关闭 Discord 功能。</value>
-  </data>
-  <data name="ChinaNetworkTask_DiscordNotDisabled" xml:space="preserve">
-    <value>不关闭 Discord 功能。</value>
-  </data>
   <data name="CompatibilitySettingTask_Description" xml:space="preserve">
     <value>设置程序兼容性</value>
   </data>
@@ -202,7 +193,7 @@
     <value>Windows 版本过低。请手动设置 Windows 防火墙。</value>
   </data>
   <data name="ClientVolumeTask_Description" xml:space="preserve">
-    <value>关闭首次运行对话框</value>
+    <value>检查音量</value>
   </data>
   <data name="ForegroundLockTimeoutTask_Description" xml:space="preserve">
     <value>检查前台锁定时间</value>
@@ -253,7 +244,7 @@
     <value>检测到未修复的 QRes。在不使用渲染补丁或使用古老的渲染补丁时，在高 DPI 显示器下以窗口化模式运行游戏可能会出现分辨率错误或"Screen mode not found"的错误提示。建议更新 qres.dat 程序或尽可能使用现代的渲染补丁。</value>
   </data>
   <data name="QResTask_CheckFailed" xml:space="preserve">
-    <value>检测 QRes 失败。{0}在不使用渲染补丁或使用古老的渲染补丁时，以窗口化模式运行游戏可能会出现问题。建议更新 qres.dat 程序或尽可能使用现代的渲染补丁。</value>
+    <value>检测 QRes 失败：{0}。在不使用渲染补丁或使用古老的渲染补丁时，以窗口化模式运行游戏可能会出现问题。建议更新 qres.dat 程序或尽可能使用现代的渲染补丁。</value>
   </data>
   <data name="Ra2RegTask_Description" xml:space="preserve">
     <value>注册 Red Alert 2</value>

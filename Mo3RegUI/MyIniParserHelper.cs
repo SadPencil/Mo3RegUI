@@ -47,6 +47,16 @@ namespace Mo3RegUI
             sw.Write(ini.ToString());
         }
 
+        public static void ReadIniFile(string filename, Action<IniData> readAction)
+        {
+            IniData ini = null;
+            using (var fs = File.Open(filename, FileMode.Open))
+            {
+                ini = MyIniParserHelper.ParseIni(fs);
+            }
+            readAction?.Invoke(ini);
+        }
+
         public static void EditIniFile(string filename, Action<IniData> editAction)
         {
             IniData ini = null;

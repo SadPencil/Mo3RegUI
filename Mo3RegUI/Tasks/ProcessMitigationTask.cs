@@ -35,7 +35,7 @@ namespace Mo3RegUI
                 return;
             }
 
-            bool hasASLRTurnedOffForGamemd = false;
+            bool hasASLRTurnedOffForGamemd;
             {
                 ConsoleCommandManager.RunConsoleCommand("powershell.exe", $"-Command \"Set-ProcessMitigation -Name {Constants.GameExeName} -Disable ForceRelocateImages\"", out int exitCode, out string stdOut, out string stdErr);
 
@@ -49,23 +49,7 @@ namespace Mo3RegUI
                     ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = stdErr.Trim() });
                 }
 
-                if (exitCode != 0)
-                {
-                    //ReportMessage(this, new TaskMessage()
-                    //{
-                    //    Level = MessageLevel.Warning,
-                    //    Text = "尝试为 gamemd.exe 关闭强制映像虚拟化失败。",
-                    //});
-                }
-                else
-                {
-                    //ReportMessage(this, new TaskMessage()
-                    //{
-                    //    Level = MessageLevel.Info,
-                    //    Text = "成功为 gamemd.exe 关闭了强制映像虚拟化。",
-                    //});
-                    hasASLRTurnedOffForGamemd = true;
-                }
+                hasASLRTurnedOffForGamemd = exitCode == 0;
             }
 
             {

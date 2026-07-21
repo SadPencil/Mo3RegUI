@@ -26,10 +26,10 @@ namespace Mo3RegUI.Tasks
             if (num == 0)
             {
                 // SpeakerNumTask_NoAudioDevice: No audio output device exists on the current system. ...
-            throw new Exception(TextResource.SpeakerNumTask_NoAudioDevice);
+                throw new Exception(TextResource.SpeakerNumTask_NoAudioDevice);
             }
             // SpeakerNumTask_AudioDevicesFound: Found {0} audio output device(s).
-        ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = string.Format(TextResource.SpeakerNumTask_AudioDevicesFound, num) });
+            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = string.Format(TextResource.SpeakerNumTask_AudioDevicesFound, num) });
 
         }
     }

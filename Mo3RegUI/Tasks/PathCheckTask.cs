@@ -30,9 +30,6 @@ namespace Mo3RegUI.Tasks
             {
                 // PathCheckTask_PathTooLong: The current game directory path is too long. The game may not run normally.
                 throw new Exception(TextResource.PathCheckTask_PathTooLong);
-                //string message = "当前游戏目录的路径较长。游戏可能无法正常运行。";
-                //ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Critical, Text = message });
-                //return; // throw new Exception(message);
             }
 
             // Make sure path does not contain "%"

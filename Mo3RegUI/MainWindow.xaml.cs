@@ -56,25 +56,23 @@ namespace Mo3RegUI
             // Run tasks in parallel
             var tasks = new List<TaskInstance>()
             {
-                new TaskInstance(){Task = new BasicInfoTask(), Parameter = new BasicInfoTaskParameter()},
-                new TaskInstance(){Task = new RuntimeComponentTask(), Parameter = new RuntimeComponentTaskParameter()},
-                new TaskInstance(){Task = new EncodingCheckTask(), Parameter = new EncodingCheckTaskParameter()},
-                new TaskInstance(){Task = new PathCheckTask(), Parameter = new PathCheckTaskParameter(){ GameDir = gameDir}},
-                new TaskInstance(){Task = new ProcessMitigationTask(), Parameter = new ProcessMitigationTaskParameter(){ GameDir = gameDir}},
-                new TaskInstance(){Task = new QResTask(), Parameter = new QResTaskParameter(){ GameDir = gameDir}},
-                new TaskInstance(){Task = new FirewallSettingTask(), Parameter = new FirewallSettingTaskParameter(){ GameDir = gameDir}},
-                new TaskInstance(){Task = new ClientVolumeTask(), Parameter = new ClientVolumeTaskParameter(){ GameDir = gameDir}},
-                new TaskInstance(){Task = new UserNameTask(), Parameter = new UserNameTaskParameter(){ GameDir = gameDir}},
-                new TaskInstance(){Task = new ResolutionTask(), Parameter = new ResolutionTaskParameter(){ GameDir = gameDir}},
-                new TaskInstance(){Task = new RendererTask(), Parameter = new RendererTaskParameter(){ GameDir = gameDir}},
-                new TaskInstance(){Task = new SpeakerNumTask(), Parameter = new SpeakerNumTaskParameter()},
-                new TaskInstance(){Task = new DDrawDLLTask(), Parameter = new DDrawDLLTaskParameter()},
-                new TaskInstance(){Task = new RemoveObsoleteFilesTask(), Parameter = new RemoveObsoleteFilesTaskParameter(){ GameDir = gameDir}},
-                new TaskInstance(){Task = new XboxGameBarTask(), Parameter = new XboxGameBarTaskParameter()},
-                new TaskInstance(){Task = new ForegroundLockTimeoutTask(), Parameter = new ForegroundLockTimeoutTaskParameter()},
-                new TaskInstance(){Task = new CompatibilitySettingTask(), Parameter = new CompatibilitySettingTaskParameter(){ GameDir = gameDir}},
-                new TaskInstance(){Task = new ChinaNetworkTask(), Parameter = new ChinaNetworkTaskParameter(){ GameDir = gameDir}},
-                new TaskInstance(){Task = new FalsePositiveTask(), Parameter = new FalsePositiveTaskParameter(){ GameDir = gameDir}},
+                new(){Task = new BasicInfoTask(), Parameter = new BasicInfoTaskParameter()},
+                new(){Task = new RuntimeComponentTask(), Parameter = new RuntimeComponentTaskParameter()},
+                new(){Task = new EncodingCheckTask(), Parameter = new EncodingCheckTaskParameter()},
+                new(){Task = new PathCheckTask(), Parameter = new PathCheckTaskParameter(){ GameDir = gameDir}},
+                new(){Task = new ProcessMitigationTask(), Parameter = new ProcessMitigationTaskParameter(){ GameDir = gameDir}},
+                new(){Task = new QResTask(), Parameter = new QResTaskParameter(){ GameDir = gameDir}},
+                new(){Task = new FirewallSettingTask(), Parameter = new FirewallSettingTaskParameter(){ GameDir = gameDir}},
+                new(){Task = new ClientVolumeTask(), Parameter = new ClientVolumeTaskParameter(){ GameDir = gameDir}},
+                new(){Task = new UserNameTask(), Parameter = new UserNameTaskParameter(){ GameDir = gameDir}},
+                new(){Task = new ResolutionTask(), Parameter = new ResolutionTaskParameter(){ GameDir = gameDir}},
+                new(){Task = new RendererTask(), Parameter = new RendererTaskParameter(){ GameDir = gameDir}},
+                new(){Task = new SpeakerNumTask(), Parameter = new SpeakerNumTaskParameter()},
+                new(){Task = new DDrawDLLTask(), Parameter = new DDrawDLLTaskParameter()},
+                new(){Task = new RemoveObsoleteFilesTask(), Parameter = new RemoveObsoleteFilesTaskParameter(){ GameDir = gameDir}},
+                new(){Task = new ForegroundLockTimeoutTask(), Parameter = new ForegroundLockTimeoutTaskParameter()},
+                new(){Task = new CompatibilitySettingTask(), Parameter = new CompatibilitySettingTaskParameter(){ GameDir = gameDir}},
+                new(){Task = new FalsePositiveTask(), Parameter = new FalsePositiveTaskParameter(){ GameDir = gameDir}},
             };
 
             if (!Constants.SkipNetworkInterfaceCheck)
@@ -90,6 +88,11 @@ namespace Mo3RegUI
             if (!Constants.SkipRa2RegTask)
             {
                 tasks.Add(new TaskInstance() { Task = new Ra2RegTask(), Parameter = new Ra2RegTaskParameter() { GameDir = gameDir } });
+            }
+
+            if (!Constants.SkipXboxGameBarTask)
+            {
+                tasks.Add(new TaskInstance() { Task = new XboxGameBarTask(), Parameter = new XboxGameBarTaskParameter() });
             }
 
             this.mainTaskManager = new TaskManager(tasks);

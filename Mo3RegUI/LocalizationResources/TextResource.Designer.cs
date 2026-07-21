@@ -97,34 +97,7 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Discord.
-        /// </summary>
-        public static string ChinaNetworkTask_Description {
-            get {
-                return ResourceManager.GetString("ChinaNetworkTask_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Discord has been successfully disabled..
-        /// </summary>
-        public static string ChinaNetworkTask_DiscordDisabled {
-            get {
-                return ResourceManager.GetString("ChinaNetworkTask_DiscordDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Discord is not disabled..
-        /// </summary>
-        public static string ChinaNetworkTask_DiscordNotDisabled {
-            get {
-                return ResourceManager.GetString("ChinaNetworkTask_DiscordNotDisabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dismiss First Run Dialog.
+        ///   Looks up a localized string similar to Check Volume.
         /// </summary>
         public static string ClientVolumeTask_Description {
             get {
@@ -493,7 +466,7 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to QRes check failed. {0}When not using a renderer patch or using an outdated renderer patch, running the game in windowed mode may cause issues. It is recommended to update the qres.dat program or use a modern renderer patch whenever possible..
+        ///   Looks up a localized string similar to QRes check failed: {0}. When not using a renderer or using an outdated renderer, running the game in windowed mode may cause issues. It is recommended to update the qres.dat program or use a modern renderer whenever possible..
         /// </summary>
         public static string QResTask_CheckFailed {
             get {
@@ -511,7 +484,7 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unpatched QRes detected. When not using a renderer patch or using an outdated renderer patch, running the game in windowed mode on a high-DPI monitor may result in resolution errors or the error message &quot;Screen mode not found&quot;. It is recommended to update the qres.dat program or use a modern renderer patch whenever possible..
+        ///   Looks up a localized string similar to Unpatched QRes detected. When not using a renderer or using an outdated renderer, running the game in windowed mode on a high-DPI monitor may result in resolution errors or the error message &quot;Screen mode not found&quot;. It is recommended to update the qres.dat program or use a modern renderer whenever possible..
         /// </summary>
         public static string QResTask_UnfixedQRes {
             get {
@@ -574,7 +547,7 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Problem encountered while deploying renderer patch. {0}.
+        ///   Looks up a localized string similar to Problem encountered while deploying renderer. {0}.
         /// </summary>
         public static string RendererTask_DeploymentError {
             get {
@@ -583,7 +556,7 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set Renderer Patch.
+        ///   Looks up a localized string similar to Set Renderer.
         /// </summary>
         public static string RendererTask_Description {
             get {
@@ -592,8 +565,8 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tip: If needed, renderer patch settings can be changed from within the {0} client.
-        ///It is recommended to always use a modern renderer patch on Windows 8/10/11, such as TS-DDraw or CnC-DDraw..
+        ///   Looks up a localized string similar to Tip: If needed, renderer settings can be changed from within the {0} client.
+        ///It is recommended to always use a modern renderer on Windows 8/10/11, such as TS-DDraw or CnC-DDraw..
         /// </summary>
         public static string RendererTask_Hint {
             get {
@@ -602,7 +575,7 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Not setting renderer patch..
+        ///   Looks up a localized string similar to Not setting renderer..
         /// </summary>
         public static string RendererTask_NoRenderer {
             get {
@@ -611,7 +584,7 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Setting renderer patch to CnC-DDraw..
+        ///   Looks up a localized string similar to Setting renderer to CnC-DDraw..
         /// </summary>
         public static string RendererTask_SetToCnCDDraw {
             get {
@@ -800,7 +773,7 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Game Bar is enabled, which may cause certain areas of the game to be unclickable on some computers with certain renderer patches. Please find the relevant setting under Start Menu → Settings → Gaming → Xbox Game Bar and disable the game bar..
+        ///   Looks up a localized string similar to Game Bar is enabled, which may cause certain areas of the game to be unclickable on some computers with certain rendereres. Please find the relevant setting under Start Menu → Settings → Gaming → Xbox Game Bar and disable the game bar..
         /// </summary>
         public static string XboxGameBarTask_GameBarEnabled {
             get {

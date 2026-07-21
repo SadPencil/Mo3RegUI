@@ -55,9 +55,6 @@ namespace Mo3RegUI.Tasks
                 {
                     // DDrawDLLTask_ExcludeFromKnownDllsWrongType: ExcludeFromKnownDlls should be of type {0}, but is actually of type {1}.
                     throw new Exception(string.Format(TextResource.DDrawDLLTask_ExcludeFromKnownDllsWrongType, RegistryValueKind.MultiString, exclusiveDllsKind));
-                    //string message = $"ExcludeFromKnownDlls 应为 {RegistryValueKind.MultiString} 类型，实际为 {exclusiveDllsKind}。";
-                    //ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Critical, Text = message });
-                    //return; // throw new Exception(message);
                 }
 
                 var exclusiveDllsArray = (exclusiveDlls as string[]).ToList();

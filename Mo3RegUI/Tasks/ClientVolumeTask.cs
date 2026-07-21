@@ -10,7 +10,7 @@ namespace Mo3RegUI.Tasks
     }
     public class ClientVolumeTask : ITask
     {
-        // ClientVolumeTask_Description: Dismiss First Run Dialog
+        // ClientVolumeTask_Description: Check Volume
         public string Description => TextResource.ClientVolumeTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
@@ -28,7 +28,6 @@ namespace Mo3RegUI.Tasks
             {
                 MyIniParserHelper.EditIniFile(Path.Combine(p.GameDir, Constants.GameConfigIniName), ini =>
                 {
-                    // The client now relies on IsFurstRun to apply the translation files. Therefore, we don't set it to false anymore.
                     // var optionSection = MyIniParserHelper.GetSectionOrNew(ini, "Options");
                     // optionSection["IsFirstRun"] = "False";
 

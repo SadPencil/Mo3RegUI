@@ -10,7 +10,7 @@ namespace Mo3RegUI.Tasks
     }
     public class RendererTask : ITask
     {
-        // RendererTask_Description: Set Renderer Patch
+        // RendererTask_Description: Set Renderer
         public string Description => TextResource.RendererTask_Description;
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
@@ -26,17 +26,27 @@ namespace Mo3RegUI.Tasks
         {
             if (Environment.OSVersion.Version.Major >= 7 || (Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor >= 2))
             {
-                // RendererTask_SetToCnCDDraw: Setting renderer patch to CnC-DDraw.
+                // RendererTask_SetToCnCDDraw: Setting renderer to CnC-DDraw.
                 ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = TextResource.RendererTask_SetToCnCDDraw });
 
                 // Set "singlecpu=false" to support multi-core. Renderer should not determine the affinity but CnC-DDraw did. So the option is turned off in this task.
                 lock (Locks.CnC_DDraw_INI)
                 {
-                    MyIniParserHelper.EditIniFile(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawIniName), ini =>
+                    bool singleCpuNeedsFix = true;
+                    MyIniParserHelper.ReadIniFile(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawIniName), ini =>
                     {
                         var section = MyIniParserHelper.GetSectionOrNew(ini, "ddraw");
-                        section["singlecpu"] = "false";
+                        singleCpuNeedsFix = string.Compare(section["singlecpu"], "false", StringComparison.OrdinalIgnoreCase) != 0;
                     });
+
+                    if (singleCpuNeedsFix)
+                    {
+                        MyIniParserHelper.EditIniFile(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawIniName), ini =>
+                        {
+                            var section = MyIniParserHelper.GetSectionOrNew(ini, "ddraw");
+                            section["singlecpu"] = "false";
+                        });
+                    }
                 }
 
                 // Apply CnC-DDraw
@@ -46,8 +56,8 @@ namespace Mo3RegUI.Tasks
                     string destDDrawDllPath = Path.Combine(p.GameDir, "ddraw.dll");
                     string destDDrawIniPath = Path.Combine(p.GameDir, "ddraw.ini");
 
-                    FileInfo destDDrawDllFile = new FileInfo(destDDrawDllPath);
-                    FileInfo destDDrawIniFile = new FileInfo(destDDrawIniPath);
+                    var destDDrawDllFile = new FileInfo(destDDrawDllPath);
+                    var destDDrawIniFile = new FileInfo(destDDrawIniPath);
 
                     if (destDDrawDllFile.Exists && destDDrawDllFile.IsReadOnly)
                     {
@@ -64,8 +74,8 @@ namespace Mo3RegUI.Tasks
                 }
                 catch (Exception ex)
                 {
-                    // RendererTask_DeploymentError: Problem encountered while deploying renderer patch. {0}
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = string.Format(TextResource.RendererTask_DeploymentError, ex.Message) });
+                    // RendererTask_DeploymentError: Problem encountered while deploying renderer. {0}
+                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = string.Format(TextResource.RendererTask_DeploymentError, ex.Message) });
                     success = false;
                 }
                 if (success)
@@ -83,11 +93,11 @@ namespace Mo3RegUI.Tasks
             }
             else
             {
-                // RendererTask_NoRenderer: Not setting renderer patch.
+                // RendererTask_NoRenderer: Not setting renderer.
                 ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = TextResource.RendererTask_NoRenderer });
             }
 
-            // RendererTask_Hint: Tip: If needed, renderer patch settings can be changed from within the {0} client. ...
+            // RendererTask_Hint: Tip: If needed, renderer settings can be changed from within the {0} client. ...
             ReportMessage(this, new TaskMessageEventArgs()
             {
                 Level = MessageLevel.Info,

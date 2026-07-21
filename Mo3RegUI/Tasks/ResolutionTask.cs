@@ -1,8 +1,6 @@
 ﻿using Mo3RegUI.LocalizationResources;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using Path = System.IO.Path;
 
 namespace Mo3RegUI.Tasks
@@ -28,7 +26,7 @@ namespace Mo3RegUI.Tasks
         }
         private void _DoWork(ResolutionTaskParameter p)
         {
-            ScreenResolution hostResolution = ScreenResolution.GetDesktopScreenResolution();
+            var hostResolution = ScreenResolution.GetDesktopScreenResolution();
             // ResolutionTask_DesktopResolution: Desktop resolution detected: {0}×{1}.
             ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = string.Format(TextResource.ResolutionTask_DesktopResolution, hostResolution.Width, hostResolution.Height) });
 
@@ -37,10 +35,7 @@ namespace Mo3RegUI.Tasks
 
             ScreenResolution finalResolution;
             {
-                if (maxResolution.Fits(hostResolution))
-                    finalResolution = hostResolution;
-                else
-                    finalResolution = fallbackResolutionIfTooLarge;
+                finalResolution = maxResolution.Fits(hostResolution) ? hostResolution : fallbackResolutionIfTooLarge;
             }
 
             lock (Locks.RA2MO_INI)
