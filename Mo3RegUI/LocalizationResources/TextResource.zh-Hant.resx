@@ -277,6 +277,10 @@
     <value>未能解除以下檔案的下載鎖定：
 {0}</value>
   </data>
+  <data name="RemoveZoneIdentifierTask_FailedDirectories" xml:space="preserve">
+    <value>未能掃描以下目錄：
+{0}</value>
+  </data>
   <data name="RendererTask_Description" xml:space="preserve">
     <value>設定渲染補丁</value>
   </data>

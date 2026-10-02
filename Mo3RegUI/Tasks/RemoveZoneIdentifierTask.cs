@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Runtime.InteropServices;
 
 namespace Mo3RegUI.Tasks
 {
@@ -31,51 +30,84 @@ namespace Mo3RegUI.Tasks
             // alternate data stream to them. Such files may make the client misbehave, so
             // remove the stream from every file in the game directory.
             // https://stackoverflow.com/a/6375373
-            var failedMessages = new List<string>();
+            var failedFiles = new List<string>();
+            var failedDirectories = new List<string>();
             int unblockedCount = 0;
 
-            foreach (string file in Directory.GetFiles(p.GameDir, "*", SearchOption.AllDirectories))
+            // Enumerate the directory tree manually. Directory.GetFiles(..., AllDirectories)
+            // finishes the whole recursive enumeration before returning and throws as soon as
+            // a single subdirectory cannot be enumerated, which would abort the entire scan.
+            var pendingDirectories = new Queue<string>();
+            pendingDirectories.Enqueue(p.GameDir);
+            while (pendingDirectories.Count > 0)
             {
-                int ret = RemoveZoneIdentifier(file);
-                if (ret == 0)
+                string directory = pendingDirectories.Dequeue();
+
+                string[] files;
+                try
                 {
-                    unblockedCount++;
+                    files = Directory.GetFiles(directory);
+                }
+                catch (Exception ex)
+                {
+                    failedDirectories.Add($"{directory}: {ex.Message}");
                     continue;
                 }
 
-                // The file does not carry a Zone.Identifier stream. This is the normal case.
-                if (ret == NativeConstants.ERROR_FILE_NOT_FOUND) { continue; }
-
-                // The file system does not support alternate data streams (e.g. exFAT).
-                if (ret == NativeConstants.ERROR_INVALID_NAME) { continue; }
-
-                // Try again, but temporarily remove the read-only attribute.
-                if (ret == NativeConstants.ERROR_ACCESS_DENIED)
+                foreach (string file in files)
                 {
-                    var info = new FileInfo(file);
-                    if (info.IsReadOnly)
+                    // Other tasks may create or overwrite this file, so serialize with them.
+                    object fileLock = GetSharedFileLock(file);
+                    bool unblocked;
+                    if (fileLock is null)
                     {
-                        info.IsReadOnly = false;
-                        ret = RemoveZoneIdentifier(file);
-                        info.IsReadOnly = true;
-                        if (ret == 0)
+                        unblocked = ProcessFile(file, failedFiles);
+                    }
+                    else
+                    {
+                        lock (fileLock)
                         {
-                            unblockedCount++;
-                            continue;
+                            unblocked = ProcessFile(file, failedFiles);
                         }
                     }
+
+                    if (unblocked) { unblockedCount++; }
                 }
 
-                failedMessages.Add($"{file}: {new Win32Exception(ret).Message} ({ret})");
+                string[] subDirectories;
+                try
+                {
+                    subDirectories = Directory.GetDirectories(directory);
+                }
+                catch (Exception ex)
+                {
+                    failedDirectories.Add($"{directory}: {ex.Message}");
+                    continue;
+                }
+
+                foreach (string subDirectory in subDirectories)
+                {
+                    pendingDirectories.Enqueue(subDirectory);
+                }
             }
 
-            if (failedMessages.Count > 0)
+            if (failedFiles.Count > 0)
             {
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Warning,
                     // RemoveZoneIdentifierTask_FailedFiles: Failed to unblock the following files:
-                    Text = string.Format(TextResource.RemoveZoneIdentifierTask_FailedFiles, string.Join("\n", failedMessages)),
+                    Text = string.Format(TextResource.RemoveZoneIdentifierTask_FailedFiles, string.Join("\n", failedFiles)),
+                });
+            }
+
+            if (failedDirectories.Count > 0)
+            {
+                ReportMessage(this, new TaskMessageEventArgs()
+                {
+                    Level = MessageLevel.Warning,
+                    // RemoveZoneIdentifierTask_FailedDirectories: Failed to scan the following directories:
+                    Text = string.Format(TextResource.RemoveZoneIdentifierTask_FailedDirectories, string.Join("\n", failedDirectories)),
                 });
             }
 
@@ -88,7 +120,7 @@ namespace Mo3RegUI.Tasks
                     Text = string.Format(TextResource.RemoveZoneIdentifierTask_Unblocked, unblockedCount),
                 });
             }
-            else if (failedMessages.Count == 0)
+            else if (failedFiles.Count == 0 && failedDirectories.Count == 0)
             {
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
@@ -100,14 +132,62 @@ namespace Mo3RegUI.Tasks
         }
 
         /// <summary>
-        /// Removes the Zone.Identifier alternate data stream from a file.
+        /// Removes the Zone.Identifier alternate data stream from a single file. Failures are
+        /// recorded instead of aborting the whole scan.
         /// </summary>
-        /// <returns>0 on success, otherwise the Win32 error code.</returns>
-        private static int RemoveZoneIdentifier(string filePath)
+        /// <returns>true when the file was unblocked.</returns>
+        private static bool ProcessFile(string file, List<string> failedFiles)
         {
-            string zoneIdentifier = filePath + ":Zone.Identifier";
-            bool success = NativeMethods.DeleteFile(zoneIdentifier);
-            return success ? 0 : Marshal.GetLastWin32Error();
+            try
+            {
+                int ret = ZoneIdentifier.Remove(file);
+                if (ret == 0) { return true; }
+
+                // The file does not carry a Zone.Identifier stream. This is the normal case.
+                if (ret == NativeConstants.ERROR_FILE_NOT_FOUND) { return false; }
+
+                // The file system does not support alternate data streams (e.g. exFAT).
+                if (ret == NativeConstants.ERROR_INVALID_NAME) { return false; }
+
+                // Try again, but temporarily remove the read-only attribute.
+                if (ret == NativeConstants.ERROR_ACCESS_DENIED)
+                {
+                    var info = new FileInfo(file);
+                    if (info.Exists && info.IsReadOnly)
+                    {
+                        info.IsReadOnly = false;
+                        try
+                        {
+                            ret = ZoneIdentifier.Remove(file);
+                        }
+                        finally
+                        {
+                            info.IsReadOnly = true;
+                        }
+                        if (ret == 0) { return true; }
+                    }
+                }
+
+                failedFiles.Add($"{file}: {new Win32Exception(ret).Message} ({ret})");
+            }
+            catch (Exception ex)
+            {
+                failedFiles.Add($"{file}: {ex.Message}");
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Returns the lock that guards files which may be created or overwritten by other tasks.
+        /// </summary>
+        private static object GetSharedFileLock(string file)
+        {
+            string fileName = Path.GetFileName(file);
+            if (string.Equals(fileName, "ddraw.dll", StringComparison.OrdinalIgnoreCase)) { return Locks.DDraw_DLL; }
+            if (string.Equals(fileName, "ddraw.ini", StringComparison.OrdinalIgnoreCase)) { return Locks.DDraw_INI; }
+            if (string.Equals(fileName, Constants.CnCDDrawIniName, StringComparison.OrdinalIgnoreCase)) { return Locks.CnC_DDraw_INI; }
+            if (string.Equals(fileName, Constants.GameConfigIniName, StringComparison.OrdinalIgnoreCase)) { return Locks.RA2MO_INI; }
+            return null;
         }
     }
 }

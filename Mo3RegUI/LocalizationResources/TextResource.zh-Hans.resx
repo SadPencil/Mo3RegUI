@@ -277,6 +277,10 @@
     <value>未能解除以下文件的下载锁定：
 {0}</value>
   </data>
+  <data name="RemoveZoneIdentifierTask_FailedDirectories" xml:space="preserve">
+    <value>未能扫描以下目录：
+{0}</value>
+  </data>
   <data name="RendererTask_Description" xml:space="preserve">
     <value>设置渲染补丁</value>
   </data>

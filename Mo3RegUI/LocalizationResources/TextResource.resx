@@ -277,6 +277,10 @@
     <value>Failed to unblock the following files:
 {0}</value>
   </data>
+  <data name="RemoveZoneIdentifierTask_FailedDirectories" xml:space="preserve">
+    <value>Failed to scan the following directories:
+{0}</value>
+  </data>
   <data name="RendererTask_Description" xml:space="preserve">
     <value>Set Renderer</value>
   </data>

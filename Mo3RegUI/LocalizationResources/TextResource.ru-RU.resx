@@ -277,6 +277,10 @@
     <value>Не удалось разблокировать следующие файлы:
 {0}</value>
   </data>
+  <data name="RemoveZoneIdentifierTask_FailedDirectories" xml:space="preserve">
+    <value>Не удалось просканировать следующие каталоги:
+{0}</value>
+  </data>
   <data name="RendererTask_Description" xml:space="preserve">
     <value>Установка отрисовщика</value>
   </data>

@@ -56,21 +56,32 @@ namespace Mo3RegUI.Tasks
                     string destDDrawDllPath = Path.Combine(p.GameDir, "ddraw.dll");
                     string destDDrawIniPath = Path.Combine(p.GameDir, "ddraw.ini");
 
-                    var destDDrawDllFile = new FileInfo(destDDrawDllPath);
-                    var destDDrawIniFile = new FileInfo(destDDrawIniPath);
-
-                    if (destDDrawDllFile.Exists && destDDrawDllFile.IsReadOnly)
+                    // File.Copy also copies the Zone.Identifier stream of the source file. The
+                    // unblocking task may have already passed these paths, so serialize with it
+                    // and remove the stream from the files that were just deployed.
+                    lock (Locks.DDraw_DLL)
                     {
-                        destDDrawDllFile.IsReadOnly = false;
+                        var destDDrawDllFile = new FileInfo(destDDrawDllPath);
+                        if (destDDrawDllFile.Exists && destDDrawDllFile.IsReadOnly)
+                        {
+                            destDDrawDllFile.IsReadOnly = false;
+                        }
+
+                        File.Copy(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawDllName), destDDrawDllPath, true);
+                        _ = ZoneIdentifier.Remove(destDDrawDllPath);
                     }
 
-                    if (destDDrawIniFile.Exists && destDDrawIniFile.IsReadOnly)
+                    lock (Locks.DDraw_INI)
                     {
-                        destDDrawIniFile.IsReadOnly = false;
-                    }
+                        var destDDrawIniFile = new FileInfo(destDDrawIniPath);
+                        if (destDDrawIniFile.Exists && destDDrawIniFile.IsReadOnly)
+                        {
+                            destDDrawIniFile.IsReadOnly = false;
+                        }
 
-                    File.Copy(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawDllName), destDDrawDllPath, true);
-                    File.Copy(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawIniName), destDDrawIniPath, true);
+                        File.Copy(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawIniName), destDDrawIniPath, true);
+                        _ = ZoneIdentifier.Remove(destDDrawIniPath);
+                    }
                 }
                 catch (Exception ex)
                 {

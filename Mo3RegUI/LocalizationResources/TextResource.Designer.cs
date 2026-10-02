@@ -565,6 +565,16 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to scan the following directories:
+        ///{0}.
+        /// </summary>
+        public static string RemoveZoneIdentifierTask_FailedDirectories {
+            get {
+                return ResourceManager.GetString("RemoveZoneIdentifierTask_FailedDirectories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to unblock the following files:
         ///{0}.
         /// </summary>
