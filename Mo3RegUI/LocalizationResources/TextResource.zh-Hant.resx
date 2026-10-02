@@ -211,7 +211,7 @@
     <value>檢查長路徑支援</value>
   </data>
   <data name="LongPathAwarenessTask_OsVersionTooLow" xml:space="preserve">
-    <value>系統長路徑支援需要 Windows 10 1607 或更新版本，目前系統版本過低，無法開啟。請將遊戲安裝在較短的路徑下，否則客戶端下載的自訂地圖可能儲存在超出 Windows 路徑長度限制的路徑中，導致遊戲無法讀取。</value>
+    <value>系統長路徑支援需要 Windows 10 1607 或更新版本，目前系統版本過低，無法開啟。客戶端下載的自訂地圖可能儲存在超出 Windows 路徑長度限制的路徑中，導致遊戲無法讀取。</value>
   </data>
   <data name="LongPathAwarenessTask_AlreadyEnabled" xml:space="preserve">
     <value>長路徑支援已開啟。無需操作。</value>

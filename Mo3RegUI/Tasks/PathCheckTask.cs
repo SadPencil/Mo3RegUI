@@ -59,7 +59,7 @@ namespace Mo3RegUI.Tasks
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Warning,
-                    // LongPathAwarenessTask_OsVersionTooLow: Long path support requires Windows 10 version 1607 or later, and the current system version is too low to enable it. Please install the game in a directory with a short path; otherwise, the custom maps downloaded by the client may be stored in paths that exceed the Windows path length limit, and the game may fail to read them.
+                    // LongPathAwarenessTask_OsVersionTooLow: Long path support requires Windows 10 version 1607 or later, and the current system version is too low to enable it. The custom maps downloaded by the client may be stored in paths that exceed the Windows path length limit, and the game may fail to read them.
                     Text = TextResource.LongPathAwarenessTask_OsVersionTooLow,
                 });
                 return;
