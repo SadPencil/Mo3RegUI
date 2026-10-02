@@ -23,11 +23,11 @@ namespace Mo3RegUI
 
         public string Text => this.GetText(Localization.CurrentUICulture);
 
-        public MessageItemViewModel(string categoryResourceKey, MessageLevel level, LocalizedText messageText)
+        public MessageItemViewModel(string categoryResourceKey, MessageLevel level, LocalizedText text)
         {
             this.CategoryResourceKey = categoryResourceKey;
             this.Level = level;
-            this.MessageText = messageText;
+            this.MessageText = text;
         }
 
         public string GetCategory(CultureInfo culture) => Localization.GetString(this.CategoryResourceKey, culture);
