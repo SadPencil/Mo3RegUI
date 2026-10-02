@@ -41,15 +41,19 @@ namespace Mo3RegUI.Tasks
             // those files, so take it once and handle them before the general scan: RendererTask
             // cannot start a copy while this runs, and a copy that had already started before
             // the lock was taken left a marked destination, which this pass cleans as well.
+            // They are excluded from the general scan below, so every file yields exactly one
+            // result instead of a stale or duplicated failure.
+            var deploymentFiles = new List<string>(GetDeploymentFiles(p.GameDir));
+            var deploymentFileSet = new HashSet<string>(deploymentFiles, StringComparer.OrdinalIgnoreCase);
             lock (Locks.CnC_DDrawDeployment)
             {
-                foreach (string file in GetDeploymentFiles(p.GameDir))
+                foreach (string file in deploymentFiles)
                 {
                     if (ProcessFile(file, failedFiles)) { unblockedCount++; }
                 }
             }
 
-            unblockedCount += ScanDirectories(p.GameDir, failedFiles, failedDirectories);
+            unblockedCount += ScanDirectories(p.GameDir, deploymentFileSet, failedFiles, failedDirectories);
 
             if (failedFiles.Count > 0)
             {
@@ -105,10 +109,11 @@ namespace Mo3RegUI.Tasks
 
         /// <summary>
         /// Removes the Zone.Identifier alternate data stream from every file below the given
-        /// directory. Enumeration failures are recorded instead of aborting the whole scan.
+        /// directory, except the ones that were already handled. Enumeration failures are
+        /// recorded instead of aborting the whole scan.
         /// </summary>
         /// <returns>the number of files that were unblocked.</returns>
-        private static int ScanDirectories(string gameDir, List<string> failedFiles, List<string> failedDirectories)
+        private static int ScanDirectories(string gameDir, HashSet<string> skippedFiles, List<string> failedFiles, List<string> failedDirectories)
         {
             int unblockedCount = 0;
 
@@ -134,6 +139,9 @@ namespace Mo3RegUI.Tasks
 
                 foreach (string file in files)
                 {
+                    // Files that were already handled before the general scan are not visited again.
+                    if (skippedFiles.Contains(file)) { continue; }
+
                     // Files that other tasks access are additionally guarded by their own lock.
                     object fileLock = GetSharedFileLock(file);
                     if (fileLock is null)
