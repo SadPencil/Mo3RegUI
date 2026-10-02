@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Icon for the "Save Log" buttons. The WPF build uses log.png, which is this
-  file rendered at 240x240 so that it matches the resolution of github-mark.png.
-  Keep both files in sync when editing.
+  Icon for the "Save Log" buttons. The viewBox is cropped to the drawing's bounding
+  box, stroke included, so that the glyph has no padding around it. The WPF build
+  uses log.png, which is this file rendered from that viewBox. Keep both files in
+  sync when editing.
 -->
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+<svg xmlns="http://www.w3.org/2000/svg" width="14.2" height="20.2" viewBox="5.4 1.9 14.2 20.2">
   <g fill="none" stroke="#24292F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
     <!-- page with a folded top-right corner -->
     <path d="M6.25 2.75h7.25L18.75 8v13.25H6.25z"/>
