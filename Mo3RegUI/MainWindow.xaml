@@ -19,6 +19,14 @@
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
         <local:BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+        <!-- Shared by every button in the bottom bar. Stretching to the row height, rather than
+             centring each button, makes all of them exactly as tall as the tallest one. -->
+        <Style x:Key="BottomBarButton" TargetType="Button">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="MinHeight" Value="34"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -78,21 +86,34 @@
         </ListView>
 
         <!-- The save-log buttons sit on the left, the GitHub button on the right. Which of the
-             save buttons are visible is decided in MainWindow.SetupSaveLogButtons. -->
+             save buttons are visible is decided in MainWindow.SetupSaveLogButtons. They all use
+             the same style and the same image+label content, so their heights match. -->
         <Grid Grid.Row="2" Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
-                <Button x:Name="SaveLogButton" Margin="5" FontSize="14" VerticalAlignment="Center"
-                        Content="{x:Static l10n:TextResource.MainWindow_SaveLogButton}" Click="SaveLogButton_Click"/>
-                <Button x:Name="SaveLogEnglishButton" Margin="5" FontSize="14" VerticalAlignment="Center"
-                        Content="{x:Static l10n:TextResource.MainWindow_SaveLogEnglishButton}" Click="SaveLogEnglishButton_Click"/>
-                <Button x:Name="SaveLogCurrentLanguageButton" Margin="5" FontSize="14" VerticalAlignment="Center"
-                        Content="{x:Static l10n:TextResource.MainWindow_SaveLogCurrentLanguageButton}" Click="SaveLogCurrentLanguageButton_Click"/>
+                <Button x:Name="SaveLogButton" Style="{StaticResource BottomBarButton}" Click="SaveLogButton_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="2" Source="log-icon.png" Height="22" VerticalAlignment="Center"/>
+                        <Label Margin="0" Content="{x:Static l10n:TextResource.MainWindow_SaveLogButton}"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="SaveLogEnglishButton" Style="{StaticResource BottomBarButton}" Click="SaveLogEnglishButton_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="2" Source="log-icon.png" Height="22" VerticalAlignment="Center"/>
+                        <Label Margin="0" Content="{x:Static l10n:TextResource.MainWindow_SaveLogEnglishButton}"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="SaveLogCurrentLanguageButton" Style="{StaticResource BottomBarButton}" Click="SaveLogCurrentLanguageButton_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="2" Source="log-icon.png" Height="22" VerticalAlignment="Center"/>
+                        <Label Margin="0" Content="{x:Static l10n:TextResource.MainWindow_SaveLogCurrentLanguageButton}"/>
+                    </StackPanel>
+                </Button>
             </StackPanel>
-            <Button x:Name="GitHubUrlButton" Grid.Column="1" Margin="5" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Right" Click="GitHubUrlButton_Click">
+            <Button x:Name="GitHubUrlButton" Grid.Column="1" Style="{StaticResource BottomBarButton}" HorizontalAlignment="Right" Click="GitHubUrlButton_Click">
                 <StackPanel Orientation="Horizontal">
                     <Image Margin="2" Source="github-mark.png" Height="22" VerticalAlignment="Center"></Image>
                     <Label Margin="0" Content="{x:Static l10n:TextResource.MainWindow_GitHubUrlButton}"/>

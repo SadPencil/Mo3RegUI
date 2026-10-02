@@ -441,6 +441,15 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ## {0}.
+        /// </summary>
+        public static string Log_SectionHeading {
+            get {
+                return ResourceManager.GetString("Log_SectionHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Long path support is enabled. No action required..
         /// </summary>
         public static string LongPathAwarenessTask_AlreadyEnabled {

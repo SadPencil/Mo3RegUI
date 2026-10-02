@@ -440,6 +440,9 @@
   <data name="Log_Saved_Title" xml:space="preserve">
     <value>日志已保存</value>
   </data>
+  <data name="Log_SectionHeading" xml:space="preserve">
+    <value>## {0}</value>
+  </data>
   <data name="MainWindow_SaveLogButton" xml:space="preserve">
     <value>保存日志</value>
   </data>

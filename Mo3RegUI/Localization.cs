@@ -25,10 +25,13 @@ namespace Mo3RegUI
 
         /// <summary>
         /// Looks up a resource by key, returning the key itself when the resource is missing so
-        /// that a broken translation is visible instead of throwing.
+        /// that a broken translation is visible instead of throwing. An empty key yields an
+        /// empty string, which keeps callers that group by key safe.
         /// </summary>
         public static string GetString(string resourceKey, CultureInfo culture) =>
-            TextResource.ResourceManager.GetString(resourceKey, culture) ?? resourceKey;
+            string.IsNullOrEmpty(resourceKey)
+                ? string.Empty
+                : TextResource.ResourceManager.GetString(resourceKey, culture) ?? resourceKey;
 
         /// <summary>
         /// Whether the UI is currently showing English, either because the system locale is

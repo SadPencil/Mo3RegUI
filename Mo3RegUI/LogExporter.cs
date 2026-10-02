@@ -3,6 +3,7 @@ using Mo3RegUI.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace Mo3RegUI
@@ -36,12 +37,23 @@ namespace Mo3RegUI
             sb.AppendLine(Format(nameof(TextResource.Log_HeaderSummary), culture, GetSummaryArgs(items)));
             sb.AppendLine();
 
-            foreach (MessageItemViewModel item in items)
+            // Tasks run in parallel, so a purely chronological list interleaves unrelated
+            // sections. Grouping by task keeps each section together: GroupBy yields the groups
+            // in the order in which their first message appeared, and keeps the messages inside
+            // a group in their original order.
+            foreach (IGrouping<string, MessageItemViewModel> group in items.GroupBy(item => item.CategoryResourceKey))
             {
-                string text = NormalizeLineBreaks(item.GetText(culture));
-                sb.Append('[').Append(GetLevelName(item.Level, culture)).Append("] [")
-                  .Append(item.GetCategory(culture)).Append("] ")
-                  .Append(text.Replace("\n", "\n    "));
+                sb.AppendLine(Format(nameof(TextResource.Log_SectionHeading), culture,
+                    Localization.GetString(group.Key, culture)));
+
+                foreach (MessageItemViewModel item in group)
+                {
+                    string text = NormalizeLineBreaks(item.GetText(culture));
+                    sb.Append('[').Append(GetLevelName(item.Level, culture)).Append("] ")
+                      .Append(text.Replace("\n", "\n    "));
+                    sb.AppendLine();
+                }
+
                 sb.AppendLine();
             }
 
