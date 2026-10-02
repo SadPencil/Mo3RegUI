@@ -71,7 +71,6 @@ namespace Mo3RegUI
                 new(){Task = new DDrawDLLTask(), Parameter = new DDrawDLLTaskParameter()},
                 new(){Task = new RemoveObsoleteFilesTask(), Parameter = new RemoveObsoleteFilesTaskParameter(){ GameDir = gameDir}},
                 new(){Task = new ForegroundLockTimeoutTask(), Parameter = new ForegroundLockTimeoutTaskParameter()},
-                new(){Task = new LongPathAwarenessTask(), Parameter = new LongPathAwarenessTaskParameter()},
                 new(){Task = new CompatibilitySettingTask(), Parameter = new CompatibilitySettingTaskParameter(){ GameDir = gameDir}},
                 new(){Task = new FalsePositiveTask(), Parameter = new FalsePositiveTaskParameter(){ GameDir = gameDir}},
             };
