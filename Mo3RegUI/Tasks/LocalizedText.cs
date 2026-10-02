@@ -59,8 +59,8 @@ namespace Mo3RegUI.Tasks
             string format = TextResource.ResourceManager.GetString(this._resourceKey, culture);
             if (format is null)
             {
-                // A missing translation is a bug; showing the key makes it obvious in the log.
-                return this._resourceKey;
+                throw new InvalidOperationException(
+                    $"The resource \"{this._resourceKey}\" is missing from the neutral (English) resources.");
             }
 
             if (this._formatArgs is null || this._formatArgs.Length == 0)
