@@ -135,7 +135,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NativeMethods.cs" />
-    <Compile Include="ZoneIdentifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

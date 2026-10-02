@@ -56,31 +56,34 @@ namespace Mo3RegUI.Tasks
                     string destDDrawDllPath = Path.Combine(p.GameDir, "ddraw.dll");
                     string destDDrawIniPath = Path.Combine(p.GameDir, "ddraw.ini");
 
-                    // File.Copy also copies the Zone.Identifier stream of the source file. The
-                    // unblocking task may have already passed these paths, so serialize with it
-                    // and remove the stream from the files that were just deployed.
-                    lock (Locks.DDraw_DLL)
+                    // The unblocking task processes the source and the deployed file under these
+                    // locks, so serialize each copy with it.
+                    lock (Locks.CnC_DDraw_DLL)
                     {
-                        var destDDrawDllFile = new FileInfo(destDDrawDllPath);
-                        if (destDDrawDllFile.Exists && destDDrawDllFile.IsReadOnly)
+                        lock (Locks.DDraw_DLL)
                         {
-                            destDDrawDllFile.IsReadOnly = false;
-                        }
+                            var destDDrawDllFile = new FileInfo(destDDrawDllPath);
+                            if (destDDrawDllFile.Exists && destDDrawDllFile.IsReadOnly)
+                            {
+                                destDDrawDllFile.IsReadOnly = false;
+                            }
 
-                        File.Copy(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawDllName), destDDrawDllPath, true);
-                        _ = ZoneIdentifier.Remove(destDDrawDllPath);
+                            File.Copy(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawDllName), destDDrawDllPath, true);
+                        }
                     }
 
-                    lock (Locks.DDraw_INI)
+                    lock (Locks.CnC_DDraw_INI)
                     {
-                        var destDDrawIniFile = new FileInfo(destDDrawIniPath);
-                        if (destDDrawIniFile.Exists && destDDrawIniFile.IsReadOnly)
+                        lock (Locks.DDraw_INI)
                         {
-                            destDDrawIniFile.IsReadOnly = false;
-                        }
+                            var destDDrawIniFile = new FileInfo(destDDrawIniPath);
+                            if (destDDrawIniFile.Exists && destDDrawIniFile.IsReadOnly)
+                            {
+                                destDDrawIniFile.IsReadOnly = false;
+                            }
 
-                        File.Copy(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawIniName), destDDrawIniPath, true);
-                        _ = ZoneIdentifier.Remove(destDDrawIniPath);
+                            File.Copy(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawIniName), destDDrawIniPath, true);
+                        }
                     }
                 }
                 catch (Exception ex)

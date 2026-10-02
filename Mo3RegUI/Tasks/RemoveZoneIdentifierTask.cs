@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace Mo3RegUI.Tasks
 {
@@ -26,70 +27,31 @@ namespace Mo3RegUI.Tasks
         }
         private void _DoWork(RemoveZoneIdentifierTaskParameter p)
         {
-            // Windows marks files downloaded from the Internet by adding a Zone.Identifier
-            // alternate data stream to them. Such files may make the client misbehave, so
-            // remove the stream from every file in the game directory.
-            // https://stackoverflow.com/a/6375373
             var failedFiles = new List<string>();
             var failedDirectories = new List<string>();
             int unblockedCount = 0;
 
-            // Enumerate the directory tree manually. Directory.GetFiles(..., AllDirectories)
-            // finishes the whole recursive enumeration before returning and throws as soon as
-            // a single subdirectory cannot be enumerated, which would abort the entire scan.
-            var pendingDirectories = new Queue<string>();
-            pendingDirectories.Enqueue(p.GameDir);
-            while (pendingDirectories.Count > 0)
+            // Windows marks files downloaded from the Internet by adding a Zone.Identifier
+            // alternate data stream to them. Such files may make the client misbehave, so
+            // remove the stream from every file in the game directory.
+            // https://stackoverflow.com/a/6375373
+            //
+            // RendererTask copies a few files into the game directory, and File.Copy carries the
+            // source's Zone.Identifier stream over to the destination. Those files are handled
+            // first, each under its own lock, before the general scan: a copy started after this
+            // pass reads source files that are already unblocked, while a copy made earlier left
+            // a marked destination that the general scan below still sees and cleans.
+            foreach (string file in GetDeploymentFiles(p.GameDir))
             {
-                string directory = pendingDirectories.Dequeue();
-
-                string[] files;
-                try
+                object fileLock = GetSharedFileLock(file);
+                if (fileLock is null) { continue; }
+                lock (fileLock)
                 {
-                    files = Directory.GetFiles(directory);
-                }
-                catch (Exception ex)
-                {
-                    failedDirectories.Add($"{directory}: {ex.Message}");
-                    continue;
-                }
-
-                foreach (string file in files)
-                {
-                    // Other tasks may create or overwrite this file, so serialize with them.
-                    object fileLock = GetSharedFileLock(file);
-                    bool unblocked;
-                    if (fileLock is null)
-                    {
-                        unblocked = ProcessFile(file, failedFiles);
-                    }
-                    else
-                    {
-                        lock (fileLock)
-                        {
-                            unblocked = ProcessFile(file, failedFiles);
-                        }
-                    }
-
-                    if (unblocked) { unblockedCount++; }
-                }
-
-                string[] subDirectories;
-                try
-                {
-                    subDirectories = Directory.GetDirectories(directory);
-                }
-                catch (Exception ex)
-                {
-                    failedDirectories.Add($"{directory}: {ex.Message}");
-                    continue;
-                }
-
-                foreach (string subDirectory in subDirectories)
-                {
-                    pendingDirectories.Enqueue(subDirectory);
+                    if (ProcessFile(file, failedFiles)) { unblockedCount++; }
                 }
             }
+
+            unblockedCount += ScanDirectories(p.GameDir, failedFiles, failedDirectories);
 
             if (failedFiles.Count > 0)
             {
@@ -132,6 +94,84 @@ namespace Mo3RegUI.Tasks
         }
 
         /// <summary>
+        /// The files that the renderer task reads or overwrites in the game directory. The source
+        /// files come first: once they are unblocked, any copy made afterwards is already clean.
+        /// </summary>
+        private static IEnumerable<string> GetDeploymentFiles(string gameDir)
+        {
+            yield return Path.Combine(gameDir, "Resources", Constants.CnCDDrawDllName);
+            yield return Path.Combine(gameDir, "Resources", Constants.CnCDDrawIniName);
+            yield return Path.Combine(gameDir, "ddraw.dll");
+            yield return Path.Combine(gameDir, "ddraw.ini");
+        }
+
+        /// <summary>
+        /// Removes the Zone.Identifier alternate data stream from every file below the given
+        /// directory. Enumeration failures are recorded instead of aborting the whole scan.
+        /// </summary>
+        /// <returns>the number of files that were unblocked.</returns>
+        private static int ScanDirectories(string gameDir, List<string> failedFiles, List<string> failedDirectories)
+        {
+            int unblockedCount = 0;
+
+            // Enumerate the directory tree manually. Directory.GetFiles(..., AllDirectories)
+            // finishes the whole recursive enumeration before returning and throws as soon as
+            // a single subdirectory cannot be enumerated, which would abort the entire scan.
+            var pendingDirectories = new Queue<string>();
+            pendingDirectories.Enqueue(gameDir);
+            while (pendingDirectories.Count > 0)
+            {
+                string directory = pendingDirectories.Dequeue();
+
+                string[] files;
+                try
+                {
+                    files = Directory.GetFiles(directory);
+                }
+                catch (Exception ex)
+                {
+                    failedDirectories.Add($"{directory}: {ex.Message}");
+                    continue;
+                }
+
+                foreach (string file in files)
+                {
+                    // Files that other tasks access are additionally guarded by their own lock.
+                    object fileLock = GetSharedFileLock(file);
+                    if (fileLock is null)
+                    {
+                        if (ProcessFile(file, failedFiles)) { unblockedCount++; }
+                    }
+                    else
+                    {
+                        lock (fileLock)
+                        {
+                            if (ProcessFile(file, failedFiles)) { unblockedCount++; }
+                        }
+                    }
+                }
+
+                string[] subDirectories;
+                try
+                {
+                    subDirectories = Directory.GetDirectories(directory);
+                }
+                catch (Exception ex)
+                {
+                    failedDirectories.Add($"{directory}: {ex.Message}");
+                    continue;
+                }
+
+                foreach (string subDirectory in subDirectories)
+                {
+                    pendingDirectories.Enqueue(subDirectory);
+                }
+            }
+
+            return unblockedCount;
+        }
+
+        /// <summary>
         /// Removes the Zone.Identifier alternate data stream from a single file. Failures are
         /// recorded instead of aborting the whole scan.
         /// </summary>
@@ -140,7 +180,7 @@ namespace Mo3RegUI.Tasks
         {
             try
             {
-                int ret = ZoneIdentifier.Remove(file);
+                int ret = RemoveZoneIdentifier(file);
                 if (ret == 0) { return true; }
 
                 // The file does not carry a Zone.Identifier stream. This is the normal case.
@@ -158,7 +198,7 @@ namespace Mo3RegUI.Tasks
                         info.IsReadOnly = false;
                         try
                         {
-                            ret = ZoneIdentifier.Remove(file);
+                            ret = RemoveZoneIdentifier(file);
                         }
                         finally
                         {
@@ -178,13 +218,25 @@ namespace Mo3RegUI.Tasks
         }
 
         /// <summary>
-        /// Returns the lock that guards files which may be created or overwritten by other tasks.
+        /// Removes the Zone.Identifier alternate data stream from a file.
+        /// </summary>
+        /// <returns>0 on success, otherwise the Win32 error code.</returns>
+        private static int RemoveZoneIdentifier(string filePath)
+        {
+            string zoneIdentifier = filePath + ":Zone.Identifier";
+            bool success = NativeMethods.DeleteFile(zoneIdentifier);
+            return success ? 0 : Marshal.GetLastWin32Error();
+        }
+
+        /// <summary>
+        /// Returns the lock that guards a file which another task reads or overwrites.
         /// </summary>
         private static object GetSharedFileLock(string file)
         {
             string fileName = Path.GetFileName(file);
             if (string.Equals(fileName, "ddraw.dll", StringComparison.OrdinalIgnoreCase)) { return Locks.DDraw_DLL; }
             if (string.Equals(fileName, "ddraw.ini", StringComparison.OrdinalIgnoreCase)) { return Locks.DDraw_INI; }
+            if (string.Equals(fileName, Constants.CnCDDrawDllName, StringComparison.OrdinalIgnoreCase)) { return Locks.CnC_DDraw_DLL; }
             if (string.Equals(fileName, Constants.CnCDDrawIniName, StringComparison.OrdinalIgnoreCase)) { return Locks.CnC_DDraw_INI; }
             if (string.Equals(fileName, Constants.GameConfigIniName, StringComparison.OrdinalIgnoreCase)) { return Locks.RA2MO_INI; }
             return null;
