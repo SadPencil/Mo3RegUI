@@ -18,6 +18,7 @@ namespace Mo3RegUI
             this.InitializeComponent();
             this.Messages = this.DataContext as MessagesViewModel;
             this.SetupSaveLogButtons();
+            this.UpdateSaveLogButtonsEnabled();
         }
 
         public readonly MessagesViewModel Messages;
@@ -114,6 +115,7 @@ namespace Mo3RegUI
             this.mainTaskManager.TaskCompleted += (manager_sender, task_e) =>
             {
                 int waitCount = (manager_sender as TaskManager).WaitCount;
+                this.UpdateSaveLogButtonsEnabled();
 
                 if (waitCount == 0)
                 {
@@ -129,6 +131,7 @@ namespace Mo3RegUI
                 }
             };
             this.mainTaskManager.RunAsync();
+            this.UpdateSaveLogButtonsEnabled();
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -170,6 +173,24 @@ namespace Mo3RegUI
             this.SaveLogCurrentLanguageButton.Visibility = isNeutral ? Visibility.Collapsed : Visibility.Visible;
         }
 
+        /// <summary>
+        /// Whether every task has finished. The log may only be saved afterwards, otherwise it
+        /// would quietly miss the messages of the tasks that are still running.
+        /// </summary>
+        private bool IsExecutionComplete => this.mainTaskManager is not null && this.mainTaskManager.WaitCount == 0;
+
+        /// <summary>
+        /// Keeps the save buttons enabled only once every task has finished. Starting disabled is
+        /// deliberate: the buttons must never produce an incomplete log.
+        /// </summary>
+        private void UpdateSaveLogButtonsEnabled()
+        {
+            bool enabled = this.IsExecutionComplete;
+            this.SaveLogButton.IsEnabled = enabled;
+            this.SaveLogEnglishButton.IsEnabled = enabled;
+            this.SaveLogCurrentLanguageButton.IsEnabled = enabled;
+        }
+
         private void SaveLogButton_Click(object sender, RoutedEventArgs e) =>
             this.SaveLog(Localization.EnglishCulture);
 
@@ -186,6 +207,11 @@ namespace Mo3RegUI
         /// </summary>
         private void SaveLog(CultureInfo culture)
         {
+            if (!this.IsExecutionComplete)
+            {
+                throw new InvalidOperationException("The log cannot be saved before every task has finished; the save buttons stay disabled until then.");
+            }
+
             var dialog = new Microsoft.Win32.SaveFileDialog()
             {
                 Title = Localization.GetString(nameof(TextResource.MainWindow_SaveLogButton), Localization.CurrentUICulture),

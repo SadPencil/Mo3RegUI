@@ -94,19 +94,21 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
-                <Button x:Name="SaveLogButton" Style="{StaticResource BottomBarButton}" Click="SaveLogButton_Click">
+                <!-- Disabled until every task has finished; MainWindow.UpdateSaveLogButtonsEnabled
+                     enables them when the last task completes. -->
+                <Button x:Name="SaveLogButton" Style="{StaticResource BottomBarButton}" IsEnabled="False" Click="SaveLogButton_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2" Source="Icons/log.png" Height="22" VerticalAlignment="Center"/>
                         <Label Margin="0" Content="{x:Static l10n:TextResource.MainWindow_SaveLogButton}"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="SaveLogEnglishButton" Style="{StaticResource BottomBarButton}" Click="SaveLogEnglishButton_Click">
+                <Button x:Name="SaveLogEnglishButton" Style="{StaticResource BottomBarButton}" IsEnabled="False" Click="SaveLogEnglishButton_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2" Source="Icons/log.png" Height="22" VerticalAlignment="Center"/>
                         <Label Margin="0" Content="{x:Static l10n:TextResource.MainWindow_SaveLogEnglishButton}"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="SaveLogCurrentLanguageButton" Style="{StaticResource BottomBarButton}" Click="SaveLogCurrentLanguageButton_Click">
+                <Button x:Name="SaveLogCurrentLanguageButton" Style="{StaticResource BottomBarButton}" IsEnabled="False" Click="SaveLogCurrentLanguageButton_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Margin="2" Source="Icons/log.png" Height="22" VerticalAlignment="Center"/>
                         <Label Margin="0" Content="{x:Static l10n:TextResource.MainWindow_SaveLogCurrentLanguageButton}"/>
