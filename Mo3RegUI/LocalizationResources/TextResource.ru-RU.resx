@@ -207,6 +207,21 @@
   <data name="ForegroundLockTimeoutTask_FixedTimeout" xml:space="preserve">
     <value>Исправлено успешно. Время ожидания блокировки переднего плана установлено на {0} миллисекунд.</value>
   </data>
+  <data name="LongPathAwarenessTask_OsVersionTooLow" xml:space="preserve">
+    <value>Поддержка длинных путей требует Windows 10 версии 1607 или более поздней; текущая версия системы слишком стара, чтобы её включить. Пользовательские карты, загруженные клиентом, могут сохраняться по путям, превышающим ограничение длины пути Windows, и игра может не суметь их прочитать.</value>
+  </data>
+  <data name="LongPathAwarenessTask_AlreadyEnabled" xml:space="preserve">
+    <value>Поддержка длинных путей включена. Никаких действий не требуется.</value>
+  </data>
+  <data name="LongPathAwarenessTask_Disabled" xml:space="preserve">
+    <value>Поддержка длинных путей не включена. Пользовательские карты, загруженные клиентом, могут сохраняться по путям, превышающим ограничение длины пути Windows, из-за чего игра может не суметь их прочитать. Включение поддержки длинных путей...</value>
+  </data>
+  <data name="LongPathAwarenessTask_RegistryKeyUnavailable" xml:space="preserve">
+    <value>Не удалось открыть раздел реестра, отвечающий за поддержку длинных путей.</value>
+  </data>
+  <data name="LongPathAwarenessTask_Fixed" xml:space="preserve">
+    <value>Исправлено успешно. Поддержка длинных путей включена. Перезагрузите компьютер, чтобы изменения вступили в силу.</value>
+  </data>
   <data name="NetworkInterfaceTask_Description" xml:space="preserve">
     <value>Проверка настроек сетевого окружения</value>
   </data>

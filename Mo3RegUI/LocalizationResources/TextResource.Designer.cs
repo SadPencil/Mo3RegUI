@@ -295,6 +295,51 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Long path support is enabled. No action required..
+        /// </summary>
+        public static string LongPathAwarenessTask_AlreadyEnabled {
+            get {
+                return ResourceManager.GetString("LongPathAwarenessTask_AlreadyEnabled", resourceCulture);
+            }
+        }
+                
+        /// <summary>
+        ///   Looks up a localized string similar to Long path support is not enabled. The custom maps downloaded by the client may be stored in paths that exceed the Windows path length limit, which may prevent the game from reading them. Enabling long path support....
+        /// </summary>
+        public static string LongPathAwarenessTask_Disabled {
+            get {
+                return ResourceManager.GetString("LongPathAwarenessTask_Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fixed successfully. Long path support has been enabled. Please restart the computer to make the change take effect..
+        /// </summary>
+        public static string LongPathAwarenessTask_Fixed {
+            get {
+                return ResourceManager.GetString("LongPathAwarenessTask_Fixed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Long path support requires Windows 10 version 1607 or later, and the current system version is too low to enable it. The custom maps downloaded by the client may be stored in paths that exceed the Windows path length limit, and the game may fail to read them..
+        /// </summary>
+        public static string LongPathAwarenessTask_OsVersionTooLow {
+            get {
+                return ResourceManager.GetString("LongPathAwarenessTask_OsVersionTooLow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to open the registry key for long path support..
+        /// </summary>
+        public static string LongPathAwarenessTask_RegistryKeyUnavailable {
+            get {
+                return ResourceManager.GetString("LongPathAwarenessTask_RegistryKeyUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} is setting compatibility and configuring game options, and has not finished yet. Are you sure you want to abort?.
         /// </summary>
         public static string MainWindow_Closing_Warning_Message {

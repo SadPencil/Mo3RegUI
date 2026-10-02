@@ -207,6 +207,21 @@
   <data name="ForegroundLockTimeoutTask_FixedTimeout" xml:space="preserve">
     <value>修復成功。前臺鎖定時間修改為 {0} 毫秒。</value>
   </data>
+  <data name="LongPathAwarenessTask_OsVersionTooLow" xml:space="preserve">
+    <value>系統長路徑支援需要 Windows 10 1607 或更新版本，目前系統版本過低，無法開啟。客戶端下載的自訂地圖可能儲存在超出 Windows 路徑長度限制的路徑中，導致遊戲無法讀取。</value>
+  </data>
+  <data name="LongPathAwarenessTask_AlreadyEnabled" xml:space="preserve">
+    <value>長路徑支援已開啟。無需操作。</value>
+  </data>
+  <data name="LongPathAwarenessTask_Disabled" xml:space="preserve">
+    <value>長路徑支援未開啟。客戶端下載的自訂地圖可能儲存在超出 Windows 路徑長度限制的路徑中，導致遊戲無法讀取。正在開啟長路徑支援……</value>
+  </data>
+  <data name="LongPathAwarenessTask_RegistryKeyUnavailable" xml:space="preserve">
+    <value>無法開啟長路徑支援對應的登錄檔項。</value>
+  </data>
+  <data name="LongPathAwarenessTask_Fixed" xml:space="preserve">
+    <value>修復成功。長路徑支援已開啟，請重新啟動電腦使其生效。</value>
+  </data>
   <data name="NetworkInterfaceTask_Description" xml:space="preserve">
     <value>檢查網路環境</value>
   </data>
