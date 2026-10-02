@@ -394,7 +394,7 @@
     <value>Markdown 文件 (*.md)|*.md|所有文件 (*.*)|*.*</value>
   </data>
   <data name="Log_HeaderGeneratedAt" xml:space="preserve">
-    <value>生成时间：{0}</value>
+    <value>生成时间（UTC）：{0}</value>
   </data>
   <data name="Log_HeaderGameDirectory" xml:space="preserve">
     <value>游戏目录：{0}</value>

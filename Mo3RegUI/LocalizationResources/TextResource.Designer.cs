@@ -322,7 +322,7 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generated at: {0}.
+        ///   Looks up a localized string similar to Generated at (UTC): {0}.
         /// </summary>
         public static string Log_HeaderGeneratedAt {
             get {

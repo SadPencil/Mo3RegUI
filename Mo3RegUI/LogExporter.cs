@@ -36,7 +36,7 @@ namespace Mo3RegUI
             sb.AppendLine();
 
             AppendMetadata(sb, nameof(TextResource.Log_HeaderGeneratedAt), culture,
-                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture));
+                DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture));
             AppendMetadata(sb, nameof(TextResource.Log_HeaderLanguage), culture, GetLanguageName(culture));
             AppendMetadata(sb, nameof(TextResource.Log_HeaderGameDirectory), culture, gameDir ?? string.Empty);
             AppendMetadata(sb, nameof(TextResource.Log_HeaderSummary), culture, GetSummaryArgs(items));

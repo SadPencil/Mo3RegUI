@@ -394,7 +394,7 @@
     <value>Файлы Markdown (*.md)|*.md|Все файлы (*.*)|*.*</value>
   </data>
   <data name="Log_HeaderGeneratedAt" xml:space="preserve">
-    <value>Создано: {0}</value>
+    <value>Создано (UTC): {0}</value>
   </data>
   <data name="Log_HeaderGameDirectory" xml:space="preserve">
     <value>Каталог игры: {0}</value>
