@@ -58,8 +58,18 @@ namespace Mo3RegUI
                     // as a space in Markdown, so the bullet is what keeps two consecutive
                     // messages on separate lines. The continuation lines of a multi-line message
                     // are indented to stay inside the same item.
-                    sb.Append("- [").Append(GetLevelName(item.Level, culture)).Append("] ")
-                      .Append(text.Replace("\n", "\n    "));
+                    // Anything more severe than an ordinary note gets its severity marker bolded,
+                    // so warnings and errors stand out when the log is rendered.
+                    if (item.Level > MessageLevel.Info)
+                    {
+                        sb.Append("- **[").Append(GetLevelName(item.Level, culture)).Append("]** ");
+                    }
+                    else
+                    {
+                        sb.Append("- [").Append(GetLevelName(item.Level, culture)).Append("] ");
+                    }
+
+                    sb.Append(text.Replace("\n", "\n    "));
                     sb.AppendLine();
                 }
 
