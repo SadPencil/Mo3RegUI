@@ -295,6 +295,215 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please manually change this value to False when translating this file. Anything other than False is treated as the neutral (English) resources..
+        /// </summary>
+        public static string Localization_IsNeutralCulture {
+            get {
+                return ResourceManager.GetString("Localization_IsNeutralCulture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Markdown files (*.md)|*.md|All files (*.*)|*.*.
+        /// </summary>
+        public static string Log_FileDialogFilter {
+            get {
+                return ResourceManager.GetString("Log_FileDialogFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game directory: {0}.
+        /// </summary>
+        public static string Log_HeaderGameDirectory {
+            get {
+                return ResourceManager.GetString("Log_HeaderGameDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generated at (UTC): {0}.
+        /// </summary>
+        public static string Log_HeaderGeneratedAt {
+            get {
+                return ResourceManager.GetString("Log_HeaderGeneratedAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log language: {0}.
+        /// </summary>
+        public static string Log_HeaderLanguage {
+            get {
+                return ResourceManager.GetString("Log_HeaderLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summary: Critical {0}, Error {1}, Warning {2}, Info {3}, Debug {4}.
+        /// </summary>
+        public static string Log_HeaderSummary {
+            get {
+                return ResourceManager.GetString("Log_HeaderSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diagnostic Log.
+        /// </summary>
+        public static string Log_HeaderTitle {
+            get {
+                return ResourceManager.GetString("Log_HeaderTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string Log_LanguageEnglish {
+            get {
+                return ResourceManager.GetString("Log_LanguageEnglish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Critical.
+        /// </summary>
+        public static string Log_Level_Critical {
+            get {
+                return ResourceManager.GetString("Log_Level_Critical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debug.
+        /// </summary>
+        public static string Log_Level_Debug {
+            get {
+                return ResourceManager.GetString("Log_Level_Debug", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Log_Level_Error {
+            get {
+                return ResourceManager.GetString("Log_Level_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Info.
+        /// </summary>
+        public static string Log_Level_Info {
+            get {
+                return ResourceManager.GetString("Log_Level_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string Log_Level_Warning {
+            get {
+                return ResourceManager.GetString("Log_Level_Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The log has been saved to:
+        ///{0}.
+        /// </summary>
+        public static string Log_Saved_Message {
+            get {
+                return ResourceManager.GetString("Log_Saved_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log Saved.
+        /// </summary>
+        public static string Log_Saved_Title {
+            get {
+                return ResourceManager.GetString("Log_Saved_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save the log:
+        ///{0}.
+        /// </summary>
+        public static string Log_SaveFailed_Message {
+            get {
+                return ResourceManager.GetString("Log_SaveFailed_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to Save Log.
+        /// </summary>
+        public static string Log_SaveFailed_Title {
+            get {
+                return ResourceManager.GetString("Log_SaveFailed_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ## {0}.
+        /// </summary>
+        public static string Log_SectionHeading {
+            get {
+                return ResourceManager.GetString("Log_SectionHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Long path support is enabled. No action required..
+        /// </summary>
+        public static string LongPathAwarenessTask_AlreadyEnabled {
+            get {
+                return ResourceManager.GetString("LongPathAwarenessTask_AlreadyEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Long path support is not enabled. The custom maps downloaded by the client may be stored in paths that exceed the Windows path length limit, which may prevent the game from reading them. Enabling long path support....
+        /// </summary>
+        public static string LongPathAwarenessTask_Disabled {
+            get {
+                return ResourceManager.GetString("LongPathAwarenessTask_Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fixed successfully. Long path support has been enabled. Please restart the computer to make the change take effect..
+        /// </summary>
+        public static string LongPathAwarenessTask_Fixed {
+            get {
+                return ResourceManager.GetString("LongPathAwarenessTask_Fixed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Long path support requires Windows 10 version 1607 or later, and the current system version is too low to enable it. The custom maps downloaded by the client may be stored in paths that exceed the Windows path length limit, and the game may fail to read them..
+        /// </summary>
+        public static string LongPathAwarenessTask_OsVersionTooLow {
+            get {
+                return ResourceManager.GetString("LongPathAwarenessTask_OsVersionTooLow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to open the registry key for long path support..
+        /// </summary>
+        public static string LongPathAwarenessTask_RegistryKeyUnavailable {
+            get {
+                return ResourceManager.GetString("LongPathAwarenessTask_RegistryKeyUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} is setting compatibility and configuring game options, and has not finished yet. Are you sure you want to abort?.
         /// </summary>
         public static string MainWindow_Closing_Warning_Message {
@@ -345,6 +554,33 @@ namespace Mo3RegUI.LocalizationResources {
         public static string MainWindow_Not_In_Game_Directory_Title {
             get {
                 return ResourceManager.GetString("MainWindow_Not_In_Game_Directory_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Log.
+        /// </summary>
+        public static string MainWindow_SaveLogButton {
+            get {
+                return ResourceManager.GetString("MainWindow_SaveLogButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Log (Current Language).
+        /// </summary>
+        public static string MainWindow_SaveLogCurrentLanguageButton {
+            get {
+                return ResourceManager.GetString("MainWindow_SaveLogCurrentLanguageButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Log (English).
+        /// </summary>
+        public static string MainWindow_SaveLogEnglishButton {
+            get {
+                return ResourceManager.GetString("MainWindow_SaveLogEnglishButton", resourceCulture);
             }
         }
         
@@ -543,6 +779,53 @@ namespace Mo3RegUI.LocalizationResources {
         public static string RemoveObsoleteFilesTask_Description {
             get {
                 return ResourceManager.GetString("RemoveObsoleteFilesTask_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unblock Downloaded Files.
+        /// </summary>
+        public static string RemoveZoneIdentifierTask_Description {
+            get {
+                return ResourceManager.GetString("RemoveZoneIdentifierTask_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to scan the following directories:
+        ///{0}.
+        /// </summary>
+        public static string RemoveZoneIdentifierTask_FailedDirectories {
+            get {
+                return ResourceManager.GetString("RemoveZoneIdentifierTask_FailedDirectories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to unblock the following files:
+        ///{0}.
+        /// </summary>
+        public static string RemoveZoneIdentifierTask_FailedFiles {
+            get {
+                return ResourceManager.GetString("RemoveZoneIdentifierTask_FailedFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No files are marked as downloaded from the Internet. No action required..
+        /// </summary>
+        public static string RemoveZoneIdentifierTask_NoBlockedFiles {
+            get {
+                return ResourceManager.GetString("RemoveZoneIdentifierTask_NoBlockedFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unblocked {0} file(s) marked as downloaded from the Internet..
+        /// </summary>
+        public static string RemoveZoneIdentifierTask_Unblocked {
+            get {
+                return ResourceManager.GetString("RemoveZoneIdentifierTask_Unblocked", resourceCulture);
             }
         }
         

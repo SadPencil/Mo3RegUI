@@ -12,7 +12,7 @@ namespace Mo3RegUI.Tasks
     public class QResTask : ITask
     {
         // QResTask_Description: Check QRes High DPI Scaling Issue
-        public string Description => TextResource.QResTask_Description;
+        public string DescriptionResourceKey => nameof(TextResource.QResTask_Description);
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -38,7 +38,7 @@ namespace Mo3RegUI.Tasks
                     ReportMessage(this, new TaskMessageEventArgs()
                     {
                         Level = MessageLevel.Warning,
-                        Text = TextResource.QResTask_UnfixedQRes,
+                        Text = LocalizedText.FromResource(nameof(TextResource.QResTask_UnfixedQRes)),
                     });
 
                 }
@@ -46,10 +46,11 @@ namespace Mo3RegUI.Tasks
             catch (Exception ex)
             {
                 // QResTask_CheckFailed: QRes check failed: {0}. When not using a renderer or using an outdated renderer, ...
+                // ex.Message comes from the file system and is not translatable.
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Warning,
-                    Text = string.Format(TextResource.QResTask_CheckFailed, ex.Message),
+                    Text = LocalizedText.FromResource(nameof(TextResource.QResTask_CheckFailed), ex.Message),
                 });
 
             }

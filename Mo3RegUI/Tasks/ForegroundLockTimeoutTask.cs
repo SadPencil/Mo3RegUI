@@ -11,7 +11,7 @@ namespace Mo3RegUI.Tasks
     public class ForegroundLockTimeoutTask : ITask
     {
         // ForegroundLockTimeoutTask_Description: Check Foreground Lock Timeout
-        public string Description => TextResource.ForegroundLockTimeoutTask_Description;
+        public string DescriptionResourceKey => nameof(TextResource.ForegroundLockTimeoutTask_Description);
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -32,15 +32,15 @@ namespace Mo3RegUI.Tasks
             if (valDword >= valDefault)
             {
                 // ForegroundLockTimeoutTask_SufficientTimeout: Foreground lock timeout is no less than {0} milliseconds. No action required.
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = string.Format(TextResource.ForegroundLockTimeoutTask_SufficientTimeout, valDefault) });
+                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = LocalizedText.FromResource(nameof(TextResource.ForegroundLockTimeoutTask_SufficientTimeout), valDefault) });
             }
             else
             {
                 // ForegroundLockTimeoutTask_InsufficientTimeout: Foreground lock timeout is less than {0} milliseconds, which may occasionally cause the game to return to the desktop. Fixing...
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = string.Format(TextResource.ForegroundLockTimeoutTask_InsufficientTimeout, valDefault) });
+                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = LocalizedText.FromResource(nameof(TextResource.ForegroundLockTimeoutTask_InsufficientTimeout), valDefault) });
                 key.SetValue("ForegroundLockTimeout", valDefault, RegistryValueKind.DWord);
                 // ForegroundLockTimeoutTask_FixedTimeout: Fixed successfully. Foreground lock timeout has been set to {0} milliseconds.
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = string.Format(TextResource.ForegroundLockTimeoutTask_FixedTimeout, valDefault) });
+                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = LocalizedText.FromResource(nameof(TextResource.ForegroundLockTimeoutTask_FixedTimeout), valDefault) });
             }
         }
 

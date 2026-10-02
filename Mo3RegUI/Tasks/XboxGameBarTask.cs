@@ -11,7 +11,7 @@ namespace Mo3RegUI.Tasks
     public class XboxGameBarTask : ITask
     {
         // XboxGameBarTask_Description: Check Xbox Game Bar
-        public string Description => TextResource.XboxGameBarTask_Description;
+        public string DescriptionResourceKey => nameof(TextResource.XboxGameBarTask_Description);
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -30,7 +30,7 @@ namespace Mo3RegUI.Tasks
                 {
                     Level = MessageLevel.Info,
                     // Task_OsVersionTooLow_NoFeature: Windows version is too low. This feature is not available.
-                    Text = TextResource.Task_OsVersionTooLow_NoFeature,
+                    Text = LocalizedText.FromResource(nameof(TextResource.Task_OsVersionTooLow_NoFeature)),
                 });
                 return;
             }
@@ -42,7 +42,7 @@ namespace Mo3RegUI.Tasks
                 {
                     Level = MessageLevel.Warning,
                     // XboxGameBarTask_GameBarEnabled: Game Bar is enabled, which may cause certain areas of the game to be unclickable ...
-                    Text = TextResource.XboxGameBarTask_GameBarEnabled,
+                    Text = LocalizedText.FromResource(nameof(TextResource.XboxGameBarTask_GameBarEnabled)),
                 });
             }
 

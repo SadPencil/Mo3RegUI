@@ -207,6 +207,21 @@
   <data name="ForegroundLockTimeoutTask_FixedTimeout" xml:space="preserve">
     <value>修复成功。前台锁定时间修改为 {0} 毫秒。</value>
   </data>
+  <data name="LongPathAwarenessTask_OsVersionTooLow" xml:space="preserve">
+    <value>系统长路径支持需要 Windows 10 1607 或更高版本，当前系统版本过低，无法开启。客户端下载的自定义地图可能保存在超出 Windows 路径长度限制的路径中，导致游戏无法读取。</value>
+  </data>
+  <data name="LongPathAwarenessTask_AlreadyEnabled" xml:space="preserve">
+    <value>长路径支持已开启。无需操作。</value>
+  </data>
+  <data name="LongPathAwarenessTask_Disabled" xml:space="preserve">
+    <value>长路径支持未开启。客户端下载的自定义地图可能保存在超出 Windows 路径长度限制的路径中，导致游戏无法读取。正在开启长路径支持……</value>
+  </data>
+  <data name="LongPathAwarenessTask_RegistryKeyUnavailable" xml:space="preserve">
+    <value>无法打开长路径支持对应的注册表项。</value>
+  </data>
+  <data name="LongPathAwarenessTask_Fixed" xml:space="preserve">
+    <value>修复成功。长路径支持已开启，请重启电脑使其生效。</value>
+  </data>
   <data name="NetworkInterfaceTask_Description" xml:space="preserve">
     <value>检查网络环境</value>
   </data>
@@ -263,6 +278,23 @@
   </data>
   <data name="RemoveObsoleteFilesTask_Description" xml:space="preserve">
     <value>删除多余文件</value>
+  </data>
+  <data name="RemoveZoneIdentifierTask_Description" xml:space="preserve">
+    <value>解除下载文件锁定</value>
+  </data>
+  <data name="RemoveZoneIdentifierTask_NoBlockedFiles" xml:space="preserve">
+    <value>未发现带有互联网下载标记的文件，无需操作。</value>
+  </data>
+  <data name="RemoveZoneIdentifierTask_Unblocked" xml:space="preserve">
+    <value>已解除 {0} 个文件的下载锁定。</value>
+  </data>
+  <data name="RemoveZoneIdentifierTask_FailedFiles" xml:space="preserve">
+    <value>未能解除以下文件的下载锁定：
+{0}</value>
+  </data>
+  <data name="RemoveZoneIdentifierTask_FailedDirectories" xml:space="preserve">
+    <value>未能扫描以下目录：
+{0}</value>
   </data>
   <data name="RendererTask_Description" xml:space="preserve">
     <value>设置渲染补丁</value>
@@ -357,5 +389,70 @@
   </data>
   <data name="MainWindow_MessagesCount" xml:space="preserve">
     <value> 条消息</value>
+  </data>
+  <data name="Log_FileDialogFilter" xml:space="preserve">
+    <value>Markdown 文件 (*.md)|*.md|所有文件 (*.*)|*.*</value>
+  </data>
+  <data name="Log_HeaderGeneratedAt" xml:space="preserve">
+    <value>生成时间（UTC）：{0}</value>
+  </data>
+  <data name="Log_HeaderGameDirectory" xml:space="preserve">
+    <value>游戏目录：{0}</value>
+  </data>
+  <data name="Log_HeaderLanguage" xml:space="preserve">
+    <value>日志语言：{0}</value>
+  </data>
+  <data name="Log_HeaderSummary" xml:space="preserve">
+    <value>统计：严重 {0}，错误 {1}，警告 {2}，提示 {3}，调试 {4}</value>
+  </data>
+  <data name="Log_HeaderTitle" xml:space="preserve">
+    <value>诊断日志</value>
+  </data>
+  <data name="Log_LanguageEnglish" xml:space="preserve">
+    <value>英文</value>
+  </data>
+  <data name="Log_Level_Critical" xml:space="preserve">
+    <value>严重</value>
+  </data>
+  <data name="Log_Level_Debug" xml:space="preserve">
+    <value>调试</value>
+  </data>
+  <data name="Log_Level_Error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="Log_Level_Info" xml:space="preserve">
+    <value>提示</value>
+  </data>
+  <data name="Log_Level_Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="Log_SaveFailed_Message" xml:space="preserve">
+    <value>保存日志失败：
+{0}</value>
+  </data>
+  <data name="Log_SaveFailed_Title" xml:space="preserve">
+    <value>保存日志失败</value>
+  </data>
+  <data name="Log_Saved_Message" xml:space="preserve">
+    <value>日志已保存到：
+{0}</value>
+  </data>
+  <data name="Log_Saved_Title" xml:space="preserve">
+    <value>日志已保存</value>
+  </data>
+  <data name="Log_SectionHeading" xml:space="preserve">
+    <value>## {0}</value>
+  </data>
+  <data name="MainWindow_SaveLogButton" xml:space="preserve">
+    <value>保存日志</value>
+  </data>
+  <data name="MainWindow_SaveLogCurrentLanguageButton" xml:space="preserve">
+    <value>保存日志（当前语言）</value>
+  </data>
+  <data name="MainWindow_SaveLogEnglishButton" xml:space="preserve">
+    <value>保存日志（英文）</value>
+  </data>
+  <data name="Localization_IsNeutralCulture" xml:space="preserve">
+    <value>False</value>
   </data>
 </root>

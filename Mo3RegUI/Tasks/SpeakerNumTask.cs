@@ -9,7 +9,7 @@ namespace Mo3RegUI.Tasks
     public class SpeakerNumTask : ITask
     {
         // SpeakerNumTask_Description: Check Audio Output Devices
-        public string Description => TextResource.SpeakerNumTask_Description;
+        public string DescriptionResourceKey => nameof(TextResource.SpeakerNumTask_Description);
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -26,10 +26,10 @@ namespace Mo3RegUI.Tasks
             if (num == 0)
             {
                 // SpeakerNumTask_NoAudioDevice: No audio output device exists on the current system. ...
-                throw new Exception(TextResource.SpeakerNumTask_NoAudioDevice);
+                throw new LocalizedException(LocalizedText.FromResource(nameof(TextResource.SpeakerNumTask_NoAudioDevice)));
             }
             // SpeakerNumTask_AudioDevicesFound: Found {0} audio output device(s).
-            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = string.Format(TextResource.SpeakerNumTask_AudioDevicesFound, num) });
+            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = LocalizedText.FromResource(nameof(TextResource.SpeakerNumTask_AudioDevicesFound), num) });
 
         }
     }

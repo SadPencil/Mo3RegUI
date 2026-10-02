@@ -13,7 +13,7 @@ namespace Mo3RegUI.Tasks
     public class CompatibilitySettingTask : ITask
     {
         // CompatibilitySettingTask_Description: Set Program Compatibility
-        public string Description => TextResource.CompatibilitySettingTask_Description;
+        public string DescriptionResourceKey => nameof(TextResource.CompatibilitySettingTask_Description);
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)

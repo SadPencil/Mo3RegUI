@@ -11,7 +11,7 @@ namespace Mo3RegUI.Tasks
     public class FalsePositiveTask : ITask
     {
         // FalsePositiveTask_Description: Check Game Files (Rough)
-        public string Description => TextResource.FalsePositiveTask_Description;
+        public string DescriptionResourceKey => nameof(TextResource.FalsePositiveTask_Description);
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -30,7 +30,7 @@ namespace Mo3RegUI.Tasks
                 if (!File.Exists(Path.Combine(p.GameDir, avExeReplaced)))
                 {
                     // FalsePositiveTask_FileNotFound: Game files are incomplete. File {0} not found. Please check your antivirus software log, ...
-                    throw new Exception(string.Format(TextResource.FalsePositiveTask_FileNotFound, avExeReplaced));
+                    throw new LocalizedException(LocalizedText.FromResource(nameof(TextResource.FalsePositiveTask_FileNotFound), avExeReplaced));
                 }
             }
         }
