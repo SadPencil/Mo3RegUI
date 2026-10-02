@@ -452,7 +452,7 @@
   <data name="MainWindow_SaveLogEnglishButton" xml:space="preserve">
     <value>Сохранить журнал (английский)</value>
   </data>
-  <data name="Localization_CultureName" xml:space="preserve">
-    <value>ru-RU</value>
+  <data name="Localization_IsNeutralCulture" xml:space="preserve">
+    <value>False</value>
   </data>
 </root>

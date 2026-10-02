@@ -295,11 +295,11 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to en-US.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Localization_CultureName {
+        public static string Localization_IsNeutralCulture {
             get {
-                return ResourceManager.GetString("Localization_CultureName", resourceCulture);
+                return ResourceManager.GetString("Localization_IsNeutralCulture", resourceCulture);
             }
         }
         

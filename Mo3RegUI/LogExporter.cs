@@ -105,7 +105,7 @@ namespace Mo3RegUI
         }
 
         private static string GetLanguageName(CultureInfo culture) =>
-            Localization.IsCultureEnglish(culture)
+            Localization.IsNeutralCulture(culture)
                 ? Localization.GetString(nameof(TextResource.Log_LanguageEnglish), culture)
                 : culture.NativeName;
 

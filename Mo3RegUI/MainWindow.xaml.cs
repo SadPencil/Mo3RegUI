@@ -157,16 +157,17 @@ namespace Mo3RegUI
         }
 
         /// <summary>
-        /// An English UI needs a single button because both logs would be identical. Every other
-        /// UI language offers an English log next to the one in the current language, since a
-        /// support request is usually read in English.
+        /// A UI that is already served by the neutral (English) resources needs a single button
+        /// because both logs would be identical. Every other UI language offers an English log
+        /// next to the one in the current language, since a support request is usually read in
+        /// English.
         /// </summary>
         private void SetupSaveLogButtons()
         {
-            bool isEnglish = Localization.IsCurrentCultureEnglish;
-            this.SaveLogButton.Visibility = isEnglish ? Visibility.Visible : Visibility.Collapsed;
-            this.SaveLogEnglishButton.Visibility = isEnglish ? Visibility.Collapsed : Visibility.Visible;
-            this.SaveLogCurrentLanguageButton.Visibility = isEnglish ? Visibility.Collapsed : Visibility.Visible;
+            bool isNeutral = Localization.IsCurrentCultureNeutral;
+            this.SaveLogButton.Visibility = isNeutral ? Visibility.Visible : Visibility.Collapsed;
+            this.SaveLogEnglishButton.Visibility = isNeutral ? Visibility.Collapsed : Visibility.Visible;
+            this.SaveLogCurrentLanguageButton.Visibility = isNeutral ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void SaveLogButton_Click(object sender, RoutedEventArgs e) =>

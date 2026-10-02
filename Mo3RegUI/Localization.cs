@@ -34,55 +34,35 @@ namespace Mo3RegUI
                 : TextResource.ResourceManager.GetString(resourceKey, culture) ?? resourceKey;
 
         /// <summary>
-        /// Whether <paramref name="culture"/> really shows English. Every translation declares
-        /// its own culture name in <c>Localization_CultureName</c>; a locale that has no
-        /// translation falls back to the neutral resources and therefore declares <c>en-US</c>,
-        /// which is exactly what we want to detect. Using this dedicated marker avoids both the
-        /// inconsistent satellite probing of <see cref="System.Resources.ResourceManager"/> and
-        /// any dependence on the wording of ordinary UI strings.
+        /// Whether <paramref name="culture"/> is served by the neutral, English resources. Every
+        /// translation declares <c>Localization_IsNeutralCulture = False</c>; the neutral resources
+        /// leave the value empty, which counts as <c>true</c>. A locale that has no translation
+        /// therefore falls back to the neutral resources and is reported as neutral, which is what
+        /// decides that only a single save button is offered.
         /// </summary>
-        public static bool IsCultureEnglish(CultureInfo culture) =>
-            string.Equals(
-                GetDeclaredCultureName(culture),
-                GetDeclaredCultureName(EnglishCulture),
-                StringComparison.OrdinalIgnoreCase);
-
-        /// <summary>
-        /// The culture name a translation declares for itself. The value drives
-        /// <see cref="IsCultureEnglish"/>, so a translation of it would silently change how the
-        /// program behaves; a value that is not ASCII is rejected loudly instead, which catches
-        /// the mistake during translation rather than in the field.
-        /// </summary>
-        private static string GetDeclaredCultureName(CultureInfo culture)
+        public static bool IsNeutralCulture(CultureInfo culture)
         {
-            string declaredName = GetString(nameof(TextResource.Localization_CultureName), culture);
-            if (!IsAscii(declaredName))
+            string value = GetString(nameof(TextResource.Localization_IsNeutralCulture), culture);
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                // The neutral resources leave the flag unset.
+                return true;
+            }
+
+            if (!bool.TryParse(value, out bool isNeutral))
             {
                 throw new InvalidOperationException(
-                    $"The resource \"{nameof(TextResource.Localization_CultureName)}\" must stay an ASCII culture name such as \"zh-Hans\"; the resources for \"{culture.Name}\" contain \"{declaredName}\". This resource identifies the language for the program and must not be translated.");
+                    $"The resource \"{nameof(TextResource.Localization_IsNeutralCulture)}\" must be empty or a boolean such as \"False\"; the resources for \"{culture.Name}\" contain \"{value}\". This resource tells the program whether the neutral resources are in use and must not be translated.");
             }
 
-            return declaredName;
-        }
-
-        private static bool IsAscii(string text)
-        {
-            foreach (char c in text)
-            {
-                if (c > 0x7F)
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return isNeutral;
         }
 
         /// <summary>
-        /// Whether the UI is currently showing English. In that case a separate
-        /// "current language" log would be identical to the English one, so only a single save
-        /// button is offered.
+        /// Whether the UI is currently served by the neutral, English resources. In that case a
+        /// separate "current language" log would be identical to the English one, so only a
+        /// single save button is offered.
         /// </summary>
-        public static bool IsCurrentCultureEnglish => IsCultureEnglish(CurrentUICulture);
+        public static bool IsCurrentCultureNeutral => IsNeutralCulture(CurrentUICulture);
     }
 }
