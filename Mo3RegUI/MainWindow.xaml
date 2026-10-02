@@ -37,7 +37,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Image Source="soviet.png" Height="22" VerticalAlignment="Center"/>
+            <Image Source="Icons/soviet.png" Height="22" VerticalAlignment="Center"/>
             <TextBlock Margin="5" Text="{x:Static local:Constants.AppName}" FontSize="22"  VerticalAlignment="Bottom"/>
             <TextBlock Margin="5" Text="{x:Static local:Constants.Version}" FontSize="20"  VerticalAlignment="Bottom"/>
 
@@ -96,26 +96,26 @@
             <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
                 <Button x:Name="SaveLogButton" Style="{StaticResource BottomBarButton}" Click="SaveLogButton_Click">
                     <StackPanel Orientation="Horizontal">
-                        <Image Margin="2" Source="log-icon.png" Height="22" VerticalAlignment="Center"/>
+                        <Image Margin="2" Source="Icons/log-icon.png" Height="22" VerticalAlignment="Center"/>
                         <Label Margin="0" Content="{x:Static l10n:TextResource.MainWindow_SaveLogButton}"/>
                     </StackPanel>
                 </Button>
                 <Button x:Name="SaveLogEnglishButton" Style="{StaticResource BottomBarButton}" Click="SaveLogEnglishButton_Click">
                     <StackPanel Orientation="Horizontal">
-                        <Image Margin="2" Source="log-icon.png" Height="22" VerticalAlignment="Center"/>
+                        <Image Margin="2" Source="Icons/log-icon.png" Height="22" VerticalAlignment="Center"/>
                         <Label Margin="0" Content="{x:Static l10n:TextResource.MainWindow_SaveLogEnglishButton}"/>
                     </StackPanel>
                 </Button>
                 <Button x:Name="SaveLogCurrentLanguageButton" Style="{StaticResource BottomBarButton}" Click="SaveLogCurrentLanguageButton_Click">
                     <StackPanel Orientation="Horizontal">
-                        <Image Margin="2" Source="log-icon.png" Height="22" VerticalAlignment="Center"/>
+                        <Image Margin="2" Source="Icons/log-icon.png" Height="22" VerticalAlignment="Center"/>
                         <Label Margin="0" Content="{x:Static l10n:TextResource.MainWindow_SaveLogCurrentLanguageButton}"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
             <Button x:Name="GitHubUrlButton" Grid.Column="1" Style="{StaticResource BottomBarButton}" HorizontalAlignment="Right" Click="GitHubUrlButton_Click">
                 <StackPanel Orientation="Horizontal">
-                    <Image Margin="2" Source="github-mark.png" Height="22" VerticalAlignment="Center"></Image>
+                    <Image Margin="2" Source="Icons/github-mark.png" Height="22" VerticalAlignment="Center"></Image>
                     <Label Margin="0" Content="{x:Static l10n:TextResource.MainWindow_GitHubUrlButton}"/>
                 </StackPanel>
             </Button>
