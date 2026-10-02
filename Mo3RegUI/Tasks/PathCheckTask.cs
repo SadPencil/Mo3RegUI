@@ -66,7 +66,6 @@ namespace Mo3RegUI.Tasks
             const string keyPath = @"SYSTEM\CurrentControlSet\Control\FileSystem";
             const string valueName = "LongPathsEnabled";
 
-            // Read the current value using a read-only key, which does not require write access.
             bool longPathsEnabled;
             using (var key = Registry.LocalMachine.OpenSubKey(keyPath))
             {
@@ -85,7 +84,6 @@ namespace Mo3RegUI.Tasks
                 return;
             }
 
-            // The key may not exist, or may not be writable.
             using var writableKey = Registry.LocalMachine.OpenSubKey(keyPath, writable: true);
             if (writableKey is null)
             {
