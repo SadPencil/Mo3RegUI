@@ -283,7 +283,7 @@
     <value>解除下載檔案鎖定</value>
   </data>
   <data name="RemoveZoneIdentifierTask_NoBlockedFiles" xml:space="preserve">
-    <value>沒有檔案帶有網際網路下載標記。無需操作。</value>
+    <value>未發現帶有網際網路下載標記的檔案，無需操作。</value>
   </data>
   <data name="RemoveZoneIdentifierTask_Unblocked" xml:space="preserve">
     <value>已解除 {0} 個檔案的下載鎖定。</value>

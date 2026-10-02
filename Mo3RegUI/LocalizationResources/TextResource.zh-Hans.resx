@@ -283,7 +283,7 @@
     <value>解除下载文件锁定</value>
   </data>
   <data name="RemoveZoneIdentifierTask_NoBlockedFiles" xml:space="preserve">
-    <value>没有文件带有互联网下载标记。无需操作。</value>
+    <value>未发现带有互联网下载标记的文件，无需操作。</value>
   </data>
   <data name="RemoveZoneIdentifierTask_Unblocked" xml:space="preserve">
     <value>已解除 {0} 个文件的下载锁定。</value>
