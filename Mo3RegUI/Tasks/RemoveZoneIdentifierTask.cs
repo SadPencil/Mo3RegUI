@@ -27,15 +27,15 @@ namespace Mo3RegUI.Tasks
         }
         private void _DoWork(RemoveZoneIdentifierTaskParameter p)
         {
-            var failedFiles = new List<string>();
-            var failedDirectories = new List<string>();
-            int unblockedCount = 0;
-
             // Windows marks files downloaded from the Internet by adding a Zone.Identifier
             // alternate data stream to them. Such files may make the client misbehave, so
             // remove the stream from every file in the game directory.
             // https://stackoverflow.com/a/6375373
-            //
+
+            var failedFiles = new List<string>();
+            var failedDirectories = new List<string>();
+            int unblockedCount = 0;
+
             // RendererTask copies a few files into the game directory, and File.Copy carries the
             // source's Zone.Identifier stream over to the destination. One lock covers all of
             // those files, so take it once and handle them before the general scan: RendererTask
