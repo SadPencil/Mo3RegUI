@@ -9,8 +9,7 @@
         // Resources\cnc-ddraw.ini (the sources) plus ddraw.dll and ddraw.ini in the game
         // directory (the destinations). RendererTask is the only task that copies files, so
         // these four are the only files whose Zone.Identifier stream can be created anew
-        // after the unblocking scan has already passed them. A single lock covers the whole
-        // set, so taking it once is enough and no acquisition order is needed.
+        // after the unblocking scan has already passed them.
         public static object CnC_DDrawDeployment = new();
     }
 }

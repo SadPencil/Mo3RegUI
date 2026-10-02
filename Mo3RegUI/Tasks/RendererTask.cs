@@ -57,8 +57,7 @@ namespace Mo3RegUI.Tasks
                     string destDDrawIniPath = Path.Combine(p.GameDir, "ddraw.ini");
 
                     // One lock covers both the sources and the deployed files, so a deployment can
-                    // never start while the unblocking task is handling them, and there is no
-                    // acquisition order to agree on.
+                    // never start while the unblocking task is handling them.
                     lock (Locks.CnC_DDrawDeployment)
                     {
                         var destDDrawDllFile = new FileInfo(destDDrawDllPath);

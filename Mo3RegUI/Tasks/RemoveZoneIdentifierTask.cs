@@ -41,8 +41,8 @@ namespace Mo3RegUI.Tasks
             // those files, so take it once and handle them before the general scan: RendererTask
             // cannot start a copy while this runs, and a copy that had already started before
             // the lock was taken left a marked destination, which this pass cleans as well.
-            // They are excluded from the general scan below, so every file yields exactly one
-            // result instead of a stale or duplicated failure.
+            // They are excluded from the general scan below so that each file is handled and
+            // reported exactly once.
             var deploymentFiles = new List<string>(GetDeploymentFiles(p.GameDir));
             var deploymentFileSet = new HashSet<string>(deploymentFiles, StringComparer.OrdinalIgnoreCase);
             lock (Locks.CnC_DDrawDeployment)
@@ -96,8 +96,7 @@ namespace Mo3RegUI.Tasks
         }
 
         /// <summary>
-        /// The files that the renderer task reads or overwrites in the game directory. They are
-        /// all handled under one lock, so the order in which they are returned does not matter.
+        /// The files that the renderer task reads or overwrites in the game directory.
         /// </summary>
         private static IEnumerable<string> GetDeploymentFiles(string gameDir)
         {
