@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Icon for the "Save Log" buttons. The WPF build uses log-icon.png, which is this
+  Icon for the "Save Log" buttons. The WPF build uses log.png, which is this
   file rendered at 240x240 so that it matches the resolution of github-mark.png.
   Keep both files in sync when editing.
 -->

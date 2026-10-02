@@ -164,7 +164,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.manifest" />
-    <None Include="Icons\log-icon.svg" />
+    <None Include="Icons\log.svg" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -176,7 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\github-mark.png" />
-    <Resource Include="Icons\log-icon.png" />
+    <Resource Include="Icons\log.png" />
     <Resource Include="Icons\soviet.png" />
   </ItemGroup>
   <ItemGroup>
