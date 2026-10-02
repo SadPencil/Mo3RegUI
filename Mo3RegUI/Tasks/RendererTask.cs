@@ -30,7 +30,7 @@ namespace Mo3RegUI.Tasks
                 ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = TextResource.RendererTask_SetToCnCDDraw });
 
                 // Set "singlecpu=false" to support multi-core. Renderer should not determine the affinity but CnC-DDraw did. So the option is turned off in this task.
-                lock (Locks.CnC_DDraw_INI)
+                lock (Locks.CnC_DDrawDeployment)
                 {
                     bool singleCpuNeedsFix = true;
                     MyIniParserHelper.ReadIniFile(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawIniName), ini =>
@@ -56,34 +56,26 @@ namespace Mo3RegUI.Tasks
                     string destDDrawDllPath = Path.Combine(p.GameDir, "ddraw.dll");
                     string destDDrawIniPath = Path.Combine(p.GameDir, "ddraw.ini");
 
-                    // The unblocking task processes the source and the deployed file under these
-                    // locks, so serialize each copy with it.
-                    lock (Locks.CnC_DDraw_DLL)
+                    // One lock covers both the sources and the deployed files, so a deployment can
+                    // never start while the unblocking task is handling them, and there is no
+                    // acquisition order to agree on.
+                    lock (Locks.CnC_DDrawDeployment)
                     {
-                        lock (Locks.DDraw_DLL)
+                        var destDDrawDllFile = new FileInfo(destDDrawDllPath);
+                        var destDDrawIniFile = new FileInfo(destDDrawIniPath);
+
+                        if (destDDrawDllFile.Exists && destDDrawDllFile.IsReadOnly)
                         {
-                            var destDDrawDllFile = new FileInfo(destDDrawDllPath);
-                            if (destDDrawDllFile.Exists && destDDrawDllFile.IsReadOnly)
-                            {
-                                destDDrawDllFile.IsReadOnly = false;
-                            }
-
-                            File.Copy(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawDllName), destDDrawDllPath, true);
+                            destDDrawDllFile.IsReadOnly = false;
                         }
-                    }
 
-                    lock (Locks.CnC_DDraw_INI)
-                    {
-                        lock (Locks.DDraw_INI)
+                        if (destDDrawIniFile.Exists && destDDrawIniFile.IsReadOnly)
                         {
-                            var destDDrawIniFile = new FileInfo(destDDrawIniPath);
-                            if (destDDrawIniFile.Exists && destDDrawIniFile.IsReadOnly)
-                            {
-                                destDDrawIniFile.IsReadOnly = false;
-                            }
-
-                            File.Copy(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawIniName), destDDrawIniPath, true);
+                            destDDrawIniFile.IsReadOnly = false;
                         }
+
+                        File.Copy(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawDllName), destDDrawDllPath, true);
+                        File.Copy(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawIniName), destDDrawIniPath, true);
                     }
                 }
                 catch (Exception ex)

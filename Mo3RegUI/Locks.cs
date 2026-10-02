@@ -4,9 +4,11 @@
     {
         public static object RA2MO_INI = new();
         public static object ClientDefinitions_INI = new();
-        public static object CnC_DDraw_INI = new();
-        public static object CnC_DDraw_DLL = new(); // Resources\cnc-cdraw.dll
-        public static object DDraw_DLL = new(); // ddraw.dll deployed to the game directory
-        public static object DDraw_INI = new(); // ddraw.ini deployed to the game directory
+
+        // Guards the files of the CnC-DDraw deployment: Resources\cnc-cdraw.dll and
+        // Resources\cnc-cdraw.ini (the sources) plus ddraw.dll and ddraw.ini in the game
+        // directory (the destinations). A single lock covers the whole set, so taking it once
+        // is enough and no acquisition order is needed.
+        public static object CnC_DDrawDeployment = new();
     }
 }

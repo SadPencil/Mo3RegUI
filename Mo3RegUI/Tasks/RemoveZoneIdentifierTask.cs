@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Threading;
 
 namespace Mo3RegUI.Tasks
 {
@@ -38,43 +37,15 @@ namespace Mo3RegUI.Tasks
             // https://stackoverflow.com/a/6375373
             //
             // RendererTask copies a few files into the game directory, and File.Copy carries the
-            // source's Zone.Identifier stream over to the destination. Take the lock of every one
-            // of those files up front so that RendererTask cannot start a copy while they are
-            // being handled, then process the files as quickly as possible and release each lock
-            // as soon as its file is done. A copy that had already started before the locks were
-            // taken left a marked destination, which this pass cleans as well.
-            var specialFiles = new List<string>();
-            var specialLocks = new List<object>();
-            foreach (string file in GetDeploymentFiles(p.GameDir))
+            // source's Zone.Identifier stream over to the destination. One lock covers all of
+            // those files, so take it once and handle them before the general scan: RendererTask
+            // cannot start a copy while this runs, and a copy that had already started before
+            // the lock was taken left a marked destination, which this pass cleans as well.
+            lock (Locks.CnC_DDrawDeployment)
             {
-                object fileLock = GetSharedFileLock(file);
-                if (fileLock is null) { continue; }
-                specialFiles.Add(file);
-                specialLocks.Add(fileLock);
-            }
-
-            // Monitor is used instead of lock so that every lock can be taken first and then
-            // released one by one as its file is processed.
-            int acquiredCount = 0;
-            int releasedCount = 0;
-            try
-            {
-                for (; acquiredCount < specialLocks.Count; acquiredCount++)
+                foreach (string file in GetDeploymentFiles(p.GameDir))
                 {
-                    Monitor.Enter(specialLocks[acquiredCount]);
-                }
-
-                for (; releasedCount < specialFiles.Count; releasedCount++)
-                {
-                    if (ProcessFile(specialFiles[releasedCount], failedFiles)) { unblockedCount++; }
-                    Monitor.Exit(specialLocks[releasedCount]);
-                }
-            }
-            finally
-            {
-                for (int i = releasedCount; i < acquiredCount; i++)
-                {
-                    Monitor.Exit(specialLocks[i]);
+                    if (ProcessFile(file, failedFiles)) { unblockedCount++; }
                 }
             }
 
@@ -261,10 +232,10 @@ namespace Mo3RegUI.Tasks
         private static object GetSharedFileLock(string file)
         {
             string fileName = Path.GetFileName(file);
-            if (string.Equals(fileName, "ddraw.dll", StringComparison.OrdinalIgnoreCase)) { return Locks.DDraw_DLL; }
-            if (string.Equals(fileName, "ddraw.ini", StringComparison.OrdinalIgnoreCase)) { return Locks.DDraw_INI; }
-            if (string.Equals(fileName, Constants.CnCDDrawDllName, StringComparison.OrdinalIgnoreCase)) { return Locks.CnC_DDraw_DLL; }
-            if (string.Equals(fileName, Constants.CnCDDrawIniName, StringComparison.OrdinalIgnoreCase)) { return Locks.CnC_DDraw_INI; }
+            if (string.Equals(fileName, "ddraw.dll", StringComparison.OrdinalIgnoreCase)) { return Locks.CnC_DDrawDeployment; }
+            if (string.Equals(fileName, "ddraw.ini", StringComparison.OrdinalIgnoreCase)) { return Locks.CnC_DDrawDeployment; }
+            if (string.Equals(fileName, Constants.CnCDDrawDllName, StringComparison.OrdinalIgnoreCase)) { return Locks.CnC_DDrawDeployment; }
+            if (string.Equals(fileName, Constants.CnCDDrawIniName, StringComparison.OrdinalIgnoreCase)) { return Locks.CnC_DDrawDeployment; }
             if (string.Equals(fileName, Constants.GameConfigIniName, StringComparison.OrdinalIgnoreCase)) { return Locks.RA2MO_INI; }
             return null;
         }
