@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace Mo3RegUI.Tasks
 {
@@ -37,17 +38,43 @@ namespace Mo3RegUI.Tasks
             // https://stackoverflow.com/a/6375373
             //
             // RendererTask copies a few files into the game directory, and File.Copy carries the
-            // source's Zone.Identifier stream over to the destination. Those files are handled
-            // first, each under its own lock, before the general scan: a copy started after this
-            // pass reads source files that are already unblocked, while a copy made earlier left
-            // a marked destination that the general scan below still sees and cleans.
+            // source's Zone.Identifier stream over to the destination. Take the lock of every one
+            // of those files up front so that RendererTask cannot start a copy while they are
+            // being handled, then process the files as quickly as possible and release each lock
+            // as soon as its file is done. A copy that had already started before the locks were
+            // taken left a marked destination, which this pass cleans as well.
+            var specialFiles = new List<string>();
+            var specialLocks = new List<object>();
             foreach (string file in GetDeploymentFiles(p.GameDir))
             {
                 object fileLock = GetSharedFileLock(file);
                 if (fileLock is null) { continue; }
-                lock (fileLock)
+                specialFiles.Add(file);
+                specialLocks.Add(fileLock);
+            }
+
+            // Monitor is used instead of lock so that every lock can be taken first and then
+            // released one by one as its file is processed.
+            int acquiredCount = 0;
+            int releasedCount = 0;
+            try
+            {
+                for (; acquiredCount < specialLocks.Count; acquiredCount++)
                 {
-                    if (ProcessFile(file, failedFiles)) { unblockedCount++; }
+                    Monitor.Enter(specialLocks[acquiredCount]);
+                }
+
+                for (; releasedCount < specialFiles.Count; releasedCount++)
+                {
+                    if (ProcessFile(specialFiles[releasedCount], failedFiles)) { unblockedCount++; }
+                    Monitor.Exit(specialLocks[releasedCount]);
+                }
+            }
+            finally
+            {
+                for (int i = releasedCount; i < acquiredCount; i++)
+                {
+                    Monitor.Exit(specialLocks[i]);
                 }
             }
 
