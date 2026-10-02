@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace Mo3RegUI.Tasks
@@ -233,17 +234,33 @@ namespace Mo3RegUI.Tasks
             return success ? 0 : Marshal.GetLastWin32Error();
         }
 
+        // File names that are guarded by Locks.CnC_DDrawDeployment, wherever they appear below
+        // the game directory.
+        private static readonly List<string> CnCDDrawDeploymentFileNames = new List<string>()
+        {
+            "ddraw.dll",
+            "ddraw.ini",
+            Constants.CnCDDrawDllName,
+            Constants.CnCDDrawIniName,
+        };
+
         /// <summary>
         /// Returns the lock that guards a file which another task reads or overwrites.
         /// </summary>
         private static object GetSharedFileLock(string file)
         {
             string fileName = Path.GetFileName(file);
-            if (string.Equals(fileName, "ddraw.dll", StringComparison.OrdinalIgnoreCase)) { return Locks.CnC_DDrawDeployment; }
-            if (string.Equals(fileName, "ddraw.ini", StringComparison.OrdinalIgnoreCase)) { return Locks.CnC_DDrawDeployment; }
-            if (string.Equals(fileName, Constants.CnCDDrawDllName, StringComparison.OrdinalIgnoreCase)) { return Locks.CnC_DDrawDeployment; }
-            if (string.Equals(fileName, Constants.CnCDDrawIniName, StringComparison.OrdinalIgnoreCase)) { return Locks.CnC_DDrawDeployment; }
-            if (string.Equals(fileName, Constants.GameConfigIniName, StringComparison.OrdinalIgnoreCase)) { return Locks.RA2MO_INI; }
+
+            if (CnCDDrawDeploymentFileNames.Contains(fileName, StringComparer.OrdinalIgnoreCase))
+            {
+                return Locks.CnC_DDrawDeployment;
+            }
+
+            if (string.Equals(fileName, Constants.GameConfigIniName, StringComparison.OrdinalIgnoreCase))
+            {
+                return Locks.RA2MO_INI;
+            }
+
             return null;
         }
     }
