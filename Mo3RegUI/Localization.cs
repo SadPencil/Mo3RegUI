@@ -35,27 +35,23 @@ namespace Mo3RegUI
 
         /// <summary>
         /// Whether <paramref name="culture"/> is served by the neutral, English resources. Every
-        /// translation declares <c>Localization_IsNeutralCulture = False</c>; the neutral resources
-        /// leave the value empty, which counts as <c>true</c>. A locale that has no translation
+        /// translation sets <c>Localization_IsNeutralCulture = False</c>; the neutral resources
+        /// hold a sentence asking the translator to do exactly that, and every value that does not
+        /// parse as the boolean <c>false</c> counts as neutral. A locale that has no translation
         /// therefore falls back to the neutral resources and is reported as neutral, which is what
         /// decides that only a single save button is offered.
         /// </summary>
         public static bool IsNeutralCulture(CultureInfo culture)
         {
             string value = GetString(nameof(TextResource.Localization_IsNeutralCulture), culture);
-            if (string.IsNullOrWhiteSpace(value))
+            if (bool.TryParse(value, out bool isNeutral))
             {
-                // The neutral resources leave the flag unset.
-                return true;
+                return isNeutral;
             }
 
-            if (!bool.TryParse(value, out bool isNeutral))
-            {
-                throw new InvalidOperationException(
-                    $"The resource \"{nameof(TextResource.Localization_IsNeutralCulture)}\" must be empty or a boolean such as \"False\"; the resources for \"{culture.Name}\" contain \"{value}\". This resource tells the program whether the neutral resources are in use and must not be translated.");
-            }
-
-            return isNeutral;
+            // The sentence in the neutral resources, an empty value, or anything a translator
+            // wrote instead of "False" all mean "serve the neutral, English resources".
+            return true;
         }
 
         /// <summary>

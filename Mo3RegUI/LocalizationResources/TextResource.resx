@@ -453,6 +453,6 @@ It is recommended to always use a modern renderer on Windows 8/10/11, such as TS
     <value>Save Log (English)</value>
   </data>
   <data name="Localization_IsNeutralCulture" xml:space="preserve">
-    <value></value>
+    <value>Please manually change this value to False when translating this file; anything other than False is treated as the neutral (English) resources.</value>
   </data>
 </root>

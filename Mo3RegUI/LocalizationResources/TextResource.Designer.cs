@@ -295,7 +295,7 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Please manually change this value to False when translating this file; anything other than False is treated as the neutral (English) resources..
         /// </summary>
         public static string Localization_IsNeutralCulture {
             get {
