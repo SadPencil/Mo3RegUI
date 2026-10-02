@@ -56,11 +56,17 @@ namespace Mo3RegUI.Tasks
                 return this._literalText ?? string.Empty;
             }
 
+            // GetString falls back through the culture's parents to the neutral (English)
+            // resources, so a translation that is merely missing is already served in English.
             string format = TextResource.ResourceManager.GetString(this._resourceKey, culture);
             if (format is null)
             {
-                // A missing translation is a bug; showing the key makes it obvious in the log.
-                return this._resourceKey;
+                // Only a key that is missing from the English resources as well reaches this
+                // point, which means the resources and the code disagree. That cannot happen
+                // through translation, and a Debug.Assert would vanish in a release build, so
+                // fail with a message that names the offending key.
+                throw new InvalidOperationException(
+                    $"The resource \"{this._resourceKey}\" is missing from the neutral (English) resources; resolving it for \"{culture.Name}\" has nothing to fall back to.");
             }
 
             if (this._formatArgs is null || this._formatArgs.Length == 0)
