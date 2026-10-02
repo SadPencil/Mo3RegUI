@@ -43,9 +43,40 @@ namespace Mo3RegUI
         /// </summary>
         public static bool IsCultureEnglish(CultureInfo culture) =>
             string.Equals(
-                GetString(nameof(TextResource.Localization_CultureName), culture),
-                GetString(nameof(TextResource.Localization_CultureName), EnglishCulture),
+                GetDeclaredCultureName(culture),
+                GetDeclaredCultureName(EnglishCulture),
                 StringComparison.OrdinalIgnoreCase);
+
+        /// <summary>
+        /// The culture name a translation declares for itself. The value drives
+        /// <see cref="IsCultureEnglish"/>, so a translation of it would silently change how the
+        /// program behaves; a value that is not ASCII is rejected loudly instead, which catches
+        /// the mistake during translation rather than in the field.
+        /// </summary>
+        private static string GetDeclaredCultureName(CultureInfo culture)
+        {
+            string declaredName = GetString(nameof(TextResource.Localization_CultureName), culture);
+            if (!IsAscii(declaredName))
+            {
+                throw new InvalidOperationException(
+                    $"The resource \"{nameof(TextResource.Localization_CultureName)}\" must stay an ASCII culture name such as \"zh-Hans\"; the resources for \"{culture.Name}\" contain \"{declaredName}\". This resource identifies the language for the program and must not be translated.");
+            }
+
+            return declaredName;
+        }
+
+        private static bool IsAscii(string text)
+        {
+            foreach (char c in text)
+            {
+                if (c > 0x7F)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
         /// <summary>
         /// Whether the UI is currently showing English. In that case a separate
