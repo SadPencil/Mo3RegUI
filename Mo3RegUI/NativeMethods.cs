@@ -14,5 +14,11 @@
         /// Return Type: UINT->unsigned int
         [System.Runtime.InteropServices.DllImport("winmm.dll", EntryPoint = "waveOutGetNumDevs")]
         public static extern uint waveOutGetNumDevs();
+
+        /// Return Type: BOOL->bool
+        ///name: LPCWSTR
+        [System.Runtime.InteropServices.DllImport("kernel32.dll", EntryPoint = "DeleteFileW", CharSet = System.Runtime.InteropServices.CharSet.Unicode, SetLastError = true)]
+        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
+        public static extern bool DeleteFile(string name);
     }
 }
