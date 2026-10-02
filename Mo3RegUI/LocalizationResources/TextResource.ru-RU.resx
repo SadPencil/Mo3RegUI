@@ -219,6 +219,9 @@
   <data name="LongPathAwarenessTask_Disabled" xml:space="preserve">
     <value>Поддержка длинных путей не включена. Пользовательские карты, загруженные клиентом, могут сохраняться по путям, превышающим ограничение длины пути Windows, из-за чего игра может не суметь их прочитать. Включение поддержки длинных путей...</value>
   </data>
+  <data name="LongPathAwarenessTask_RegistryKeyUnavailable" xml:space="preserve">
+    <value>Не удалось открыть раздел реестра, отвечающий за поддержку длинных путей.</value>
+  </data>
   <data name="LongPathAwarenessTask_Fixed" xml:space="preserve">
     <value>Исправлено успешно. Поддержка длинных путей включена. Перезагрузите компьютер, чтобы изменения вступили в силу.</value>
   </data>

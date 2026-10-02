@@ -340,6 +340,15 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to open the registry key for long path support..
+        /// </summary>
+        public static string LongPathAwarenessTask_RegistryKeyUnavailable {
+            get {
+                return ResourceManager.GetString("LongPathAwarenessTask_RegistryKeyUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} is setting compatibility and configuring game options, and has not finished yet. Are you sure you want to abort?.
         /// </summary>
         public static string MainWindow_Closing_Warning_Message {

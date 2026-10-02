@@ -219,6 +219,9 @@
   <data name="LongPathAwarenessTask_Disabled" xml:space="preserve">
     <value>Long path support is not enabled. The custom maps downloaded by the client may be stored in paths that exceed the Windows path length limit, which may prevent the game from reading them. Enabling long path support...</value>
   </data>
+  <data name="LongPathAwarenessTask_RegistryKeyUnavailable" xml:space="preserve">
+    <value>Failed to open the registry key for long path support.</value>
+  </data>
   <data name="LongPathAwarenessTask_Fixed" xml:space="preserve">
     <value>Fixed successfully. Long path support has been enabled. Please restart the computer to make the change take effect.</value>
   </data>
