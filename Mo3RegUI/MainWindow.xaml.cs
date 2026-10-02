@@ -189,7 +189,7 @@ namespace Mo3RegUI
             {
                 Title = Localization.GetString(nameof(TextResource.MainWindow_SaveLogButton), Localization.CurrentUICulture),
                 Filter = Localization.GetString(nameof(TextResource.Log_FileDialogFilter), Localization.CurrentUICulture),
-                DefaultExt = ".txt",
+                DefaultExt = ".md",
                 FileName = LogExporter.GetDefaultFileName(culture),
                 OverwritePrompt = true,
             };

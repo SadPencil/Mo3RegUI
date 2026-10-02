@@ -391,7 +391,7 @@
     <value> 條訊息</value>
   </data>
   <data name="Log_FileDialogFilter" xml:space="preserve">
-    <value>文字檔案 (*.txt)|*.txt|所有檔案 (*.*)|*.*</value>
+    <value>Markdown 檔案 (*.md)|*.md|所有檔案 (*.*)|*.*</value>
   </data>
   <data name="Log_HeaderGeneratedAt" xml:space="preserve">
     <value>產生時間：{0}</value>

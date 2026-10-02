@@ -391,7 +391,7 @@ It is recommended to always use a modern renderer on Windows 8/10/11, such as TS
     <value> messages</value>
   </data>
   <data name="Log_FileDialogFilter" xml:space="preserve">
-    <value>Text files (*.txt)|*.txt|All files (*.*)|*.*</value>
+    <value>Markdown files (*.md)|*.md|All files (*.*)|*.*</value>
   </data>
   <data name="Log_HeaderGeneratedAt" xml:space="preserve">
     <value>Generated at: {0}</value>

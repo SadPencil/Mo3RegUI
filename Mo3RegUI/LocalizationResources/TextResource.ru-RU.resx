@@ -391,7 +391,7 @@
     <value> сообщения</value>
   </data>
   <data name="Log_FileDialogFilter" xml:space="preserve">
-    <value>Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*</value>
+    <value>Файлы Markdown (*.md)|*.md|Все файлы (*.*)|*.*</value>
   </data>
   <data name="Log_HeaderGeneratedAt" xml:space="preserve">
     <value>Создано: {0}</value>

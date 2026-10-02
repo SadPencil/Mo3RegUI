@@ -9,14 +9,12 @@ using System.Text;
 namespace Mo3RegUI
 {
     /// <summary>
-    /// Renders every message produced by the program as a plain text log that a player can
-    /// attach to a support request. One culture is passed in so that the very same messages can
-    /// be dumped in English as well as in the language the UI is currently using.
+    /// Renders every message produced by the program as a Markdown log that a player can attach
+    /// to a support request. One culture is passed in so that the very same messages can be
+    /// dumped in English as well as in the language the UI is currently using.
     /// </summary>
     public static class LogExporter
     {
-        private const string Separator = "============================================================";
-
         /// <summary>
         /// Builds the whole log. Formatting is done with <paramref name="culture"/> only, never
         /// with the UI culture, so an English export stays English even on a translated system.
@@ -26,15 +24,22 @@ namespace Mo3RegUI
             var items = new List<MessageItemViewModel>(messages);
 
             var sb = new StringBuilder();
-            sb.AppendLine(Separator);
-            sb.AppendLine($"{Localization.GetString(nameof(TextResource.Constants_AppName), culture)} {Constants.Version}");
-            sb.AppendLine(Localization.GetString(nameof(TextResource.Log_HeaderTitle), culture));
-            sb.AppendLine(Separator);
-            sb.AppendLine(Format(nameof(TextResource.Log_HeaderGeneratedAt), culture,
-                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)));
-            sb.AppendLine(Format(nameof(TextResource.Log_HeaderLanguage), culture, GetLanguageName(culture)));
-            sb.AppendLine(Format(nameof(TextResource.Log_HeaderGameDirectory), culture, gameDir ?? string.Empty));
-            sb.AppendLine(Format(nameof(TextResource.Log_HeaderSummary), culture, GetSummaryArgs(items)));
+
+            // The document title is the only level-1 heading in the file; every task below it
+            // becomes a level-2 section.
+            sb.Append("# ")
+              .Append(Localization.GetString(nameof(TextResource.Constants_AppName), culture))
+              .Append(' ')
+              .Append(Constants.Version)
+              .Append(" — ")
+              .AppendLine(Localization.GetString(nameof(TextResource.Log_HeaderTitle), culture));
+            sb.AppendLine();
+
+            AppendMetadata(sb, nameof(TextResource.Log_HeaderGeneratedAt), culture,
+                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture));
+            AppendMetadata(sb, nameof(TextResource.Log_HeaderLanguage), culture, GetLanguageName(culture));
+            AppendMetadata(sb, nameof(TextResource.Log_HeaderGameDirectory), culture, gameDir ?? string.Empty);
+            AppendMetadata(sb, nameof(TextResource.Log_HeaderSummary), culture, GetSummaryArgs(items));
             sb.AppendLine();
 
             // Tasks run in parallel, so a purely chronological list interleaves unrelated
@@ -68,8 +73,14 @@ namespace Mo3RegUI
         public static string GetDefaultFileName(CultureInfo culture)
         {
             string languageTag = string.IsNullOrEmpty(culture.Name) ? "en" : culture.Name;
-            return $"Mo3RegUI-log-{languageTag}-{DateTime.Now:yyyyMMdd-HHmmss}.txt";
+            return $"Mo3RegUI-log-{languageTag}-{DateTime.Now:yyyyMMdd-HHmmss}.md";
         }
+
+        /// <summary>
+        /// One "- name: value" entry of the metadata list that follows the document title.
+        /// </summary>
+        private static void AppendMetadata(StringBuilder sb, string resourceKey, CultureInfo culture, params object[] args) =>
+            sb.Append("- ").AppendLine(Format(resourceKey, culture, args));
 
         private static object[] GetSummaryArgs(List<MessageItemViewModel> items)
         {
