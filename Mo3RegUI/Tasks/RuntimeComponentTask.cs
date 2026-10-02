@@ -11,7 +11,7 @@ namespace Mo3RegUI.Tasks
     public class RuntimeComponentTask : ITask
     {
         // RuntimeComponentTask_Description: Check Runtime Components
-        public string Description => TextResource.RuntimeComponentTask_Description;
+        public string DescriptionResourceKey => nameof(TextResource.RuntimeComponentTask_Description);
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -44,7 +44,7 @@ namespace Mo3RegUI.Tasks
                 {
                     Level = MessageLevel.Error,
                     // RuntimeComponentTask_DotNet4NotInstalled: .NET Framework 4 is not installed.
-                    Text = TextResource.RuntimeComponentTask_DotNet4NotInstalled,
+                    Text = LocalizedText.FromResource(nameof(TextResource.RuntimeComponentTask_DotNet4NotInstalled)),
                 });
             }
             else
@@ -53,7 +53,7 @@ namespace Mo3RegUI.Tasks
                 {
                     Level = MessageLevel.Info,
                     // RuntimeComponentTask_DotNet4Installed: .NET Framework {0} is installed.
-                    Text = string.Format(TextResource.RuntimeComponentTask_DotNet4Installed, net4),
+                    Text = LocalizedText.FromResource(nameof(TextResource.RuntimeComponentTask_DotNet4Installed), net4),
                 });
             }
 
@@ -65,7 +65,7 @@ namespace Mo3RegUI.Tasks
                 {
                     Level = MessageLevel.Error,
                     // RuntimeComponentTask_DotNet4VersionTooLow: The current .NET Framework 4 version is lower than 4.8.
-                    Text = TextResource.RuntimeComponentTask_DotNet4VersionTooLow,
+                    Text = LocalizedText.FromResource(nameof(TextResource.RuntimeComponentTask_DotNet4VersionTooLow)),
                 });
             }
 
@@ -76,7 +76,7 @@ namespace Mo3RegUI.Tasks
                 {
                     Level = MessageLevel.Info,
                     // RuntimeComponentTask_Xna4Installed: XNA Framework 4.0 is installed.
-                    Text = TextResource.RuntimeComponentTask_Xna4Installed,
+                    Text = LocalizedText.FromResource(nameof(TextResource.RuntimeComponentTask_Xna4Installed)),
                 });
             }
             else
@@ -85,7 +85,7 @@ namespace Mo3RegUI.Tasks
                 {
                     Level = MessageLevel.Info,
                     // RuntimeComponentTask_Xna4NotInstalled: XNA Framework 4.0 is not installed.
-                    Text = TextResource.RuntimeComponentTask_Xna4NotInstalled,
+                    Text = LocalizedText.FromResource(nameof(TextResource.RuntimeComponentTask_Xna4NotInstalled)),
                 });
             }
         }

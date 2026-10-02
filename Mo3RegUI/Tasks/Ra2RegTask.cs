@@ -13,7 +13,7 @@ namespace Mo3RegUI.Tasks
     public class Ra2RegTask : ITask
     {
         // Ra2RegTask_Description: Register Red Alert 2
-        public string Description => TextResource.Ra2RegTask_Description;
+        public string DescriptionResourceKey => nameof(TextResource.Ra2RegTask_Description);
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -53,7 +53,7 @@ namespace Mo3RegUI.Tasks
             yrKey.SetValue("Version", 65537);
 
             // Ra2RegTask_RegistryWriteSuccess: Registry write successful.
-            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = TextResource.Ra2RegTask_RegistryWriteSuccess });
+            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = LocalizedText.FromResource(nameof(TextResource.Ra2RegTask_RegistryWriteSuccess)) });
 
             if (Constants.RequireBlowfishRegistration)
             {
@@ -64,37 +64,42 @@ namespace Mo3RegUI.Tasks
                 if (!File.Exists(blowfishPath))
                 {
                     // Ra2RegTask_BlowfishNotFound: Blowfish.dll file not found.
-                    throw new Exception(TextResource.Ra2RegTask_BlowfishNotFound);
+                    throw new LocalizedException(LocalizedText.FromResource(nameof(TextResource.Ra2RegTask_BlowfishNotFound)));
                 }
 
                 ConsoleCommandManager.RunConsoleCommand("regsvr32.exe", $"/s \"{blowfishPath}\"", out int exitCode, out string stdOut, out string stdErr);
 
                 if (!string.IsNullOrWhiteSpace(stdOut))
                 {
-                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = stdOut.Trim() });
+                    // External command output; not translatable.
+                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = LocalizedText.FromLiteral(stdOut.Trim()) });
                 }
 
                 if (!string.IsNullOrWhiteSpace(stdErr))
                 {
-                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = stdErr.Trim() });
+                    // External command output; not translatable.
+                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = LocalizedText.FromLiteral(stdErr.Trim()) });
                 }
 
                 if (exitCode != 0)
                 {
                     // Task_ProcessExitCodeFailure: Process returned exit code {0}. Execution failed.
-                    string message = string.Format(TextResource.Task_ProcessExitCodeFailure, exitCode);
-                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Error, Text = message });
+                    ReportMessage(this, new TaskMessageEventArgs()
+                    {
+                        Level = MessageLevel.Error,
+                        Text = LocalizedText.FromResource(nameof(TextResource.Task_ProcessExitCodeFailure), exitCode),
+                    });
                 }
                 else
                 {
                     // Ra2RegTask_BlowfishRegistered: Blowfish.dll registered successfully.
-                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = TextResource.Ra2RegTask_BlowfishRegistered });
+                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = LocalizedText.FromResource(nameof(TextResource.Ra2RegTask_BlowfishRegistered)) });
                 }
             }
             else
             {
                 // Ra2RegTask_BlowfishNotRequired: No need to register Blowfish.dll.
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = TextResource.Ra2RegTask_BlowfishNotRequired });
+                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = LocalizedText.FromResource(nameof(TextResource.Ra2RegTask_BlowfishNotRequired)) });
             }
 
         }

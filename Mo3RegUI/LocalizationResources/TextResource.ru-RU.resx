@@ -390,4 +390,63 @@
   <data name="MainWindow_MessagesCount" xml:space="preserve">
     <value> сообщения</value>
   </data>
+  <data name="Log_FileDialogFilter" xml:space="preserve">
+    <value>Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*</value>
+  </data>
+  <data name="Log_HeaderGeneratedAt" xml:space="preserve">
+    <value>Создано: {0}</value>
+  </data>
+  <data name="Log_HeaderGameDirectory" xml:space="preserve">
+    <value>Каталог игры: {0}</value>
+  </data>
+  <data name="Log_HeaderLanguage" xml:space="preserve">
+    <value>Язык журнала: {0}</value>
+  </data>
+  <data name="Log_HeaderSummary" xml:space="preserve">
+    <value>Итого: критические — {0}, ошибки — {1}, предупреждения — {2}, сведения — {3}, отладка — {4}</value>
+  </data>
+  <data name="Log_HeaderTitle" xml:space="preserve">
+    <value>Диагностический журнал</value>
+  </data>
+  <data name="Log_LanguageEnglish" xml:space="preserve">
+    <value>английский</value>
+  </data>
+  <data name="Log_Level_Critical" xml:space="preserve">
+    <value>Критическая ошибка</value>
+  </data>
+  <data name="Log_Level_Debug" xml:space="preserve">
+    <value>Отладка</value>
+  </data>
+  <data name="Log_Level_Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Log_Level_Info" xml:space="preserve">
+    <value>Сведения</value>
+  </data>
+  <data name="Log_Level_Warning" xml:space="preserve">
+    <value>Предупреждение</value>
+  </data>
+  <data name="Log_SaveFailed_Message" xml:space="preserve">
+    <value>Не удалось сохранить журнал:
+{0}</value>
+  </data>
+  <data name="Log_SaveFailed_Title" xml:space="preserve">
+    <value>Не удалось сохранить журнал</value>
+  </data>
+  <data name="Log_Saved_Message" xml:space="preserve">
+    <value>Журнал сохранён в:
+{0}</value>
+  </data>
+  <data name="Log_Saved_Title" xml:space="preserve">
+    <value>Журнал сохранён</value>
+  </data>
+  <data name="MainWindow_SaveLogButton" xml:space="preserve">
+    <value>Сохранить журнал</value>
+  </data>
+  <data name="MainWindow_SaveLogCurrentLanguageButton" xml:space="preserve">
+    <value>Сохранить журнал (текущий язык)</value>
+  </data>
+  <data name="MainWindow_SaveLogEnglishButton" xml:space="preserve">
+    <value>Сохранить журнал (английский)</value>
+  </data>
 </root>

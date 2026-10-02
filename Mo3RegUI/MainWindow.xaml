@@ -25,29 +25,18 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Image Source="soviet.png" Height="22" VerticalAlignment="Center"/>
-                <TextBlock Margin="5" Text="{x:Static local:Constants.AppName}" FontSize="22"  VerticalAlignment="Bottom"/>
-                <TextBlock Margin="5" Text="{x:Static local:Constants.Version}" FontSize="20"  VerticalAlignment="Bottom"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Image Source="soviet.png" Height="22" VerticalAlignment="Center"/>
+            <TextBlock Margin="5" Text="{x:Static local:Constants.AppName}" FontSize="22"  VerticalAlignment="Bottom"/>
+            <TextBlock Margin="5" Text="{x:Static local:Constants.Version}" FontSize="20"  VerticalAlignment="Bottom"/>
 
-                <TextBlock Margin="5" VerticalAlignment="Bottom" FontSize="20" Visibility="{Binding Source={x:Static local:Constants.ShowAuthorName}, Converter={StaticResource BoolToVisConverter}}">By:</TextBlock>
-                <TextBlock Margin="5" Text="{x:Static local:Constants.AuthorName}" FontSize="20" VerticalAlignment="Bottom" Visibility="{Binding Source={x:Static local:Constants.ShowAuthorName}, Converter={StaticResource BoolToVisConverter}}"/>
+            <TextBlock Margin="5" VerticalAlignment="Bottom" FontSize="20" Visibility="{Binding Source={x:Static local:Constants.ShowAuthorName}, Converter={StaticResource BoolToVisConverter}}">By:</TextBlock>
+            <TextBlock Margin="5" Text="{x:Static local:Constants.AuthorName}" FontSize="20" VerticalAlignment="Bottom" Visibility="{Binding Source={x:Static local:Constants.ShowAuthorName}, Converter={StaticResource BoolToVisConverter}}"/>
 
-            </StackPanel>
-            <Button x:Name="GitHubUrlButton" Grid.Column="1" Margin="5" FontSize="14" VerticalAlignment="Bottom" Click="GitHubUrlButton_Click">
-                <StackPanel Orientation="Horizontal">
-                    <Image Margin="2" Source="github-mark.png" Height="22" VerticalAlignment="Center"></Image>
-                    <Label Margin="0" Content="{x:Static l10n:TextResource.MainWindow_GitHubUrlButton}"/>
-                </StackPanel>
-            </Button>
-        </Grid>
+        </StackPanel>
 
         <ListView Grid.Row="1"  ItemsSource='{Binding Source={StaticResource src}}'
                   HorizontalContentAlignment="Stretch"
@@ -87,5 +76,28 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <!-- The save-log buttons sit on the left, the GitHub button on the right. Which of the
+             save buttons are visible is decided in MainWindow.SetupSaveLogButtons. -->
+        <Grid Grid.Row="2" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button x:Name="SaveLogButton" Margin="5" FontSize="14" VerticalAlignment="Center"
+                        Content="{x:Static l10n:TextResource.MainWindow_SaveLogButton}" Click="SaveLogButton_Click"/>
+                <Button x:Name="SaveLogEnglishButton" Margin="5" FontSize="14" VerticalAlignment="Center"
+                        Content="{x:Static l10n:TextResource.MainWindow_SaveLogEnglishButton}" Click="SaveLogEnglishButton_Click"/>
+                <Button x:Name="SaveLogCurrentLanguageButton" Margin="5" FontSize="14" VerticalAlignment="Center"
+                        Content="{x:Static l10n:TextResource.MainWindow_SaveLogCurrentLanguageButton}" Click="SaveLogCurrentLanguageButton_Click"/>
+            </StackPanel>
+            <Button x:Name="GitHubUrlButton" Grid.Column="1" Margin="5" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Right" Click="GitHubUrlButton_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Margin="2" Source="github-mark.png" Height="22" VerticalAlignment="Center"></Image>
+                    <Label Margin="0" Content="{x:Static l10n:TextResource.MainWindow_GitHubUrlButton}"/>
+                </StackPanel>
+            </Button>
+        </Grid>
     </Grid>
 </Window>

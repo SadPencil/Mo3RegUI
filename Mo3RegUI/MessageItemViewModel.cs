@@ -1,53 +1,39 @@
 ﻿using Mo3RegUI.Tasks;
-using System.ComponentModel;
+using System.Globalization;
 
 namespace Mo3RegUI
 {
-    public class MessageItemViewModel : INotifyPropertyChanged
+    /// <summary>
+    /// One line in the message list. Both the text and its category are kept as untranslated
+    /// <see cref="LocalizedText"/> / resource keys so that the same item can be shown in the UI
+    /// and exported in English afterwards. Messages never change once they have been created, so
+    /// the resolved strings are computed on demand instead of being cached.
+    /// </summary>
+    public class MessageItemViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        /// <summary>Resource key of the name of the task that produced this message.</summary>
+        public string CategoryResourceKey { get; }
 
-        private string _category;
-        public string Category
+        public MessageLevel Level { get; }
+
+        /// <summary>The message in a culture-independent form.</summary>
+        public LocalizedText MessageText { get; }
+
+        public string Category => this.GetCategory(Localization.CurrentUICulture);
+
+        public string Text => this.GetText(Localization.CurrentUICulture);
+
+        public MessageItemViewModel(string categoryResourceKey, MessageLevel level, LocalizedText messageText)
         {
-            get => this._category;
-            set
-            {
-                this._category = value;
-                this.PropertyChanged(this, new PropertyChangedEventArgs("Category"));
-            }
+            this.CategoryResourceKey = categoryResourceKey;
+            this.Level = level;
+            this.MessageText = messageText;
         }
 
-        private MessageLevel _level;
-        public MessageLevel Level
-        {
-            get => this._level;
-            set
-            {
-                this._level = value;
-                this.PropertyChanged(this, new PropertyChangedEventArgs("Level"));
-            }
-        }
+        public string GetCategory(CultureInfo culture) => Localization.GetString(this.CategoryResourceKey, culture);
 
-        private string _text;
-        public string Text
-        {
-            get => this._text;
-            set
-            {
-                this._text = value;
-                this.PropertyChanged(this, new PropertyChangedEventArgs("Text"));
-            }
-        }
-
-        public MessageItemViewModel(string category, MessageLevel level, string text)
-        {
-            this._category = category;
-            this._level = level;
-            this._text = text;
-        }
+        public string GetText(CultureInfo culture) => this.MessageText.Resolve(culture);
 
         public override string ToString() => $"[{this.Level}][{this.Category}]{this.Text}";
-
     }
 }

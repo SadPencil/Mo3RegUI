@@ -1,0 +1,101 @@
+﻿using Mo3RegUI.LocalizationResources;
+using Mo3RegUI.Tasks;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Text;
+
+namespace Mo3RegUI
+{
+    /// <summary>
+    /// Renders every message produced by the program as a plain text log that a player can
+    /// attach to a support request. One culture is passed in so that the very same messages can
+    /// be dumped in English as well as in the language the UI is currently using.
+    /// </summary>
+    public static class LogExporter
+    {
+        private const string Separator = "============================================================";
+
+        /// <summary>
+        /// Builds the whole log. Formatting is done with <paramref name="culture"/> only, never
+        /// with the UI culture, so an English export stays English even on a translated system.
+        /// </summary>
+        public static string BuildLogText(IEnumerable<MessageItemViewModel> messages, CultureInfo culture, string gameDir)
+        {
+            var items = new List<MessageItemViewModel>(messages);
+
+            var sb = new StringBuilder();
+            sb.AppendLine(Separator);
+            sb.AppendLine($"{Localization.GetString(nameof(TextResource.Constants_AppName), culture)} {Constants.Version}");
+            sb.AppendLine(Localization.GetString(nameof(TextResource.Log_HeaderTitle), culture));
+            sb.AppendLine(Separator);
+            sb.AppendLine(Format(nameof(TextResource.Log_HeaderGeneratedAt), culture,
+                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)));
+            sb.AppendLine(Format(nameof(TextResource.Log_HeaderLanguage), culture, GetLanguageName(culture)));
+            sb.AppendLine(Format(nameof(TextResource.Log_HeaderGameDirectory), culture, gameDir ?? string.Empty));
+            sb.AppendLine(Format(nameof(TextResource.Log_HeaderSummary), culture, GetSummaryArgs(items)));
+            sb.AppendLine();
+
+            foreach (MessageItemViewModel item in items)
+            {
+                string text = NormalizeLineBreaks(item.GetText(culture));
+                sb.Append('[').Append(GetLevelName(item.Level, culture)).Append("] [")
+                  .Append(item.GetCategory(culture)).Append("] ")
+                  .Append(text.Replace("\n", "\n    "));
+                sb.AppendLine();
+            }
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// The file name suggested in the save dialog, with a timestamp and a language tag so
+        /// that saving both the English and the current-language log cannot silently overwrite
+        /// the other one.
+        /// </summary>
+        public static string GetDefaultFileName(CultureInfo culture)
+        {
+            string languageTag = string.IsNullOrEmpty(culture.Name) ? "en" : culture.Name;
+            return $"Mo3RegUI-log-{languageTag}-{DateTime.Now:yyyyMMdd-HHmmss}.txt";
+        }
+
+        private static object[] GetSummaryArgs(List<MessageItemViewModel> items)
+        {
+            int critical = 0, error = 0, warning = 0, info = 0, debug = 0;
+            foreach (MessageItemViewModel item in items)
+            {
+                switch (item.Level)
+                {
+                    case MessageLevel.Debug: debug++; break;
+                    case MessageLevel.Info: info++; break;
+                    case MessageLevel.Warning: warning++; break;
+                    case MessageLevel.Error: error++; break;
+                    case MessageLevel.Critical: critical++; break;
+                }
+            }
+
+            return new object[] { critical, error, warning, info, debug };
+        }
+
+        private static string GetLanguageName(CultureInfo culture) =>
+            string.IsNullOrEmpty(culture.Name) || culture.TwoLetterISOLanguageName == "en"
+                ? Localization.GetString(nameof(TextResource.Log_LanguageEnglish), culture)
+                : culture.NativeName;
+
+        private static string GetLevelName(MessageLevel level, CultureInfo culture) => level switch
+        {
+            MessageLevel.Debug => Localization.GetString(nameof(TextResource.Log_Level_Debug), culture),
+            MessageLevel.Info => Localization.GetString(nameof(TextResource.Log_Level_Info), culture),
+            MessageLevel.Warning => Localization.GetString(nameof(TextResource.Log_Level_Warning), culture),
+            MessageLevel.Error => Localization.GetString(nameof(TextResource.Log_Level_Error), culture),
+            MessageLevel.Critical => Localization.GetString(nameof(TextResource.Log_Level_Critical), culture),
+            _ => level.ToString(),
+        };
+
+        private static string Format(string resourceKey, CultureInfo culture, params object[] args) =>
+            string.Format(culture, Localization.GetString(resourceKey, culture), args);
+
+        private static string NormalizeLineBreaks(string text) =>
+            (text ?? string.Empty).Replace("\r\n", "\n").Replace('\r', '\n');
+    }
+}

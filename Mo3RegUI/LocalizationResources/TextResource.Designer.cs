@@ -295,6 +295,152 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Text files (*.txt)|*.txt|All files (*.*)|*.*.
+        /// </summary>
+        public static string Log_FileDialogFilter {
+            get {
+                return ResourceManager.GetString("Log_FileDialogFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game directory: {0}.
+        /// </summary>
+        public static string Log_HeaderGameDirectory {
+            get {
+                return ResourceManager.GetString("Log_HeaderGameDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generated at: {0}.
+        /// </summary>
+        public static string Log_HeaderGeneratedAt {
+            get {
+                return ResourceManager.GetString("Log_HeaderGeneratedAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log language: {0}.
+        /// </summary>
+        public static string Log_HeaderLanguage {
+            get {
+                return ResourceManager.GetString("Log_HeaderLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summary: Critical {0}, Error {1}, Warning {2}, Info {3}, Debug {4}.
+        /// </summary>
+        public static string Log_HeaderSummary {
+            get {
+                return ResourceManager.GetString("Log_HeaderSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diagnostic Log.
+        /// </summary>
+        public static string Log_HeaderTitle {
+            get {
+                return ResourceManager.GetString("Log_HeaderTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string Log_LanguageEnglish {
+            get {
+                return ResourceManager.GetString("Log_LanguageEnglish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Critical.
+        /// </summary>
+        public static string Log_Level_Critical {
+            get {
+                return ResourceManager.GetString("Log_Level_Critical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debug.
+        /// </summary>
+        public static string Log_Level_Debug {
+            get {
+                return ResourceManager.GetString("Log_Level_Debug", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Log_Level_Error {
+            get {
+                return ResourceManager.GetString("Log_Level_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Info.
+        /// </summary>
+        public static string Log_Level_Info {
+            get {
+                return ResourceManager.GetString("Log_Level_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string Log_Level_Warning {
+            get {
+                return ResourceManager.GetString("Log_Level_Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save the log:
+        ///{0}.
+        /// </summary>
+        public static string Log_SaveFailed_Message {
+            get {
+                return ResourceManager.GetString("Log_SaveFailed_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to Save Log.
+        /// </summary>
+        public static string Log_SaveFailed_Title {
+            get {
+                return ResourceManager.GetString("Log_SaveFailed_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The log has been saved to:
+        ///{0}.
+        /// </summary>
+        public static string Log_Saved_Message {
+            get {
+                return ResourceManager.GetString("Log_Saved_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log Saved.
+        /// </summary>
+        public static string Log_Saved_Title {
+            get {
+                return ResourceManager.GetString("Log_Saved_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Long path support is enabled. No action required..
         /// </summary>
         public static string LongPathAwarenessTask_AlreadyEnabled {
@@ -390,6 +536,33 @@ namespace Mo3RegUI.LocalizationResources {
         public static string MainWindow_Not_In_Game_Directory_Title {
             get {
                 return ResourceManager.GetString("MainWindow_Not_In_Game_Directory_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Log.
+        /// </summary>
+        public static string MainWindow_SaveLogButton {
+            get {
+                return ResourceManager.GetString("MainWindow_SaveLogButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Log (Current Language).
+        /// </summary>
+        public static string MainWindow_SaveLogCurrentLanguageButton {
+            get {
+                return ResourceManager.GetString("MainWindow_SaveLogCurrentLanguageButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Log (English).
+        /// </summary>
+        public static string MainWindow_SaveLogEnglishButton {
+            get {
+                return ResourceManager.GetString("MainWindow_SaveLogEnglishButton", resourceCulture);
             }
         }
         

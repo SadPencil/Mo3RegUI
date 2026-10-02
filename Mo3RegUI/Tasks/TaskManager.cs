@@ -36,12 +36,22 @@ namespace Mo3RegUI.Tasks
                     if (worker_e.Error is not null)
                     {
                         // TaskManager_ExecutionFailed: Execution failed: {0}
-                        this.ReportMessage(task.Task, new TaskMessageEventArgs() { Level = MessageLevel.Critical, Text = string.Format(TextResource.TaskManager_ExecutionFailed, worker_e.Error.Message) });
+                        this.ReportMessage(task.Task, new TaskMessageEventArgs()
+                        {
+                            Level = MessageLevel.Critical,
+                            Text = LocalizedText.FromResource(
+                                nameof(TextResource.TaskManager_ExecutionFailed),
+                                ToLocalizedText(worker_e.Error)),
+                        });
                     }
                     else
                     {
                         // TaskManager_ExecutionComplete: Execution complete.
-                        this.ReportMessage(task.Task, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = TextResource.TaskManager_ExecutionComplete });
+                        this.ReportMessage(task.Task, new TaskMessageEventArgs()
+                        {
+                            Level = MessageLevel.Info,
+                            Text = LocalizedText.FromResource(nameof(TextResource.TaskManager_ExecutionComplete)),
+                        });
                     }
                     this.TaskCompleted(this, new TaskCompletedEventArgs() { TaskInstance = task });
                 };
@@ -65,7 +75,14 @@ namespace Mo3RegUI.Tasks
                     }
                     catch (Exception ex)
                     {
-                        worker.ReportProgress(0, new TaskMessageEventArgs() { Level = MessageLevel.Critical, Text = ex.Message });
+                        // TaskManager_ExecutionFailed: Execution failed: {0}
+                        worker.ReportProgress(0, new TaskMessageEventArgs()
+                        {
+                            Level = MessageLevel.Critical,
+                            Text = LocalizedText.FromResource(
+                                nameof(TextResource.TaskManager_ExecutionFailed),
+                                ToLocalizedText(ex)),
+                        });
                     }
 #else
                     task.Task.DoWork(task.Parameter);
@@ -77,6 +94,13 @@ namespace Mo3RegUI.Tasks
                 worker.RunWorkerAsync();
             }
         }
+
+        /// <summary>
+        /// Keeps the deferred text of a <see cref="LocalizedException"/> so that a task failure
+        /// can still be rendered in English, and falls back to the plain message otherwise.
+        /// </summary>
+        private static LocalizedText ToLocalizedText(Exception ex) =>
+            (ex as LocalizedException)?.Text ?? LocalizedText.FromLiteral(ex?.Message ?? string.Empty);
 
     }
 }

@@ -10,7 +10,7 @@ namespace Mo3RegUI.Tasks
     public class EncodingCheckTask : ITask
     {
         // EncodingCheckTask_Description: Check System ANSI Code Page
-        public string Description => TextResource.EncodingCheckTask_Description;
+        public string DescriptionResourceKey => nameof(TextResource.EncodingCheckTask_Description);
 
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
@@ -28,8 +28,11 @@ namespace Mo3RegUI.Tasks
             if (codepage == 65001)
             {
                 // EncodingCheckTask_Utf8Warning: The current ANSI code page is UTF-8. This is a good practice, but unfortunately, ...
-                string message = TextResource.EncodingCheckTask_Utf8Warning;
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = message });
+                ReportMessage(this, new TaskMessageEventArgs()
+                {
+                    Level = MessageLevel.Warning,
+                    Text = LocalizedText.FromResource(nameof(TextResource.EncodingCheckTask_Utf8Warning)),
+                });
             }
         }
     }

@@ -83,7 +83,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TextResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Localization.cs" />
     <Compile Include="Locks.cs" />
+    <Compile Include="LogExporter.cs" />
     <Compile Include="MessageItemViewModel.cs" />
     <Compile Include="MessageLevelToBrushConverter.cs" />
     <Compile Include="MessageLevelToFontWeightConverter.cs" />
@@ -107,6 +109,8 @@
     <Compile Include="Tasks\ClientVolumeTask.cs" />
     <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Tasks\ITaskParameter.cs" />
+    <Compile Include="Tasks\LocalizedException.cs" />
+    <Compile Include="Tasks\LocalizedText.cs" />
     <Compile Include="Tasks\MessageLevel.cs" />
     <Compile Include="Tasks\NetworkInterfaceTask.cs" />
     <Compile Include="Tasks\PathCheckTask.cs" />
