@@ -60,7 +60,7 @@ namespace Mo3RegUI.Tasks
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Warning,
-                    // RemoveZoneIdentifierTask_FailedFiles: Failed to unblock the following files:
+                    // RemoveZoneIdentifierTask_FailedFiles: Failed to unblock the following files: ...
                     Text = string.Format(TextResource.RemoveZoneIdentifierTask_FailedFiles, string.Join("\n", failedFiles)),
                 });
             }
@@ -70,7 +70,7 @@ namespace Mo3RegUI.Tasks
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Warning,
-                    // RemoveZoneIdentifierTask_FailedDirectories: Failed to scan the following directories:
+                    // RemoveZoneIdentifierTask_FailedDirectories: Failed to scan the following directories: ...
                     Text = string.Format(TextResource.RemoveZoneIdentifierTask_FailedDirectories, string.Join("\n", failedDirectories)),
                 });
             }
@@ -96,8 +96,8 @@ namespace Mo3RegUI.Tasks
         }
 
         /// <summary>
-        /// The files that the renderer task reads or overwrites in the game directory. The source
-        /// files come first: once they are unblocked, any copy made afterwards is already clean.
+        /// The files that the renderer task reads or overwrites in the game directory. They are
+        /// all handled under one lock, so the order in which they are returned does not matter.
         /// </summary>
         private static IEnumerable<string> GetDeploymentFiles(string gameDir)
         {
