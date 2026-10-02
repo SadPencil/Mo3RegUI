@@ -54,7 +54,11 @@ namespace Mo3RegUI
                 foreach (MessageItemViewModel item in group)
                 {
                     string text = NormalizeLineBreaks(item.GetText(culture));
-                    sb.Append('[').Append(GetLevelName(item.Level, culture)).Append("] ")
+                    // One list item per message. A single newline inside a paragraph only renders
+                    // as a space in Markdown, so the bullet is what keeps two consecutive
+                    // messages on separate lines. The continuation lines of a multi-line message
+                    // are indented to stay inside the same item.
+                    sb.Append("- [").Append(GetLevelName(item.Level, culture)).Append("] ")
                       .Append(text.Replace("\n", "\n    "));
                     sb.AppendLine();
                 }
