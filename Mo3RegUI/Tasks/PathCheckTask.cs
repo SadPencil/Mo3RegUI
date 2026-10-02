@@ -47,8 +47,6 @@ namespace Mo3RegUI.Tasks
                 string message = TextResource.PathCheckTask_PathContainsPercent;
                 ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Error, Text = message });
             }
-
-            DoLongPathAwarenessCheck(gameDir);
         }
 
         private void DoLongPathAwarenessCheck(string gameDir)
