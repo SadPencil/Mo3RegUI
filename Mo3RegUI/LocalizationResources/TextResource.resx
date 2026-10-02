@@ -207,6 +207,21 @@
   <data name="ForegroundLockTimeoutTask_FixedTimeout" xml:space="preserve">
     <value>Fixed successfully. Foreground lock timeout has been set to {0} milliseconds.</value>
   </data>
+  <data name="LongPathAwarenessTask_Description" xml:space="preserve">
+    <value>Check Long Path Support</value>
+  </data>
+  <data name="LongPathAwarenessTask_OsVersionTooLow" xml:space="preserve">
+    <value>Long path support requires Windows 10 version 1607 or later, and the current system version is too low to enable it. Please install the game in a directory with a short path; otherwise, the custom maps downloaded by the client may be stored in paths that exceed the Windows path length limit, and the game may fail to read them.</value>
+  </data>
+  <data name="LongPathAwarenessTask_AlreadyEnabled" xml:space="preserve">
+    <value>Long path support is enabled. No action required.</value>
+  </data>
+  <data name="LongPathAwarenessTask_Disabled" xml:space="preserve">
+    <value>Long path support is not enabled. The custom maps downloaded by the client may be stored in paths that exceed the Windows path length limit, which may prevent the game from reading them. Enabling long path support...</value>
+  </data>
+  <data name="LongPathAwarenessTask_Fixed" xml:space="preserve">
+    <value>Fixed successfully. Long path support has been enabled. Please restart the computer to make the change take effect.</value>
+  </data>
   <data name="NetworkInterfaceTask_Description" xml:space="preserve">
     <value>Check Network Environment</value>
   </data>

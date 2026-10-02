@@ -207,6 +207,21 @@
   <data name="ForegroundLockTimeoutTask_FixedTimeout" xml:space="preserve">
     <value>修复成功。前台锁定时间修改为 {0} 毫秒。</value>
   </data>
+  <data name="LongPathAwarenessTask_Description" xml:space="preserve">
+    <value>检查长路径支持</value>
+  </data>
+  <data name="LongPathAwarenessTask_OsVersionTooLow" xml:space="preserve">
+    <value>系统长路径支持需要 Windows 10 1607 或更高版本，当前系统版本过低，无法开启。请将游戏安装在较短的路径下，否则客户端下载的自定义地图可能保存在超出 Windows 路径长度限制的路径中，导致游戏无法读取。</value>
+  </data>
+  <data name="LongPathAwarenessTask_AlreadyEnabled" xml:space="preserve">
+    <value>长路径支持已开启。无需操作。</value>
+  </data>
+  <data name="LongPathAwarenessTask_Disabled" xml:space="preserve">
+    <value>长路径支持未开启。客户端下载的自定义地图可能保存在超出 Windows 路径长度限制的路径中，导致游戏无法读取。正在开启长路径支持……</value>
+  </data>
+  <data name="LongPathAwarenessTask_Fixed" xml:space="preserve">
+    <value>修复成功。长路径支持已开启，请重启电脑使其生效。</value>
+  </data>
   <data name="NetworkInterfaceTask_Description" xml:space="preserve">
     <value>检查网络环境</value>
   </data>
