@@ -302,16 +302,7 @@ namespace Mo3RegUI.LocalizationResources {
                 return ResourceManager.GetString("LongPathAwarenessTask_AlreadyEnabled", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Check Long Path Support.
-        /// </summary>
-        public static string LongPathAwarenessTask_Description {
-            get {
-                return ResourceManager.GetString("LongPathAwarenessTask_Description", resourceCulture);
-            }
-        }
-        
+                
         /// <summary>
         ///   Looks up a localized string similar to Long path support is not enabled. The custom maps downloaded by the client may be stored in paths that exceed the Windows path length limit, which may prevent the game from reading them. Enabling long path support....
         /// </summary>

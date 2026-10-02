@@ -207,9 +207,6 @@
   <data name="ForegroundLockTimeoutTask_FixedTimeout" xml:space="preserve">
     <value>Исправлено успешно. Время ожидания блокировки переднего плана установлено на {0} миллисекунд.</value>
   </data>
-  <data name="LongPathAwarenessTask_Description" xml:space="preserve">
-    <value>Проверка поддержки длинных путей</value>
-  </data>
   <data name="LongPathAwarenessTask_OsVersionTooLow" xml:space="preserve">
     <value>Поддержка длинных путей требует Windows 10 версии 1607 или более поздней; текущая версия системы слишком стара, чтобы её включить. Пользовательские карты, загруженные клиентом, могут сохраняться по путям, превышающим ограничение длины пути Windows, и игра может не суметь их прочитать.</value>
   </data>
