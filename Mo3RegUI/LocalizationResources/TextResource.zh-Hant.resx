@@ -452,4 +452,7 @@
   <data name="MainWindow_SaveLogEnglishButton" xml:space="preserve">
     <value>儲存日誌（英文）</value>
   </data>
+  <data name="Localization_CultureName" xml:space="preserve">
+    <value>zh-Hant</value>
+  </data>
 </root>

@@ -34,42 +34,24 @@ namespace Mo3RegUI
                 : TextResource.ResourceManager.GetString(resourceKey, culture) ?? resourceKey;
 
         /// <summary>
-        /// Whether the UI is currently showing English, either because the system locale is
-        /// English or because the locale has no translation and therefore falls back to the
-        /// neutral resources. In that case a separate "current language" log would be identical
-        /// to the English one, so only a single save button is offered.
+        /// Whether <paramref name="culture"/> really shows English. Every translation declares
+        /// its own culture name in <c>Localization_CultureName</c>; a locale that has no
+        /// translation falls back to the neutral resources and therefore declares <c>en-US</c>,
+        /// which is exactly what we want to detect. Using this dedicated marker avoids both the
+        /// inconsistent satellite probing of <see cref="System.Resources.ResourceManager"/> and
+        /// any dependence on the wording of ordinary UI strings.
         /// </summary>
-        public static bool IsCurrentCultureEnglish
-        {
-            get
-            {
-                CultureInfo culture = CurrentUICulture;
-                if (string.IsNullOrEmpty(culture.Name) || culture.TwoLetterISOLanguageName == "en")
-                {
-                    return true;
-                }
+        public static bool IsCultureEnglish(CultureInfo culture) =>
+            string.Equals(
+                GetString(nameof(TextResource.Localization_CultureName), culture),
+                GetString(nameof(TextResource.Localization_CultureName), EnglishCulture),
+                StringComparison.OrdinalIgnoreCase);
 
-                try
-                {
-                    // Walk the culture's parents looking for a satellite resource set. The neutral
-                    // (English) set lives in the main assembly and is not a satellite, so any
-                    // match here means the locale has its own translation.
-                    for (CultureInfo current = culture; !string.IsNullOrEmpty(current.Name); current = current.Parent)
-                    {
-                        if (TextResource.ResourceManager.GetResourceSet(current, createIfNotExists: false, tryParents: false) is not null)
-                        {
-                            return false;
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    // Never let a localization probe stop the program from starting.
-                    return true;
-                }
-
-                return true;
-            }
-        }
+        /// <summary>
+        /// Whether the UI is currently showing English. In that case a separate
+        /// "current language" log would be identical to the English one, so only a single save
+        /// button is offered.
+        /// </summary>
+        public static bool IsCurrentCultureEnglish => IsCultureEnglish(CurrentUICulture);
     }
 }

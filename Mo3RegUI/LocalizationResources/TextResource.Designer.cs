@@ -295,7 +295,16 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Text files (*.txt)|*.txt|All files (*.*)|*.*.
+        ///   Looks up a localized string similar to en-US.
+        /// </summary>
+        public static string Localization_CultureName {
+            get {
+                return ResourceManager.GetString("Localization_CultureName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Markdown files (*.md)|*.md|All files (*.*)|*.*.
         /// </summary>
         public static string Log_FileDialogFilter {
             get {

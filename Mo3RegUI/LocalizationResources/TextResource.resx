@@ -452,4 +452,7 @@ It is recommended to always use a modern renderer on Windows 8/10/11, such as TS
   <data name="MainWindow_SaveLogEnglishButton" xml:space="preserve">
     <value>Save Log (English)</value>
   </data>
+  <data name="Localization_CultureName" xml:space="preserve">
+    <value>en-US</value>
+  </data>
 </root>
