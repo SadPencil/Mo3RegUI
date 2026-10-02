@@ -264,6 +264,19 @@
   <data name="RemoveObsoleteFilesTask_Description" xml:space="preserve">
     <value>Удаление устаревших файлов</value>
   </data>
+  <data name="RemoveZoneIdentifierTask_Description" xml:space="preserve">
+    <value>Разблокировка загруженных файлов</value>
+  </data>
+  <data name="RemoveZoneIdentifierTask_NoBlockedFiles" xml:space="preserve">
+    <value>Нет файлов, помеченных как загруженные из Интернета. Никаких действий не требуется.</value>
+  </data>
+  <data name="RemoveZoneIdentifierTask_Unblocked" xml:space="preserve">
+    <value>Разблокировано файлов, помеченных как загруженные из Интернета: {0}.</value>
+  </data>
+  <data name="RemoveZoneIdentifierTask_FailedFiles" xml:space="preserve">
+    <value>Не удалось разблокировать следующие файлы:
+{0}</value>
+  </data>
   <data name="RendererTask_Description" xml:space="preserve">
     <value>Установка отрисовщика</value>
   </data>

@@ -556,6 +556,43 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unblock Downloaded Files..
+        /// </summary>
+        public static string RemoveZoneIdentifierTask_Description {
+            get {
+                return ResourceManager.GetString("RemoveZoneIdentifierTask_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to unblock the following files:
+        ///{0}.
+        /// </summary>
+        public static string RemoveZoneIdentifierTask_FailedFiles {
+            get {
+                return ResourceManager.GetString("RemoveZoneIdentifierTask_FailedFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No files are marked as downloaded from the Internet. No action required...
+        /// </summary>
+        public static string RemoveZoneIdentifierTask_NoBlockedFiles {
+            get {
+                return ResourceManager.GetString("RemoveZoneIdentifierTask_NoBlockedFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unblocked {0} file(s) marked as downloaded from the Internet...
+        /// </summary>
+        public static string RemoveZoneIdentifierTask_Unblocked {
+            get {
+                return ResourceManager.GetString("RemoveZoneIdentifierTask_Unblocked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set Renderer.
         /// </summary>
         public static string RendererTask_Description {

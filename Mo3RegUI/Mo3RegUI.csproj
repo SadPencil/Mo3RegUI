@@ -94,6 +94,7 @@
     <Compile Include="Tasks\ForegroundLockTimeoutTask.cs" />
     <Compile Include="Tasks\ProcessMitigationTask.cs" />
     <Compile Include="Tasks\RemoveObsoleteFilesTask.cs" />
+    <Compile Include="Tasks\RemoveZoneIdentifierTask.cs" />
     <Compile Include="ScreenResolution.cs" />
     <Compile Include="Tasks\SpeakerNumTask.cs" />
     <Compile Include="Tasks\TaskCompletedEventArgs.cs" />

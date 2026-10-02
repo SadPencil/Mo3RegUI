@@ -264,6 +264,19 @@
   <data name="RemoveObsoleteFilesTask_Description" xml:space="preserve">
     <value>Remove Obsolete Files</value>
   </data>
+  <data name="RemoveZoneIdentifierTask_Description" xml:space="preserve">
+    <value>Unblock Downloaded Files</value>
+  </data>
+  <data name="RemoveZoneIdentifierTask_NoBlockedFiles" xml:space="preserve">
+    <value>No files are marked as downloaded from the Internet. No action required.</value>
+  </data>
+  <data name="RemoveZoneIdentifierTask_Unblocked" xml:space="preserve">
+    <value>Unblocked {0} file(s) marked as downloaded from the Internet.</value>
+  </data>
+  <data name="RemoveZoneIdentifierTask_FailedFiles" xml:space="preserve">
+    <value>Failed to unblock the following files:
+{0}</value>
+  </data>
   <data name="RendererTask_Description" xml:space="preserve">
     <value>Set Renderer</value>
   </data>

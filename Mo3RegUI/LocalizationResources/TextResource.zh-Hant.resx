@@ -264,6 +264,19 @@
   <data name="RemoveObsoleteFilesTask_Description" xml:space="preserve">
     <value>刪除多餘檔案</value>
   </data>
+  <data name="RemoveZoneIdentifierTask_Description" xml:space="preserve">
+    <value>解除下載檔案鎖定</value>
+  </data>
+  <data name="RemoveZoneIdentifierTask_NoBlockedFiles" xml:space="preserve">
+    <value>沒有檔案被標記為從網際網路下載。無需操作。</value>
+  </data>
+  <data name="RemoveZoneIdentifierTask_Unblocked" xml:space="preserve">
+    <value>已解除 {0} 個檔案的下載鎖定。</value>
+  </data>
+  <data name="RemoveZoneIdentifierTask_FailedFiles" xml:space="preserve">
+    <value>未能解除以下檔案的下載鎖定：
+{0}</value>
+  </data>
   <data name="RendererTask_Description" xml:space="preserve">
     <value>設定渲染補丁</value>
   </data>
