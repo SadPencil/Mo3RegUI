@@ -295,7 +295,7 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please manually change this value to False when translating this file; anything other than False is treated as the neutral (English) resources..
+        ///   Looks up a localized string similar to Please manually change this value to False when translating this file. Anything other than False is treated as the neutral (English) resources..
         /// </summary>
         public static string Localization_IsNeutralCulture {
             get {
@@ -412,25 +412,6 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to save the log:
-        ///{0}.
-        /// </summary>
-        public static string Log_SaveFailed_Message {
-            get {
-                return ResourceManager.GetString("Log_SaveFailed_Message", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to Save Log.
-        /// </summary>
-        public static string Log_SaveFailed_Title {
-            get {
-                return ResourceManager.GetString("Log_SaveFailed_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The log has been saved to:
         ///{0}.
         /// </summary>
@@ -446,6 +427,25 @@ namespace Mo3RegUI.LocalizationResources {
         public static string Log_Saved_Title {
             get {
                 return ResourceManager.GetString("Log_Saved_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save the log:
+        ///{0}.
+        /// </summary>
+        public static string Log_SaveFailed_Message {
+            get {
+                return ResourceManager.GetString("Log_SaveFailed_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to Save Log.
+        /// </summary>
+        public static string Log_SaveFailed_Title {
+            get {
+                return ResourceManager.GetString("Log_SaveFailed_Title", resourceCulture);
             }
         }
         
@@ -466,7 +466,7 @@ namespace Mo3RegUI.LocalizationResources {
                 return ResourceManager.GetString("LongPathAwarenessTask_AlreadyEnabled", resourceCulture);
             }
         }
-                
+        
         /// <summary>
         ///   Looks up a localized string similar to Long path support is not enabled. The custom maps downloaded by the client may be stored in paths that exceed the Windows path length limit, which may prevent the game from reading them. Enabling long path support....
         /// </summary>
@@ -783,16 +783,7 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Problem encountered while deploying renderer. {0}.
-        /// </summary>
-        public static string RendererTask_DeploymentError {
-            get {
-                return ResourceManager.GetString("RendererTask_DeploymentError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unblock Downloaded Files..
+        ///   Looks up a localized string similar to Unblock Downloaded Files.
         /// </summary>
         public static string RemoveZoneIdentifierTask_Description {
             get {
@@ -821,7 +812,7 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No files are marked as downloaded from the Internet. No action required...
+        ///   Looks up a localized string similar to No files are marked as downloaded from the Internet. No action required..
         /// </summary>
         public static string RemoveZoneIdentifierTask_NoBlockedFiles {
             get {
@@ -830,11 +821,20 @@ namespace Mo3RegUI.LocalizationResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unblocked {0} file(s) marked as downloaded from the Internet...
+        ///   Looks up a localized string similar to Unblocked {0} file(s) marked as downloaded from the Internet..
         /// </summary>
         public static string RemoveZoneIdentifierTask_Unblocked {
             get {
                 return ResourceManager.GetString("RemoveZoneIdentifierTask_Unblocked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Problem encountered while deploying renderer. {0}.
+        /// </summary>
+        public static string RendererTask_DeploymentError {
+            get {
+                return ResourceManager.GetString("RendererTask_DeploymentError", resourceCulture);
             }
         }
         
