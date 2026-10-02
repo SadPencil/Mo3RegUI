@@ -30,7 +30,7 @@ namespace Mo3RegUI.Tasks
                 ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = TextResource.RendererTask_SetToCnCDDraw });
 
                 // Set "singlecpu=false" to support multi-core. Renderer should not determine the affinity but CnC-DDraw did. So the option is turned off in this task.
-                lock (Locks.CnC_DDrawDeployment)
+                lock (Locks.CnCDDrawDeployment)
                 {
                     bool singleCpuNeedsFix = true;
                     MyIniParserHelper.ReadIniFile(Path.Combine(p.GameDir, "Resources", Constants.CnCDDrawIniName), ini =>
@@ -58,7 +58,7 @@ namespace Mo3RegUI.Tasks
 
                     // One lock covers both the sources and the deployed files, so a deployment can
                     // never start while the unblocking task is handling them.
-                    lock (Locks.CnC_DDrawDeployment)
+                    lock (Locks.CnCDDrawDeployment)
                     {
                         var destDDrawDllFile = new FileInfo(destDDrawDllPath);
                         var destDDrawIniFile = new FileInfo(destDDrawIniPath);

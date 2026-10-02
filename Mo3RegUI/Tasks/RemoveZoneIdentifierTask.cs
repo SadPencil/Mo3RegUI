@@ -45,7 +45,7 @@ namespace Mo3RegUI.Tasks
             // reported exactly once.
             var deploymentFiles = new List<string>(GetDeploymentFiles(p.GameDir));
             var deploymentFileSet = new HashSet<string>(deploymentFiles, StringComparer.OrdinalIgnoreCase);
-            lock (Locks.CnC_DDrawDeployment)
+            lock (Locks.CnCDDrawDeployment)
             {
                 foreach (string file in deploymentFiles)
                 {

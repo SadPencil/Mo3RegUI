@@ -15,11 +15,11 @@ namespace Mo3RegUI
         // directory (the destinations). RendererTask is the only task that copies files, so
         // these four are the only files whose Zone.Identifier stream can reappear after the
         // unblocking scan has already passed them.
-        public static object CnC_DDrawDeployment = new();
+        public static object CnCDDrawDeployment = new();
 
         // File names that are guarded by CnC_DDrawDeployment, wherever they appear below the
         // game directory.
-        private static readonly List<string> CnCDDrawDeploymentFileNames = new List<string>()
+        private static readonly List<string> CnCDDrawDeploymentFileNames = new()
         {
             "ddraw.dll",
             "ddraw.ini",
@@ -37,7 +37,7 @@ namespace Mo3RegUI
 
             if (CnCDDrawDeploymentFileNames.Contains(fileName, StringComparer.OrdinalIgnoreCase))
             {
-                return CnC_DDrawDeployment;
+                return CnCDDrawDeployment;
             }
 
             if (string.Equals(fileName, Constants.GameConfigIniName, StringComparison.OrdinalIgnoreCase))
