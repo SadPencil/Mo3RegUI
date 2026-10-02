@@ -25,8 +25,6 @@ namespace Mo3RegUI
 
             var sb = new StringBuilder();
 
-            // The document title is the only level-1 heading in the file; every task below it
-            // becomes a level-2 section.
             sb.Append("# ")
               .Append(Localization.GetString(nameof(TextResource.Constants_AppName), culture))
               .Append(' ')
