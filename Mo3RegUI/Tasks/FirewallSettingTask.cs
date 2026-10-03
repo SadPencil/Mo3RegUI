@@ -13,7 +13,7 @@ namespace Mo3RegUI.Tasks
     public class FirewallSettingTask : ITask
     {
         // FirewallSettingTask_Description: Set Firewall Exception
-        public string Description => TextResource.FirewallSettingTask_Description;
+        public string DescriptionResourceKey => nameof(TextResource.FirewallSettingTask_Description);
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -32,7 +32,7 @@ namespace Mo3RegUI.Tasks
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Error,
-                    Text = TextResource.FirewallSettingTask_OsVersionTooLow,
+                    Text = LocalizedText.FromResource(nameof(TextResource.FirewallSettingTask_OsVersionTooLow)),
                 });
                 return;
             }
@@ -56,19 +56,24 @@ namespace Mo3RegUI.Tasks
 
                     if (!string.IsNullOrWhiteSpace(stdOut))
                     {
-                        ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = stdOut.Trim() });
+                        // External command output; not translatable.
+                        ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = LocalizedText.FromLiteral(stdOut.Trim()) });
                     }
 
                     if (!string.IsNullOrWhiteSpace(stdErr))
                     {
-                        ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = stdErr.Trim() });
+                        // External command output; not translatable.
+                        ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = LocalizedText.FromLiteral(stdErr.Trim()) });
                     }
 
                     if (exitCode != 0)
                     {
                         // Task_ProcessExitCodeFailure: Process returned exit code {0}. Execution failed.
-                        string message = string.Format(TextResource.Task_ProcessExitCodeFailure, exitCode);
-                        ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Error, Text = message });
+                        ReportMessage(this, new TaskMessageEventArgs()
+                        {
+                            Level = MessageLevel.Error,
+                            Text = LocalizedText.FromResource(nameof(TextResource.Task_ProcessExitCodeFailure), exitCode),
+                        });
                     }
                 }
             }

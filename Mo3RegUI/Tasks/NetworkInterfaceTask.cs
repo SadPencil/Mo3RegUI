@@ -12,7 +12,7 @@ namespace Mo3RegUI.Tasks
     public class NetworkInterfaceTask : ITask
     {
         // NetworkInterfaceTask_Description: Check Network Environment
-        public string Description => TextResource.NetworkInterfaceTask_Description;
+        public string DescriptionResourceKey => nameof(TextResource.NetworkInterfaceTask_Description);
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -62,7 +62,7 @@ namespace Mo3RegUI.Tasks
                 }
 
                 // NetworkInterfaceTask_MultipleNetworkCards: Your computer has multiple network cards, as listed below. ... {0}
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = string.Format(TextResource.NetworkInterfaceTask_MultipleNetworkCards, ips) });
+                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = LocalizedText.FromResource(nameof(TextResource.NetworkInterfaceTask_MultipleNetworkCards), ips) });
             }
         }
     }

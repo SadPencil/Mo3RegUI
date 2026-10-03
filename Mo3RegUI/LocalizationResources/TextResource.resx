@@ -390,4 +390,69 @@ It is recommended to always use a modern renderer on Windows 8/10/11, such as TS
   <data name="MainWindow_MessagesCount" xml:space="preserve">
     <value> messages</value>
   </data>
+  <data name="Log_FileDialogFilter" xml:space="preserve">
+    <value>Markdown files (*.md)|*.md|All files (*.*)|*.*</value>
+  </data>
+  <data name="Log_HeaderGeneratedAt" xml:space="preserve">
+    <value>Generated at (UTC): {0}</value>
+  </data>
+  <data name="Log_HeaderGameDirectory" xml:space="preserve">
+    <value>Game directory: {0}</value>
+  </data>
+  <data name="Log_HeaderLanguage" xml:space="preserve">
+    <value>Log language: {0}</value>
+  </data>
+  <data name="Log_HeaderSummary" xml:space="preserve">
+    <value>Summary: Critical {0}, Error {1}, Warning {2}, Info {3}, Debug {4}</value>
+  </data>
+  <data name="Log_HeaderTitle" xml:space="preserve">
+    <value>Diagnostic Log</value>
+  </data>
+  <data name="Log_LanguageEnglish" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Log_Level_Critical" xml:space="preserve">
+    <value>Critical</value>
+  </data>
+  <data name="Log_Level_Debug" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="Log_Level_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Log_Level_Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Log_Level_Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="Log_SaveFailed_Message" xml:space="preserve">
+    <value>Failed to save the log:
+{0}</value>
+  </data>
+  <data name="Log_SaveFailed_Title" xml:space="preserve">
+    <value>Failed to Save Log</value>
+  </data>
+  <data name="Log_Saved_Message" xml:space="preserve">
+    <value>The log has been saved to:
+{0}</value>
+  </data>
+  <data name="Log_Saved_Title" xml:space="preserve">
+    <value>Log Saved</value>
+  </data>
+  <data name="Log_SectionHeading" xml:space="preserve">
+    <value>## {0}</value>
+  </data>
+  <data name="MainWindow_SaveLogButton" xml:space="preserve">
+    <value>Save Log</value>
+  </data>
+  <data name="MainWindow_SaveLogCurrentLanguageButton" xml:space="preserve">
+    <value>Save Log (Current Language)</value>
+  </data>
+  <data name="MainWindow_SaveLogEnglishButton" xml:space="preserve">
+    <value>Save Log (English)</value>
+  </data>
+  <data name="Localization_IsNeutralCulture" xml:space="preserve">
+    <value>Please manually change this value to False when translating this file. Anything other than False is treated as the neutral (English) resources.</value>
+  </data>
 </root>

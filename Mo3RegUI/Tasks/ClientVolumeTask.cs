@@ -11,7 +11,7 @@ namespace Mo3RegUI.Tasks
     public class ClientVolumeTask : ITask
     {
         // ClientVolumeTask_Description: Check Volume
-        public string Description => TextResource.ClientVolumeTask_Description;
+        public string DescriptionResourceKey => nameof(TextResource.ClientVolumeTask_Description);
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)

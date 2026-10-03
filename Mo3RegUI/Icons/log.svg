@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Icon for the "Save Log" buttons. The canvas stays square so that the button keeps a
+  1:1 icon, and it is cropped vertically to the drawing's bounding box, stroke
+  included, so that the glyph fills the full height and leaves no top or bottom
+  padding. The glyph itself is narrow, so the leftover space is split evenly between
+  the two sides. The WPF build uses log.png, which is this file rendered from that
+  viewBox. Keep both files in sync when editing.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="20.2" height="20.2" viewBox="2.4 1.9 20.2 20.2">
+  <g fill="none" stroke="#24292F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <!-- page with a folded top-right corner -->
+    <path d="M6.25 2.75h7.25L18.75 8v13.25H6.25z"/>
+    <path d="M13.5 2.75V8h5.25"/>
+    <!-- text lines -->
+    <path d="M9 12.5h6.5"/>
+    <path d="M9 15.75h6.5"/>
+    <path d="M9 19h4"/>
+  </g>
+</svg>

@@ -11,7 +11,7 @@ namespace Mo3RegUI.Tasks
     public class DirectXRuntimeTask : ITask
     {
         // DirectXRuntimeTask_Description: Check DirectX Runtime (June 2010)
-        public string Description => TextResource.DirectXRuntimeTask_Description;
+        public string DescriptionResourceKey => nameof(TextResource.DirectXRuntimeTask_Description);
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -51,7 +51,7 @@ namespace Mo3RegUI.Tasks
                     if (!File.Exists(Path.Combine(sysFolder, dllName)))
                     {
                         // DirectXRuntimeTask_NotInstalled: DirectX runtime components are not installed. File {0} not found. Please install DirectX End-User Runtimes (June 2010).
-                        throw new Exception(string.Format(TextResource.DirectXRuntimeTask_NotInstalled, dllName));
+                        throw new LocalizedException(LocalizedText.FromResource(nameof(TextResource.DirectXRuntimeTask_NotInstalled), dllName));
                     }
                 }
             }

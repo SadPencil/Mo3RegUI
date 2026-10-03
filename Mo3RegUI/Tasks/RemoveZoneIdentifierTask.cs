@@ -14,7 +14,7 @@ namespace Mo3RegUI.Tasks
     public class RemoveZoneIdentifierTask : ITask
     {
         // RemoveZoneIdentifierTask_Description: Unblock Downloaded Files
-        public string Description => TextResource.RemoveZoneIdentifierTask_Description;
+        public string DescriptionResourceKey => nameof(TextResource.RemoveZoneIdentifierTask_Description);
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -61,7 +61,7 @@ namespace Mo3RegUI.Tasks
                 {
                     Level = MessageLevel.Warning,
                     // RemoveZoneIdentifierTask_FailedFiles: Failed to unblock the following files: ...
-                    Text = string.Format(TextResource.RemoveZoneIdentifierTask_FailedFiles, string.Join("\n", failedFiles)),
+                    Text = LocalizedText.FromResource(nameof(TextResource.RemoveZoneIdentifierTask_FailedFiles), string.Join("\n", failedFiles)),
                 });
             }
 
@@ -71,7 +71,7 @@ namespace Mo3RegUI.Tasks
                 {
                     Level = MessageLevel.Warning,
                     // RemoveZoneIdentifierTask_FailedDirectories: Failed to scan the following directories: ...
-                    Text = string.Format(TextResource.RemoveZoneIdentifierTask_FailedDirectories, string.Join("\n", failedDirectories)),
+                    Text = LocalizedText.FromResource(nameof(TextResource.RemoveZoneIdentifierTask_FailedDirectories), string.Join("\n", failedDirectories)),
                 });
             }
 
@@ -81,7 +81,7 @@ namespace Mo3RegUI.Tasks
                 {
                     Level = MessageLevel.Info,
                     // RemoveZoneIdentifierTask_Unblocked: Unblocked {0} file(s) marked as downloaded from the Internet.
-                    Text = string.Format(TextResource.RemoveZoneIdentifierTask_Unblocked, unblockedCount),
+                    Text = LocalizedText.FromResource(nameof(TextResource.RemoveZoneIdentifierTask_Unblocked), unblockedCount),
                 });
             }
             else if (failedFiles.Count == 0 && failedDirectories.Count == 0)
@@ -90,7 +90,7 @@ namespace Mo3RegUI.Tasks
                 {
                     Level = MessageLevel.Info,
                     // RemoveZoneIdentifierTask_NoBlockedFiles: No files are marked as downloaded from the Internet. No action required.
-                    Text = TextResource.RemoveZoneIdentifierTask_NoBlockedFiles,
+                    Text = LocalizedText.FromResource(nameof(TextResource.RemoveZoneIdentifierTask_NoBlockedFiles)),
                 });
             }
         }
