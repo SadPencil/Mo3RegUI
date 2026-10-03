@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 
 namespace Mo3RegUI.Tasks
 {
@@ -64,6 +66,7 @@ namespace Mo3RegUI.Tasks
 
                 worker.DoWork += (object worker_sender, DoWorkEventArgs worker_e) =>
                 {
+                    Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
                     task.Task.ReportMessage += (task_sender, task_e) =>
                     {
                         worker.ReportProgress(0, task_e);
