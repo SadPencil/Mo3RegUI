@@ -207,6 +207,21 @@
   <data name="ForegroundLockTimeoutTask_FixedTimeout" xml:space="preserve">
     <value>Исправлено успешно. Время ожидания блокировки переднего плана установлено на {0} миллисекунд.</value>
   </data>
+  <data name="LongPathAwarenessTask_OsVersionTooLow" xml:space="preserve">
+    <value>Поддержка длинных путей требует Windows 10 версии 1607 или более поздней; текущая версия системы слишком стара, чтобы её включить. Пользовательские карты, загруженные клиентом, могут сохраняться по путям, превышающим ограничение длины пути Windows, и игра может не суметь их прочитать.</value>
+  </data>
+  <data name="LongPathAwarenessTask_AlreadyEnabled" xml:space="preserve">
+    <value>Поддержка длинных путей включена. Никаких действий не требуется.</value>
+  </data>
+  <data name="LongPathAwarenessTask_Disabled" xml:space="preserve">
+    <value>Поддержка длинных путей не включена. Пользовательские карты, загруженные клиентом, могут сохраняться по путям, превышающим ограничение длины пути Windows, из-за чего игра может не суметь их прочитать. Включение поддержки длинных путей...</value>
+  </data>
+  <data name="LongPathAwarenessTask_RegistryKeyUnavailable" xml:space="preserve">
+    <value>Не удалось открыть раздел реестра, отвечающий за поддержку длинных путей.</value>
+  </data>
+  <data name="LongPathAwarenessTask_Fixed" xml:space="preserve">
+    <value>Исправлено успешно. Поддержка длинных путей включена. Перезагрузите компьютер, чтобы изменения вступили в силу.</value>
+  </data>
   <data name="NetworkInterfaceTask_Description" xml:space="preserve">
     <value>Проверка настроек сетевого окружения</value>
   </data>
@@ -263,6 +278,23 @@
   </data>
   <data name="RemoveObsoleteFilesTask_Description" xml:space="preserve">
     <value>Удаление устаревших файлов</value>
+  </data>
+  <data name="RemoveZoneIdentifierTask_Description" xml:space="preserve">
+    <value>Разблокировка загруженных файлов</value>
+  </data>
+  <data name="RemoveZoneIdentifierTask_NoBlockedFiles" xml:space="preserve">
+    <value>Нет файлов, помеченных как загруженные из Интернета. Никаких действий не требуется.</value>
+  </data>
+  <data name="RemoveZoneIdentifierTask_Unblocked" xml:space="preserve">
+    <value>Разблокировано файлов, помеченных как загруженные из Интернета: {0}.</value>
+  </data>
+  <data name="RemoveZoneIdentifierTask_FailedFiles" xml:space="preserve">
+    <value>Не удалось разблокировать следующие файлы:
+{0}</value>
+  </data>
+  <data name="RemoveZoneIdentifierTask_FailedDirectories" xml:space="preserve">
+    <value>Не удалось просканировать следующие каталоги:
+{0}</value>
   </data>
   <data name="RendererTask_Description" xml:space="preserve">
     <value>Установка отрисовщика</value>
@@ -357,5 +389,70 @@
   </data>
   <data name="MainWindow_MessagesCount" xml:space="preserve">
     <value> сообщения</value>
+  </data>
+  <data name="Log_FileDialogFilter" xml:space="preserve">
+    <value>Файлы Markdown (*.md)|*.md|Все файлы (*.*)|*.*</value>
+  </data>
+  <data name="Log_HeaderGeneratedAt" xml:space="preserve">
+    <value>Создано (UTC): {0}</value>
+  </data>
+  <data name="Log_HeaderGameDirectory" xml:space="preserve">
+    <value>Каталог игры: {0}</value>
+  </data>
+  <data name="Log_HeaderLanguage" xml:space="preserve">
+    <value>Язык журнала: {0}</value>
+  </data>
+  <data name="Log_HeaderSummary" xml:space="preserve">
+    <value>Итого: критические — {0}, ошибки — {1}, предупреждения — {2}, сведения — {3}, отладка — {4}</value>
+  </data>
+  <data name="Log_HeaderTitle" xml:space="preserve">
+    <value>Диагностический журнал</value>
+  </data>
+  <data name="Log_LanguageEnglish" xml:space="preserve">
+    <value>английский</value>
+  </data>
+  <data name="Log_Level_Critical" xml:space="preserve">
+    <value>Критическая ошибка</value>
+  </data>
+  <data name="Log_Level_Debug" xml:space="preserve">
+    <value>Отладка</value>
+  </data>
+  <data name="Log_Level_Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Log_Level_Info" xml:space="preserve">
+    <value>Сведения</value>
+  </data>
+  <data name="Log_Level_Warning" xml:space="preserve">
+    <value>Предупреждение</value>
+  </data>
+  <data name="Log_SaveFailed_Message" xml:space="preserve">
+    <value>Не удалось сохранить журнал:
+{0}</value>
+  </data>
+  <data name="Log_SaveFailed_Title" xml:space="preserve">
+    <value>Не удалось сохранить журнал</value>
+  </data>
+  <data name="Log_Saved_Message" xml:space="preserve">
+    <value>Журнал сохранён в:
+{0}</value>
+  </data>
+  <data name="Log_Saved_Title" xml:space="preserve">
+    <value>Журнал сохранён</value>
+  </data>
+  <data name="Log_SectionHeading" xml:space="preserve">
+    <value>## {0}</value>
+  </data>
+  <data name="MainWindow_SaveLogButton" xml:space="preserve">
+    <value>Сохранить журнал</value>
+  </data>
+  <data name="MainWindow_SaveLogCurrentLanguageButton" xml:space="preserve">
+    <value>Сохранить журнал (текущий язык)</value>
+  </data>
+  <data name="MainWindow_SaveLogEnglishButton" xml:space="preserve">
+    <value>Сохранить журнал (английский)</value>
+  </data>
+  <data name="Localization_IsNeutralCulture" xml:space="preserve">
+    <value>False</value>
   </data>
 </root>

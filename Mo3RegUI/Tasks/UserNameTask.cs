@@ -14,7 +14,7 @@ namespace Mo3RegUI.Tasks
     public class UserNameTask : ITask
     {
         // UserNameTask_Description: Set Game Username
-        public string Description => TextResource.UserNameTask_Description;
+        public string DescriptionResourceKey => nameof(TextResource.UserNameTask_Description);
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -48,7 +48,7 @@ namespace Mo3RegUI.Tasks
                         {
                             Level = MessageLevel.Warning,
                             // UserNameTask_NonAsciiUsername: Note: The current player nickname "{0}" contains non-ASCII characters. ...
-                            Text = string.Format(TextResource.UserNameTask_NonAsciiUsername, username),
+                            Text = LocalizedText.FromResource(nameof(TextResource.UserNameTask_NonAsciiUsername), username),
                         });
                     }
 
@@ -68,7 +68,7 @@ namespace Mo3RegUI.Tasks
                     {
                         Level = MessageLevel.Info,
                         // UserNameTask_SetUsername: Setting player nickname to "{0}".
-                        Text = string.Format(TextResource.UserNameTask_SetUsername, username),
+                        Text = LocalizedText.FromResource(nameof(TextResource.UserNameTask_SetUsername), username),
                     });
                 });
             }

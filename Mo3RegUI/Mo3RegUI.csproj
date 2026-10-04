@@ -43,7 +43,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ApplicationIcon>Icons\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>Mo3RegUI.App</StartupObject>
@@ -83,7 +83,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TextResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Localization.cs" />
     <Compile Include="Locks.cs" />
+    <Compile Include="LogExporter.cs" />
     <Compile Include="MessageItemViewModel.cs" />
     <Compile Include="MessageLevelToBrushConverter.cs" />
     <Compile Include="MessageLevelToFontWeightConverter.cs" />
@@ -94,6 +96,7 @@
     <Compile Include="Tasks\ForegroundLockTimeoutTask.cs" />
     <Compile Include="Tasks\ProcessMitigationTask.cs" />
     <Compile Include="Tasks\RemoveObsoleteFilesTask.cs" />
+    <Compile Include="Tasks\RemoveZoneIdentifierTask.cs" />
     <Compile Include="ScreenResolution.cs" />
     <Compile Include="Tasks\SpeakerNumTask.cs" />
     <Compile Include="Tasks\TaskCompletedEventArgs.cs" />
@@ -106,6 +109,8 @@
     <Compile Include="Tasks\ClientVolumeTask.cs" />
     <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Tasks\ITaskParameter.cs" />
+    <Compile Include="Tasks\LocalizedException.cs" />
+    <Compile Include="Tasks\LocalizedText.cs" />
     <Compile Include="Tasks\MessageLevel.cs" />
     <Compile Include="Tasks\NetworkInterfaceTask.cs" />
     <Compile Include="Tasks\PathCheckTask.cs" />
@@ -159,6 +164,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.manifest" />
+    <None Include="Icons\log.svg" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -166,11 +172,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icon.ico" />
+    <Resource Include="Icons\icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="github-mark.png" />
-    <Resource Include="soviet.png" />
+    <Resource Include="Icons\github-mark.png" />
+    <Resource Include="Icons\log.png" />
+    <Resource Include="Icons\soviet.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />

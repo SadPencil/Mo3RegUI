@@ -13,7 +13,7 @@ namespace Mo3RegUI.Tasks
     public class ResolutionTask : ITask
     {
         // ResolutionTask_Description: Set Resolution
-        public string Description => TextResource.ResolutionTask_Description;
+        public string DescriptionResourceKey => nameof(TextResource.ResolutionTask_Description);
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -28,7 +28,7 @@ namespace Mo3RegUI.Tasks
         {
             var hostResolution = ScreenResolution.GetDesktopScreenResolution();
             // ResolutionTask_DesktopResolution: Desktop resolution detected: {0}×{1}.
-            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = string.Format(TextResource.ResolutionTask_DesktopResolution, hostResolution.Width, hostResolution.Height) });
+            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = LocalizedText.FromResource(nameof(TextResource.ResolutionTask_DesktopResolution), hostResolution.Width, hostResolution.Height) });
 
             ScreenResolution maxResolution = "1920x1200";
             ScreenResolution fallbackResolutionIfTooLarge = "1920x1080";
@@ -48,7 +48,7 @@ namespace Mo3RegUI.Tasks
                 });
             }
             // ResolutionTask_SetGameResolution: Game resolution set to {0}×{1}.
-            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = string.Format(TextResource.ResolutionTask_SetGameResolution, finalResolution.Width, finalResolution.Height) });
+            ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = LocalizedText.FromResource(nameof(TextResource.ResolutionTask_SetGameResolution), finalResolution.Width, finalResolution.Height) });
         }
     }
 }
