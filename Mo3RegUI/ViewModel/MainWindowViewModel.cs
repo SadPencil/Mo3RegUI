@@ -1,7 +1,7 @@
 using Mo3RegUI.LocalizationResources;
-using Mo3RegUI.MVVMContract;
-using Mo3RegUI.MVVMContract.Mvvm;
-using Mo3RegUI.MVVMContract.ViewServices;
+using Mo3RegUI.MvvmContract;
+using Mo3RegUI.MvvmContract.Mvvm;
+using Mo3RegUI.MvvmContract.ViewServices;
 using Mo3RegUI.ViewModel.Tasks;
 using System;
 using System.Collections.Generic;
@@ -22,7 +22,7 @@ namespace Mo3RegUI.ViewModel
     /// the window closes while tasks are still running.
     /// The View is injected with this type only through <see cref="IMainWindowViewModel"/>, and
     /// everything it needs from the View is reached through the interfaces in
-    /// <c>Mo3RegUI.MVVMContract.ViewServices</c>.
+    /// <c>Mo3RegUI.MvvmContract.ViewServices</c>.
     /// </summary>
     public class MainWindowViewModel : ObservableObject, IMainWindowViewModel
     {

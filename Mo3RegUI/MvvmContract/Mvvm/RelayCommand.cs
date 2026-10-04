@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Input;
 
-namespace Mo3RegUI.MVVMContract.Mvvm
+namespace Mo3RegUI.MvvmContract.Mvvm
 {
     /// <summary>
     /// An <see cref="ICommand"/> whose <see cref="CanExecuteChanged"/> can be raised by the

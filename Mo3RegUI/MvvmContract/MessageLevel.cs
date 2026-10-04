@@ -1,4 +1,4 @@
-﻿namespace Mo3RegUI.MVVMContract
+﻿namespace Mo3RegUI.MvvmContract
 {
     public enum MessageLevel
     {

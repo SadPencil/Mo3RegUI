@@ -1,4 +1,4 @@
-﻿using Mo3RegUI.MVVMContract;
+﻿using Mo3RegUI.MvvmContract;
 using Microsoft.Win32;
 using Mo3RegUI.LocalizationResources;
 using System;

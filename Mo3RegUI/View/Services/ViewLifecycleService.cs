@@ -1,4 +1,4 @@
-using Mo3RegUI.MVVMContract.ViewServices;
+using Mo3RegUI.MvvmContract.ViewServices;
 using System;
 using System.ComponentModel;
 using System.Windows;

@@ -1,4 +1,4 @@
-namespace Mo3RegUI.MVVMContract.ViewServices
+namespace Mo3RegUI.MvvmContract.ViewServices
 {
     /// <summary>
     /// Opens a URL in the user's default browser. The process launch is a platform concern and

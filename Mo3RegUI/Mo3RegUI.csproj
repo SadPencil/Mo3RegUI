@@ -81,16 +81,16 @@
       <SubType>Code</SubType>
     </Compile>
 
-    <!-- MVVMContract: the only assembly surface the View and the ViewModel may share. -->
-    <Compile Include="MVVMContract\Constants.cs" />
-    <Compile Include="MVVMContract\IMessageItem.cs" />
-    <Compile Include="MVVMContract\IMainWindowViewModel.cs" />
-    <Compile Include="MVVMContract\MessageLevel.cs" />
-    <Compile Include="MVVMContract\Mvvm\ObservableObject.cs" />
-    <Compile Include="MVVMContract\Mvvm\RelayCommand.cs" />
-    <Compile Include="MVVMContract\ViewServices\IDialogService.cs" />
-    <Compile Include="MVVMContract\ViewServices\IUrlService.cs" />
-    <Compile Include="MVVMContract\ViewServices\IViewLifecycleService.cs" />
+    <!-- MvvmContract: the only assembly surface the View and the ViewModel may share. -->
+    <Compile Include="MvvmContract\Constants.cs" />
+    <Compile Include="MvvmContract\IMessageItem.cs" />
+    <Compile Include="MvvmContract\IMainWindowViewModel.cs" />
+    <Compile Include="MvvmContract\MessageLevel.cs" />
+    <Compile Include="MvvmContract\Mvvm\ObservableObject.cs" />
+    <Compile Include="MvvmContract\Mvvm\RelayCommand.cs" />
+    <Compile Include="MvvmContract\ViewServices\IDialogService.cs" />
+    <Compile Include="MvvmContract\ViewServices\IUrlService.cs" />
+    <Compile Include="MvvmContract\ViewServices\IViewLifecycleService.cs" />
 
     <!-- ViewModel: all application logic and the tasks. -->
     <Compile Include="ViewModel\Localization.cs" />

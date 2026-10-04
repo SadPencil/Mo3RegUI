@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 
-namespace Mo3RegUI.MVVMContract
+namespace Mo3RegUI.MvvmContract
 {
     /// <summary>
     /// Everything the main window is allowed to know about its ViewModel. The View binds to the

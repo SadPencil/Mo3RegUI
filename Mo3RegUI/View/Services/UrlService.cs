@@ -1,4 +1,4 @@
-using Mo3RegUI.MVVMContract.ViewServices;
+using Mo3RegUI.MvvmContract.ViewServices;
 using System.Diagnostics;
 
 namespace Mo3RegUI.View.Services

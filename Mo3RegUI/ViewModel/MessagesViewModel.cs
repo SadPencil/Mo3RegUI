@@ -1,4 +1,4 @@
-using Mo3RegUI.MVVMContract;
+using Mo3RegUI.MvvmContract;
 using System.Collections.ObjectModel;
 
 namespace Mo3RegUI.ViewModel

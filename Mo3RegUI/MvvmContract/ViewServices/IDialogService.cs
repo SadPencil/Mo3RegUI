@@ -1,4 +1,4 @@
-namespace Mo3RegUI.MVVMContract.ViewServices
+namespace Mo3RegUI.MvvmContract.ViewServices
 {
     /// <summary>
     /// The dialogs a ViewModel may ask for. The ViewModel never touches a WPF dialog itself; it

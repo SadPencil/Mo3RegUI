@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Mo3RegUI.MVVMContract.Mvvm
+namespace Mo3RegUI.MvvmContract.Mvvm
 {
     /// <summary>
     /// Minimal <see cref="INotifyPropertyChanged"/> base class for ViewModels.

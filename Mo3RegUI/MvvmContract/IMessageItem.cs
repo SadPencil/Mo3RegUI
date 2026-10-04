@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace Mo3RegUI.MVVMContract
+namespace Mo3RegUI.MvvmContract
 {
     /// <summary>
     /// One line in the message list, as far as the View is concerned. The concrete item lives in

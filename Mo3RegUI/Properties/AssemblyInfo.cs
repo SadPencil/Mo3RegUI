@@ -1,4 +1,4 @@
-using Mo3RegUI.MVVMContract;
+using Mo3RegUI.MvvmContract;
 using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;

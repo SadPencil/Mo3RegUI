@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Mo3RegUI.MVVMContract.ViewServices
+namespace Mo3RegUI.MvvmContract.ViewServices
 {
     /// <summary>
     /// Notifies the ViewModel about window lifecycle events and lets it shut the application

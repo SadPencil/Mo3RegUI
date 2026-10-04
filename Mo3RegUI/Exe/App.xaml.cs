@@ -1,4 +1,4 @@
-using Mo3RegUI.MVVMContract;
+using Mo3RegUI.MvvmContract;
 using Mo3RegUI.View;
 using Mo3RegUI.View.Services;
 using Mo3RegUI.ViewModel;

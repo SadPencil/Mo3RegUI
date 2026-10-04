@@ -1,6 +1,6 @@
 ﻿using Mo3RegUI.LocalizationResources;
 
-namespace Mo3RegUI.MVVMContract
+namespace Mo3RegUI.MvvmContract
 {
     public static class Constants
     {
