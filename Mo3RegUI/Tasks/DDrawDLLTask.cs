@@ -11,7 +11,7 @@ namespace Mo3RegUI.Tasks
     public class DDrawDLLTask : ITask
     {
         // DDrawDLLTask_Description: Check Renderer Registry Entry
-        public string Description => TextResource.DDrawDLLTask_Description;
+        public string DescriptionResourceKey => nameof(TextResource.DDrawDLLTask_Description);
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -32,12 +32,12 @@ namespace Mo3RegUI.Tasks
                 if (dllItem is not null)
                 {
                     // DDrawDLLTask_RegistryEntryAbnormal: {0} registry entry is abnormal. {0} should not be in KnownDLLs.
-                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = string.Format(TextResource.DDrawDLLTask_RegistryEntryAbnormal, dllName) });
+                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = LocalizedText.FromResource(nameof(TextResource.DDrawDLLTask_RegistryEntryAbnormal), dllName) });
                 }
                 else
                 {
                     // DDrawDLLTask_RegistryEntryNormal: {0} registry entry is normal.
-                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = string.Format(TextResource.DDrawDLLTask_RegistryEntryNormal, dllName) });
+                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = LocalizedText.FromResource(nameof(TextResource.DDrawDLLTask_RegistryEntryNormal), dllName) });
                 }
             }
             using (var registryKey = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Session Manager", true))
@@ -54,7 +54,7 @@ namespace Mo3RegUI.Tasks
                 if (exclusiveDllsKind != RegistryValueKind.MultiString)
                 {
                     // DDrawDLLTask_ExcludeFromKnownDllsWrongType: ExcludeFromKnownDlls should be of type {0}, but is actually of type {1}.
-                    throw new Exception(string.Format(TextResource.DDrawDLLTask_ExcludeFromKnownDllsWrongType, RegistryValueKind.MultiString, exclusiveDllsKind));
+                    throw new LocalizedException(LocalizedText.FromResource(nameof(TextResource.DDrawDLLTask_ExcludeFromKnownDllsWrongType), RegistryValueKind.MultiString, exclusiveDllsKind));
                 }
 
                 var exclusiveDllsArray = (exclusiveDlls as string[]).ToList();
@@ -65,7 +65,7 @@ namespace Mo3RegUI.Tasks
 
                 registryKey.SetValue(keyName, exclusiveDllsArray.ToArray(), RegistryValueKind.MultiString);
                 // DDrawDLLTask_AddedToExcludeFromKnownDlls: Successfully added {0} to ExcludeFromKnownDlls.
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = string.Format(TextResource.DDrawDLLTask_AddedToExcludeFromKnownDlls, dllName) });
+                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = LocalizedText.FromResource(nameof(TextResource.DDrawDLLTask_AddedToExcludeFromKnownDlls), dllName) });
             }
         }
     }

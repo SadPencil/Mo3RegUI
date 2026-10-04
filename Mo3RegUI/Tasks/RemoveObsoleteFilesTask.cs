@@ -11,7 +11,7 @@ namespace Mo3RegUI.Tasks
     public class RemoveObsoleteFilesTask : ITask
     {
         // RemoveObsoleteFilesTask_Description: Remove Obsolete Files
-        public string Description => TextResource.RemoveObsoleteFilesTask_Description;
+        public string DescriptionResourceKey => nameof(TextResource.RemoveObsoleteFilesTask_Description);
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -36,7 +36,8 @@ namespace Mo3RegUI.Tasks
                     }
                     catch (Exception ex)
                     {
-                        ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Error, Text = ex.Message });
+                        // ex.Message comes from the file system and is not translatable.
+                        ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Error, Text = LocalizedText.FromLiteral(ex.Message) });
                     }
                 }
             }

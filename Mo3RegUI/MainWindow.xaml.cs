@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
+using System.Text;
 using System.Windows;
 
 namespace Mo3RegUI
@@ -15,9 +17,17 @@ namespace Mo3RegUI
         {
             this.InitializeComponent();
             this.Messages = this.DataContext as MessagesViewModel;
+            this.SetupSaveLogButtons();
+            this.UpdateSaveLogButtonsEnabled();
         }
 
         public readonly MessagesViewModel Messages;
+
+        /// <summary>
+        /// The directory the program runs from, which is also the game directory. Captured once
+        /// so that the exported log can mention it.
+        /// </summary>
+        private readonly string gameDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
         private class MainWorkerProgressReport
         {
@@ -31,7 +41,7 @@ namespace Mo3RegUI
         private void Window_Initialized(object sender, EventArgs e)
         {
             // Run tasks
-            string gameDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string gameDir = this.gameDir;
 
             // Ensure the program runs at the game folder
 #if !DEBUG
@@ -99,12 +109,13 @@ namespace Mo3RegUI
             this.mainTaskManager = new TaskManager(tasks);
             this.mainTaskManager.ReportMessage += (task_sender, task_e) =>
             {
-                string desc = (task_sender as ITask).Description;
-                this.Messages.Add(new MessageItemViewModel(category: desc, level: task_e.Level, text: task_e.Text));
+                string categoryResourceKey = (task_sender as ITask).DescriptionResourceKey;
+                this.Messages.Add(new MessageItemViewModel(categoryResourceKey: categoryResourceKey, level: task_e.Level, text: task_e.Text));
             };
             this.mainTaskManager.TaskCompleted += (manager_sender, task_e) =>
             {
                 int waitCount = (manager_sender as TaskManager).WaitCount;
+                this.UpdateSaveLogButtonsEnabled();
 
                 if (waitCount == 0)
                 {
@@ -120,6 +131,7 @@ namespace Mo3RegUI
                 }
             };
             this.mainTaskManager.RunAsync();
+            this.UpdateSaveLogButtonsEnabled();
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -145,6 +157,94 @@ namespace Mo3RegUI
                 StartInfo = new ProcessStartInfo(Constants.RepoUri)
             };
             _ = process.Start();
+        }
+
+        /// <summary>
+        /// A UI that is already served by the neutral (English) resources needs a single button
+        /// because both logs would be identical. Every other UI language offers an English log
+        /// next to the one in the current language, since a support request is usually read in
+        /// English.
+        /// </summary>
+        private void SetupSaveLogButtons()
+        {
+            bool isNeutral = Localization.IsCurrentCultureNeutral;
+            this.SaveLogButton.Visibility = isNeutral ? Visibility.Visible : Visibility.Collapsed;
+            this.SaveLogEnglishButton.Visibility = isNeutral ? Visibility.Collapsed : Visibility.Visible;
+            this.SaveLogCurrentLanguageButton.Visibility = isNeutral ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Whether every task has finished. The log may only be saved afterwards, otherwise it
+        /// would quietly miss the messages of the tasks that are still running.
+        /// </summary>
+        private bool IsExecutionComplete => this.mainTaskManager is not null && this.mainTaskManager.WaitCount == 0;
+
+        /// <summary>
+        /// Keeps the save buttons enabled only once every task has finished. Starting disabled is
+        /// deliberate: the buttons must never produce an incomplete log.
+        /// </summary>
+        private void UpdateSaveLogButtonsEnabled()
+        {
+            bool enabled = this.IsExecutionComplete;
+            this.SaveLogButton.IsEnabled = enabled;
+            this.SaveLogEnglishButton.IsEnabled = enabled;
+            this.SaveLogCurrentLanguageButton.IsEnabled = enabled;
+        }
+
+        private void SaveLogButton_Click(object sender, RoutedEventArgs e) =>
+            this.SaveLog(Localization.EnglishCulture);
+
+        private void SaveLogEnglishButton_Click(object sender, RoutedEventArgs e) =>
+            this.SaveLog(Localization.EnglishCulture);
+
+        private void SaveLogCurrentLanguageButton_Click(object sender, RoutedEventArgs e) =>
+            this.SaveLog(Localization.CurrentUICulture);
+
+        /// <summary>
+        /// Writes every message collected so far to a text file in <paramref name="culture"/>.
+        /// The text is built after the dialog closes so that messages produced while it was open
+        /// are included as well.
+        /// </summary>
+        private void SaveLog(CultureInfo culture)
+        {
+            if (!this.IsExecutionComplete)
+            {
+                throw new InvalidOperationException("The log cannot be saved before every task has finished; the save buttons stay disabled until then.");
+            }
+
+            var dialog = new Microsoft.Win32.SaveFileDialog()
+            {
+                Title = Localization.GetString(nameof(TextResource.MainWindow_SaveLogButton), Localization.CurrentUICulture),
+                Filter = Localization.GetString(nameof(TextResource.Log_FileDialogFilter), Localization.CurrentUICulture),
+                DefaultExt = ".md",
+                FileName = LogExporter.GetDefaultFileName(culture),
+                OverwritePrompt = true,
+            };
+
+            if (dialog.ShowDialog(this) != true)
+            {
+                return;
+            }
+
+            try
+            {
+                string text = LogExporter.BuildLogText(this.Messages, culture, this.gameDir);
+                // UTF-8 with a byte order mark so that Windows editors detect non-ASCII messages.
+                File.WriteAllText(dialog.FileName, text, new UTF8Encoding(encoderShouldEmitUTF8Identifier: true));
+            }
+            catch (Exception ex)
+            {
+                _ = MessageBox.Show(this,
+                    string.Format(Localization.GetString(nameof(TextResource.Log_SaveFailed_Message), Localization.CurrentUICulture), ex.Message),
+                    Localization.GetString(nameof(TextResource.Log_SaveFailed_Title), Localization.CurrentUICulture),
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            _ = MessageBox.Show(this,
+                string.Format(Localization.GetString(nameof(TextResource.Log_Saved_Message), Localization.CurrentUICulture), dialog.FileName),
+                Localization.GetString(nameof(TextResource.Log_Saved_Title), Localization.CurrentUICulture),
+                MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 

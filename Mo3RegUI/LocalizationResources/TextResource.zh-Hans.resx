@@ -390,4 +390,69 @@
   <data name="MainWindow_MessagesCount" xml:space="preserve">
     <value> 条消息</value>
   </data>
+  <data name="Log_FileDialogFilter" xml:space="preserve">
+    <value>Markdown 文件 (*.md)|*.md|所有文件 (*.*)|*.*</value>
+  </data>
+  <data name="Log_HeaderGeneratedAt" xml:space="preserve">
+    <value>生成时间（UTC）：{0}</value>
+  </data>
+  <data name="Log_HeaderGameDirectory" xml:space="preserve">
+    <value>游戏目录：{0}</value>
+  </data>
+  <data name="Log_HeaderLanguage" xml:space="preserve">
+    <value>日志语言：{0}</value>
+  </data>
+  <data name="Log_HeaderSummary" xml:space="preserve">
+    <value>统计：严重 {0}，错误 {1}，警告 {2}，提示 {3}，调试 {4}</value>
+  </data>
+  <data name="Log_HeaderTitle" xml:space="preserve">
+    <value>诊断日志</value>
+  </data>
+  <data name="Log_LanguageEnglish" xml:space="preserve">
+    <value>英文</value>
+  </data>
+  <data name="Log_Level_Critical" xml:space="preserve">
+    <value>严重</value>
+  </data>
+  <data name="Log_Level_Debug" xml:space="preserve">
+    <value>调试</value>
+  </data>
+  <data name="Log_Level_Error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="Log_Level_Info" xml:space="preserve">
+    <value>提示</value>
+  </data>
+  <data name="Log_Level_Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="Log_SaveFailed_Message" xml:space="preserve">
+    <value>保存日志失败：
+{0}</value>
+  </data>
+  <data name="Log_SaveFailed_Title" xml:space="preserve">
+    <value>保存日志失败</value>
+  </data>
+  <data name="Log_Saved_Message" xml:space="preserve">
+    <value>日志已保存到：
+{0}</value>
+  </data>
+  <data name="Log_Saved_Title" xml:space="preserve">
+    <value>日志已保存</value>
+  </data>
+  <data name="Log_SectionHeading" xml:space="preserve">
+    <value>## {0}</value>
+  </data>
+  <data name="MainWindow_SaveLogButton" xml:space="preserve">
+    <value>保存日志</value>
+  </data>
+  <data name="MainWindow_SaveLogCurrentLanguageButton" xml:space="preserve">
+    <value>保存日志（当前语言）</value>
+  </data>
+  <data name="MainWindow_SaveLogEnglishButton" xml:space="preserve">
+    <value>保存日志（英文）</value>
+  </data>
+  <data name="Localization_IsNeutralCulture" xml:space="preserve">
+    <value>False</value>
+  </data>
 </root>

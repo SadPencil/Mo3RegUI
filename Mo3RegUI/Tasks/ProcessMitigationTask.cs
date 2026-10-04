@@ -11,7 +11,7 @@ namespace Mo3RegUI
     public class ProcessMitigationTask : ITask
     {
         // ProcessMitigationTask_Description: Disable Mandatory Image Virtualization
-        public string Description => TextResource.ProcessMitigationTask_Description;
+        public string DescriptionResourceKey => nameof(TextResource.ProcessMitigationTask_Description);
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -30,7 +30,7 @@ namespace Mo3RegUI
                 ReportMessage(this, new TaskMessageEventArgs()
                 {
                     Level = MessageLevel.Info,
-                    Text = TextResource.Task_OsVersionTooLow_NoFeature,
+                    Text = LocalizedText.FromResource(nameof(TextResource.Task_OsVersionTooLow_NoFeature)),
                 });
                 return;
             }
@@ -41,12 +41,14 @@ namespace Mo3RegUI
 
                 if (!string.IsNullOrWhiteSpace(stdOut))
                 {
-                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = stdOut.Trim() });
+                    // External command output; not translatable.
+                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Info, Text = LocalizedText.FromLiteral(stdOut.Trim()) });
                 }
 
                 if (!string.IsNullOrWhiteSpace(stdErr))
                 {
-                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = stdErr.Trim() });
+                    // External command output; not translatable.
+                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = LocalizedText.FromLiteral(stdErr.Trim()) });
                 }
 
                 hasASLRTurnedOffForGamemd = exitCode == 0;
@@ -60,14 +62,18 @@ namespace Mo3RegUI
 
                 if (!string.IsNullOrWhiteSpace(stdErr))
                 {
-                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = stdErr.Trim() });
+                    // External command output; not translatable.
+                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Warning, Text = LocalizedText.FromLiteral(stdErr.Trim()) });
                 }
 
                 if (exitCode != 0)
                 {
                     // Task_ProcessExitCodeFailure: Process returned exit code {0}. Execution failed.
-                    string message = string.Format(TextResource.Task_ProcessExitCodeFailure, exitCode);
-                    ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Error, Text = message });
+                    ReportMessage(this, new TaskMessageEventArgs()
+                    {
+                        Level = MessageLevel.Error,
+                        Text = LocalizedText.FromResource(nameof(TextResource.Task_ProcessExitCodeFailure), exitCode),
+                    });
                 }
 
                 bool stdOutIsNumeric = int.TryParse(stdOut.Trim(), out int stdOutInt);
@@ -79,7 +85,7 @@ namespace Mo3RegUI
                         ReportMessage(this, new TaskMessageEventArgs()
                         {
                             Level = MessageLevel.Info,
-                            Text = string.Format(TextResource.ProcessMitigationTask_AslrDefaultOnSuccessfullyDisabled, Constants.GameExeName),
+                            Text = LocalizedText.FromResource(nameof(TextResource.ProcessMitigationTask_AslrDefaultOnSuccessfullyDisabled), Constants.GameExeName),
                         });
                     }
                     else
@@ -88,7 +94,7 @@ namespace Mo3RegUI
                         ReportMessage(this, new TaskMessageEventArgs()
                         {
                             Level = MessageLevel.Warning,
-                            Text = string.Format(TextResource.ProcessMitigationTask_AslrDefaultOnFailedToDisable, Constants.GameExeName),
+                            Text = LocalizedText.FromResource(nameof(TextResource.ProcessMitigationTask_AslrDefaultOnFailedToDisable), Constants.GameExeName),
                         });
                     }
                 }
@@ -98,7 +104,7 @@ namespace Mo3RegUI
                     ReportMessage(this, new TaskMessageEventArgs()
                     {
                         Level = MessageLevel.Info,
-                        Text = TextResource.ProcessMitigationTask_AslrDefaultOff,
+                        Text = LocalizedText.FromResource(nameof(TextResource.ProcessMitigationTask_AslrDefaultOff)),
                     });
                 }
                 else
@@ -107,7 +113,7 @@ namespace Mo3RegUI
                     ReportMessage(this, new TaskMessageEventArgs()
                     {
                         Level = MessageLevel.Warning,
-                        Text = string.Format(TextResource.ProcessMitigationTask_UnrecognizedBoolean, stdOutIsNumeric),
+                        Text = LocalizedText.FromResource(nameof(TextResource.ProcessMitigationTask_UnrecognizedBoolean), stdOutIsNumeric),
                     });
                 }
             }

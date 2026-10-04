@@ -14,7 +14,7 @@ namespace Mo3RegUI.Tasks
     public class PathCheckTask : ITask
     {
         // PathCheckTask_Description: Check Game Path Format
-        public string Description => TextResource.PathCheckTask_Description;
+        public string DescriptionResourceKey => nameof(TextResource.PathCheckTask_Description);
         public event EventHandler<TaskMessageEventArgs> ReportMessage;
 
         public void DoWork(ITaskParameter p)
@@ -27,8 +27,8 @@ namespace Mo3RegUI.Tasks
         }
         private void _DoWork(PathCheckTaskParameter p)
         {
-            DoPathLengthCheck(p.GameDir);
-            DoLongPathAwarenessCheck(p.GameDir);
+            this.DoPathLengthCheck(p.GameDir);
+            this.DoLongPathAwarenessCheck(p.GameDir);
         }
 
         private void DoPathLengthCheck(string gameDir)
@@ -37,15 +37,18 @@ namespace Mo3RegUI.Tasks
             if (Encoding.Convert(Encoding.Unicode, Encoding.Default, Encoding.Unicode.GetBytes(gameDir)).Count() > 130)
             {
                 // PathCheckTask_PathTooLong: The current game directory path is too long. The game may not run normally.
-                throw new Exception(TextResource.PathCheckTask_PathTooLong);
+                throw new LocalizedException(LocalizedText.FromResource(nameof(TextResource.PathCheckTask_PathTooLong)));
             }
 
             // Make sure path does not contain "%"
             if (gameDir.Contains(@"%"))
             {
                 // PathCheckTask_PathContainsPercent: The current game directory path contains the special character % (percent sign). Windows Firewall may not handle this correctly.
-                string message = TextResource.PathCheckTask_PathContainsPercent;
-                ReportMessage(this, new TaskMessageEventArgs() { Level = MessageLevel.Error, Text = message });
+                ReportMessage(this, new TaskMessageEventArgs()
+                {
+                    Level = MessageLevel.Error,
+                    Text = LocalizedText.FromResource(nameof(TextResource.PathCheckTask_PathContainsPercent)),
+                });
             }
         }
 
@@ -58,7 +61,7 @@ namespace Mo3RegUI.Tasks
                 {
                     Level = MessageLevel.Warning,
                     // LongPathAwarenessTask_OsVersionTooLow: Long path support requires Windows 10 version 1607 or later, and the current system version is too low to enable it. The custom maps downloaded by the client may be stored in paths that exceed the Windows path length limit, and the game may fail to read them.
-                    Text = TextResource.LongPathAwarenessTask_OsVersionTooLow,
+                    Text = LocalizedText.FromResource(nameof(TextResource.LongPathAwarenessTask_OsVersionTooLow)),
                 });
                 return;
             }
@@ -79,7 +82,7 @@ namespace Mo3RegUI.Tasks
                 {
                     Level = MessageLevel.Info,
                     // LongPathAwarenessTask_AlreadyEnabled: Long path support is enabled. No action required.
-                    Text = TextResource.LongPathAwarenessTask_AlreadyEnabled,
+                    Text = LocalizedText.FromResource(nameof(TextResource.LongPathAwarenessTask_AlreadyEnabled)),
                 });
                 return;
             }
@@ -91,7 +94,7 @@ namespace Mo3RegUI.Tasks
                 {
                     Level = MessageLevel.Error,
                     // LongPathAwarenessTask_RegistryKeyUnavailable: Failed to open the registry key for long path support.
-                    Text = TextResource.LongPathAwarenessTask_RegistryKeyUnavailable,
+                    Text = LocalizedText.FromResource(nameof(TextResource.LongPathAwarenessTask_RegistryKeyUnavailable)),
                 });
                 return;
             }
@@ -100,14 +103,14 @@ namespace Mo3RegUI.Tasks
             {
                 Level = MessageLevel.Warning,
                 // LongPathAwarenessTask_Disabled: Long path support is not enabled. The custom maps downloaded by the client may be stored in paths that exceed the Windows path length limit, which may prevent the game from reading them. Enabling long path support...
-                Text = TextResource.LongPathAwarenessTask_Disabled,
+                Text = LocalizedText.FromResource(nameof(TextResource.LongPathAwarenessTask_Disabled)),
             });
             writableKey.SetValue(valueName, 1, RegistryValueKind.DWord);
             ReportMessage(this, new TaskMessageEventArgs()
             {
                 Level = MessageLevel.Info,
                 // LongPathAwarenessTask_Fixed: Fixed successfully. Long path support has been enabled. Please restart the computer to make the change take effect.
-                Text = TextResource.LongPathAwarenessTask_Fixed,
+                Text = LocalizedText.FromResource(nameof(TextResource.LongPathAwarenessTask_Fixed)),
             });
         }
     }
