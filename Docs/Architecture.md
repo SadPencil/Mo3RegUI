@@ -32,7 +32,7 @@ Holds only types that both sides may see:
 - `IMainWindowViewModel` — the main window's contract. It exposes observable properties (`WindowTitle`, `Messages`, the save-button flags) and one `ICommand` per user gesture. It declares no methods and no events.
 - `IMessageItem` — one line in the message list, as the `View` sees it.
 - `MessageLevel` and `Constants` — shared values and constants.
-- `Mvvm/` — the MVVM primitives. The layer takes no NuGet dependency, so `ObservableObject` (a minimal `INotifyPropertyChanged` base) and `RelayCommand` / `IRelayCommand` are implemented here rather than supplied by a toolkit.
+- `Mvvm/` — the MVVM primitives. Because this is a .NET Framework 4.0 application, we cannot use `CommunityToolkit.Mvvm` package. Instead, `ObservableObject` and `RelayCommand` / `IRelayCommand` are implemented here.
 - `ViewServices/` — the interfaces the `ViewModel` uses to reach the UI: `IDialogService`, `IUrlService` and `IViewLifecycleService`.
 
 Because the target framework is .NET Framework 4.0, `ObservableObject.SetProperty` takes the property name explicitly (`nameof`) instead of using `CallerMemberName`, which does not exist in that framework version.
