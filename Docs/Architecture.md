@@ -1,6 +1,6 @@
 # Architecture
 
-Mo3RegUI is a single .NET Framework 4.0 WPF assembly. Inside that assembly the code is divided into four layers, each with its own folder and namespace.
+`Mo3RegUI` is a single .NET Framework 4.0 WPF assembly. Inside that assembly the code is divided into four layers, each with its own folder and namespace.
 
 | Folder | Namespace | Responsibility |
 | --- | --- | --- |
