@@ -6,6 +6,19 @@ An automated game environment configuration and diagnostic tool included in the 
 
 ![The program screenshot](screenshot.png)
 
+## Architecture | 架构
+
+The project is still a single assembly, but the code is split into four layers by folder and namespace, following the MVVM layout of the `xna-cncnet-client-mvvm` refactor. The important rule is that the View and the ViewModel never see each other; `MVVMContract` is the only surface they share.
+
+- **`MVVMContract`** — the shared surface: the `IMainWindowViewModel` / `IMessageItem` contracts, the MVVM primitives (`ObservableObject`, `RelayCommand`), the shared constants and `MessageLevel`, and the `ViewServices` interfaces (`IDialogService`, `IUrlService`, `IViewLifecycleService`).
+- **`ViewModel`** — all of the logic: `MainWindowViewModel` (which tasks run, the collected messages, the log export, the close confirmation), the message list, localization, and the `Tasks` plus their helpers.
+- **`View`** — a dumb rendering layer: the XAML window, a code-behind that only assigns the DataContext, the value converters, and the View-side implementations of the `ViewServices` interfaces. It never references the `ViewModel` namespace.
+- **`Exe`** — the composition root: it creates the View and the ViewModel, injects the View services into the ViewModel, connects the window lifecycle and starts the run. It is the only layer that knows both sides.
+
+The View talks to the ViewModel only through `MVVMContract` (bindings and commands), and the ViewModel talks back to the View only through the `ViewServices` interfaces. No NuGet packages are introduced: Mo3RegUI must stay a single-file .NET Framework 4.0 WPF executable.
+
+本项目仍然是单个程序集，但按文件夹和 namespace 拆成四层，结构参考 `xna-cncnet-client-mvvm` 的 MVVM 重构。核心约束是 View 与 ViewModel 互不可见，二者唯一共享的公共接口是 `MVVMContract`：View 只通过契约中的绑定和命令与 ViewModel 交互，ViewModel 只通过 `ViewServices` 接口回调 View，`Exe` 负责最初的创建与连接。不引入任何 NuGet 包，以保持 .NET Framework 4.0 单文件 WPF 程序。
+
 ## License | 许可协议
 
 This project is open-sourced under the GPL v3.0 license. In short: copyright and license notices must be preserved, derivative works must be open-sourced under the same license, and the author/contributors provide no warranty. The statements above are for easy understanding only; please refer to the [full license text](./LICENSE) for the official legal terms.
