@@ -27,19 +27,19 @@ Exe         ---> View, ViewModel, MvvmContract
 
 ## MvvmContract
 
-Holds only types that both sides may see:
+The only types that both sides may see:
 
 - `IMainWindowViewModel` — the main window's contract. It exposes observable properties (`WindowTitle`, `Messages`, the save-button flags) and one `ICommand` per user gesture. It declares no methods and no events.
 - `IMessageItem` — one line in the message list, as the `View` sees it.
 - `MessageLevel` and `Constants` — shared values and constants.
-- `Mvvm/` — the MVVM primitives. Because this is a .NET Framework 4.0 application, we cannot use `CommunityToolkit.Mvvm` package. Instead, `ObservableObject` and `RelayCommand` / `IRelayCommand` are implemented here.
+- `Mvvm/` — the MVVM primitives. Because this is a .NET Framework 4.0 application, the `CommunityToolkit.Mvvm` package cannot be used. Instead, `ObservableObject` and `RelayCommand` / `IRelayCommand` are implemented here.
 - `ViewServices/` — the interfaces the `ViewModel` uses to reach the UI: `IDialogService`, `IUrlService` and `IViewLifecycleService`.
 
 For the same reason, `ObservableObject.SetProperty` takes the property name explicitly (`nameof`) instead of using `CallerMemberName`, which does not exist in that framework version.
 
 ## ViewModel
 
-Contains all of the logic:
+All of the application logic:
 
 - `MainWindowViewModel` decides which tasks run, collects their messages, exports the log and asks for confirmation before the window closes while tasks are running.
 - `MessagesViewModel` and `MessageItemViewModel` hold the collected messages.
