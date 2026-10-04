@@ -1,0 +1,134 @@
+<Window x:Class="Mo3RegUI.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:contract="clr-namespace:Mo3RegUI.MvvmContract"
+        xmlns:conv="clr-namespace:Mo3RegUI.View.Converters"
+        xmlns:l10n="clr-namespace:Mo3RegUI.LocalizationResources"
+        mc:Ignorable="d"
+        Title="{Binding WindowTitle}" Height="450" Width="800" WindowStartupLocation="CenterScreen" >
+    <Window.Resources>
+        <conv:MessageLevelToBrushConverter x:Key="MessageLevelToBrushConverter"/>
+        <conv:MessageLevelToFontWeightConverter x:Key="MessageLevelToFontWeightConverter"/>
+        <CollectionViewSource x:Key="src" Source="{Binding Messages}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Category" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+        <conv:BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+        <!-- Shared by every button in the bottom bar. Stretching to the row height, rather than
+             centring each button, makes all of them exactly as tall as the tallest one. -->
+        <Style x:Key="BottomBarButton" TargetType="Button">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="MinHeight" Value="34"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Image Source="/Icons/soviet.png" Height="22" VerticalAlignment="Center"/>
+            <TextBlock Margin="5" Text="{x:Static contract:Constants.AppName}" FontSize="22"  VerticalAlignment="Bottom"/>
+            <TextBlock Margin="5" Text="{x:Static contract:Constants.Version}" FontSize="20"  VerticalAlignment="Bottom"/>
+
+            <TextBlock Margin="5" VerticalAlignment="Bottom" FontSize="20" Visibility="{Binding Source={x:Static contract:Constants.ShowAuthorName}, Converter={StaticResource BoolToVisConverter}}">By:</TextBlock>
+            <TextBlock Margin="5" Text="{x:Static contract:Constants.AuthorName}" FontSize="20" VerticalAlignment="Bottom" Visibility="{Binding Source={x:Static contract:Constants.ShowAuthorName}, Converter={StaticResource BoolToVisConverter}}"/>
+
+        </StackPanel>
+
+        <ListView Grid.Row="1"  ItemsSource='{Binding Source={StaticResource src}}'
+                  HorizontalContentAlignment="Stretch"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Margin" Value="0,0,0,5"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                                        <Expander IsExpanded="True" BorderBrush="#FFA4B97F" BorderThickness="0,0,0,1">
+                                            <Expander.Header>
+                                                <DockPanel>
+                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="Black" FontSize="18" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text="{Binding ItemCount}" FontSize="18" Foreground="Green" FontWeight="Bold" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                    <TextBlock Text="{x:Static l10n:TextResource.MainWindow_MessagesCount}" FontSize="18" Foreground="DarkGray" VerticalAlignment="Bottom" />
+                                                </DockPanel>
+                                            </Expander.Header>
+                                            <Expander.Content>
+                                                <ItemsPresenter />
+                                            </Expander.Content>
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </ListView.GroupStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock DockPanel.Dock="Left" Text="{Binding Path=Text}" TextWrapping="Wrap"
+                               Foreground="{Binding Level, Converter={StaticResource MessageLevelToBrushConverter}}" 
+                               FontWeight="{Binding Level, Converter={StaticResource MessageLevelToFontWeightConverter}}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- The save-log buttons sit on the left, the GitHub button on the right. Which of the
+             save buttons are visible and whether they are enabled is decided by the ViewModel and
+             only bound here. They all use the same style and the same image+label content, so
+             their heights match. -->
+        <Grid Grid.Row="2" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                <!-- Disabled until every task has finished, so that a log can never be incomplete. -->
+                <Button Style="{StaticResource BottomBarButton}"
+                        IsEnabled="{Binding AreSaveLogButtonsEnabled}"
+                        Visibility="{Binding IsSaveLogButtonVisible, Converter={StaticResource BoolToVisConverter}}"
+                        Command="{Binding SaveLogEnglishCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="2" Source="/Icons/log.png" Height="22" VerticalAlignment="Center"/>
+                        <Label Margin="0" Content="{x:Static l10n:TextResource.MainWindow_SaveLogButton}"/>
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource BottomBarButton}"
+                        IsEnabled="{Binding AreSaveLogButtonsEnabled}"
+                        Visibility="{Binding IsSaveLogEnglishButtonVisible, Converter={StaticResource BoolToVisConverter}}"
+                        Command="{Binding SaveLogEnglishCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="2" Source="/Icons/log.png" Height="22" VerticalAlignment="Center"/>
+                        <Label Margin="0" Content="{x:Static l10n:TextResource.MainWindow_SaveLogEnglishButton}"/>
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource BottomBarButton}"
+                        IsEnabled="{Binding AreSaveLogButtonsEnabled}"
+                        Visibility="{Binding IsSaveLogCurrentLanguageButtonVisible, Converter={StaticResource BoolToVisConverter}}"
+                        Command="{Binding SaveLogCurrentLanguageCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="2" Source="/Icons/log.png" Height="22" VerticalAlignment="Center"/>
+                        <Label Margin="0" Content="{x:Static l10n:TextResource.MainWindow_SaveLogCurrentLanguageButton}"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <Button Grid.Column="1" Style="{StaticResource BottomBarButton}" HorizontalAlignment="Right"
+                    Command="{Binding OpenRepositoryCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Margin="2" Source="/Icons/github-mark.png" Height="22" VerticalAlignment="Center"></Image>
+                    <Label Margin="0" Content="{x:Static l10n:TextResource.MainWindow_GitHubUrlButton}"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>
