@@ -16,13 +16,12 @@ namespace Mo3RegUI.Tasks
     /// </remarks>
     public class LocalizedText
     {
-        private readonly string _resourceKey;
         private readonly object[] _formatArgs;
         private readonly string _literalText;
 
         private LocalizedText(string resourceKey, object[] formatArgs, string literalText)
         {
-            this._resourceKey = resourceKey;
+            this.ResourceKey = resourceKey;
             this._formatArgs = formatArgs;
             this._literalText = literalText;
         }
@@ -31,18 +30,18 @@ namespace Mo3RegUI.Tasks
         /// Text that comes from the resource files, e.g. <c>FromResource(nameof(TextResource.SomeTask_Message), value)</c>.
         /// </summary>
         public static LocalizedText FromResource(string resourceKey, params object[] formatArgs) =>
-            new LocalizedText(resourceKey, formatArgs, null);
+            new(resourceKey, formatArgs, null);
 
         /// <summary>
         /// Text that is not translatable, e.g. the output of an external command or a file path.
         /// </summary>
         public static LocalizedText FromLiteral(string text) =>
-            new LocalizedText(null, null, text);
+            new(null, null, text);
 
         /// <summary>
         /// The resource key, or <c>null</c> for literal text. Useful for diagnostics.
         /// </summary>
-        public string ResourceKey => this._resourceKey;
+        public string ResourceKey { get; }
 
         /// <summary>
         /// Renders the text in the given culture. Arguments that are themselves
@@ -51,16 +50,16 @@ namespace Mo3RegUI.Tasks
         /// </summary>
         public string Resolve(CultureInfo culture)
         {
-            if (this._resourceKey is null)
+            if (this.ResourceKey is null)
             {
                 return this._literalText ?? string.Empty;
             }
 
-            string format = TextResource.ResourceManager.GetString(this._resourceKey, culture);
+            string format = TextResource.ResourceManager.GetString(this.ResourceKey, culture);
             if (format is null)
             {
                 throw new InvalidOperationException(
-                    $"The resource \"{this._resourceKey}\" is missing from the neutral (English) resources.");
+                    $"The resource \"{this.ResourceKey}\" is missing from the neutral (English) resources.");
             }
 
             if (this._formatArgs is null || this._formatArgs.Length == 0)
@@ -68,7 +67,7 @@ namespace Mo3RegUI.Tasks
                 return format;
             }
 
-            var resolvedArgs = new object[this._formatArgs.Length];
+            object[] resolvedArgs = new object[this._formatArgs.Length];
             for (int i = 0; i < this._formatArgs.Length; i++)
             {
                 object arg = this._formatArgs[i];

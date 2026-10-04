@@ -1,5 +1,4 @@
 ﻿using Mo3RegUI.LocalizationResources;
-using System;
 using System.Globalization;
 
 namespace Mo3RegUI

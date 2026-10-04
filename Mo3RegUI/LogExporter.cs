@@ -25,31 +25,31 @@ namespace Mo3RegUI
 
             var sb = new StringBuilder();
 
-            sb.Append("# ")
+            _ = sb.Append("# ")
               .Append(Localization.GetString(nameof(TextResource.Constants_AppName), culture))
               .Append(' ')
               .Append(Constants.Version)
               .Append(" — ")
               .AppendLine(Localization.GetString(nameof(TextResource.Log_HeaderTitle), culture));
-            sb.AppendLine();
+            _ = sb.AppendLine();
 
             AppendMetadata(sb, nameof(TextResource.Log_HeaderGeneratedAt), culture,
                 DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture));
             AppendMetadata(sb, nameof(TextResource.Log_HeaderLanguage), culture, GetLanguageName(culture));
             AppendMetadata(sb, nameof(TextResource.Log_HeaderGameDirectory), culture, gameDir ?? string.Empty);
             AppendMetadata(sb, nameof(TextResource.Log_HeaderSummary), culture, GetSummaryArgs(items));
-            sb.AppendLine();
+            _ = sb.AppendLine();
 
             // Tasks run in parallel, so a purely chronological list interleaves unrelated
             // sections. Grouping by task keeps each section together: GroupBy yields the groups
             // in the order in which their first message appeared, and keeps the messages inside
             // a group in their original order.
-            foreach (IGrouping<string, MessageItemViewModel> group in items.GroupBy(item => item.CategoryResourceKey))
+            foreach (var group in items.GroupBy(item => item.CategoryResourceKey))
             {
-                sb.AppendLine(Format(nameof(TextResource.Log_SectionHeading), culture,
+                _ = sb.AppendLine(Format(nameof(TextResource.Log_SectionHeading), culture,
                     Localization.GetString(group.Key, culture)));
 
-                foreach (MessageItemViewModel item in group)
+                foreach (var item in group)
                 {
                     string text = NormalizeLineBreaks(item.GetText(culture));
                     // One list item per message. A single newline inside a paragraph only renders
@@ -71,7 +71,7 @@ namespace Mo3RegUI
                     sb.AppendLine();
                 }
 
-                sb.AppendLine();
+                _ = sb.AppendLine();
             }
 
             return sb.ToString();
@@ -97,7 +97,7 @@ namespace Mo3RegUI
         private static object[] GetSummaryArgs(List<MessageItemViewModel> items)
         {
             int critical = 0, error = 0, warning = 0, info = 0, debug = 0;
-            foreach (MessageItemViewModel item in items)
+            foreach (var item in items)
             {
                 switch (item.Level)
                 {

@@ -234,14 +234,14 @@ namespace Mo3RegUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this,
+                _ = MessageBox.Show(this,
                     string.Format(Localization.GetString(nameof(TextResource.Log_SaveFailed_Message), Localization.CurrentUICulture), ex.Message),
                     Localization.GetString(nameof(TextResource.Log_SaveFailed_Title), Localization.CurrentUICulture),
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            MessageBox.Show(this,
+            _ = MessageBox.Show(this,
                 string.Format(Localization.GetString(nameof(TextResource.Log_Saved_Message), Localization.CurrentUICulture), dialog.FileName),
                 Localization.GetString(nameof(TextResource.Log_Saved_Title), Localization.CurrentUICulture),
                 MessageBoxButton.OK, MessageBoxImage.Information);

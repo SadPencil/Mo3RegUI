@@ -27,8 +27,8 @@ namespace Mo3RegUI.Tasks
         }
         private void _DoWork(PathCheckTaskParameter p)
         {
-            DoPathLengthCheck(p.GameDir);
-            DoLongPathAwarenessCheck(p.GameDir);
+            this.DoPathLengthCheck(p.GameDir);
+            this.DoLongPathAwarenessCheck(p.GameDir);
         }
 
         private void DoPathLengthCheck(string gameDir)

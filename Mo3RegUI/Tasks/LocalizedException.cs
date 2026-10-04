@@ -15,9 +15,6 @@ namespace Mo3RegUI.Tasks
         public LocalizedText Text { get; }
 
         public LocalizedException(LocalizedText text)
-            : base(text?.Resolve(Localization.CurrentUICulture))
-        {
-            this.Text = text;
-        }
+            : base(text?.Resolve(Localization.CurrentUICulture)) => this.Text = text;
     }
 }
