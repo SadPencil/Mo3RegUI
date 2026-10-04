@@ -1,12 +1,14 @@
-﻿namespace Mo3RegUI.ViewModel.Infrastructure
+﻿using System.Diagnostics;
+
+namespace Mo3RegUI.ViewModel.Infrastructure
 {
     public static class ConsoleCommandManager
     {
         public static void RunConsoleCommand(string command, string argument, out int exitCode, out string stdOut, out string stdErr)
         {
-            var process = new System.Diagnostics.Process()
+            var process = new Process()
             {
-                StartInfo = new System.Diagnostics.ProcessStartInfo()
+                StartInfo = new ProcessStartInfo()
                 {
                     FileName = command,
                     Arguments = argument,
