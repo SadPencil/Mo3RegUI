@@ -35,7 +35,7 @@ Holds only types that both sides may see:
 - `Mvvm/` — the MVVM primitives. Because this is a .NET Framework 4.0 application, we cannot use `CommunityToolkit.Mvvm` package. Instead, `ObservableObject` and `RelayCommand` / `IRelayCommand` are implemented here.
 - `ViewServices/` — the interfaces the `ViewModel` uses to reach the UI: `IDialogService`, `IUrlService` and `IViewLifecycleService`.
 
-Because the target framework is .NET Framework 4.0, `ObservableObject.SetProperty` takes the property name explicitly (`nameof`) instead of using `CallerMemberName`, which does not exist in that framework version.
+For the same reason, `ObservableObject.SetProperty` takes the property name explicitly (`nameof`) instead of using `CallerMemberName`, which does not exist in that framework version.
 
 ## ViewModel
 
@@ -46,6 +46,8 @@ Contains all of the logic:
 - `Localization` and `LogExporter` produce the localized text and the Markdown log.
 - `Tasks/` holds the individual checks and fixes.
 - `Infrastructure/` holds shared helpers such as INI access, native methods and file locks.
+
+The `ViewModel` never references the `View` namespace.
 
 ## View
 
@@ -60,4 +62,7 @@ The `View` never references the `ViewModel` namespace.
 
 ## Exe
 
-The composition root. `App.OnStartup` creates the `View` services, creates the `ViewModel` with them, creates the window with the `ViewModel`, attaches the window lifecycle and starts the task run. It is the only layer that references both `View` and `ViewModel`.
+The composition root, and the only layer that knows both the `View` and the `ViewModel`:
+
+- `App.OnStartup` creates the `ViewServices` implementations and passes them to the `ViewModel`.
+- It creates the window with the `ViewModel`, attaches the window lifecycle and starts the task run.
