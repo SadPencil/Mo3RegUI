@@ -9,7 +9,7 @@ Mo3RegUI is a single .NET Framework 4.0 WPF assembly. Inside that assembly the c
 | `View` | `Mo3RegUI.View` | A dumb rendering layer. |
 | `Exe` | `Mo3RegUI.Exe` | The composition root. |
 
-## The rule
+## Layer boundaries
 
 The View and the ViewModel never reference each other. They communicate only through `MvvmContract`, and `Exe` is the single place that knows both of them.
 
