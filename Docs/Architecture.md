@@ -17,6 +17,14 @@ The View and the ViewModel never reference each other. They communicate only thr
 - The ViewModel computes everything the View displays and exposes it as properties and commands on the contract interface. It never touches a WPF control, a window or a dialog.
 - Everything the ViewModel needs from the View (showing a dialog, opening a URL, closing the window) is requested through a `ViewServices` interface declared in `MvvmContract` and implemented in the `View` layer. `Exe` injects the implementation.
 
+The dependency graph is therefore one-way, and `MvvmContract` depends on neither the View nor the ViewModel:
+
+```
+View        ---> MvvmContract
+ViewModel   ---> MvvmContract
+Exe         ---> View, ViewModel, MvvmContract
+```
+
 ## MvvmContract
 
 Holds only types that both sides may see:
@@ -53,13 +61,3 @@ The View never references the `ViewModel` namespace.
 ## Exe
 
 The composition root. `App.OnStartup` creates the View services, creates the ViewModel with them, creates the window with the ViewModel, attaches the window lifecycle and starts the task run. It is the only layer that references both `View` and `ViewModel`.
-
-## Dependency direction
-
-```
-View        ---> MvvmContract
-ViewModel   ---> MvvmContract
-Exe         ---> View, ViewModel, MvvmContract
-```
-
-`MvvmContract` depends on neither `View` nor `ViewModel`. There is no reference from the View to the ViewModel, and none from the ViewModel to the View.
