@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Costura.Fody.6.2.0\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.6.2.0\build\Costura.Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -46,7 +46,7 @@
     <ApplicationIcon>Icons\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Mo3RegUI.App</StartupObject>
+    <StartupObject>Mo3RegUI.Exe.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <!-- Warning: there are no source codes, changelogs, or author's confirmation on version 2.5.3. Avoid upgrading to version 2.5.3! -->
@@ -70,75 +70,81 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="Exe\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BooleanConverter.cs" />
-    <Compile Include="BooleanToVisibilityConverter.cs" />
-    <Compile Include="ConsoleCommandManager.cs" />
-    <Compile Include="Constants.cs" />
-    <Compile Include="LocalizationResources\TextResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TextResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Localization.cs" />
-    <Compile Include="Locks.cs" />
-    <Compile Include="LogExporter.cs" />
-    <Compile Include="MessageItemViewModel.cs" />
-    <Compile Include="MessageLevelToBrushConverter.cs" />
-    <Compile Include="MessageLevelToFontWeightConverter.cs" />
-    <Compile Include="MessagesViewModel.cs" />
-    <Compile Include="NativeConstants.cs" />
-    <Compile Include="Tasks\DDrawDLLTask.cs" />
-    <Compile Include="Tasks\DirectXRuntimeTask.cs" />
-    <Compile Include="Tasks\ForegroundLockTimeoutTask.cs" />
-    <Compile Include="Tasks\ProcessMitigationTask.cs" />
-    <Compile Include="Tasks\RemoveObsoleteFilesTask.cs" />
-    <Compile Include="Tasks\RemoveZoneIdentifierTask.cs" />
-    <Compile Include="ScreenResolution.cs" />
-    <Compile Include="Tasks\SpeakerNumTask.cs" />
-    <Compile Include="Tasks\TaskCompletedEventArgs.cs" />
-    <Compile Include="Tasks\TaskInstance.cs" />
-    <Compile Include="Tasks\BasicInfoTask.cs" />
-    <Compile Include="Tasks\CompatibilitySettingTask.cs" />
-    <Compile Include="Tasks\EncodingCheckTask.cs" />
-    <Compile Include="Tasks\FalsePositiveTask.cs" />
-    <Compile Include="Tasks\FirewallSettingTask.cs" />
-    <Compile Include="Tasks\ClientVolumeTask.cs" />
-    <Compile Include="Tasks\ITask.cs" />
-    <Compile Include="Tasks\ITaskParameter.cs" />
-    <Compile Include="Tasks\LocalizedException.cs" />
-    <Compile Include="Tasks\LocalizedText.cs" />
-    <Compile Include="Tasks\MessageLevel.cs" />
-    <Compile Include="Tasks\NetworkInterfaceTask.cs" />
-    <Compile Include="Tasks\PathCheckTask.cs" />
-    <Compile Include="Tasks\QResTask.cs" />
-    <Compile Include="Tasks\Ra2RegTask.cs" />
-    <Compile Include="Tasks\RendererTask.cs" />
-    <Compile Include="Tasks\ResolutionTask.cs" />
-    <Compile Include="Tasks\RuntimeComponentTask.cs" />
-    <Compile Include="Tasks\TaskManager.cs" />
-    <Compile Include="Tasks\TaskMessage.cs" />
-    <Compile Include="Tasks\UserNameTask.cs" />
-    <Compile Include="Tasks\XboxGameBarTask.cs" />
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="Exe\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyIniParserHelper.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="MvvmContract\Constants.cs" />
+    <Compile Include="MvvmContract\IMessageItem.cs" />
+    <Compile Include="MvvmContract\IMainWindowViewModel.cs" />
+    <Compile Include="MvvmContract\MessageLevel.cs" />
+    <Compile Include="MvvmContract\Mvvm\ObservableObject.cs" />
+    <Compile Include="MvvmContract\Mvvm\RelayCommand.cs" />
+    <Compile Include="MvvmContract\ViewServices\IDialogService.cs" />
+    <Compile Include="MvvmContract\ViewServices\IUrlService.cs" />
+    <Compile Include="MvvmContract\ViewServices\IViewLifecycleService.cs" />
+    <Compile Include="ViewModel\Localization.cs" />
+    <Compile Include="ViewModel\LogExporter.cs" />
+    <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\MessageItemViewModel.cs" />
+    <Compile Include="ViewModel\MessagesViewModel.cs" />
+    <Compile Include="ViewModel\Infrastructure\ConsoleCommandManager.cs" />
+    <Compile Include="ViewModel\Infrastructure\Locks.cs" />
+    <Compile Include="ViewModel\Infrastructure\MyIniParserHelper.cs" />
+    <Compile Include="ViewModel\Infrastructure\NativeConstants.cs" />
+    <Compile Include="ViewModel\Infrastructure\NativeMethods.cs" />
+    <Compile Include="ViewModel\Infrastructure\ScreenResolution.cs" />
+    <Compile Include="ViewModel\Tasks\BasicInfoTask.cs" />
+    <Compile Include="ViewModel\Tasks\ClientVolumeTask.cs" />
+    <Compile Include="ViewModel\Tasks\CompatibilitySettingTask.cs" />
+    <Compile Include="ViewModel\Tasks\DDrawDLLTask.cs" />
+    <Compile Include="ViewModel\Tasks\DirectXRuntimeTask.cs" />
+    <Compile Include="ViewModel\Tasks\EncodingCheckTask.cs" />
+    <Compile Include="ViewModel\Tasks\FalsePositiveTask.cs" />
+    <Compile Include="ViewModel\Tasks\FirewallSettingTask.cs" />
+    <Compile Include="ViewModel\Tasks\ForegroundLockTimeoutTask.cs" />
+    <Compile Include="ViewModel\Tasks\ITask.cs" />
+    <Compile Include="ViewModel\Tasks\ITaskParameter.cs" />
+    <Compile Include="ViewModel\Tasks\LocalizedException.cs" />
+    <Compile Include="ViewModel\Tasks\LocalizedText.cs" />
+    <Compile Include="ViewModel\Tasks\NetworkInterfaceTask.cs" />
+    <Compile Include="ViewModel\Tasks\PathCheckTask.cs" />
+    <Compile Include="ViewModel\Tasks\ProcessMitigationTask.cs" />
+    <Compile Include="ViewModel\Tasks\QResTask.cs" />
+    <Compile Include="ViewModel\Tasks\Ra2RegTask.cs" />
+    <Compile Include="ViewModel\Tasks\RemoveObsoleteFilesTask.cs" />
+    <Compile Include="ViewModel\Tasks\RemoveZoneIdentifierTask.cs" />
+    <Compile Include="ViewModel\Tasks\RendererTask.cs" />
+    <Compile Include="ViewModel\Tasks\ResolutionTask.cs" />
+    <Compile Include="ViewModel\Tasks\RuntimeComponentTask.cs" />
+    <Compile Include="ViewModel\Tasks\SpeakerNumTask.cs" />
+    <Compile Include="ViewModel\Tasks\TaskCompletedEventArgs.cs" />
+    <Compile Include="ViewModel\Tasks\TaskInstance.cs" />
+    <Compile Include="ViewModel\Tasks\TaskManager.cs" />
+    <Compile Include="ViewModel\Tasks\TaskMessage.cs" />
+    <Compile Include="ViewModel\Tasks\UserNameTask.cs" />
+    <Compile Include="ViewModel\Tasks\XboxGameBarTask.cs" />
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="View\Converters\BooleanConverter.cs" />
+    <Compile Include="View\Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="View\Converters\MessageLevelToBrushConverter.cs" />
+    <Compile Include="View\Converters\MessageLevelToFontWeightConverter.cs" />
+    <Compile Include="View\Services\DialogService.cs" />
+    <Compile Include="View\Services\UrlService.cs" />
+    <Compile Include="View\Services\ViewLifecycleService.cs" />
+    <Page Include="View\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NativeMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -151,6 +157,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="LocalizationResources\TextResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextResource.resx</DependentUpon>
     </Compile>
     <EmbeddedResource Include="LocalizationResources\TextResource.ru-RU.resx" />
     <EmbeddedResource Include="LocalizationResources\TextResource.zh-Hant.resx" />
