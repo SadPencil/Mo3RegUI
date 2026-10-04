@@ -19,7 +19,7 @@ namespace Mo3RegUI.View.Converters
                 MessageLevel.Warning => FontWeights.Normal,
                 MessageLevel.Error => FontWeights.Bold,
                 MessageLevel.Critical => FontWeights.ExtraBold,
-                _ => (object)FontWeights.Normal,
+                _ => FontWeights.Normal,
             };
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
