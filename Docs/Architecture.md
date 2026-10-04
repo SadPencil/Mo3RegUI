@@ -27,7 +27,7 @@ Exe         ---> View, ViewModel, MvvmContract
 
 ## MvvmContract
 
-The only types that both sides may see:
+The `MvvmContract` layer holds only the types that both sides may see:
 
 - `IMainWindowViewModel` — the main window's contract. It exposes observable properties (`WindowTitle`, `Messages`, the save-button flags) and one `ICommand` per user gesture. It declares no methods and no events.
 - `IMessageItem` — one line in the message list, as the `View` sees it.
@@ -39,7 +39,7 @@ For the same reason, `ObservableObject.SetProperty` takes the property name expl
 
 ## ViewModel
 
-All of the application logic:
+The `ViewModel` layer contains all of the application logic:
 
 - `MainWindowViewModel` decides which tasks run, collects their messages, exports the log and asks for confirmation before the window closes while tasks are running.
 - `MessagesViewModel` and `MessageItemViewModel` hold the collected messages.
@@ -51,7 +51,7 @@ The `ViewModel` never references the `View` namespace.
 
 ## View
 
-A dumb rendering layer:
+The `View` layer only renders what it is bound to:
 
 - `MainWindow.xaml` — data bindings and commands only.
 - `MainWindow.xaml.cs` — assigns the DataContext and nothing else.
@@ -62,7 +62,7 @@ The `View` never references the `ViewModel` namespace.
 
 ## Exe
 
-The composition root, and the only layer that knows both the `View` and the `ViewModel`:
+The `Exe` layer is the composition root; it is the only one that knows both the `View` and the `ViewModel`:
 
 - `App.OnStartup` creates the `ViewServices` implementations and passes them to the `ViewModel`.
 - It creates the window with the `ViewModel`, attaches the window lifecycle and starts the task run.
