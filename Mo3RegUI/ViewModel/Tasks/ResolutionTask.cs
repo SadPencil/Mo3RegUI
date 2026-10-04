@@ -1,6 +1,6 @@
-﻿using Mo3RegUI.MvvmContract;
+﻿using Mo3RegUI.LocalizationResources;
+using Mo3RegUI.MvvmContract;
 using Mo3RegUI.ViewModel.Infrastructure;
-using Mo3RegUI.LocalizationResources;
 using System;
 using System.Globalization;
 using Path = System.IO.Path;

@@ -29,7 +29,7 @@ namespace Mo3RegUI.ViewModel
         private readonly IViewLifecycleService lifecycleService;
         private readonly IDialogService dialogService;
         private readonly IUrlService urlService;
-        private readonly MessagesViewModel messages = new MessagesViewModel();
+        private readonly MessagesViewModel messages = new();
 
         /// <summary>
         /// The directory the program runs from, which is also the game directory. Captured once

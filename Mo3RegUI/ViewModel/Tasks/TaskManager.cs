@@ -1,5 +1,5 @@
-﻿using Mo3RegUI.MvvmContract;
-using Mo3RegUI.LocalizationResources;
+﻿using Mo3RegUI.LocalizationResources;
+using Mo3RegUI.MvvmContract;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

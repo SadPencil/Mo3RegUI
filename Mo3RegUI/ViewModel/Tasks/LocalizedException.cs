@@ -1,5 +1,4 @@
-﻿using Mo3RegUI.ViewModel;
-using System;
+﻿using System;
 
 namespace Mo3RegUI.ViewModel.Tasks
 {

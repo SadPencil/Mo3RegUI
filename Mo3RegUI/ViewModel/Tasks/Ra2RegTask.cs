@@ -1,7 +1,7 @@
-﻿using Mo3RegUI.MvvmContract;
-using Mo3RegUI.ViewModel.Infrastructure;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using Mo3RegUI.LocalizationResources;
+using Mo3RegUI.MvvmContract;
+using Mo3RegUI.ViewModel.Infrastructure;
 using System;
 using System.IO;
 using System.Text;

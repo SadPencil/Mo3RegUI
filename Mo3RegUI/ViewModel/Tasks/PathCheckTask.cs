@@ -1,6 +1,6 @@
-﻿using Mo3RegUI.MvvmContract;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using Mo3RegUI.LocalizationResources;
+using Mo3RegUI.MvvmContract;
 using System;
 using System.Globalization;
 using System.Linq;

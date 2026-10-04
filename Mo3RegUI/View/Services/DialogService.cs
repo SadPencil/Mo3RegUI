@@ -30,7 +30,7 @@ namespace Mo3RegUI.View.Services
                 OverwritePrompt = true,
             };
 
-            Window owner = GetOwner();
+            var owner = GetOwner();
             return (owner is null ? dialog.ShowDialog() : dialog.ShowDialog(owner)) == true
                 ? dialog.FileName
                 : null;
@@ -38,7 +38,7 @@ namespace Mo3RegUI.View.Services
 
         private static MessageBoxResult ShowMessageBox(string message, string title, MessageBoxButton button, MessageBoxImage icon, MessageBoxResult defaultResult)
         {
-            Window owner = GetOwner();
+            var owner = GetOwner();
             return owner is null
                 ? MessageBox.Show(message, title, button, icon, defaultResult)
                 : MessageBox.Show(owner, message, title, button, icon, defaultResult);

@@ -1,6 +1,5 @@
 using Mo3RegUI.LocalizationResources;
 using Mo3RegUI.MvvmContract;
-using Mo3RegUI.ViewModel.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -98,7 +97,7 @@ namespace Mo3RegUI.ViewModel
         private static object[] GetSummaryArgs(List<IMessageItem> items)
         {
             int critical = 0, error = 0, warning = 0, info = 0, debug = 0;
-            foreach (IMessageItem item in items)
+            foreach (var item in items)
             {
                 switch (item.Level)
                 {

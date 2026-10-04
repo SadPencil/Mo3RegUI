@@ -1,7 +1,7 @@
-﻿using Mo3RegUI.MvvmContract;
-using Mo3RegUI.ViewModel.Infrastructure;
-using Microsoft.VisualBasic.Devices;
+﻿using Microsoft.VisualBasic.Devices;
 using Mo3RegUI.LocalizationResources;
+using Mo3RegUI.MvvmContract;
+using Mo3RegUI.ViewModel.Infrastructure;
 using System;
 
 namespace Mo3RegUI.ViewModel.Tasks
