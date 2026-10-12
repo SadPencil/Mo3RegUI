@@ -20,13 +20,13 @@ namespace Mo3RegUI.ViewModel.Infrastructure
 
         // File names that are guarded by CnC_DDrawDeployment, wherever they appear below the
         // game directory.
-        private static readonly List<string> CnCDDrawDeploymentFileNames = new()
-        {
+        private static readonly List<string> CnCDDrawDeploymentFileNames =
+        [
             "ddraw.dll",
             "ddraw.ini",
             Constants.CnCDDrawDllName,
             Constants.CnCDDrawIniName,
-        };
+        ];
 
         /// <summary>
         /// Returns the lock that guards a file which another task reads or overwrites, or null

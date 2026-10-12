@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\IsExternalInit.1.0.3\build\IsExternalInit.props" Condition="Exists('..\packages\IsExternalInit.1.0.3\build\IsExternalInit.props')" />
   <Import Project="..\packages\Costura.Fody.6.2.0\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.6.2.0\build\Costura.Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -14,7 +15,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <Deterministic>true</Deterministic>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>14.0</LangVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -78,6 +79,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="IsExternalInit\IsExternalInit.cs" />
     <Compile Include="MvvmContract\Constants.cs" />
     <Compile Include="MvvmContract\IMessageItem.cs" />
     <Compile Include="MvvmContract\IMainWindowViewModel.cs" />
@@ -205,6 +207,7 @@
     <Error Condition="!Exists('..\packages\Costura.Fody.6.2.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.6.2.0\build\Costura.Fody.targets'))" />
     <Error Condition="!Exists('..\packages\Fody.6.9.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.9.3\build\Fody.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.NETFramework.ReferenceAssemblies.net40.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net40.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NETFramework.ReferenceAssemblies.net40.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net40.targets'))" />
+    <Error Condition="!Exists('..\packages\IsExternalInit.1.0.3\build\IsExternalInit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\IsExternalInit.1.0.3\build\IsExternalInit.props'))" />
   </Target>
   <Import Project="..\packages\Costura.Fody.6.2.0\build\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.6.2.0\build\Costura.Fody.targets')" />
   <Import Project="..\packages\Fody.6.9.3\build\Fody.targets" Condition="Exists('..\packages\Fody.6.9.3\build\Fody.targets')" />

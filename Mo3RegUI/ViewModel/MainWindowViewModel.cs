@@ -29,7 +29,7 @@ namespace Mo3RegUI.ViewModel
         private readonly IViewLifecycleService lifecycleService;
         private readonly IDialogService dialogService;
         private readonly IUrlService urlService;
-        private readonly MessagesViewModel messages = new();
+        private readonly MessagesViewModel messages = [];
 
         /// <summary>
         /// The directory the program runs from, which is also the game directory. Captured once
@@ -38,8 +38,6 @@ namespace Mo3RegUI.ViewModel
         private readonly string gameDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         private TaskManager mainTaskManager;
-        private string windowTitle = Constants.AppName;
-        private bool areSaveLogButtonsEnabled;
 
         public MainWindowViewModel(
             IViewLifecycleService lifecycleService,
@@ -71,16 +69,16 @@ namespace Mo3RegUI.ViewModel
 
         public string WindowTitle
         {
-            get => this.windowTitle;
-            private set => this.SetProperty(ref this.windowTitle, value, nameof(this.WindowTitle));
-        }
+            get;
+            private set => this.SetProperty(ref field, value, nameof(this.WindowTitle));
+        } = Constants.AppName;
 
         public ReadOnlyObservableCollection<IMessageItem> Messages { get; }
 
         public bool AreSaveLogButtonsEnabled
         {
-            get => this.areSaveLogButtonsEnabled;
-            private set => this.SetProperty(ref this.areSaveLogButtonsEnabled, value, nameof(this.AreSaveLogButtonsEnabled));
+            get;
+            private set => this.SetProperty(ref field, value, nameof(this.AreSaveLogButtonsEnabled));
         }
 
         public bool IsSaveLogButtonVisible { get; }

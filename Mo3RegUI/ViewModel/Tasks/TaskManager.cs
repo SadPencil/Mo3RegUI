@@ -25,7 +25,7 @@ namespace Mo3RegUI.ViewModel.Tasks
                 throw new Exception("Existing tasks are running.");
             }
 
-            this.Workers = new List<BackgroundWorker>();
+            this.Workers = [];
             foreach (var task in this.Tasks)
             {
                 var worker = new BackgroundWorker() { WorkerReportsProgress = true };
